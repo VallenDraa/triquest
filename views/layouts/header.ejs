@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="../css/font.css" />
+    <link
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.13.0/css/all.min.css"
+      rel="stylesheet"
+    />
+    <script src="https://cdn.tailwindcss.com"></script>
+    <title>Triquest</title>
+  </head>
+  <body class="antialiased">
+    <nav class="bg-black md:static">
+      <div
+        class="flex teko md:items-center justify-between max-w-screen-xl mx-auto w-11/12 py-2"
+      >
+        <div class="rounded-md bg-yellow-300 py-1 px-2">
+          <a
+            class="uppercase font-bold text-2xl tracking-wider rounded-md block"
+          >
+            Triquest
+          </a>
+        </div>
+        <div
+          class="absolute md:static top-0 w-11/12 bottom-3/4 md:w-1/2 md:flex menu -translate-y-full md:translate-y-0"
+        >
+          <ul
+            class="bg-yellow-300 flex flex-col md:flex-row justify-around md:justify-evenly text-4xl md:text-2xl py-1 shadow-xl md:shadow-none rounded-b-md md:rounded-md text-center px-2 gap-3 md:gap-0 w-full items-center h-full"
+          >
+            <li
+              class="cursor-pointer grid content-center h-4/6 w-full duration-300 hover:bg-yellow-400 play"
+            >
+              Play
+            </li>
+            <li
+              class="cursor-pointer grid content-center h-4/6 w-full duration-300 hover:bg-yellow-400 leaderboard md:border-x-2 border-black px-7 md:my-0"
+            >
+              Leaderboard
+            </li>
+            <li
+              class="cursor-pointer grid content-center h-4/6 w-full duration-300 hover:bg-yellow-400 user"
+            >
+              Vallen
+            </li>
+          </ul>
+          <i
+            class="fas fa-caret-square-down text-5xl text-yellow-300 md:hidden absolute right-0 cursor-pointer duration-500 toggle-menu mt-1"
+          ></i>
+        </div>
+      </div>
+    </nav>
+    <script src="../js/interaction.js"></script>
+  </body>
+</html>
