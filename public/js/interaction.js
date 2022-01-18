@@ -3,6 +3,7 @@ const menu_toggle_btn = document.querySelector('.fa-caret-square-down');
 const menu = document.querySelector('.menu');
 
 let menuIsToggled = false;
+// for menu toggle
 toggle_menu.addEventListener('click', () => {
   menu.classList.toggle('-translate-y-full');
   menu.classList.add('duration-500');
@@ -14,6 +15,7 @@ toggle_menu.addEventListener('click', () => {
   }, 550);
 });
 
+// for menu display config
 window.addEventListener('resize', () => {
   let width = window.innerWidth;
   if (width > 768) {

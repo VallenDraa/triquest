@@ -16,4 +16,6 @@ app.get('/', function (req, res) {
   res.render('index', { pageTitle: 'entale | A Story To Be Told' });
 });
 
-app.listen(5001);
+app.listen(5001, () => {
+  console.log('listening at port 5001');
+});

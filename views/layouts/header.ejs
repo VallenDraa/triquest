@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" class="h-full">
   <head>
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
@@ -9,17 +9,20 @@
       href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.13.0/css/all.min.css"
       rel="stylesheet"
     />
+    <link rel="stylesheet" href="../../public/css/font.css" />
     <script src="https://cdn.tailwindcss.com"></script>
-    <title>Triquest</title>
+    <title>Triquest | Challenge Yourself</title>
   </head>
-  <body class="antialiased">
+  <body class="antialiased flex flex-col min-h-full">
+    <!-- Navbar -->
     <nav class="bg-black md:static">
       <div
-        class="flex teko md:items-center justify-between max-w-screen-xl mx-auto w-11/12 py-2"
+        class="flex teko md:items-center justify-between max-w-screen-2xl mx-auto w-11/12 py-2"
       >
         <div class="rounded-md bg-yellow-300 py-1 px-2">
           <a
             class="uppercase font-bold text-2xl tracking-wider rounded-md block"
+            href="#"
           >
             Triquest
           </a>
@@ -31,17 +34,17 @@
             class="bg-yellow-300 flex flex-col md:flex-row justify-around md:justify-evenly text-4xl md:text-2xl py-1 shadow-xl md:shadow-none rounded-b-md md:rounded-md text-center px-2 gap-3 md:gap-0 w-full items-center h-full"
           >
             <li
-              class="cursor-pointer grid content-center h-4/6 w-full duration-300 hover:bg-yellow-400 play"
+              class="cursor-pointer grid content-center h-4/6 w-full duration-300 hover:bg-yellow-500 hover:text-white play md:rounded-none rounded-lg"
             >
               Play
             </li>
             <li
-              class="cursor-pointer grid content-center h-4/6 w-full duration-300 hover:bg-yellow-400 leaderboard md:border-x-2 border-black px-7 md:my-0"
+              class="cursor-pointer grid content-center h-4/6 w-full duration-300 hover:bg-yellow-500 hover:text-white md:rounded-none rounded-lg leaderboard md:border-x-2 border-black px-7 md:my-0"
             >
               Leaderboard
             </li>
             <li
-              class="cursor-pointer grid content-center h-4/6 w-full duration-300 hover:bg-yellow-400 user"
+              class="cursor-pointer grid content-center h-4/6 w-full duration-300 hover:bg-yellow-500 hover:text-white md:rounded-none rounded-lg user"
             >
               Vallen
             </li>
@@ -52,6 +55,5 @@
         </div>
       </div>
     </nav>
-    <script src="../js/interaction.js"></script>
   </body>
 </html>
