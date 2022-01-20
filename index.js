@@ -13,7 +13,7 @@ app.use(express.urlencoded({ extended: true }));
 
 // main page
 app.get('/', function (req, res) {
-  res.render('index', { pageTitle: 'entale | A Story To Be Told' });
+  res.render('index');
 });
 
 app.listen(5001, () => {

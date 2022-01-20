@@ -1,8 +1,14 @@
-// import Swiper bundle with all modules installed
-import Swiper from '../../node_modules/swiper/swiper-bundle';
-
-// import styles bundle
-import '../../node_modules/swiper/r';
-
-// init Swiper:
-const swiper = new Swiper();
+const swiper = new Swiper('.mySwiper', {
+  effect: 'cube',
+  grabCursor: true,
+  mousewheel: true,
+  cubeEffect: {
+    shadow: true,
+    slideShadows: true,
+    shadowOffset: 20,
+    shadowScale: 1,
+  },
+  pagination: {
+    el: '.swiper-pagination',
+  },
+});

@@ -1,0 +1,126 @@
+<!-- Profile -->
+<section class="grid content-center min-h-full">
+  <main class="max-w-screen-2xl w-11/12 xl:w-9/12 mx-auto">
+    <div
+      class="bg-yellow-300 border-4 border-black rounded-xl shadow-2xl mt-44 px-5 md:px-10 py-14 mb-44"
+    >
+      <h1
+        class="text-black underline text-5xl text-center tracking-wide font-bold teko border-4 border-black rounded-lg py-4 bg-yellow-200"
+      >
+        PROFILE
+      </h1>
+      <form
+        action=""
+        class="fira-sans space-y-3 border-4 border-black rounded-lg bg-yellow-200 p-4 mt-4"
+      >
+        <!-- Profile  -->
+        <section>
+          <h2
+            class="text-2xl font-bold fira-sans underline text-center underline-offset-4"
+          >
+            Profile Data
+          </h2>
+          <!-- username -->
+          <div class="w-full max-w-4xl mx-auto">
+            <label for="username" class="text-lg font-bold ml-2 inline-block">
+              Username
+            </label>
+            <input
+              type="text"
+              name="username"
+              id="username"
+              class="border-4 border-black outline-none px-2 rounded-lg text-lg block w-full py-2 bg-slate-50"
+              value="Vallen"
+            />
+          </div>
+          <div class="w-full max-w-4xl mx-auto">
+            <label
+              for="description"
+              class="text-lg font-bold ml-2 inline-block"
+            >
+              Description
+            </label>
+            <textarea
+              name="description"
+              id="description"
+              cols="30"
+              rows="10"
+              class="border-4 border-black outline-none px-2 rounded-lg text-lg block w-full py-2 bg-slate-50"
+            ></textarea>
+          </div>
+          <div class="w-full max-w-4xl mx-auto">
+            <label for="country" class="text-lg font-bold ml-2 inline-block">
+              Country
+            </label>
+            <select
+              name="country"
+              id="country"
+              class="border-4 border-black outline-none px-2 rounded-lg text-lg block w-full py-2 bg-slate-50"
+            >
+              <option value="choose_country" disabled>
+                Choose Your Country
+              </option>
+              <!-- more options will be added through country.js -->
+            </select>
+          </div>
+        </section>
+
+        <!-- account -->
+        <section class="pt-16">
+          <h2
+            class="text-2xl font-bold fira-sans underline text-center underline-offset-4"
+          >
+            Account Data
+          </h2>
+          <!-- Email -->
+          <div class="w-full max-w-4xl mx-auto">
+            <label for="email" class="text-lg font-bold ml-2 inline-block">
+              E-Mail
+            </label>
+            <input
+              type="email"
+              name="email"
+              id="email"
+              class="border-4 border-black outline-none px-2 rounded-lg text-lg block w-full py-2 bg-slate-50"
+              value="Jestinevallendradwiputra@gmail.com"
+            />
+          </div>
+          <!-- password -->
+          <div class="w-full max-w-4xl mx-auto relative">
+            <label for="password" class="text-lg font-bold ml-2 inline-block">
+              Password
+            </label>
+            <input
+              type="password"
+              name="password"
+              id="password"
+              class="border-4 border-black outline-none px-2 rounded-lg text-lg block w-full py-2 bg-slate-50"
+              value="password"
+            />
+            <i
+              class="show-pw fas fa-eye-slash text-3xl px-2 rounded-full absolute right-1 top-9 cursor-pointer duration-200 hover:text-orange-300"
+            ></i>
+          </div>
+        </section>
+
+        <!-- buttons -->
+        <div
+          class="text-black tracking-wide font-bold teko text-3xl mx-auto grid grid-cols-1 md:grid-cols-2 justify-center gap-4 pt-10 w-full max-w-4xl"
+        >
+          <button
+            type="submit"
+            class="bg-orange-300 border-4 border-black px-5 uppercase w-full duration-300 hover:bg-green-400 hover:text-white rounded-lg"
+          >
+            Save Changes
+          </button>
+          <button
+            type="reset"
+            class="bg-orange-300 border-4 border-black px-5 uppercase w-full duration-300 hover:bg-red-400 hover:text-white rounded-lg"
+          >
+            Reset
+          </button>
+        </div>
+      </form>
+    </div>
+  </main>
+</section>
