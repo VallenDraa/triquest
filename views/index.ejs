@@ -1,1 +1,221 @@
-<%- include("./layouts/header") %> <%- include("./layouts/footer") %>
+<!DOCTYPE html>
+<html lang="en" class="h-full duration-300">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="../css/font.css" />
+    <link
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.13.0/css/all.min.css"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="../public/css/swiper.css" />
+    <link
+      rel="stylesheet"
+      href="https://unpkg.com/swiper@7/swiper-bundle.min.css"
+    />
+    <link rel="stylesheet" href="../../public/css/font.css" />
+    <script src="https://cdn.tailwindcss.com"></script>
+    <title>Triquest | Challenge Yourself</title>
+  </head>
+  <body class="antialiased flex flex-col min-h-full overflow-x-hidden">
+    <!-- Navbar -->
+    <nav class="bg-black md:static">
+      <div
+        class="flex teko md:items-center justify-between max-w-screen-2xl mx-auto w-full md:w-11/12 py-2"
+      >
+        <div class="rounded-md bg-yellow-300 py-1 px-2 ml-7 md:ml-0">
+          <a
+            class="uppercase font-bold text-2xl tracking-wider rounded-md block"
+            href="#"
+          >
+            Triquest
+          </a>
+        </div>
+        <div
+          class="absolute md:static top-0 w-full md:w-11/12 bottom-3/4 md:w-1/2 md:flex menu -translate-y-full md:translate-y-0"
+        >
+          <ul
+            class="bg-yellow-300 flex flex-col md:flex-row justify-around md:justify-evenly text-4xl md:text-2xl py-4 md:py-1 shadow-xl md:shadow-none rounded-b-md md:rounded-md text-center px-2 gap-3 md:gap-0 w-full items-center h-full"
+          >
+            <p class="md:hidden teko uppercase font-bold underline">Menu</p>
+
+            <li
+              class="cursor-pointer bg-orange-300 md:bg-yellow-300 grid content-center w-full py-1 md:py-0 duration-300 hover:bg-yellow-400 md:hover:bg-yellow-500 hover:text-white play md:rounded-none rounded-lg border-4 border-black md:border-none"
+            >
+              Play
+            </li>
+            <li
+              class="cursor-pointer bg-orange-300 md:bg-yellow-300 grid content-center w-full py-1 md:py-0 duration-300 hover:bg-yellow-400 md:hover:bg-yellow-500 hover:text-white md:rounded-none rounded-lg leaderboard border-4 md:border-y-0 md:border-x-2 border-black px-7 md:my-0"
+            >
+              Leaderboard
+            </li>
+            <li
+              class="cursor-pointer bg-orange-300 md:bg-yellow-300 grid content-center w-full py-1 md:py-0 duration-300 hover:bg-yellow-400 md:hover:bg-yellow-500 hover:text-white md:rounded-none rounded-lg user border-4 border-black md:border-none"
+            >
+              Vallen
+            </li>
+          </ul>
+          <i
+            class="fas fa-caret-square-down text-5xl text-yellow-300 md:hidden absolute right-7 cursor-pointer duration-500 toggle-menu mt-1"
+          ></i>
+        </div>
+      </div>
+    </nav>
+
+    <!-- Footer -->
+    <footer class="mt-auto bg-black text-yellow-300 py-4 fira-sans">
+      <div
+        class="max-w-screen-2xl w-11/12 mx-auto grid grid-cols-1 text-center gap-4"
+      >
+        <a
+          class="uppercase font-bold text-4xl tracking-wider rounded-md rounded-md bg-yellow-300 border-4 border-black py-1 px-2 text-black inline-block w-max mx-auto teko"
+          href="#"
+        >
+          Triquest
+        </a>
+        <main class="grid grid-cols-2 gap-3 md:grid-cols-3 lg:grid-cols-5">
+          <!-- col 1 -->
+          <section class="p-3">
+            <p
+              class="font-bold text-xl w-full border-b-2 border-b-yellow-300 mb-2"
+            >
+              MENU
+            </p>
+            <ul class="teko">
+              <li
+                class="cursor-pointer grid content-center w-11/12 text-2xl tracking-wide py-1 mx-auto duration-300 hover:bg-yellow-300 border-4 border-black hover:text-black rounded-md"
+              >
+                Play
+              </li>
+              <li
+                class="cursor-pointer grid content-center w-11/12 text-2xl tracking-wide py-1 mx-auto duration-300 hover:bg-yellow-300 border-4 border-black hover:text-black rounded-md"
+              >
+                Leaderboard
+              </li>
+              <li
+                class="cursor-pointer grid content-center w-11/12 text-2xl tracking-wide py-1 mx-auto duration-300 hover:bg-yellow-300 border-4 border-black hover:text-black rounded-md"
+              >
+                vallen
+              </li>
+            </ul>
+          </section>
+          <!-- col 2 -->
+          <section class="p-3">
+            <p
+              class="font-bold text-xl w-full border-b-2 border-b-yellow-300 mb-2"
+            >
+              ARCADE
+            </p>
+            <ul class="teko">
+              <li
+                class="cursor-pointer grid content-center w-11/12 text-2xl tracking-wide py-1 mx-auto duration-300 hover:bg-yellow-300 border-4 border-black hover:text-black rounded-md"
+              >
+                Campaign
+              </li>
+              <li
+                class="cursor-pointer grid content-center w-11/12 text-2xl tracking-wide py-1 mx-auto duration-300 hover:bg-yellow-300 border-4 border-black hover:text-black rounded-md"
+              >
+                Random
+              </li>
+              <li
+                class="cursor-pointer grid content-center w-11/12 text-2xl tracking-wide py-1 mx-auto duration-300 hover:bg-yellow-300 border-4 border-black hover:text-black rounded-md"
+              >
+                Challenge
+              </li>
+              <li
+                class="cursor-pointer grid content-center w-11/12 text-2xl tracking-wide py-1 mx-auto duration-300 hover:bg-yellow-300 border-4 border-black hover:text-black rounded-md"
+              >
+                Practice
+              </li>
+            </ul>
+          </section>
+          <!-- col 3 -->
+          <section class="p-3 col-span-2 md:col-span-1">
+            <p
+              class="font-bold text-xl w-full border-b-2 border-b-yellow-300 mb-2"
+            >
+              CONTACT US
+            </p>
+            <a
+              href=""
+              class="cursor-pointer grid content-center w-11/12 py-2 mx-auto duration-300 hover:bg-yellow-300 border-4 border-black hover:text-black rounded-md"
+              ><i class="fas fa-envelope-square text-5xl"></i>
+              <span class="text-lg teko tracking-wider">EMAIL US HERE !</span>
+            </a>
+          </section>
+
+          <!-- col 4 -->
+          <section class="col-span-2 md:col-span-4 lg:col-span-2 p-3">
+            <p
+              class="font-bold text-xl w-full border-b-2 border-b-yellow-300 mb-2"
+            >
+              TRIQUEST COMMUNITY
+            </p>
+            <ul class="text-5xl grid grid-cols-2 lg:grid-cols-4 gap-2">
+              <li>
+                <a
+                  href=""
+                  class="cursor-pointer grid content-center w-11/12 py-2 mx-auto duration-300 hover:bg-yellow-300 hover:text-orange-500 rounded-md"
+                  ><i class="fab fa-reddit-square"></i>
+                  <span class="text-lg teko tracking-wider">Reddit</span>
+                </a>
+              </li>
+              <li>
+                <a
+                  href=""
+                  class="cursor-pointer grid content-center w-11/12 py-2 mx-auto duration-300 hover:bg-yellow-300 hover:text-sky-400 rounded-md"
+                  ><i class="fab fa-twitter-square"></i>
+                  <span class="text-lg teko tracking-wider">Twitter</span>
+                </a>
+              </li>
+              <li>
+                <a
+                  href=""
+                  class="cursor-pointer grid content-center w-11/12 py-2 mx-auto duration-300 hover:bg-yellow-300 hover:text-red-600 rounded-md"
+                  ><i class="fab fa-youtube-square"></i>
+                  <span class="text-lg teko tracking-wider">Youtube</span>
+                </a>
+              </li>
+              <li>
+                <a
+                  href=""
+                  class="cursor-pointer grid content-center w-11/12 py-2 mx-auto duration-300 hover:bg-yellow-300 hover:text-purple-600 rounded-md"
+                  ><i class="fab fa-twitch"></i>
+                  <span class="text-lg teko tracking-wider">Twitch</span>
+                </a>
+              </li>
+            </ul>
+          </section>
+        </main>
+        <!-- triquest.com -->
+        <p class="leading-6 border-t-2 border-t-yellow-300 pt-2 text-white">
+          Triquest.com | Challenge
+          <span class="underline underline-offset-1 font-bold">YOURSELF</span
+          ><br /><span class="text-sm"
+            >Triquest Inc. All rights reserved 2022</span
+          >
+        </p>
+      </div>
+    </footer>
+    <script src="../public/js/interaction.js"></script>
+    <script src="https://unpkg.com/swiper@7/swiper-bundle.min.js"></script>
+    <!-- Initialize Swiper -->
+    <script>
+      var swiper = new Swiper('.mySwiper', {
+        effect: 'cube',
+        grabCursor: true,
+        mousewheel: true,
+        cubeEffect: {
+          shadow: true,
+          slideShadows: true,
+          shadowOffset: 20,
+          shadowScale: 1,
+        },
+        pagination: {
+          el: '.swiper-pagination',
+        },
+      });
+    </script>
+  </body>
+</html>

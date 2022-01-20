@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" class="h-full">
+<html lang="en" class="h-full duration-300">
   <head>
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
@@ -9,17 +9,22 @@
       href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.13.0/css/all.min.css"
       rel="stylesheet"
     />
+    <link rel="stylesheet" href="../public/css/swiper.css" />
+    <link
+      rel="stylesheet"
+      href="https://unpkg.com/swiper@7/swiper-bundle.min.css"
+    />
     <link rel="stylesheet" href="../../public/css/font.css" />
     <script src="https://cdn.tailwindcss.com"></script>
     <title>Triquest | Challenge Yourself</title>
   </head>
-  <body class="antialiased flex flex-col min-h-full">
+  <body class="antialiased flex flex-col min-h-full overflow-x-hidden">
     <!-- Navbar -->
     <nav class="bg-black md:static">
       <div
-        class="flex teko md:items-center justify-between max-w-screen-2xl mx-auto w-11/12 py-2"
+        class="flex teko md:items-center justify-between max-w-screen-2xl mx-auto w-full md:w-11/12 py-2"
       >
-        <div class="rounded-md bg-yellow-300 py-1 px-2">
+        <div class="rounded-md bg-yellow-300 py-1 px-2 ml-7 md:ml-0">
           <a
             class="uppercase font-bold text-2xl tracking-wider rounded-md block"
             href="#"
@@ -28,29 +33,31 @@
           </a>
         </div>
         <div
-          class="absolute md:static top-0 w-11/12 bottom-3/4 md:w-1/2 md:flex menu -translate-y-full md:translate-y-0"
+          class="absolute md:static top-0 w-full md:w-11/12 bottom-3/4 md:w-1/2 md:flex menu -translate-y-full md:translate-y-0"
         >
           <ul
-            class="bg-yellow-300 flex flex-col md:flex-row justify-around md:justify-evenly text-4xl md:text-2xl py-1 shadow-xl md:shadow-none rounded-b-md md:rounded-md text-center px-2 gap-3 md:gap-0 w-full items-center h-full"
+            class="bg-yellow-300 flex flex-col md:flex-row justify-around md:justify-evenly text-4xl md:text-2xl py-4 md:py-1 shadow-xl md:shadow-none rounded-b-md md:rounded-md text-center px-2 gap-3 md:gap-0 w-full items-center h-full"
           >
+            <p class="md:hidden teko uppercase font-bold underline">Menu</p>
+
             <li
-              class="cursor-pointer grid content-center h-4/6 w-full duration-300 hover:bg-yellow-500 hover:text-white play md:rounded-none rounded-lg"
+              class="cursor-pointer bg-orange-300 md:bg-yellow-300 grid content-center w-full py-1 md:py-0 duration-300 hover:bg-yellow-400 md:hover:bg-yellow-500 hover:text-white play md:rounded-none rounded-lg border-4 border-black md:border-none"
             >
               Play
             </li>
             <li
-              class="cursor-pointer grid content-center h-4/6 w-full duration-300 hover:bg-yellow-500 hover:text-white md:rounded-none rounded-lg leaderboard md:border-x-2 border-black px-7 md:my-0"
+              class="cursor-pointer bg-orange-300 md:bg-yellow-300 grid content-center w-full py-1 md:py-0 duration-300 hover:bg-yellow-400 md:hover:bg-yellow-500 hover:text-white md:rounded-none rounded-lg leaderboard border-4 md:border-y-0 md:border-x-2 border-black px-7 md:my-0"
             >
               Leaderboard
             </li>
             <li
-              class="cursor-pointer grid content-center h-4/6 w-full duration-300 hover:bg-yellow-500 hover:text-white md:rounded-none rounded-lg user"
+              class="cursor-pointer bg-orange-300 md:bg-yellow-300 grid content-center w-full py-1 md:py-0 duration-300 hover:bg-yellow-400 md:hover:bg-yellow-500 hover:text-white md:rounded-none rounded-lg user border-4 border-black md:border-none"
             >
               Vallen
             </li>
           </ul>
           <i
-            class="fas fa-caret-square-down text-5xl text-yellow-300 md:hidden absolute right-0 cursor-pointer duration-500 toggle-menu mt-1"
+            class="fas fa-caret-square-down text-5xl text-yellow-300 md:hidden absolute right-7 cursor-pointer duration-500 toggle-menu mt-1"
           ></i>
         </div>
       </div>

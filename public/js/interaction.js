@@ -8,6 +8,7 @@ toggle_menu.addEventListener('click', () => {
   menu.classList.toggle('-translate-y-full');
   menu.classList.add('duration-500');
   menu_toggle_btn.classList.toggle('rotate-180');
+  menu_toggle_btn.classList.toggle('text-yellow-300');
   menuIsToggled = !menuIsToggled;
 
   setTimeout(() => {

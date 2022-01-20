@@ -4,7 +4,7 @@
         class="max-w-screen-2xl w-11/12 mx-auto grid grid-cols-1 text-center gap-4"
       >
         <a
-          class="uppercase font-bold text-4xl tracking-wider rounded-md rounded-md bg-yellow-300 py-1 px-2 text-black inline-block w-max mx-auto teko"
+          class="uppercase font-bold text-4xl tracking-wider rounded-md rounded-md bg-yellow-300 border-4 border-black py-1 px-2 text-black inline-block w-max mx-auto teko"
           href="#"
         >
           Triquest
@@ -19,17 +19,17 @@
             </p>
             <ul class="teko">
               <li
-                class="cursor-pointer grid content-center w-11/12 text-2xl tracking-wide py-1 mx-auto duration-300 hover:bg-yellow-300 hover:text-black rounded-md"
+                class="cursor-pointer grid content-center w-11/12 text-2xl tracking-wide py-1 mx-auto duration-300 hover:bg-yellow-300 border-4 border-black hover:text-black rounded-md"
               >
                 Play
               </li>
               <li
-                class="cursor-pointer grid content-center w-11/12 text-2xl tracking-wide py-1 mx-auto duration-300 hover:bg-yellow-300 hover:text-black rounded-md"
+                class="cursor-pointer grid content-center w-11/12 text-2xl tracking-wide py-1 mx-auto duration-300 hover:bg-yellow-300 border-4 border-black hover:text-black rounded-md"
               >
                 Leaderboard
               </li>
               <li
-                class="cursor-pointer grid content-center w-11/12 text-2xl tracking-wide py-1 mx-auto duration-300 hover:bg-yellow-300 hover:text-black rounded-md"
+                class="cursor-pointer grid content-center w-11/12 text-2xl tracking-wide py-1 mx-auto duration-300 hover:bg-yellow-300 border-4 border-black hover:text-black rounded-md"
               >
                 vallen
               </li>
@@ -44,19 +44,24 @@
             </p>
             <ul class="teko">
               <li
-                class="cursor-pointer grid content-center w-11/12 text-2xl tracking-wide py-1 mx-auto duration-300 hover:bg-yellow-300 hover:text-black rounded-md"
+                class="cursor-pointer grid content-center w-11/12 text-2xl tracking-wide py-1 mx-auto duration-300 hover:bg-yellow-300 border-4 border-black hover:text-black rounded-md"
               >
                 Campaign
               </li>
               <li
-                class="cursor-pointer grid content-center w-11/12 text-2xl tracking-wide py-1 mx-auto duration-300 hover:bg-yellow-300 hover:text-black rounded-md"
+                class="cursor-pointer grid content-center w-11/12 text-2xl tracking-wide py-1 mx-auto duration-300 hover:bg-yellow-300 border-4 border-black hover:text-black rounded-md"
               >
                 Random
               </li>
               <li
-                class="cursor-pointer grid content-center w-11/12 text-2xl tracking-wide py-1 mx-auto duration-300 hover:bg-yellow-300 hover:text-black rounded-md"
+                class="cursor-pointer grid content-center w-11/12 text-2xl tracking-wide py-1 mx-auto duration-300 hover:bg-yellow-300 border-4 border-black hover:text-black rounded-md"
               >
                 Challenge
+              </li>
+              <li
+                class="cursor-pointer grid content-center w-11/12 text-2xl tracking-wide py-1 mx-auto duration-300 hover:bg-yellow-300 border-4 border-black hover:text-black rounded-md"
+              >
+                Practice
               </li>
             </ul>
           </section>
@@ -69,7 +74,7 @@
             </p>
             <a
               href=""
-              class="cursor-pointer grid content-center w-11/12 py-2 mx-auto duration-300 hover:bg-yellow-300 hover:text-black rounded-md"
+              class="cursor-pointer grid content-center w-11/12 py-2 mx-auto duration-300 hover:bg-yellow-300 border-4 border-black hover:text-black rounded-md"
               ><i class="fas fa-envelope-square text-5xl"></i>
               <span class="text-lg teko tracking-wider">EMAIL US HERE !</span>
             </a>
@@ -128,36 +133,24 @@
         </p>
       </div>
     </footer>
+    <script src="../public/js/interaction.js"></script>
+    <script src="https://unpkg.com/swiper@7/swiper-bundle.min.js"></script>
+    <!-- Initialize Swiper -->
     <script>
-      const toggle_menu = document.querySelector('.toggle-menu');
-      const menu_toggle_btn = document.querySelector('.fa-caret-square-down');
-      const menu = document.querySelector('.menu');
-
-      let menuIsToggled = false;
-      // for menu toggle
-      toggle_menu.addEventListener('click', () => {
-        menu.classList.toggle('-translate-y-full');
-        menu.classList.add('duration-500');
-        menu_toggle_btn.classList.toggle('rotate-180');
-        menuIsToggled = !menuIsToggled;
-
-        setTimeout(() => {
-          menu.classList.remove('duration-500');
-        }, 550);
+      var swiper = new Swiper('.mySwiper', {
+        effect: 'cube',
+        grabCursor: true,
+        mousewheel: true,
+        cubeEffect: {
+          shadow: true,
+          slideShadows: true,
+          shadowOffset: 20,
+          shadowScale: 1,
+        },
+        pagination: {
+          el: '.swiper-pagination',
+        },
       });
-
-      // for menu display config
-      window.addEventListener('resize', () => {
-        let width = window.innerWidth;
-        if (width > 768) {
-          menu.classList.remove('-translate-y-full');
-          menu_toggle_btn.classList.remove('rotate-180');
-          menuIsToggled = false;
-        } else if (width < 768 && menuIsToggled == false) {
-          menu.classList.add('-translate-y-full');
-        }
-      });
-
     </script>
   </body>
 </html>
