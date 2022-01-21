@@ -3,6 +3,7 @@ const menu_toggle_btn = document.querySelector('.fa-caret-square-down');
 const menu = document.querySelector('.menu');
 
 let menuIsToggled = false;
+let isInFooter = false;
 // for menu toggle
 toggle_menu.addEventListener('click', () => {
   // menu javascript
@@ -11,7 +12,10 @@ toggle_menu.addEventListener('click', () => {
 
   // menu btn
   menu_toggle_btn.classList.toggle('rotate-180');
-  menu_toggle_btn.classList.toggle('text-yellow-300');
+  if (!isInFooter) {
+    menu_toggle_btn.classList.toggle('text-yellow-300');
+  }
+
   menuIsToggled = !menuIsToggled;
 
   setTimeout(() => {
@@ -31,6 +35,18 @@ window.addEventListener('resize', () => {
     menuIsToggled = false;
   } else if (width < 768 && menuIsToggled == false) {
     menu.classList.add('-translate-y-full');
+  }
+});
+
+// for when the user scroll
+window.addEventListener('scroll', () => {
+  // change colour of menu toggle button
+  if (window.scrollY >= 934) {
+    menu_toggle_btn.classList.add('text-yellow-300');
+    isInFooter = true;
+  } else if (window.scrollY < 934 && menuIsToggled == true) {
+    isInFooter = false;
+    menu_toggle_btn.classList.remove('text-yellow-300');
   }
 });
 

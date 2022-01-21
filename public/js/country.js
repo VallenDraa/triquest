@@ -9,7 +9,7 @@ function getFlagEmoji(countryCode) {
 
 // fetch country data json file for progile
 const countryList = document.querySelector('#country');
-fetch('../../data/countries.json')
+fetch('../data/countries.json')
   .then((res) => res.json())
   .then((countries) => {
     console.log(countries);

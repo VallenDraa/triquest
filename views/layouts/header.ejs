@@ -14,13 +14,16 @@
       rel="stylesheet"
       href="https://unpkg.com/swiper@7/swiper-bundle.min.css"
     />
+    <link rel="stylesheet" href="../css/leaderboard-scrollbar.css" />
     <link rel="stylesheet" href="../css/main-bg.css" />
     <script src="https://cdn.tailwindcss.com"></script>
     <title>Triquest | Challenge Yourself</title>
   </head>
-  <body class="antialiased flex flex-col min-h-full overflow-x-hidden">
+  <body
+    class="antialiased flex flex-col min-h-full overflow-x-hidden scroll-smooth"
+  >
     <!-- Navbar -->
-    <nav class="bg-black md:static py-2">
+    <nav class="bg-black py-2 sticky top-0 z-10 navbar shadow-2xl">
       <div
         class="flex teko md:items-center justify-between max-w-screen-2xl mx-auto w-full md:w-11/12 py-2"
       >
@@ -33,7 +36,7 @@
           </a>
         </div>
         <div
-          class="absolute z-10 md:static top-0 w-full md:w-11/12 bottom-1/2 md:w-1/2 md:flex menu -translate-y-full md:translate-y-0"
+          class="absolute z-10 md:static top-0 w-full md:w-11/12 h-96 md:h-full md:w-1/2 md:flex menu -translate-y-full md:translate-y-0"
         >
           <ul
             class="bg-yellow-300 flex flex-col md:flex-row justify-around md:justify-evenly text-4xl md:text-2xl py-4 md:py-1 shadow-xl md:shadow-none rounded-b-md md:rounded-md text-center px-2 gap-3 md:gap-0 w-full items-center h-full"
@@ -41,23 +44,23 @@
             <p class="md:hidden teko uppercase font-bold underline">Menu</p>
 
             <li
-              class="cursor-pointer bg-orange-300 md:bg-yellow-300 grid content-center w-full py-1 md:py-0 duration-300 hover:bg-yellow-400 md:hover:bg-yellow-500 hover:text-white play md:rounded-none rounded-lg border-4 border-black md:border-none h-3/6"
+              class="cursor-pointer bg-orange-300 md:bg-yellow-300 grid content-center w-full py-1 md:py-0 duration-300 hover:bg-yellow-400 md:hover:bg-yellow-500 hover:text-white md:rounded-none rounded-lg border-4 border-black md:border-none h-3/6 play"
             >
               Play
             </li>
             <li
               class="cursor-pointer bg-orange-300 md:bg-yellow-300 grid content-center w-full py-1 md:py-0 duration-300 hover:bg-yellow-400 md:hover:bg-yellow-500 hover:text-white md:rounded-none rounded-lg leaderboard border-4 md:border-y-0 md:border-x-2 border-black px-7 md:my-0 h-3/6"
             >
-              Leaderboard
+              <a href="">Leaderboard</a>
             </li>
             <li
               class="cursor-pointer bg-orange-300 md:bg-yellow-300 grid content-center w-full py-1 md:py-0 duration-300 hover:bg-yellow-400 md:hover:bg-yellow-500 hover:text-white md:rounded-none rounded-lg user border-4 border-black md:border-none h-3/6"
             >
-              Vallen
+              <a href="">Vallen</a>
             </li>
           </ul>
           <i
-            class="hover:text-orange-300 fas fa-caret-square-down text-5xl text-yellow-300 md:hidden absolute right-7 cursor-pointer duration-500 toggle-menu mt-3"
+            class="hover:text-yellow-400 fas fa-caret-square-down text-5xl text-yellow-300 md:hidden absolute right-7 cursor-pointer duration-500 toggle-menu mt-3"
           ></i>
         </div>
       </div>
