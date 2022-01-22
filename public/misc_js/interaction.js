@@ -12,9 +12,9 @@ toggle_menu.addEventListener('click', () => {
 
   // menu btn
   menu_toggle_btn.classList.toggle('rotate-180');
-  if (!isInFooter) {
-    menu_toggle_btn.classList.toggle('text-yellow-300');
-  }
+  // if (!isInFooter) {
+  //   menu_toggle_btn.classList.toggle('text-black');
+  // }
 
   menuIsToggled = !menuIsToggled;
 
@@ -29,9 +29,9 @@ window.addEventListener('resize', () => {
   if (width > 768) {
     menu.classList.remove('-translate-y-full');
     menu_toggle_btn.classList.remove('rotate-180');
-    if (!menu_toggle_btn.classList.contains('text-yellow-300')) {
-      menu_toggle_btn.classList.add('text-yellow-300');
-    }
+    // if (!menu_toggle_btn.classList.contains('text-yellow-300')) {
+    //   menu_toggle_btn.classList.add('text-yellow-300');
+    // }
     menuIsToggled = false;
   } else if (width < 768 && menuIsToggled == false) {
     menu.classList.add('-translate-y-full');
@@ -41,7 +41,7 @@ window.addEventListener('resize', () => {
 // for when the user scroll
 window.addEventListener('scroll', () => {
   // change colour of menu toggle button
-  if (window.scrollY >= 934) {
+  if (window.scrollY >= 934 && menuIsToggled == true) {
     menu_toggle_btn.classList.add('text-yellow-300');
     isInFooter = true;
   } else if (window.scrollY < 934 && menuIsToggled == true) {

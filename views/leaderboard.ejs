@@ -1,9 +1,11 @@
 <!-- Leaderboard -->
-<section class="grid content-center min-h-full">
+<%- include("./layouts/header") %>
+
+<main class="main-bg"><section class="grid content-center min-h-full">
     <main class="max-w-screen-2xl w-11/12 xl:w-9/12 mx-auto">
-      <h1
-        class="text-black underline text-6xl text-center tracking-wide font-bold teko py-4 mt-20 mb-20"
-      >
+            <h1
+              class="text-center mt-10 md:mt-20 mb-10 md:mb-20 teko text-5xl md:text-6xl font-bold underline"
+            >
         LEADERBOARD
       </h1>
       <div
@@ -140,4 +142,8 @@
          
         </div>
     </main>
-  </section>
+  </section></main>
+
+
+  <!-- Footer -->
+<%- include("./layouts/footer") %>
