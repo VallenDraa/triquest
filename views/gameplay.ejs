@@ -35,84 +35,27 @@
       </div>
     </main>
   </section>
+    <!-- out-of-time pop-up -->
+  <section class="absolute inset-0 hidden">
+    <div class="absolute inset-0 opacity-40 bg-black pop-up-bg"></div>
+    <main class="absolute inset-0 flex justify-center items-center pop-up h-full">
+      <div
+        class="bg-yellow-300 border-4 border-black flex flex-col py-8 px-4 space-y-4 rounded-xl max-w-md "
+      >
+          <i class="fas fa-times text-4xl text-white self-center bg-red-400 border-4 border-black py-4 px-6 rounded-full"></i>
+          <h3 class="text-3xl sm:text-4xl font-bold teko tracking-wide bg-yellow-200 p-2 border-4 border-black rounded-lg text-center">
+            You're Out Of Time !
+          </h3>
+          <p class="text-lg sm:text-2xl font-bold fira-sans px-2 text-center">Correct Answer<br><span class="font-normal"> <i>Twenty One Password Superman</i> </span> </p>
+          <button class=" bg-orange-300 mt-4 p-2 block border-4 border-black fira-sans w-full md:w-4/5 mx-auto duration-300 hover:bg-orange-400 rounded-lg">Next Question</button>
+        </div>
+      </div>
+    </main>
+  </section>
   <!-- answer part -->
   <section class="grid content-center min-h-full">
     <main class="max-w-screen-2xl w-11/12 xl:w-9/12 mx-auto">
-      <h1
-        class="text-center mt-10 md:mt-20 mb-10 md:mb-20 teko text-5xl md:text-6xl font-bold underline"
-      >
-        00:04
-      </h1>
-
-      <!-- four option -->
-      <div
-        class="bg-yellow-300 border-4 border-black rounded-xl shadow-2xl px-5 md:px-10 py-5 mb-44 four-option hidden"
-      >
-        <div
-          class="fira-sans space-y-3 border-4 border-black rounded-lg bg-yellow-200 p-4"
-        >
-          <section>
-            <h2 class="text-2xl md:text-3xl font-bold text-center py-4">
-              Which of these is NOT a province in China?
-            </h2>
-            <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mt-4">
-              <div
-                class="teko border-4 border-black text-3xl h-24 md:h-44 flex justify-center items-center font-bold duration-300 bg-orange-300 hover:text-4xl hover:bg-orange-400 rounded-xl cursor-pointer"
-              >
-                Sichuan
-              </div>
-              <div
-                class="teko border-4 border-black text-3xl h-24 md:h-44 flex justify-center items-center font-bold duration-300 bg-red-300 hover:text-4xl hover:bg-red-400 rounded-xl cursor-pointer"
-              >
-                Yangtze
-              </div>
-              <div
-                class="teko border-4 border-black text-3xl h-24 md:h-44 flex justify-center items-center font-bold duration-300 bg-blue-300 hover:text-4xl hover:bg-blue-400 rounded-xl cursor-pointer"
-              >
-                Guangdong
-              </div>
-              <div
-                class="teko border-4 border-black text-3xl h-24 md:h-44 flex justify-center items-center font-bold duration-300 bg-green-300 hover:text-4xl hover:bg-green-400 rounded-xl cursor-pointer"
-              >
-                Fujian
-              </div>
-            </div>
-            <div class="flex justify-center items-center pt-4 font-light">
-              <p>Questions 1/10 · Hard</p>
-            </div>
-          </section>
-        </div>
-      </div>
-
-      <!-- bool option -->
-      <div
-        class="bg-yellow-300 border-4 border-black rounded-xl shadow-2xl px-5 md:px-10 py-5 mb-44 four-option"
-      >
-        <div
-          class="fira-sans space-y-3 border-4 border-black rounded-lg bg-yellow-200 p-4"
-        >
-          <section>
-            <h2 class="text-2xl md:text-3xl font-bold text-center py-4">
-              In The Witcher 3, the Zoltan Chivay Gwent card can be found under
-              the Hanged Man&#039;s Tree.
-            </h2>
-            <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mt-4">
-              <div
-                class="teko border-4 border-black text-3xl md:text-4xl h-24 md:h-44 flex justify-center items-center font-bold duration-300 bg-green-300 hover:text-4xl md:hover:text-5xl hover:bg-green-400 rounded-xl cursor-pointer"
-              >
-                True
-              </div>
-              <div
-                class="teko border-4 border-black text-3xl md:text-4xl h-24 md:h-44 flex justify-center items-center font-bold duration-300 bg-red-300 hover:text-4xl md:hover:text-5xl hover:bg-red-400 rounded-xl cursor-pointer"
-              >
-                False
-              </div>
-            </div>
-            <div class="flex justify-center items-center pt-4 font-light">
-              <p>Questions 1/10 · Hard</p>
-            </div>
-          </section>
-        </div>
+      <div class="question-card ">
       </div>
     </main>
   </section>

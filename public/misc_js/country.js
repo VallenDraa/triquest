@@ -12,7 +12,6 @@ const countryList = document.querySelector('#country');
 fetch('../data/countries.json')
   .then((res) => res.json())
   .then((countries) => {
-    console.log(countries);
     // inserting countries data to HTML
     countries.forEach((country) => {
       const option = document.createElement('option');
