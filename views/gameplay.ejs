@@ -1,6 +1,6 @@
 <%- include("./layouts/header") %>
 <!-- gameplay UI -->
-<main class="main-bg relative">
+<main class="main-bg bg-anim relative">
   <!-- correct pop-up -->
   <section class="absolute inset-0 hidden">
     <div class="absolute inset-0 opacity-40 bg-black pop-up-bg"></div>
@@ -53,10 +53,73 @@
     </main>
   </section>
   <!-- answer part -->
-  <section class="grid content-center min-h-full">
-    <main class="max-w-screen-2xl w-11/12 xl:w-9/12 mx-auto min-h-full">
-      <div class=" min-w-full  overflow-y-auto question-card-wrapper answer-option
-">
+  <section class="grid content-center min-h-full relative">
+    <main class="max-w-screen-2xl w-11/12 xl:w-9/12 mx-auto min-h-full ">
+      <div class=" min-w-full question-card-wrapper answer-option ">
+        <div class="loading-screen absolute inset-0 z-30 bg-black/90 "></div>
+        <!-- four opt -->
+        <div
+        class="hidden bg-yellow-300 border-4 border-black question-card question-card-four rounded-xl px-2 md:px-10 py-2 md:py-5 my-20 md:my-20 md:h-5/6 four-option flex justify-center items-center">
+        <div class="fira-sans p-4 w-full">
+        <section>
+          <h2 class="text-xl md:text-3xl font-bold text-center py-4 max-w-4xl text-center mx-auto question-four-opt"></h2>
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mt-4">
+            <div
+            class="teko border-4 text-center border-black answer-opt text-xl md:text-2xl h-16 md:h-24 flex justify-center items-center font-bold duration-300  rounded-xl cursor-pointer answer-four bg-orange-300 hover:bg-orange-400">
+            1
+            </div>
+            <div
+            class="teko border-4 text-center border-black answer-opt text-xl md:text-2xl h-16 md:h-24 flex justify-center items-center font-bold duration-300  rounded-xl cursor-pointer answer-four bg-red-300 hover:bg-red-400">
+            2
+            </div>
+            <div
+            class="teko border-4 text-center border-black answer-opt text-xl md:text-2xl h-16 md:h-24 flex justify-center items-center font-bold duration-300  rounded-xl cursor-pointer answer-four bg-blue-300 hover:bg-blue-400">
+            3
+            </div>
+            <div
+            class="teko border-4 text-center border-black answer-opt text-xl md:text-2xl h-16 md:h-24 flex justify-center items-center font-bold duration-300  rounded-xl cursor-pointer answer-four bg-green-300 hover:bg-green-400">
+            4
+            </div>
+          </div>
+          <section class="my-4 h-6 border-4 border-black rounded-xl bg-slate-200">
+            <div class="h-full  duration-1000 bg-green-400 rounded-xl  timer-bar"></div>
+          </section>
+          <div class="flex justify-center items-center pt-4 text-xs font-light mx-auto text-center">
+            <p class="text-center footer-four-opt">
+              1/10 · hard · Entertainment
+          </div>
+        </section>
+        </div>
+        </div>
+        <!-- bool option -->
+        <div
+          class="hidden bg-yellow-300 border-4 border-black question-card question-card-two rounded-xl px-2 md:px-10 py-2 md:py-5 my-12 md:my-24 h-5/6 flex justify-center items-center bool-option">
+          <div class="fira-sans p-4 w-full">
+            <section>
+              <h2 class="text-xl md:text-3xl font-bold text-center py-4 max-w-4xl text-center mx-auto question-two-opt">
+              question
+              </h2>
+              <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mt-4">
+                <div
+                  class="teko border-4 border-black text-2xl answer-opt md:text-4xl h-16 md:h-24 flex justify-center items-center font-bold duration-300 bg-green-300 hover:bg-green-400 rounded-xl cursor-pointer answer-two"
+                >
+                  True
+                </div>
+                <div
+                  class="teko border-4 border-black text-2xl answer-opt md:text-4xl h-16 md:h-24 flex justify-center items-center font-bold duration-300 bg-red-300 hover:bg-red-400 rounded-xl cursor-pointer answer-two"
+                >
+                  False
+                </div>
+              </div>
+              <section class="my-4 h-6 border-4 border-black rounded-xl bg-slate-200">
+                <div class="h-full duration-1000 bg-green-400 rounded-xl timer-bar"></div>
+              </section>
+              <div class="flex justify-center items-center pt-4 text-xs font-light mx-auto text-center">
+                <p class="text-center footer-two-opt">1/10 · hard · Entertainment</p>
+              </div>
+            </section>
+          </div>
+        </div>
       </div>
     </main>
   </section>
@@ -64,3 +127,77 @@
 
 <!-- Footer -->
 <%- include("./layouts/footer") %>
+
+<!-- four opt
+    
+          let htmlEl = ` 
+        <div
+        class="bg-yellow-300 border-4 border-black question-card question-card-4 rounded-xl px-2 md:px-10 py-2 md:py-5 my-20 md:my-20  md:h-5/6 four-option flex justify-center items-center"
+      >
+        <div
+          class="fira-sans p-4 w-full"
+        >
+          <section>
+            <h2 class="text-xl md:text-3xl font-bold text-center py-4 max-w-4xl text-center mx-auto question" style="${questions.checkHowLongQuestion(
+              question.question
+            )}">
+            ${question.question}
+            </h2>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mt-4">
+              ${questions
+                .multipleAnswerAssign(
+                  question.correct_answer,
+                  question.incorrect_answers
+                )
+                .join('')}
+            </div>
+            <section class="my-4 h-6 border-4 border-black rounded-xl bg-slate-200">
+              <div class="h-full  duration-1000 bg-green-400 rounded-xl  timer-bar"></div>
+            </section>
+            <div class="flex justify-center items-center pt-4 text-xs font-light mx-auto text-center">
+              <p class="text-center">Questions ${i + 1}/${
+          questionsArr.length
+        } · ${question.difficulty} · ${question.category}</p>
+            </div>
+          </section>
+        </div>
+      </div>
+      `;
+ -->
+ <!-- bool option
+
+ let htmlEl = ` 
+ <div
+   class="bg-yellow-300 border-4 border-black question-card question-card-4 rounded-xl px-2 md:px-10 py-2 md:py-5 my-12 md:my-24 h-5/6 flex justify-center items-center bool-option"
+ >
+   <div
+     class="fira-sans p-4 w-full"
+   >
+     <section>
+       <h2 class="text-xl md:text-3xl font-bold text-center py-4 max-w-4xl text-center mx-auto question">
+       ${question.question}
+       </h2>
+       <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mt-4">
+         <div
+           class="teko border-4 border-black text-2xl md:text-4xl h-16 md:h-24 flex justify-center items-center font-bold duration-300 bg-green-300 hover:bg-green-400 rounded-xl cursor-pointer ${identifierTrue}"
+         >
+           True
+         </div>
+         <div
+           class="teko border-4 border-black text-2xl md:text-4xl h-16 md:h-24 flex justify-center items-center font-bold duration-300 bg-red-300 hover:bg-red-400 rounded-xl cursor-pointer ${identifierFalse}"
+         >
+           False
+         </div>
+       </div>
+       <section class="my-4 h-6 border-4 border-black rounded-xl bg-slate-200">
+         <div class="h-full duration-1000 bg-green-400 rounded-xl timer-bar"></div>
+       </section>
+       <div class="flex justify-center items-center pt-4 text-xs font-light mx-auto text-center">
+         <p class="text-center">Questions ${i + 1}/${
+   questionsArr.length
+ } · ${question.difficulty} · ${question.category}</p>
+       </div>
+     </section>
+   </div>
+ </div>`; 
+-->
