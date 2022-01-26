@@ -1,9 +1,114 @@
-/* .question-card-wrapper {
-  height: 46rem;
+.loading-icon {
+  display: block;
+  height: 50px;
+  margin-inline: auto;
+  border-radius: 50%;
+  width: 50px;
 }
 
-@media (min-width: 640px) {
-  .question-card-wrapper {
-    height: 40rem;
+.icon-1 {
+  animation: toRoundedCircle1 3s cubic-bezier(1, 0.07, 0.38, 1.29) infinite;
+}
+.icon-2 {
+  animation: toRoundedCircle2 3s cubic-bezier(1, 0.07, 0.38, 1.29) infinite;
+}
+.icon-3 {
+  animation: toRoundedCircle3 3s cubic-bezier(1, 0.07, 0.38, 1.29) infinite;
+}
+.icon-4 {
+  animation: toRoundedCircle4 3s cubic-bezier(1, 0.07, 0.38, 1.29) infinite;
+}
+.icon-5 {
+  animation: toRoundedCircle5 3s cubic-bezier(1, 0.07, 0.38, 1.29) infinite;
+}
+.icon-6 {
+  animation: toRoundedCircle6 3s cubic-bezier(1, 0.07, 0.38, 1.29) infinite;
+}
+
+@keyframes toRoundedCircle1 {
+  0% {
+    transform: rotate(0);
+    border-radius: 50%;
   }
-} */
+  50% {
+    transform: rotate(40deg);
+    border-radius: 0%;
+  }
+  100% {
+    transform: rotate(0);
+    border-radius: 50%;
+  }
+}
+@keyframes toRoundedCircle2 {
+  0% {
+    transform: rotate(0);
+    border-radius: 50%;
+  }
+  50% {
+    transform: rotate(120deg);
+    border-radius: 0%;
+  }
+  100% {
+    transform: rotate(0);
+    border-radius: 50%;
+  }
+}
+
+@keyframes toRoundedCircle3 {
+  0% {
+    transform: rotate(0);
+    border-radius: 50%;
+  }
+  50% {
+    transform: rotate(200deg);
+    border-radius: 0%;
+  }
+  100% {
+    transform: rotate(0);
+    border-radius: 50%;
+  }
+}
+@keyframes toRoundedCircle4 {
+  0% {
+    transform: rotate(0);
+    border-radius: 50%;
+  }
+  50% {
+    transform: rotate(280deg);
+    border-radius: 0%;
+  }
+  100% {
+    transform: rotate(0);
+    border-radius: 50%;
+  }
+}
+
+@keyframes toRoundedCircle5 {
+  0% {
+    transform: rotate(0);
+    border-radius: 50%;
+  }
+  50% {
+    transform: rotate(360deg);
+    border-radius: 0%;
+  }
+  100% {
+    transform: rotate(0);
+    border-radius: 50%;
+  }
+}
+
+@keyframes toRoundedCircle6 {
+  0% {
+    transform: rotate(0);
+    border-radius: 50%;
+  }
+  50% {
+    transform: rotate(4deg);
+    border-radius: 0%;
+  }
+  100% {
+    transform: rotate(0);
+    border-radius: 50%;
+  }
+}

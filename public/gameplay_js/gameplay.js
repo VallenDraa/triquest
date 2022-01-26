@@ -133,29 +133,59 @@ const questions = {
 questions.fetchQuestion();
 
 // timerBar function
-function runTimerBar() {
-  let time = 15;
+let time = 15;
+const timerBars = document.querySelectorAll('.timer-bar');
+
+function changeTimerBarStyle() {
+  timerBars.forEach((timerBar) => {
+    timerBar.setAttribute('style', `width:${(time * 10) / 1.5}%`);
+    if (time <= 10) {
+      timerBar.classList.replace('bg-green-400', 'bg-orange-400');
+    }
+    if (time <= 5) {
+      timerBar.classList.replace('bg-orange-400', 'bg-red-500');
+    }
+    if (time <= 0.1) {
+      timerBar.classList.replace('bg-red-500', 'bg-transparent');
+    }
+  });
+}
+
+function resetTimeAndBar() {
+  time = 15;
+  timerBars.forEach((timerBar) => {
+    timerBar.classList.add('bg-green-400');
+    timerBar.classList.remove('duration-1000');
+    timerBar.setAttribute('style', `width:100%`);
+  });
   setTimeout(() => {
-    const timerBars = document.querySelectorAll('.timer-bar');
+    timerBars.forEach((timerBar) => {
+      timerBar.classList.add('duration-1000');
+    });
+  }, 500);
+
+  setTimeout(() => {
     const timer = setInterval(() => {
       time -= 0.1;
+      if (time <= 0.1) {
+        clearInterval(timer);
+      }
+    }, 100);
+  }, 1000);
+}
+
+function runTimerBar() {
+  setTimeout(() => {
+    const timer = setInterval(() => {
+      time -= 0.1;
+      if (time <= 0.1) {
+        clearInterval(timer);
+      }
     }, 100);
     const changeBar = setInterval(() => {
-      timerBars.forEach((timerBar) => {
-        timerBar.setAttribute('style', `width:${(time * 10) / 1.5}%`);
-        if (time <= 10) {
-          timerBar.classList.replace('bg-green-400', 'bg-orange-400');
-        }
-        if (time <= 5) {
-          timerBar.classList.replace('bg-orange-400', 'bg-red-500');
-        }
-        if (time <= 0.1) {
-          timerBar.classList.replace('bg-red-500', 'bg-slate-200');
-        }
-      });
+      changeTimerBarStyle();
       if (time <= 0.1) {
         clearInterval(changeBar);
-        clearInterval(timer);
       }
     }, 100);
   }, 1000);
@@ -171,22 +201,15 @@ window.addEventListener('resize', () => {
   });
 });
 
-// move question from bottom to top
-let answerOpt,
-  questionCard = document.querySelectorAll('.question-card');
-setTimeout(() => {
-  answerOpt = document.querySelector('.answer-option');
-}, 500);
-
 // everytime an answer is clicked
 document.querySelectorAll('.answer-opt').forEach((option) => {
   option.addEventListener('click', () => {
     // add the index
     if (questions.currentQuestion < 9) {
       questions.currentQuestion++;
-      console.log(questions.currentQuestion);
     }
 
+    resetTimeAndBar();
     // refresh the question
     questions.assignQuestionPropertyToCard(
       questions.questionList,
@@ -194,6 +217,8 @@ document.querySelectorAll('.answer-opt').forEach((option) => {
     );
   });
 });
+
+// point system
 
 // loading screen
 if (document.readyState === 'loading') {
