@@ -10,38 +10,6 @@
       "incorrect_answers": ["Ithaca", "Naxos", "Anafi"]
     },
     {
-      "category": "Geography",
-      "type": "multiple",
-      "difficulty": "hard",
-      "question": "Which of these is NOT a province in China?",
-      "correct_answer": "Yangtze",
-      "incorrect_answers": ["Fujian", "Sichuan", "Guangdong"]
-    },
-    {
-      "category": "Entertainment: Music",
-      "type": "multiple",
-      "difficulty": "hard",
-      "question": "Which of these songs is NOT included in the Suicide Squad OST?",
-      "correct_answer": "Skies on Fire - AC/DC",
-      "incorrect_answers": [
-        "Heathens - Twenty One Pilots",
-        "Without Me - Eminem",
-        "Fortunate Son - Creedence Clearwater Revival"
-      ]
-    },
-    {
-      "category": "Sports",
-      "type": "multiple",
-      "difficulty": "hard",
-      "question": "Which male player won the gold medal of table tennis singles in 2016 Olympics Games?",
-      "correct_answer": "Ma Long (China)",
-      "incorrect_answers": [
-        "Zhang Jike (China)",
-        "Jun Mizutani (Japan)",
-        "Vladimir Samsonov (Belarus)"
-      ]
-    },
-    {
       "category": "Entertainment: Japanese Anime & Manga",
       "type": "multiple",
       "difficulty": "hard",
@@ -50,12 +18,12 @@
       "incorrect_answers": ["Perfection", "Sandbox", "Fairness"]
     },
     {
-      "category": "History",
-      "type": "multiple",
+      "category": "Entertainment: Video Games",
+      "type": "boolean",
       "difficulty": "hard",
-      "question": "Before the American colonies switched to the Gregorian calendar in 1752, on what date did their new year start?",
-      "correct_answer": "March 25th",
-      "incorrect_answers": ["June 1st", "September 25th", "December 1st"]
+      "question": "In The Witcher 3, the Zoltan Chivay Gwent card can be found under the Hanged Man&#039;s Tree.",
+      "correct_answer": "True",
+      "incorrect_answers": ["False"]
     },
     {
       "category": "Entertainment: Music",
@@ -64,22 +32,6 @@
       "question": "Chino Moreno is the lead singer of which alternative metal band?",
       "correct_answer": "Deftones",
       "incorrect_answers": ["Tool", "Korn", "Type O Negative"]
-    },
-    {
-      "category": "Geography",
-      "type": "multiple",
-      "difficulty": "hard",
-      "question": "The emblem on the flag of the Republic of Tajikistan features a sunrise over mountains below what symbol?",
-      "correct_answer": "Crown",
-      "incorrect_answers": ["Bird", "Sickle", "Tree"]
-    },
-    {
-      "category": "Entertainment: Video Games",
-      "type": "multiple",
-      "difficulty": "hard",
-      "question": "Which retro video game was released first?",
-      "correct_answer": "Space Invaders",
-      "incorrect_answers": ["Galaga", "Pac-Man", "Asteroids"]
     },
     {
       "category": "Entertainment: Video Games",

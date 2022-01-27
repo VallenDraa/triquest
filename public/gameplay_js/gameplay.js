@@ -1,4 +1,5 @@
-const questionCardWrapper = document.querySelector('.question-card-wrapper');
+const questionCardWrapper = document.querySelector('.question-card-wrapper'),
+  questionCards = document.querySelectorAll('.question-card');
 
 // calling api and assigning the questions
 const questions = {
@@ -30,6 +31,7 @@ const questions = {
       questions.questionCardFooter(questionsArr, i);
       document.querySelector('.question-card-two').classList.add('hidden');
       document.querySelector('.question-card-four').classList.remove('hidden');
+      multipleOrBool = 0;
     }
     // for boolean choice
     else {
@@ -41,6 +43,7 @@ const questions = {
       );
       questions.questionCardFooter(questionsArr, i);
       document.querySelector('.question-card-four').classList.add('hidden');
+      multipleOrBool = 1;
       document.querySelector('.question-card-two').classList.remove('hidden');
     }
   },
@@ -128,6 +131,7 @@ const questions = {
     }
   },
   questionList: [],
+  multipleOrBool: 0, //multiple = 0 , bool = 1
   currentQuestion: 0,
 };
 questions.fetchQuestion();
@@ -153,25 +157,30 @@ function changeTimerBarStyle() {
 
 function resetTimeAndBar() {
   time = 15;
+  //change bar style
   timerBars.forEach((timerBar) => {
-    timerBar.classList.add('bg-green-400');
+    turnBarToGreen(timerBar);
     timerBar.classList.remove('duration-1000');
     timerBar.setAttribute('style', `width:100%`);
   });
+  // re-add transition
   setTimeout(() => {
     timerBars.forEach((timerBar) => {
       timerBar.classList.add('duration-1000');
     });
-  }, 500);
+  }, 50);
 
-  setTimeout(() => {
-    const timer = setInterval(() => {
-      time -= 0.1;
-      if (time <= 0.1) {
-        clearInterval(timer);
-      }
-    }, 100);
-  }, 1000);
+  // restart timer
+  // setTimeout(() => {
+  //   let x = Math.random() * 100;
+  //   const timer = setInterval(() => {
+  //     console.log('a', x);
+  //     time -= 0.1;
+  //     if (time <= 0.1) {
+  //       clearInterval(timer);
+  //     }
+  //   }, 100);
+  // }, 1000);
 }
 
 function runTimerBar() {
@@ -191,6 +200,16 @@ function runTimerBar() {
   }, 1000);
 }
 
+function turnBarToGreen(timerBar) {
+  if (timerBar.classList.contains('bg-green-400')) {
+    return;
+  } else if (timerBar.classList.contains('bg-orange-400')) {
+    timerBar.classList.replace('bg-orange-400', 'bg-green-400');
+  } else if (timerBar.classList.contains('bg-red-500')) {
+    timerBar.classList.replace('bg-red-500', 'bg-green-400');
+  }
+}
+
 // resize the questions font size
 window.addEventListener('resize', () => {
   document.querySelectorAll('.question').forEach((question) => {
@@ -205,20 +224,69 @@ window.addEventListener('resize', () => {
 document.querySelectorAll('.answer-opt').forEach((option) => {
   option.addEventListener('click', () => {
     // add the index
-    if (questions.currentQuestion < 9) {
+    if (questions.currentQuestion < 10) {
       questions.currentQuestion++;
     }
 
-    resetTimeAndBar();
-    // refresh the question
-    questions.assignQuestionPropertyToCard(
-      questions.questionList,
-      questions.currentQuestion
-    );
+    // check the index and refresh the question
+    if (questions.currentQuestion !== questions.questionList.length) {
+      // add animation to the question card
+      setTimeout(() => {
+        questionCards[questions.multipleOrBool].classList.add('anim-swipe-x');
+      }, 100);
+
+      // to refresh the question
+      setTimeout(() => {
+        questions.assignQuestionPropertyToCard(
+          questions.questionList,
+          questions.currentQuestion
+        );
+      }, 700);
+
+      // to remove animation and to reset timer bar
+      setTimeout(() => {
+        // remove the animation from the question card
+        questionCards[questions.multipleOrBool].classList.remove(
+          'anim-swipe-x'
+        );
+        // reset the timer bar
+        resetTimeAndBar();
+      }, 1499);
+    }
+    // check the index and call the result screen
+    else {
+      resultScreen();
+    }
   });
 });
 
 // point system
+
+// result screen
+const progressBar = document.querySelector('.circular-progress'),
+  valueContainer = document.querySelector('.value-container');
+function resultScreen() {
+  document.querySelector('.result-screen').classList.remove('hidden');
+  document.querySelector('.result-screen').classList.add('anim-lighten-full');
+  document.querySelector('.result-screen>div').classList.add('anim-pop-up');
+  setTimeout(() => {
+    let totalCorrectAns = 0,
+      totalQuestion = questions.questionList.length,
+      speed = 60;
+
+    let progress = setInterval(() => {
+      totalCorrectAns++;
+      valueContainer.textContent = `${totalCorrectAns}/${totalQuestion}`;
+      progressBar.style.background = `conic-gradient(
+      rgb(253 186 116) ${totalCorrectAns * 10 * 3.6}deg,
+      rgb(253 224 71) ${totalCorrectAns * 10 * 3.6}deg
+    )`;
+      if (totalCorrectAns == totalQuestion) {
+        clearInterval(progress);
+      }
+    }, speed);
+  }, 300);
+}
 
 // loading screen
 if (document.readyState === 'loading') {
