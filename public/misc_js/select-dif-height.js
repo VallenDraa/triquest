@@ -2,14 +2,14 @@
 const practice = document.querySelector('.practice');
 const notPractice = document.querySelectorAll('.not-practice');
 
-const observer = new ResizeObserver((entries) => {
+const observeHeight = new ResizeObserver((entries) => {
   const card = entries[0];
   notPractice.forEach((item) => {
     item.style.height = practice.offsetHeight.toString() + 'px';
   });
 });
 
-observer.observe(practice);
+observeHeight.observe(practice);
 
 // notPractice.forEach((item) => {
 //   item.addEventListener('mouseenter', function () {

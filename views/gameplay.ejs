@@ -2,107 +2,150 @@
 <!-- gameplay UI -->
 <main class="main-bg bg-anim relative">
   <!-- after answer pop-up -->
-  <section class="absolute inset-0 hidden">
-    <div class="absolute inset-0 opacity-40 bg-black anim-lighten-50"></div>
-    <main class="absolute inset-0 flex justify-center items-center">
-      <div
-        class="bg-yellow-300 border-4 border-black flex flex-col py-10 px-4 space-y-4 rounded-xl max-w-md pop-up"
-      >
+  <section
+    class="absolute inset-0 z-30 after-answer-wrapper anim-lighten-full justify-center items-center flex bg-black/40 hidden"
+  >
+    <div
+      class="bg-yellow-300 border-4 border-black flex flex-col py-10 px-4 space-y-4 rounded-xl anim-pop-up after-answer-card justify-center items-center"
+    >
       <!-- if wrong use fa-times for the i tag and bg-red-500 for the background color-->
-          <i class="fas fa-check text-4xl text-white self-center bg-green-400 border-4 border-black p-4 rounded-full"></i>
-          <h3 class="text-4xl font-bold teko tracking-wide bg-yellow-200 p-2 border-4 border-black rounded-lg after-answer-mes">
-            Your Answer Is Correct !
-          </h3>
-          <p class="text-lg sm:text-2xl font-bold fira-sans px-2 text-center">Correct Answer<br><span class="font-normal correct-answer"> <i>Twenty One Password Superman</i> </span> </p>
-          <button class=" bg-orange-300 mt-4 p-2 block border-4 border-black fira-sans w-full md:w-4/5 mx-auto duration-300 hover:bg-orange-400 rounded-lg ">Next Question</button>
-        </div>
+      <i
+        class="icon-co-in fas fa-check text-4xl text-white self-center bg-green-400 border-4 border-black rounded-full animate-bounce"
+      ></i>
+      <div class="w-full md:w-4/5 space-y-4">
+        <h3
+          class="text-center text-4xl font-bold teko tracking-wide bg-yellow-200 p-2 border-4 border-black rounded-lg after-answer-mes w-full"
+        >
+          Your Answer Is Correct !
+        </h3>
+        <p
+          class="text-lg sm:text-2xl font-bold fira-sans px-2 text-center border-4 border-black bg-yellow-200 rounded-xl py-2"
+        >
+          The Correct Answer<br /><span
+            class="font-bold correct-answer text-green-600"
+          >
+            <i>Twenty One Password Superman</i>
+          </span>
+        </p>
       </div>
-    </main>
-  </section>
-    <!-- out-of-time pop-up -->
-  <section class="absolute inset-0 hidden">
-    <div class="absolute inset-0 opacity-40 bg-black anim-lighten-50"></div>
-    <main class="absolute inset-0 flex justify-center items-center pop-up h-full">
-      <div
-        class="bg-yellow-300 border-4 border-black flex flex-col py-8 px-4 space-y-4 rounded-xl max-w-md "
+      <button
+        class="bg-orange-300 mt-4 p-2 block border-4 border-black fira-sans w-full md:w-4/5 mx-auto duration-300 hover:bg-orange-400 rounded-lg next-question"
       >
-          <i class="fas fa-times text-4xl text-white self-center bg-red-400 border-4 border-black py-4 px-6 rounded-full"></i>
-          <h3 class="text-3xl sm:text-4xl font-bold teko tracking-wide bg-yellow-200 p-2 border-4 border-black rounded-lg text-center">
-            You're Out Of Time !
-          </h3>
-          <p class="text-lg sm:text-2xl font-bold fira-sans px-2 text-center">Correct Answer<br><span class="font-normal"> <i>Twenty One Password Superman</i> </span> </p>
-          <button class=" bg-orange-300 mt-4 p-2 block border-4 border-black fira-sans w-full md:w-4/5 mx-auto duration-300 hover:bg-orange-400 rounded-lg">Next Question</button>
-        </div>
-      </div>
-    </main>
-  </section>      
+        Next Question
+      </button>
+    </div>
+  </section>
   <!-- loading screen -->
-  <div class="loading-screen absolute inset-0 z-10 bg-black/90 flex justify-center items-center">
+  <div
+    class="loading-screen absolute inset-0 z-10 bg-black/90 flex justify-center items-center hidden"
+  >
     <main>
       <div class="h-[100px] w-[100px] grid content-center">
         <div class="relative -mt-[30%] w-full">
-          <div class="loading-icon absolute inset-x-0 top-0 border-2 border-slate-200 icon-1"></div>
-          <div class="loading-icon absolute inset-x-0 top-0 border-2 border-slate-200 icon-2"></div>
-          <div class="loading-icon absolute inset-x-0 top-0 border-2 border-slate-200 icon-3"></div>
-          <div class="loading-icon absolute inset-x-0 top-0 border-2 border-slate-200 icon-4"></div>
-          <div class="loading-icon absolute inset-x-0 top-0 border-2 border-slate-200 icon-5"></div>
-          <div class="loading-icon absolute inset-x-0 top-0 border-2 border-slate-200 icon-6"></div>
-          <div class="loading-icon absolute inset-x-0 top-0 border-2 border-slate-200 icon-7"></div>
-          <div class="loading-icon absolute inset-x-0 top-0 border-2 border-slate-200 icon-8"></div>
-          <div class="loading-icon absolute inset-x-0 top-0 border-2 border-slate-200 icon-9"></div>
-          <div class="loading-icon absolute inset-x-0 top-0 border-2 border-slate-200 icon-10"></div>              
+          <div
+            class="loading-icon absolute inset-x-0 top-0 border-2 border-slate-200 icon-1"
+          ></div>
+          <div
+            class="loading-icon absolute inset-x-0 top-0 border-2 border-slate-200 icon-2"
+          ></div>
+          <div
+            class="loading-icon absolute inset-x-0 top-0 border-2 border-slate-200 icon-3"
+          ></div>
+          <div
+            class="loading-icon absolute inset-x-0 top-0 border-2 border-slate-200 icon-4"
+          ></div>
+          <div
+            class="loading-icon absolute inset-x-0 top-0 border-2 border-slate-200 icon-5"
+          ></div>
+          <div
+            class="loading-icon absolute inset-x-0 top-0 border-2 border-slate-200 icon-6"
+          ></div>
+          <div
+            class="loading-icon absolute inset-x-0 top-0 border-2 border-slate-200 icon-7"
+          ></div>
+          <div
+            class="loading-icon absolute inset-x-0 top-0 border-2 border-slate-200 icon-8"
+          ></div>
+          <div
+            class="loading-icon absolute inset-x-0 top-0 border-2 border-slate-200 icon-9"
+          ></div>
+          <div
+            class="loading-icon absolute inset-x-0 top-0 border-2 border-slate-200 icon-10"
+          ></div>
         </div>
       </div>
-      <p class = "block text-white text-center font-light text-yellow-300 text-xs">loading</p>            
+      <p
+        class="block text-white text-center font-light text-yellow-300 text-xs"
+      >
+        loading
+      </p>
     </main>
   </div>
   <!-- answer part -->
   <section class="grid content-center min-h-full relative">
-    <main class="max-w-screen-2xl w-11/12 xl:w-9/12 mx-auto min-h-full ">
-      <div class=" min-w-full question-card-wrapper answer-option ">
-
+    <main
+      class="max-w-screen-2xl w-11/12 xl:w-9/12 mx-auto min-h-full question-card-wrapper"
+    >
+      <div class="min-w-full answer-option">
         <!-- four opt -->
         <div
-        class="hidden bg-yellow-300 border-4 border-black question-card question-card-four rounded-xl px-2 md:px-10 py-2 md:py-5 my-20 md:my-20 md:h-5/6 four-option flex justify-center items-center">
-        <div class="fira-sans p-4 w-full">
-        <section>
-          <h2 class="text-xl md:text-3xl font-bold text-center py-4 max-w-4xl text-center mx-auto question-four-opt"></h2>
-          <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mt-4">
-            <div
-            class="teko border-4 text-center border-black answer-opt text-xl md:text-2xl h-16 md:h-24 flex justify-center items-center font-bold duration-300  rounded-xl cursor-pointer answer-four bg-orange-300 hover:bg-orange-400">
-            1
-            </div>
-            <div
-            class="teko border-4 text-center border-black answer-opt text-xl md:text-2xl h-16 md:h-24 flex justify-center items-center font-bold duration-300  rounded-xl cursor-pointer answer-four bg-red-300 hover:bg-red-400">
-            2
-            </div>
-            <div
-            class="teko border-4 text-center border-black answer-opt text-xl md:text-2xl h-16 md:h-24 flex justify-center items-center font-bold duration-300  rounded-xl cursor-pointer answer-four bg-blue-300 hover:bg-blue-400">
-            3
-            </div>
-            <div
-            class="teko border-4 text-center border-black answer-opt text-xl md:text-2xl h-16 md:h-24 flex justify-center items-center font-bold duration-300  rounded-xl cursor-pointer answer-four bg-green-300 hover:bg-green-400">
-            4
-            </div>
+          class="hidden bg-yellow-300 border-4 border-black question-card question-card-four rounded-xl px-2 md:px-10 py-2 md:py-5 my-20 md:my-20 md:h-5/6 four-option flex justify-center items-center"
+        >
+          <div class="fira-sans p-4 w-full">
+            <section>
+              <h2
+                class="text-xl md:text-3xl font-bold text-center py-4 max-w-4xl text-center mx-auto question-four-opt"
+              ></h2>
+              <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mt-4">
+                <div
+                  class="teko border-4 text-center border-black answer-opt text-xl md:text-2xl h-16 md:h-24 flex justify-center items-center font-bold duration-300 rounded-xl cursor-pointer answer-four bg-orange-300 hover:bg-orange-400"
+                >
+                  1
+                </div>
+                <div
+                  class="teko border-4 text-center border-black answer-opt text-xl md:text-2xl h-16 md:h-24 flex justify-center items-center font-bold duration-300 rounded-xl cursor-pointer answer-four bg-red-300 hover:bg-red-400"
+                >
+                  2
+                </div>
+                <div
+                  class="teko border-4 text-center border-black answer-opt text-xl md:text-2xl h-16 md:h-24 flex justify-center items-center font-bold duration-300 rounded-xl cursor-pointer answer-four bg-blue-300 hover:bg-blue-400"
+                >
+                  3
+                </div>
+                <div
+                  class="teko border-4 text-center border-black answer-opt text-xl md:text-2xl h-16 md:h-24 flex justify-center items-center font-bold duration-300 rounded-xl cursor-pointer answer-four bg-green-300 hover:bg-green-400"
+                >
+                  4
+                </div>
+              </div>
+              <section
+                class="my-4 h-6 border-4 border-black rounded-xl bg-slate-200 overflow-hidden"
+              >
+                <div
+                  class="h-full duration-1000 bg-green-400 rounded-xl timer-bar"
+                ></div>
+              </section>
+              <div
+                class="flex justify-center items-center pt-4 text-xs font-light mx-auto text-center"
+              >
+                <p class="text-center footer-four-opt">
+                  1/10 · hard · Entertainment
+                </p>
+              </div>
+            </section>
           </div>
-          <section class="my-4 h-6 border-4 border-black rounded-xl bg-slate-200">
-            <div class="h-full  duration-1000 bg-green-400 rounded-xl  timer-bar"></div>
-          </section>
-          <div class="flex justify-center items-center pt-4 text-xs font-light mx-auto text-center">
-            <p class="text-center footer-four-opt">
-              1/10 · hard · Entertainment
-          </div>
-        </section>
-        </div>
         </div>
 
         <!-- bool option -->
         <div
-          class="hidden bg-yellow-300 border-4 border-black question-card question-card-two rounded-xl px-2 md:px-10 py-2 md:py-5 my-12 md:my-24 h-5/6 flex justify-center items-center bool-option">
+          class="hidden bg-yellow-300 border-4 border-black question-card question-card-two rounded-xl px-2 md:px-10 py-2 md:py-5 my-12 md:my-24 h-5/6 flex justify-center items-center bool-option"
+        >
           <div class="fira-sans p-4 w-full">
             <section>
-              <h2 class="text-xl md:text-3xl font-bold text-center py-4 max-w-4xl text-center mx-auto question-two-opt">
-              question
+              <h2
+                class="text-xl md:text-3xl font-bold text-center py-4 max-w-4xl text-center mx-auto question-two-opt"
+              >
+                question
               </h2>
               <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mt-4">
                 <div
@@ -116,11 +159,19 @@
                   False
                 </div>
               </div>
-              <section class="my-4 h-6 border-4 border-black rounded-xl bg-slate-200">
-                <div class="h-full duration-1000 bg-green-400 rounded-xl timer-bar"></div>
+              <section
+                class="my-4 h-6 border-4 border-black rounded-xl bg-slate-200 overflow-hidden"
+              >
+                <div
+                  class="h-full duration-1000 bg-green-400 rounded-xl timer-bar"
+                ></div>
               </section>
-              <div class="flex justify-center items-center pt-4 text-xs font-light mx-auto text-center">
-                <p class="text-center footer-two-opt">1/10 · hard · Entertainment</p>
+              <div
+                class="flex justify-center items-center pt-4 text-xs font-light mx-auto text-center"
+              >
+                <p class="text-center footer-two-opt">
+                  1/10 · hard · Entertainment
+                </p>
               </div>
             </section>
           </div>
@@ -130,34 +181,42 @@
   </section>
 
   <!-- results screen -->
-  <section class="result-screen hidden absolute inset-0 z-10 bg-black/80 flex justify-center items-center">
+  <section
+    class="result-screen hidden absolute inset-0 z-10 bg-black/80 flex justify-center items-center"
+  >
+    <div
+      class="bg-yellow-300 border-4 border-black w-11/12 max-w-screen-lg rounded-xl flex justify-center items-center"
+    >
+      <!-- display how many questions are correct -->
+      <div
+        class="p-5 text-center space-y-3 teko text-3xl font-bold relative w-full"
+      >
+        <h2 class="result-mes">Your Results</h2>
+        <!-- circle indicator -->
         <div
-        class=" bg-yellow-300 border-4 border-black w-11/12 max-w-screen-lg rounded-xl flex justify-center items-center">
-
-        <!-- display how many questions are correct -->
-          <div class="p-5 text-center space-y-3 teko text-3xl font-bold relative w-full">
-            <h2>Your Results</h2>
-            <!-- circle indicator -->
-            <div class= "w-full py-4 bg-yellow-200 grid content-center rounded-lg border-4 border-black">
-              <div class="duration-300 circular-progress mx-auto h-[200px] w-[200px] rounded-full relative flex justify-center items-center
-              
-              before:content-[''] before:h-4/5 before:w-4/5 before:bg-white before:rounded-full before:absolute before:mx-auto">
-              <!-- value container -->
-                <div class=" fira-sans relative z-10 flex flex-col justify-center items-center">
-                  <p class="text-black question-result value-container"></p>
-                  <span class="text-xs ">Questions</span>
-                </div>
-              </div>              
+          class="w-full py-4 bg-yellow-200 grid content-center rounded-lg border-4 border-black"
+        >
+          <div
+            class="duration-300 circular-progress mx-auto h-[200px] w-[200px] rounded-full relative flex justify-center items-center before:content-[''] before:h-4/5 before:w-4/5 before:bg-white before:rounded-full before:absolute before:mx-auto"
+          >
+            <!-- value container -->
+            <div
+              class="fira-sans relative z-10 flex flex-col justify-center items-center"
+            >
+              <p class="text-black question-result value-container"></p>
+              <span class="text-xs">Questions</span>
             </div>
-
-            <a
-                class="result-to-main-btn cursor-pointer bg-orange-300 grid content-center w-full py-1 duration-300 hover:bg-orange-400 hover:text-white rounded-lg border-4 border-black h-3/6 play max-w-lg mx-auto" 
-                href="/select-difficulty"
-              >
-              Back To Main
-            </a>
           </div>
         </div>
+
+        <a
+          class="result-to-main-btn cursor-pointer bg-orange-300 grid content-center w-full py-1 duration-300 hover:bg-orange-400 hover:text-white rounded-lg border-4 border-black h-3/6 play max-w-lg mx-auto"
+          href="/select-difficulty"
+        >
+          Back To Main
+        </a>
+      </div>
+    </div>
   </section>
 </main>
 
@@ -200,7 +259,7 @@
       </div>
       `;
  -->
- <!-- bool option
+<!-- bool option
 
  let htmlEl = ` 
  <div

@@ -13,6 +13,14 @@
 .anim-swipe-x {
   animation: swipe-x 1500ms ease-in-out;
 }
+@keyframes lighten-50 {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 50%;
+  }
+}
 
 @keyframes lighten-full {
   from {

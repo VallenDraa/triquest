@@ -1,5 +1,14 @@
 const questionCardWrapper = document.querySelector('.question-card-wrapper'),
-  questionCards = document.querySelectorAll('.question-card');
+  timerBars = document.querySelectorAll('.timer-bar'),
+  questionCards = document.querySelectorAll('.question-card'),
+  afterAnswerWrapper = document.querySelector('.after-answer-wrapper'),
+  afterAnswerCard = document.querySelector('.after-answer-card'),
+  afterAnswerMes = document.querySelector('.after-answer-mes'),
+  iconCoIN = document.querySelector('.icon-co-in'),
+  correctAnswerMes = document.querySelector('.correct-answer'),
+  answerOption = document.querySelector('.answer-option'),
+  progressBar = document.querySelector('.circular-progress'),
+  valueContainer = document.querySelector('.value-container');
 
 // calling api and assigning the questions
 const questions = {
@@ -33,6 +42,7 @@ const questions = {
       document.querySelector('.question-card-four').classList.remove('hidden');
       multipleOrBool = 0;
     }
+
     // for boolean choice
     else {
       document.querySelector('.question-two-opt').innerHTML =
@@ -137,9 +147,7 @@ const questions = {
 questions.fetchQuestion();
 
 // timerBar function
-let time = 15;
-const timerBars = document.querySelectorAll('.timer-bar');
-
+let time = 2;
 function changeTimerBarStyle() {
   timerBars.forEach((timerBar) => {
     timerBar.setAttribute('style', `width:${(time * 10) / 1.5}%`);
@@ -156,7 +164,7 @@ function changeTimerBarStyle() {
 }
 
 function resetTimeAndBar() {
-  time = 15;
+  time = 15.5;
   //change bar style
   timerBars.forEach((timerBar) => {
     turnBarToGreen(timerBar);
@@ -169,26 +177,18 @@ function resetTimeAndBar() {
       timerBar.classList.add('duration-1000');
     });
   }, 50);
-
-  // restart timer
-  // setTimeout(() => {
-  //   let x = Math.random() * 100;
-  //   const timer = setInterval(() => {
-  //     console.log('a', x);
-  //     time -= 0.1;
-  //     if (time <= 0.1) {
-  //       clearInterval(timer);
-  //     }
-  //   }, 100);
-  // }, 1000);
 }
 
 function runTimerBar() {
   setTimeout(() => {
     const timer = setInterval(() => {
+      console.log(time);
       time -= 0.1;
-      if (time <= 0.1) {
+      if (time <= 0) {
         clearInterval(timer);
+        time = 0;
+        // if time ran out
+        resultScreen('You Ran Out Of Time');
       }
     }, 100);
     const changeBar = setInterval(() => {
@@ -222,68 +222,95 @@ window.addEventListener('resize', () => {
 
 // everytime an answer is clicked
 document.querySelectorAll('.answer-opt').forEach((option) => {
-  option.addEventListener('click', () => {
+  option.addEventListener('click', function () {
     // add the index
     if (questions.currentQuestion < 10) {
       questions.currentQuestion++;
     }
-
-    // check the index and refresh the question
-    if (questions.currentQuestion !== questions.questionList.length) {
-      // add animation to the question card
-      setTimeout(() => {
-        questionCards[questions.multipleOrBool].classList.add('anim-swipe-x');
-      }, 100);
-
-      // to refresh the question
-      setTimeout(() => {
-        questions.assignQuestionPropertyToCard(
-          questions.questionList,
-          questions.currentQuestion
-        );
-      }, 700);
-
-      // to remove animation and to reset timer bar
-      setTimeout(() => {
-        // remove the animation from the question card
-        questionCards[questions.multipleOrBool].classList.remove(
-          'anim-swipe-x'
-        );
-        // reset the timer bar
-        resetTimeAndBar();
-      }, 1499);
-    }
-    // check the index and call the result screen
-    else {
-      resultScreen();
-    }
+    // show after screen
+    checkIfAnswerCorrect(option, iconCoIN, afterAnswerWrapper);
   });
 });
 
-// point system
+// everytime next question button is clicked
+document.querySelector('.next-question').addEventListener('click', function () {
+  // re-hide the after answer card
+  afterAnswerWrapper.classList.add('hidden');
+
+  // check the index and refresh the question
+  if (questions.currentQuestion !== questions.questionList.length) {
+    // add animation to the question card
+    questionCards[questions.multipleOrBool].classList.add('anim-lighten-full');
+
+    // to refresh the question
+    questions.assignQuestionPropertyToCard(
+      questions.questionList,
+      questions.currentQuestion
+    );
+
+    // to remove animation and to reset timer bar
+    resetTimeAndBar();
+    setTimeout(() => {
+      questionCards[questions.multipleOrBool].classList.remove(
+        'anim-lighten-full'
+      );
+    }, 500);
+  }
+  // check the index and call the result screen
+  else {
+    resultScreen();
+  }
+});
+
+// after answer
+function checkIfAnswerCorrect(answerChoice, icon, afterAnswerWrapper) {
+  if (answerChoice.classList.contains('co')) {
+    icon.classList.replace('fa-times', 'fa-check');
+    icon.classList.replace('bg-red-500', 'bg-green-400');
+    afterAnswerMes.textContent = 'Your Answer Is Correct !';
+    icon.style.padding = '1rem';
+  } else {
+    icon.classList.replace('fa-check', 'fa-times');
+    icon.classList.replace('bg-green-400', 'bg-red-500');
+    afterAnswerMes.textContent = 'Your Answer Is Incorrect !';
+    icon.style.padding = '1rem 1.5rem';
+  }
+  correctAnswerMes.textContent = document.querySelector('.co').innerText;
+  afterAnswerWrapper.classList.remove('hidden');
+}
+const observeHeightAndWidth = new ResizeObserver(() => {
+  // making sure the after answer card is the same height as the current question card
+  afterAnswerCard.style.height = answerOption.offsetHeight.toString() + 'px';
+  afterAnswerCard.style.width = answerOption.offsetWidth.toString() + 'px';
+});
+
+observeHeightAndWidth.observe(answerOption);
 
 // result screen
-const progressBar = document.querySelector('.circular-progress'),
-  valueContainer = document.querySelector('.value-container');
-function resultScreen() {
+function resultScreen(message) {
+  if (message !== undefined) {
+    document.querySelector('.result-mes').textContent = message;
+  }
+
   document.querySelector('.result-screen').classList.remove('hidden');
   document.querySelector('.result-screen').classList.add('anim-lighten-full');
   document.querySelector('.result-screen>div').classList.add('anim-pop-up');
   setTimeout(() => {
-    let totalCorrectAns = 0,
+    let totalCorrectAns = 4,
       totalQuestion = questions.questionList.length,
       speed = 60;
 
     let progress = setInterval(() => {
-      totalCorrectAns++;
+      console.log('s');
       valueContainer.textContent = `${totalCorrectAns}/${totalQuestion}`;
       progressBar.style.background = `conic-gradient(
-      rgb(253 186 116) ${totalCorrectAns * 10 * 3.6}deg,
-      rgb(253 224 71) ${totalCorrectAns * 10 * 3.6}deg
+      rgb(253 186 116) ${
+        (((totalCorrectAns / totalQuestion) * 100) / 100) * 360
+      }deg,
+      rgb(253 224 71) ${
+        (((totalCorrectAns / totalQuestion) * 100) / 100) * 360
+      }deg
     )`;
-      if (totalCorrectAns == totalQuestion) {
-        clearInterval(progress);
-      }
     }, speed);
   }, 300);
 }
