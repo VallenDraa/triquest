@@ -4,16 +4,30 @@ const questionCardWrapper = document.querySelector('.question-card-wrapper'),
   afterAnswerWrapper = document.querySelector('.after-answer-wrapper'),
   afterAnswerCard = document.querySelector('.after-answer-card'),
   afterAnswerMes = document.querySelector('.after-answer-mes'),
-  iconCoIN = document.querySelector('.icon-co-in'),
+  iconCorrectIncorrect = document.querySelector('.icon-co-in'),
   correctAnswerMes = document.querySelector('.correct-answer'),
-  answerOption = document.querySelector('.answer-option'),
+  resultScreen = document.querySelector('.result-answer'),
+  answerOptionWrapper = document.querySelector('.answer-option-wrapper'),
+  answerOptions = document.querySelectorAll('.answer-option'),
   progressBar = document.querySelector('.circular-progress'),
   valueContainer = document.querySelector('.value-container');
+
+let multipleOrBool,
+  isInAfterAnswer = false,
+  totalCorrectAns = 0;
+
+// API parameter
+let amount, cat, difs, type;
+
+// test
+const callApi = (async () => {
+  (amount = 10), (cat = 20), (difs = 'medium'), (type = 'multiple');
+})();
 
 // calling api and assigning the questions
 const questions = {
   fetchQuestion: () => {
-    return fetch('../data/sampleQuestion.json')
+    return fetch(`/get_question/${amount},${cat},${difs},${type}`)
       .then((res) => res.json())
       .then((questionsRes) => {
         questionsRes.results.forEach((question) => {
@@ -113,41 +127,41 @@ const questions = {
       } · ${questionsArr[i].difficulty} · ${questionsArr[i].category}`;
     }
   },
-  checkHowLongQuestion: (question) => {
-    if (question.length > 100 && question.length < 130) {
+  resizeText: (string) => {
+    if (string.length > 100 && string.length < 130) {
       if (window.innerWidth > 768) {
         // console.log(
-        //   `succeed in changing font-size of question text for:\n\n \"${question}\"\n\ntype [1A]`
+        //   `succeed in changing font-size of string text for:\n\n \"${string}\"\n\ntype [1A]`
         // );
         return `font-size: 1.5rem; line-height: 2rem;`;
       } else {
         // console.log(
-        //   `succeed in changing font-size of question text for:\n\n \"${question}\"\n\ntype [1B]`
+        //   `succeed in changing font-size of string text for:\n\n \"${string}\"\n\ntype [1B]`
         // );
         return `font-size: 1.125rem; line-height: 1.75rem;`;
       }
-    } else if (question.length > 130 && question.length < 160) {
+    } else if (string.length > 130 && string.length < 160) {
       if (window.innerWidth > 768) {
         // console.log(
-        //   `succeed in changing font-size of question text for:\n\n \"${question}\"\n\ntype [2A]`
+        //   `succeed in changing font-size of string text for:\n\n \"${string}\"\n\ntype [2A]`
         // );
         return `font-size: 1.125rem; line-height: 1.75rem;`;
       } else {
         // console.log(
-        //   `succeed in changing font-size of question text for:\n\n \"${question}\"\n\ntype [2B]`
+        //   `succeed in changing font-size of string text for:\n\n \"${string}\"\n\ntype [2B]`
         // );
         return `font-size: 1rem; line-height: 1.5rem;`;
       }
     }
   },
   questionList: [],
-  multipleOrBool: 0, //multiple = 0 , bool = 1
+  multipleOrBool: undefined, //multiple = 0 , bool = 1
   currentQuestion: 0,
 };
 questions.fetchQuestion();
 
 // timerBar function
-let time = 2;
+let time = 15;
 function changeTimerBarStyle() {
   timerBars.forEach((timerBar) => {
     timerBar.setAttribute('style', `width:${(time * 10) / 1.5}%`);
@@ -182,13 +196,18 @@ function resetTimeAndBar() {
 function runTimerBar() {
   setTimeout(() => {
     const timer = setInterval(() => {
-      console.log(time);
       time -= 0.1;
+      // check if isInAfterAnswer is true
+      if (isInAfterAnswer) {
+        if (time <= 5) {
+          time = 15;
+        }
+      }
       if (time <= 0) {
         clearInterval(timer);
         time = 0;
         // if time ran out
-        resultScreen('You Ran Out Of Time');
+        resultScreenProperties('You Ran Out Of Time', totalCorrectAns);
       }
     }, 100);
     const changeBar = setInterval(() => {
@@ -212,35 +231,49 @@ function turnBarToGreen(timerBar) {
 
 // resize the questions font size
 window.addEventListener('resize', () => {
+  //resize the question font size based on how many characters the sentece has
   document.querySelectorAll('.question').forEach((question) => {
-    question.setAttribute(
-      'style',
-      questions.checkHowLongQuestion(question.innerText)
-    );
+    question.setAttribute('style', questions.resizeText(question.innerText));
   });
 });
 
 // everytime an answer is clicked
-document.querySelectorAll('.answer-opt').forEach((option) => {
+answerOptions.forEach((option) => {
   option.addEventListener('click', function () {
+    isInAfterAnswer = true;
     // add the index
     if (questions.currentQuestion < 10) {
       questions.currentQuestion++;
     }
+
+    // match height between after answer card and question card
+    matchHeight(answerOptionWrapper, afterAnswerCard);
+
     // show after screen
-    checkIfAnswerCorrect(option, iconCoIN, afterAnswerWrapper);
+    totalCorrectAns = checkIfAnswerCorrect(
+      option,
+      iconCorrectIncorrect,
+      afterAnswerWrapper,
+      totalCorrectAns
+    );
   });
 });
 
 // everytime next question button is clicked
 document.querySelector('.next-question').addEventListener('click', function () {
+  isInAfterAnswer = false;
+
+  // remove the correct answer indicator
+  answerOptions.forEach((option) => {
+    option.classList.remove('co');
+  });
+
   // re-hide the after answer card
   afterAnswerWrapper.classList.add('hidden');
 
   // check the index and refresh the question
   if (questions.currentQuestion !== questions.questionList.length) {
     // add animation to the question card
-    questionCards[questions.multipleOrBool].classList.add('anim-lighten-full');
 
     // to refresh the question
     questions.assignQuestionPropertyToCard(
@@ -249,26 +282,29 @@ document.querySelector('.next-question').addEventListener('click', function () {
     );
 
     // to remove animation and to reset timer bar
+    toggleAnimationToAll('anim-slide-x', questionCards);
+    hideNShow(questionCards[multipleOrBool]);
     resetTimeAndBar();
-    setTimeout(() => {
-      questionCards[questions.multipleOrBool].classList.remove(
-        'anim-lighten-full'
-      );
-    }, 500);
   }
   // check the index and call the result screen
   else {
-    resultScreen();
+    resultScreenProperties(undefined, totalCorrectAns);
   }
 });
 
 // after answer
-function checkIfAnswerCorrect(answerChoice, icon, afterAnswerWrapper) {
+function checkIfAnswerCorrect(
+  answerChoice,
+  icon,
+  afterAnswerWrapper,
+  totalCorrectAns
+) {
   if (answerChoice.classList.contains('co')) {
     icon.classList.replace('fa-times', 'fa-check');
     icon.classList.replace('bg-red-500', 'bg-green-400');
     afterAnswerMes.textContent = 'Your Answer Is Correct !';
     icon.style.padding = '1rem';
+    totalCorrectAns++;
   } else {
     icon.classList.replace('fa-check', 'fa-times');
     icon.classList.replace('bg-green-400', 'bg-red-500');
@@ -277,18 +313,15 @@ function checkIfAnswerCorrect(answerChoice, icon, afterAnswerWrapper) {
   }
   correctAnswerMes.textContent = document.querySelector('.co').innerText;
   afterAnswerWrapper.classList.remove('hidden');
-}
-const observeHeightAndWidth = new ResizeObserver(() => {
-  // making sure the after answer card is the same height as the current question card
-  afterAnswerCard.style.height = answerOption.offsetHeight.toString() + 'px';
-  afterAnswerCard.style.width = answerOption.offsetWidth.toString() + 'px';
-});
 
-observeHeightAndWidth.observe(answerOption);
+  // return the total points
+  return totalCorrectAns;
+}
 
 // result screen
-function resultScreen(message) {
-  if (message !== undefined) {
+function resultScreenProperties(message, totalCorrectAns) {
+  // console.log(`Total Correct Answer: ${totalCorrectAns}`);
+  if (typeof message === 'string' && message !== '') {
     document.querySelector('.result-mes').textContent = message;
   }
 
@@ -296,21 +329,21 @@ function resultScreen(message) {
   document.querySelector('.result-screen').classList.add('anim-lighten-full');
   document.querySelector('.result-screen>div').classList.add('anim-pop-up');
   setTimeout(() => {
-    let totalCorrectAns = 4,
+    let circleValue = 0,
       totalQuestion = questions.questionList.length,
       speed = 60;
 
     let progress = setInterval(() => {
-      console.log('s');
       valueContainer.textContent = `${totalCorrectAns}/${totalQuestion}`;
       progressBar.style.background = `conic-gradient(
       rgb(253 186 116) ${
-        (((totalCorrectAns / totalQuestion) * 100) / 100) * 360
+        (((circleValue / totalQuestion) * 100) / 100) * 360
       }deg,
-      rgb(253 224 71) ${
-        (((totalCorrectAns / totalQuestion) * 100) / 100) * 360
-      }deg
+      rgb(253 224 71) ${(((circleValue / totalQuestion) * 100) / 100) * 360}deg
     )`;
+      if (circleValue != totalCorrectAns) {
+        circleValue++;
+      }
     }, speed);
   }, 300);
 }
@@ -321,11 +354,39 @@ if (document.readyState === 'loading') {
     document.querySelector('.loading-screen').classList.add('hidden');
   }
 
+  // when content has finished loading
   document.addEventListener('DOMContentLoaded', () => {
+    isInAfterAnswer = false;
     removeLoadingScreen();
     runTimerBar();
+    toggleAnimationToAll('anim-slide-x', questionCards);
   });
 } else {
+  isInAfterAnswer = false;
   removeLoadingScreen();
   runTimerBar();
+  toggleAnimationToAll('anim-slide-x', questionCards);
+}
+
+// util class
+function matchHeight(elementToObserved, elementToBeChanged) {
+  // making sure the after answer card is the same height as the current question card
+  elementToBeChanged.style.height =
+    elementToObserved.offsetHeight.toString() + 'px';
+  elementToBeChanged.style.width =
+    elementToObserved.offsetWidth.toString() + 'px';
+}
+
+function hideNShow(target) {
+  target.classList.add('hidden');
+  setTimeout(function () {
+    target.classList.remove('hidden');
+  }, 20);
+}
+
+function toggleAnimationToAll(animClass, target) {
+  target.forEach((x, i) => {
+    x.classList.remove(animClass);
+    x.classList.add(animClass);
+  });
 }

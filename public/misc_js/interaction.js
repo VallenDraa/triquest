@@ -12,11 +12,11 @@ toggle_menu.addEventListener('click', () => {
 
   // menu btn
   menu_toggle_btn.classList.toggle('rotate-180');
-  // if (!isInFooter) {
-  //   menu_toggle_btn.classList.toggle('text-black');
-  // }
 
   menuIsToggled = !menuIsToggled;
+  if (menuIsToggled == false) {
+    menu_toggle_btn.classList.remove('text-yellow-300');
+  }
 
   setTimeout(() => {
     menu.classList.remove('duration-500');

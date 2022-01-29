@@ -10,9 +10,14 @@
   animation: pop-up 500ms ease-in-out;
 }
 
-.anim-swipe-x {
-  animation: swipe-x 1500ms ease-in-out;
+.anim-slide-x {
+  animation: slide-x 1500ms ease-in-out;
 }
+
+.anim-slide-top {
+  animation: slide-top 1000ms ease-in-out;
+}
+
 @keyframes lighten-50 {
   from {
     opacity: 0;
@@ -45,7 +50,7 @@
   }
 }
 
-@keyframes swipe-x {
+@keyframes slide-x {
   0% {
     transform: translateX(0);
   }
@@ -60,5 +65,14 @@
   }
   100% {
     transform: translateX(0);
+  }
+}
+
+@keyframes slide-top {
+  from {
+    transform: translateY(-180%);
+  }
+  to {
+    transform: translateY(0);
   }
 }
