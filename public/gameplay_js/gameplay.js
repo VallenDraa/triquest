@@ -16,30 +16,29 @@ let multipleOrBool,
   isInAfterAnswer = false,
   totalCorrectAns = 0;
 
-// API parameter
-let amount, cat, difs, type;
-
-// test
-const callApi = (async () => {
-  (amount = 10), (cat = 20), (difs = 'medium'), (type = 'multiple');
-})();
-
 // calling api and assigning the questions
 const questions = {
-  fetchQuestion: () => {
-    return fetch(`/get_question/${amount},${cat},${difs},${type}`)
+  fetchQuestion: (amount, cat, difs, type, sessionToken) => {
+    // for debug
+    console.log(
+      `Parameter that was sent to the server side = /get_question/${amount},${cat},${difs},${type},${sessionToken}`
+    );
+    return fetch(
+      `/get_question/${amount},${cat},${difs},${type},${sessionToken}`
+    )
       .then((res) => res.json())
       .then((questionsRes) => {
+        // console.log(questionsRes.results);
         questionsRes.results.forEach((question) => {
           questions.questionList.push(question);
         });
       })
-      .then(() =>
+      .then(() => {
         questions.assignQuestionPropertyToCard(
           questions.questionList,
           questions.currentQuestion
-        )
-      );
+        );
+      });
   },
   assignQuestionPropertyToCard: (questionsArr, i) => {
     // for multiple choice
@@ -98,7 +97,7 @@ const questions = {
       if (choices[indexChoice] === correct) {
         element[indexCard].classList.add('co');
       }
-      element[indexCard].textContent = choices[indexChoice];
+      element[indexCard].innerHTML = choices[indexChoice];
 
       //  pushing the index to the respective array, so that, that number index wont be picked again
       pastNumChoice.push(indexChoice);
@@ -158,7 +157,6 @@ const questions = {
   multipleOrBool: undefined, //multiple = 0 , bool = 1
   currentQuestion: 0,
 };
-questions.fetchQuestion();
 
 // timerBar function
 let time = 15;
@@ -176,7 +174,6 @@ function changeTimerBarStyle() {
     }
   });
 }
-
 function resetTimeAndBar() {
   time = 15.5;
   //change bar style
@@ -192,7 +189,6 @@ function resetTimeAndBar() {
     });
   }, 50);
 }
-
 function runTimerBar() {
   setTimeout(() => {
     const timer = setInterval(() => {
@@ -218,7 +214,6 @@ function runTimerBar() {
     }, 100);
   }, 1000);
 }
-
 function turnBarToGreen(timerBar) {
   if (timerBar.classList.contains('bg-green-400')) {
     return;
@@ -348,12 +343,39 @@ function resultScreenProperties(message, totalCorrectAns) {
   }, 300);
 }
 
-// loading screen
-if (document.readyState === 'loading') {
-  function removeLoadingScreen() {
-    document.querySelector('.loading-screen').classList.add('hidden');
-  }
+// util class
+function matchHeight(elementToObserved, elementToBeChanged) {
+  // making sure the after answer card is the same height as the current question card
+  elementToBeChanged.style.height =
+    elementToObserved.offsetHeight.toString() + 'px';
+  elementToBeChanged.style.width =
+    elementToObserved.offsetWidth.toString() + 'px';
+}
+function hideNShow(target) {
+  target.classList.add('hidden');
+  setTimeout(function () {
+    target.classList.remove('hidden');
+  }, 20);
+}
+function toggleAnimationToAll(animClass, target) {
+  target.forEach((x, i) => {
+    x.classList.remove(animClass);
+    x.classList.add(animClass);
+  });
+}
+function removeLoadingScreen() {
+  document.querySelector('.loading-screen').classList.add('hidden');
+}
 
+// loading screen for gameplay page
+if (document.readyState === 'loading') {
+  questions.fetchQuestion(
+    sessionStorage.getItem('amount'),
+    sessionStorage.getItem('cat'),
+    sessionStorage.getItem('difs'),
+    sessionStorage.getItem('type'),
+    document.cookie.split('=')[1]
+  );
   // when content has finished loading
   document.addEventListener('DOMContentLoaded', () => {
     isInAfterAnswer = false;
@@ -366,27 +388,4 @@ if (document.readyState === 'loading') {
   removeLoadingScreen();
   runTimerBar();
   toggleAnimationToAll('anim-slide-x', questionCards);
-}
-
-// util class
-function matchHeight(elementToObserved, elementToBeChanged) {
-  // making sure the after answer card is the same height as the current question card
-  elementToBeChanged.style.height =
-    elementToObserved.offsetHeight.toString() + 'px';
-  elementToBeChanged.style.width =
-    elementToObserved.offsetWidth.toString() + 'px';
-}
-
-function hideNShow(target) {
-  target.classList.add('hidden');
-  setTimeout(function () {
-    target.classList.remove('hidden');
-  }, 20);
-}
-
-function toggleAnimationToAll(animClass, target) {
-  target.forEach((x, i) => {
-    x.classList.remove(animClass);
-    x.classList.add(animClass);
-  });
 }

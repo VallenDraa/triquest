@@ -1,301 +1,328 @@
 <%- include("./layouts/header") %>
 
-<main class="main-bg bg-anim">
-  <!-- select difficulty -->
-  <section class="pt-10 md:pt-20 pb-44">
-    <h1
-      class="text-center mb-10 md:mb-20 teko text-4xl md:text-6xl font-bold underline"
+<main class="min-h-full mt-auto">
+  <!-- <h1
+      class="text-center my-4 md:my-10 teko text-5xl xl:text-6xl font-bold underline"
     >
-      SELECT GAME MODE
-    </h1>
-    <div class="max-w-screen-2xl mx-auto">
-      <div class="swiper mySwiper w-11/12 xl:w-9/12">
-        <div class="swiper-wrapper">
-          <!-- Campaign -->
+      Play Now
+    </h1> -->
+  <!-- select difficulty -->
+  <section class="w-full xl:w-11/12 mx-auto max-w-screen-2xl">
+    <div class="swiper mySwiper w-full py-12 md:py-24">
+      <div class="swiper-wrapper">
+        <!-- Campaign -->
+        <section class="swiper-slide bg-transparent w-full">
           <section
-            class="swiper-slide not-practice grid border-4 px-4 py-6 border-black bg-yellow-300 text-center"
+            class="not-practice grid items-center text-center max-w-screen-2xl mx-auto"
           >
-            <!-- top -->
             <div
-              class="p-2 border-4 flex justify-center items-center flex-col font-bold border-black rounded-lg bg-yellow-200"
+              class="border-4 border-black p-2 bg-yellow-400 rounded-lg w-11/12 h-max mx-auto grid items-stretch"
+              style="height: 100%"
             >
-              <h2
-                class="text-4xl md:text-6xl font-bold underline teko mb-2 rounded-lg px-2 pt-2"
+              <!-- top -->
+              <div
+                class="p-2 border-4 flex justify-center items-center flex-col font-bold border-black rounded-lg bg-yellow-200"
               >
-                Campaign
-              </h2>
+                <h2
+                  class="text-4xl xl:text-6xl font-bold underline teko mb-2 rounded-lg px-2 pt-2"
+                >
+                  Campaign
+                </h2>
 
-              <p class="fira-sans text-sm md:text-lg pb-2">
-                Climb Your Way Up Through The Difficulties.
-              </p>
+                <p class="fira-sans text-sm xl:text-lg pb-2">
+                  Climb Your Way Up Through The Difficulties.
+                </p>
+              </div>
+
+              <!-- middle -->
+              <div
+                class="grid border-4 bg-yellow-200 border-black rounded-lg mt-6 py-2 px-6"
+              >
+                <label for="category" class="md:mb-2 text-3xl xl:text-5xl teko"
+                  >Category</label
+                >
+                <select
+                  name="category"
+                  id="category-campaign"
+                  class="bg-white border-4 border-black text-sm xl:text-lg font-bold fira-sans px-2 py-3 rounded mb-4"
+                >
+                  <option value="">Any Category</option>
+                  <option value="9">General Knowledge</option>
+                  <option value="10">Entertainment: Books</option>
+                  <option value="11">Entertainment: Film</option>
+                  <option value="12">Entertainment: Music</option>
+                  <option value="13">
+                    Entertainment: Musicals &amp; Theatres
+                  </option>
+                  <option value="14">Entertainment: Television</option>
+                  <option value="15">Entertainment: Video Games</option>
+                  <option value="16">Entertainment: Board Games</option>
+                  <option value="17">Science &amp; Nature</option>
+                  <option value="18">Science: Computers</option>
+                  <option value="19">Science: Mathematics</option>
+                  <option value="20">Mythology</option>
+                  <option value="21">Sports</option>
+                  <option value="22">Geography</option>
+                  <option value="23">History</option>
+                  <option value="24">Politics</option>
+                  <option value="25">Art</option>
+                  <option value="26">Celebrities</option>
+                  <option value="27">Animals</option>
+                  <option value="28">Vehicles</option>
+                  <option value="29">Entertainment: Comics</option>
+                  <option value="30">Science: Gadgets</option>
+                  <option value="31">
+                    Entertainment: Japanese Anime &amp; Manga
+                  </option>
+                  <option value="32">
+                    Entertainment: Cartoon &amp; Animations
+                  </option>
+                </select>
+              </div>
+
+              <!-- bottom -->
+              <a
+                class="duration-300 border-4 border-black px-2 py-3 teko tracking-wide w-full my-4 rounded-lg text-2xl xl:text-3xl font-bold hover:bg-green-400 hover:text-white mt-8 bg-orange-300 flex justify-center items-center campaign-btn"
+              >
+                Play Campaign Mode 🚀
+              </a>
             </div>
-
-            <!-- middle -->
-            <div
-              class="grid border-4 bg-yellow-200 border-black rounded-lg mt-6 py-2 px-6"
-            >
-              <label for="category" class="md:mb-2 text-4xl md:text-5xl teko"
-                >Category</label
-              >
-              <select
-                name="category"
-                id="category"
-                class="bg-white border-4 border-black text-sm md:text-lg font-bold fira-sans px-2 py-3 rounded mb-4"
-              >
-                <option value="any">Any Category</option>
-                <option value="9">General Knowledge</option>
-                <option value="10">Entertainment: Books</option>
-                <option value="11">Entertainment: Film</option>
-                <option value="12">Entertainment: Music</option>
-                <option value="13">
-                  Entertainment: Musicals &amp; Theatres
-                </option>
-                <option value="14">Entertainment: Television</option>
-                <option value="15">Entertainment: Video Games</option>
-                <option value="16">Entertainment: Board Games</option>
-                <option value="17">Science &amp; Nature</option>
-                <option value="18">Science: Computers</option>
-                <option value="19">Science: Mathematics</option>
-                <option value="20">Mythology</option>
-                <option value="21">Sports</option>
-                <option value="22">Geography</option>
-                <option value="23">History</option>
-                <option value="24">Politics</option>
-                <option value="25">Art</option>
-                <option value="26">Celebrities</option>
-                <option value="27">Animals</option>
-                <option value="28">Vehicles</option>
-                <option value="29">Entertainment: Comics</option>
-                <option value="30">Science: Gadgets</option>
-                <option value="31">
-                  Entertainment: Japanese Anime &amp; Manga
-                </option>
-                <option value="32">
-                  Entertainment: Cartoon &amp; Animations
-                </option>
-              </select>
-            </div>
-
-            <!-- bottom -->
-            <a
-              href="/campaign-mode"
-              class="duration-300 border-4 border-black px-2 py-3 teko tracking-wide w-full my-4 rounded-lg text-2xl md:text-3xl font-bold hover:bg-green-400 hover:text-white mt-8 bg-orange-300 flex justify-center items-center campaign-btn"
-            >
-              Play Campaign Mode 🚀
-            </a>
           </section>
-          <!-- Random -->
+        </section>
+
+        <!-- Random -->
+        <section class="swiper-slide bg-transparent w-full">
           <section
-            class="swiper-slide not-practice grid border-4 px-4 py-6 border-black bg-yellow-300 text-center"
+            class="not-practice grid items-center text-center max-w-screen-2xl mx-auto"
           >
-            <!-- top -->
             <div
-              class="p-2 border-4 flex justify-center items-center flex-col font-bold border-black rounded-lg bg-yellow-200"
+              class="border-4 border-black p-2 bg-yellow-400 rounded-lg w-11/12 h-max mx-auto grid items-stretch"
+              style="height: 100%"
             >
-              <h2
-                class="text-4xl md:text-6xl font-bold underline teko mb-2 rounded-lg px-2 pt-2"
+              <!-- top -->
+              <div
+                class="p-2 border-4 flex justify-center items-center flex-col font-bold border-black rounded-lg bg-yellow-200"
               >
-                Random
-              </h2>
+                <h2
+                  class="text-4xl xl:text-6xl font-bold underline teko mb-2 rounded-lg px-2 pt-2"
+                >
+                  Random
+                </h2>
 
-              <p class="fira-sans text-sm md:text-lg pb-2">
-                Play Through Random Difficulties And Categories.
-              </p>
-            </div>
+                <p class="fira-sans text-sm xl:text-lg pb-2">
+                  Play Through Random Difficulties And Categories.
+                </p>
+              </div>
 
-            <!-- middle -->
-            <div
-              class="grid border-4 bg-yellow-200 border-black rounded-lg mt-6 py-2 px-6"
-            >
-              <label for="category" class="md:mb-2 text-4xl md:text-5xl teko"
-                >Category</label
+              <!-- middle -->
+              <div
+                class="grid border-4 bg-yellow-200 border-black rounded-lg mt-6 py-2 px-6"
               >
-              <select
-                name="category"
-                id="category"
-                class="bg-white border-4 border-black text-sm md:text-lg font-bold fira-sans px-2 py-3 rounded mb-4"
-              >
-                <option>Randomised</option>
-              </select>
-            </div>
-
-            <!-- bottom -->
-            <a
-              href="/random-mode"
-              class="duration-300 border-4 border-black px-2 py-3 teko tracking-wide w-full my-4 rounded-lg text-2xl md:text-3xl font-bold hover:bg-green-400 hover:text-white mt-8 bg-orange-300 flex justify-center items-center random-btn"
-            >
-              Play Random Mode 🌪
-            </a>
-          </section>
-          <!-- Challenge -->
-          <section
-            class="swiper-slide not-practice grid border-4 px-4 py-6 border-black bg-yellow-300 text-center"
-          >
-            <!-- top -->
-            <div
-              class="p-2 border-4 flex justify-center items-center flex-col font-bold border-black rounded-lg bg-yellow-200"
-            >
-              <h2
-                class="text-4xl md:text-6xl font-bold underline teko mb-2 rounded-lg px-2 pt-2"
-              >
-                Challenge
-              </h2>
-
-              <p class="fira-sans text-sm md:text-lg pb-2">
-                Challenge Yourself With Hard Questions Only.
-              </p>
-            </div>
-
-            <!-- middle -->
-            <div
-              class="grid border-4 bg-yellow-200 border-black rounded-lg mt-6 py-2 px-6"
-            >
-              <label for="category" class="md:mb-2 text-4xl md:text-5xl teko"
-                >Category</label
-              >
-              <select
-                name="category"
-                id="category"
-                class="bg-white border-4 border-black text-sm md:text-lg font-bold fira-sans px-2 py-3 rounded mb-4"
-              >
-                <option value="any">Any Category</option>
-                <option value="9">General Knowledge</option>
-                <option value="10">Entertainment: Books</option>
-                <option value="11">Entertainment: Film</option>
-                <option value="12">Entertainment: Music</option>
-                <option value="13">
-                  Entertainment: Musicals &amp; Theatres
-                </option>
-                <option value="14">Entertainment: Television</option>
-                <option value="15">Entertainment: Video Games</option>
-                <option value="16">Entertainment: Board Games</option>
-                <option value="17">Science &amp; Nature</option>
-                <option value="18">Science: Computers</option>
-                <option value="19">Science: Mathematics</option>
-                <option value="20">Mythology</option>
-                <option value="21">Sports</option>
-                <option value="22">Geography</option>
-                <option value="23">History</option>
-                <option value="24">Politics</option>
-                <option value="25">Art</option>
-                <option value="26">Celebrities</option>
-                <option value="27">Animals</option>
-                <option value="28">Vehicles</option>
-                <option value="29">Entertainment: Comics</option>
-                <option value="30">Science: Gadgets</option>
-                <option value="31">
-                  Entertainment: Japanese Anime &amp; Manga
-                </option>
-                <option value="32">
-                  Entertainment: Cartoon &amp; Animations
-                </option>
-              </select>
-            </div>
-
-            <!-- bottom -->
-            <a
-              href="/challenge-mode"
-              class="duration-300 border-4 border-black px-2 py-3 teko tracking-wide w-full my-4 rounded-lg text-2xl md:text-3xl font-bold hover:bg-green-400 hover:text-white mt-8 bg-orange-300 flex justify-center items-center challenge-btn"
-            >
-              Play Challenge Mode 🔥
-            </a>
-          </section>
-          <!-- Practice -->
-          <section
-            class="swiper-slide border-4 px-4 py-6 border-black bg-yellow-300 text-center practice"
-          >
-            <!-- top -->
-            <div
-              class="p-2 border-4 flex justify-center items-center flex-col font-bold border-black rounded-lg bg-yellow-200"
-            >
-              <h2
-                class="text-4xl md:text-6xl font-bold underline teko mb-2 rounded-lg px-2 pt-2"
-              >
-                Practice
-              </h2>
-
-              <p class="fira-sans text-sm md:text-lg pb-2">
-                Practice Mode With Custom Difficulty
-              </p>
-            </div>
-
-            <!-- middle -->
-            <div
-              class="grid grid-cols-1 md:grid-cols-2 bg-yellow-200 border-4 border-black rounded-lg mt-6 py-3 px-6 gap-4"
-            >
-              <section>
-                <label for="category" class="md:mb-2 text-4xl md:text-5xl teko"
+                <label for="category" class="md:mb-2 text-3xl xl:text-5xl teko"
                   >Category</label
                 >
                 <select
                   name="category"
                   id="category"
-                  class="bg-white border-4 border-black text-sm md:text-lg font-bold fira-sans px-2 py-3 rounded mb-4 w-full"
+                  class="bg-white border-4 border-black text-sm xl:text-lg font-bold fira-sans px-2 py-3 rounded mb-4"
                 >
-                  <option value="any">Any Category</option>
-                  <option value="general">General Knowledge</option>
-                  <option value="books">Entertainment: Books</option>
-                  <option value="film">Entertainment: Film</option>
-                  <option value="music">Entertainment: Music</option>
-                  <option value="musicals">
-                    Entertainment: Musicals &amp; Theatres
-                  </option>
-                  <option value="tv">Entertainment: Television</option>
-                  <option value="video games">
-                    Entertainment: Video Games
-                  </option>
-                  <option value="board games">
-                    Entertainment: Board Games
-                  </option>
-                  <option value="nature">Science &amp; Nature</option>
-                  <option value="computers">Science: Computers</option>
-                  <option value="math">Science: Mathematics</option>
-                  <option value="myth">Mythology</option>
-                  <option value="sports">Sports</option>
-                  <option value="geo">Geography</option>
-                  <option value="history">History</option>
-                  <option value="politics">Politics</option>
-                  <option value="art">Art</option>
-                  <option value="celebs">Celebrities</option>
-                  <option value="animals">Animals</option>
-                  <option value="vehicles">Vehicles</option>
-                  <option value="entertainment">Entertainment: Comics</option>
-                  <option value="gadgets">Science: Gadgets</option>
-                  <option value="anime">
-                    Entertainment: Japanese Anime &amp; Manga
-                  </option>
-                  <option value="cartoon">
-                    Entertainment: Cartoon &amp; Animations
-                  </option>
+                  <option>Randomised</option>
                 </select>
-              </section>
-              <section>
-                <label for="category" class="md:mb-2 text-4xl md:text-5xl teko"
-                  >Difficulty</label
+              </div>
+
+              <!-- bottom -->
+              <a
+                class="duration-300 border-4 border-black px-2 py-3 teko tracking-wide w-full my-4 rounded-lg text-2xl xl:text-3xl font-bold hover:bg-green-400 hover:text-white mt-8 bg-orange-300 flex justify-center items-center random-btn"
+              >
+                Play Random Mode 🌪
+              </a>
+            </div>
+          </section>
+        </section>
+
+        <!-- Challenge -->
+        <section class="swiper-slide bg-transparent w-full">
+          <section
+            class="not-practice grid items-center text-center max-w-screen-2xl mx-auto"
+          >
+            <div
+              class="border-4 border-black p-2 bg-yellow-400 rounded-lg w-11/12 h-max mx-auto grid items-stretch"
+              style="height: 100%"
+            >
+              <!-- top -->
+              <div
+                class="p-2 border-4 flex justify-center items-center flex-col font-bold border-black rounded-lg bg-yellow-200"
+              >
+                <h2
+                  class="text-4xl xl:text-6xl font-bold underline teko mb-2 rounded-lg px-2 pt-2"
+                >
+                  Challenge
+                </h2>
+
+                <p class="fira-sans text-sm xl:text-lg pb-2">
+                  Challenge Yourself With Hard Questions Only.
+                </p>
+              </div>
+
+              <!-- middle -->
+              <div
+                class="grid border-4 bg-yellow-200 border-black rounded-lg mt-6 py-2 px-6"
+              >
+                <label for="category" class="md:mb-2 text-3xl xl:text-5xl teko"
+                  >Category</label
                 >
                 <select
                   name="category"
-                  id="category"
-                  class="bg-white border-4 border-black text-sm md:text-lg font-bold fira-sans px-2 py-3 rounded mb-4 w-full"
+                  id="category-challenge"
+                  class="bg-white border-4 border-black text-sm xl:text-lg font-bold fira-sans px-2 py-3 rounded mb-4"
                 >
-                  <option value="easy">Easy</option>
-                  <option value="medium">Medium</option>
-                  <option value="hard">Hard</option>
+                  <option value="">Any Category</option>
+                  <option value="9">General Knowledge</option>
+                  <option value="10">Entertainment: Books</option>
+                  <option value="11">Entertainment: Film</option>
+                  <option value="12">Entertainment: Music</option>
+                  <option value="13">
+                    Entertainment: Musicals &amp; Theatres
+                  </option>
+                  <option value="14">Entertainment: Television</option>
+                  <option value="15">Entertainment: Video Games</option>
+                  <option value="16">Entertainment: Board Games</option>
+                  <option value="17">Science &amp; Nature</option>
+                  <option value="18">Science: Computers</option>
+                  <option value="19">Science: Mathematics</option>
+                  <option value="20">Mythology</option>
+                  <option value="21">Sports</option>
+                  <option value="22">Geography</option>
+                  <option value="23">History</option>
+                  <option value="24">Politics</option>
+                  <option value="25">Art</option>
+                  <option value="26">Celebrities</option>
+                  <option value="27">Animals</option>
+                  <option value="28">Vehicles</option>
+                  <option value="29">Entertainment: Comics</option>
+                  <option value="30">Science: Gadgets</option>
+                  <option value="31">
+                    Entertainment: Japanese Anime &amp; Manga
+                  </option>
+                  <option value="32">
+                    Entertainment: Cartoon &amp; Animations
+                  </option>
                 </select>
-              </section>
-            </div>
+              </div>
 
-            <!-- Bottom -->
-            <a
-              href="/practice-mode"
-              class="duration-300 border-4 border-black px-2 py-3 teko tracking-wide w-full my-4 rounded-lg text-2xl md:text-3xl font-bold hover:bg-green-400 hover:text-white mt-8 bg-orange-300 flex justify-center items-center practice-btn"
-            >
-              Play Practice Mode 🏋️‍♂️
-            </a>
+              <!-- bottom -->
+              <a
+                class="duration-300 border-4 border-black px-2 py-3 teko tracking-wide w-full my-4 rounded-lg text-2xl xl:text-3xl font-bold hover:bg-green-400 hover:text-white mt-8 bg-orange-300 flex justify-center items-center challenge-btn"
+              >
+                Play Challenge Mode 🔥
+              </a>
+            </div>
           </section>
-        </div>
-        <div class="swiper-pagination text-black"></div>
+        </section>
+
+        <!-- Practice -->
+        <section class="swiper-slide bg-transparent w-full">
+          <section
+            class="text-center max-w-screen-2xl mx-auto practice grid items-center"
+          >
+            <div
+              class="border-4 border-black p-2 bg-yellow-400 rounded-lg w-11/12 h-max mx-auto grid items-stretch"
+              style="height: 100%"
+            >
+              <!-- top -->
+              <div
+                class="p-2 border-4 flex justify-center items-center flex-col font-bold border-black rounded-lg bg-yellow-200"
+              >
+                <h2
+                  class="text-4xl xl:text-6xl font-bold underline teko mb-2 rounded-lg px-2 pt-2"
+                >
+                  Practice
+                </h2>
+
+                <p class="fira-sans text-sm xl:text-lg pb-2">
+                  Practice Mode With Custom Difficulty
+                </p>
+              </div>
+
+              <!-- middle -->
+              <div
+                class="grid grid-cols-1 md:grid-cols-2 bg-yellow-200 border-4 border-black rounded-lg mt-6 py-3 px-6 gap-4"
+              >
+                <section>
+                  <label
+                    for="category"
+                    class="md:mb-2 text-3xl xl:text-5xl teko"
+                    >Category</label
+                  >
+                  <select
+                    name="category"
+                    id="category-practice"
+                    class="bg-white border-4 border-black text-sm xl:text-lg font-bold fira-sans px-2 py-3 rounded mb-4 w-full"
+                  >
+                    <option value="">Any Category</option>
+                    <option value="9">General Knowledge</option>
+                    <option value="10">Entertainment: Books</option>
+                    <option value="11">Entertainment: Film</option>
+                    <option value="12">Entertainment: Music</option>
+                    <option value="13">
+                      Entertainment: Musicals &amp; Theatres
+                    </option>
+                    <option value="14">Entertainment: Television</option>
+                    <option value="15">Entertainment: Video Games</option>
+                    <option value="16">Entertainment: Board Games</option>
+                    <option value="17">Science &amp; Nature</option>
+                    <option value="18">Science: Computers</option>
+                    <option value="19">Science: Mathematics</option>
+                    <option value="20">Mythology</option>
+                    <option value="21">Sports</option>
+                    <option value="22">Geography</option>
+                    <option value="23">History</option>
+                    <option value="24">Politics</option>
+                    <option value="25">Art</option>
+                    <option value="26">Celebrities</option>
+                    <option value="27">Animals</option>
+                    <option value="28">Vehicles</option>
+                    <option value="29">Entertainment: Comics</option>
+                    <option value="30">Science: Gadgets</option>
+                    <option value="31">
+                      Entertainment: Japanese Anime &amp; Manga
+                    </option>
+                    <option value="32">
+                      Entertainment: Cartoon &amp; Animations
+                    </option>
+                  </select>
+                </section>
+                <section>
+                  <label
+                    for="category"
+                    class="md:mb-2 text-3xl xl:text-5xl teko"
+                    >Difficulty</label
+                  >
+                  <select
+                    name="category"
+                    id="category-difs"
+                    class="bg-white border-4 border-black text-sm xl:text-lg font-bold fira-sans px-2 py-3 rounded mb-4 w-full"
+                  >
+                    <option value="easy">Easy</option>
+                    <option value="medium">Medium</option>
+                    <option value="hard">Hard</option>
+                  </select>
+                </section>
+              </div>
+
+              <!-- Bottom -->
+              <a
+                class="duration-300 border-4 border-black px-2 py-3 teko tracking-wide w-full my-4 rounded-lg text-2xl xl:text-3xl font-bold hover:bg-green-400 hover:text-white mt-8 bg-orange-300 flex justify-center items-center practice-btn"
+              >
+                Play Practice Mode 🏋️‍♂️
+              </a>
+            </div>
+          </section>
+        </section>
       </div>
+      <div class="swiper-pagination text-black"></div>
+      <div class="swiper-button-prev"></div>
+      <div class="swiper-button-next"></div>
     </div>
   </section>
 </main>

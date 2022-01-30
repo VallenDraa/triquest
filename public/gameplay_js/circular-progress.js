@@ -1,5 +1,4 @@
-const { type } = require('express/lib/response');
-
+// const { type } = require('express/lib/response');
 const progressBar = document.querySelector('.circular-progress'),
   valueContainer = document.querySelector('.value-container');
 

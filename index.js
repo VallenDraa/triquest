@@ -50,11 +50,20 @@ app.get('/practice-mode', function (req, res) {
 // get questions
 app.get('/get_question/:queryParams', async function (req, res) {
   // the parameter
-  (amount = 10), (cat = 9), (difs = 'medium'), (type = 'multiple');
+  const parameter = req.params.queryParams.split(',');
+  const amount = parameter[0],
+    cat = parameter[1],
+    difs = parameter[2],
+    type = parameter[3],
+    sessionToken = parameter[4];
 
-  const api_url = `https://opentdb.com/api.php?amount=${amount}&category=${cat}&difficulty=${difs}&type=${type}`;
+  const api_url = `https://opentdb.com/api.php?amount=${amount}&category=${cat}&difficulty=${difs}&type=${type}&token=${sessionToken}`;
   const datas = await fetch(api_url);
   const json = await datas.json();
+  console.log(
+    `The API link with the parameter that was received from the request: ${api_url}`
+  );
+
   res.json(json);
 });
 
