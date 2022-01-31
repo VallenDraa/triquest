@@ -10,11 +10,14 @@ const questionCardWrapper = document.querySelector('.question-card-wrapper'),
   answerOptionWrapper = document.querySelector('.answer-option-wrapper'),
   answerOptions = document.querySelectorAll('.answer-option'),
   progressBar = document.querySelector('.circular-progress'),
-  valueContainer = document.querySelector('.value-container');
+  valueContainer = document.querySelector('.value-container'),
+  resultToMainBtn = document.querySelector('.result-to-main-btn');
 
 let multipleOrBool,
   isInAfterAnswer = false,
   totalCorrectAns = 0;
+
+let stillFetching = true;
 
 // calling api and assigning the questions
 const questions = {
@@ -38,6 +41,7 @@ const questions = {
           questions.questionList,
           questions.currentQuestion
         );
+        removeLoadingScreen();
       });
   },
   assignQuestionPropertyToCard: (questionsArr, i) => {
@@ -117,13 +121,13 @@ const questions = {
   },
   questionCardFooter: (questionsArr, i) => {
     if (questionsArr[i].type == 'multiple') {
-      document.querySelector('.footer-four-opt').textContent = `${i + 1}/${
-        questionsArr.length
-      } · ${questionsArr[i].difficulty} · ${questionsArr[i].category}`;
+      document.querySelector('.footer-four-opt').textContent = `Q-${i + 1} · ${
+        questionsArr[i].difficulty
+      } · ${questionsArr[i].category}`;
     } else {
-      document.querySelector('.footer-two-opt').textContent = `${i + 1}/${
-        questionsArr.length
-      } · ${questionsArr[i].difficulty} · ${questionsArr[i].category}`;
+      document.querySelector('.footer-two-opt').textContent = `Q-${i + 1} · ${
+        questionsArr[i].difficulty
+      } · ${questionsArr[i].category}`;
     }
   },
   resizeText: (string) => {
@@ -159,10 +163,10 @@ const questions = {
 };
 
 // timerBar function
-let time = 15;
+let time = 18;
 function changeTimerBarStyle() {
   timerBars.forEach((timerBar) => {
-    timerBar.setAttribute('style', `width:${(time * 10) / 1.5}%`);
+    timerBar.setAttribute('style', `width:${(time * 10) / 1.8}%`);
     if (time <= 10) {
       timerBar.classList.replace('bg-green-400', 'bg-orange-400');
     }
@@ -175,7 +179,7 @@ function changeTimerBarStyle() {
   });
 }
 function resetTimeAndBar() {
-  time = 15.5;
+  time = 19;
   //change bar style
   timerBars.forEach((timerBar) => {
     turnBarToGreen(timerBar);
@@ -237,9 +241,7 @@ answerOptions.forEach((option) => {
   option.addEventListener('click', function () {
     isInAfterAnswer = true;
     // add the index
-    if (questions.currentQuestion < 10) {
-      questions.currentQuestion++;
-    }
+    questions.currentQuestion++;
 
     // match height between after answer card and question card
     matchHeight(answerOptionWrapper, afterAnswerCard);
@@ -251,6 +253,17 @@ answerOptions.forEach((option) => {
       afterAnswerWrapper,
       totalCorrectAns
     );
+
+    // check the index of the current question to fetch more questions
+    if (questions.currentQuestion == questions.questionList.length - 1) {
+      questions.fetchQuestion(
+        sessionStorage.getItem('amount'),
+        sessionStorage.getItem('cat'),
+        sessionStorage.getItem('difs'),
+        sessionStorage.getItem('type'),
+        document.cookie.split('=')[1]
+      );
+    }
   });
 });
 
@@ -325,22 +338,37 @@ function resultScreenProperties(message, totalCorrectAns) {
   document.querySelector('.result-screen>div').classList.add('anim-pop-up');
   setTimeout(() => {
     let circleValue = 0,
-      totalQuestion = questions.questionList.length,
+      totalQuestionAnswered = questions.currentQuestion + 1,
       speed = 60;
 
     let progress = setInterval(() => {
-      valueContainer.textContent = `${totalCorrectAns}/${totalQuestion}`;
+      valueContainer.textContent = `${totalCorrectAns}/${totalQuestionAnswered}`;
       progressBar.style.background = `conic-gradient(
       rgb(253 186 116) ${
-        (((circleValue / totalQuestion) * 100) / 100) * 360
+        (((circleValue / totalQuestionAnswered) * 100) / 100) * 360
       }deg,
-      rgb(253 224 71) ${(((circleValue / totalQuestion) * 100) / 100) * 360}deg
+      rgb(253 224 71) ${
+        (((circleValue / totalQuestionAnswered) * 100) / 100) * 360
+      }deg
     )`;
       if (circleValue != totalCorrectAns) {
         circleValue++;
       }
     }, speed);
   }, 300);
+
+  resultToMainBtn.addEventListener('click', () => {
+    savePoints();
+    window.location.href = '/';
+  });
+}
+
+// save points to local storage for guest userspace
+function savePoints() {
+  const key = `${sessionStorage.getItem('cat')}${sessionStorage.getItem(
+    'difs'
+  )}`;
+  localStorage.setItem(key, totalCorrectAns);
 }
 
 // util class
@@ -364,22 +392,28 @@ function toggleAnimationToAll(animClass, target) {
   });
 }
 function removeLoadingScreen() {
-  document.querySelector('.loading-screen').classList.add('hidden');
+  const loadingScreen = document.querySelector('.loading-screen');
+  loadingScreen.classList.add('anim-fade-out');
+  setTimeout(function () {
+    loadingScreen.classList.add('hidden');
+  }, 200);
 }
 
 // loading screen for gameplay page
 if (document.readyState === 'loading') {
   questions.fetchQuestion(
-    sessionStorage.getItem('amount'),
-    sessionStorage.getItem('cat'),
-    sessionStorage.getItem('difs'),
-    sessionStorage.getItem('type'),
+    sessionStorage.getItem('api_amount'),
+    sessionStorage.getItem('api_cat'),
+    sessionStorage.getItem('api_difs'),
+    sessionStorage.getItem('api_type'),
     document.cookie.split('=')[1]
   );
+
   // when content has finished loading
   document.addEventListener('DOMContentLoaded', () => {
+    // remove loading screen
+
     isInAfterAnswer = false;
-    removeLoadingScreen();
     runTimerBar();
     toggleAnimationToAll('anim-slide-x', questionCards);
   });

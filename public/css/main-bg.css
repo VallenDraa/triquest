@@ -1,42 +1,61 @@
 .bg-anim {
-  background: linear-gradient(76deg, #fff7ed, #fef08a, #fde047);
-  background-size: 600% 600%;
+  background: linear-gradient(
+    174deg,
+    #fef08a,
+    #fde047,
+    #facc15,
+    #fb923c,
+    #f97316
+  );
+  background-size: 1200% 1200%;
 
-  -webkit-animation: AnimationName 11s ease infinite;
-  -moz-animation: AnimationName 11s ease infinite;
-  animation: AnimationName 11s ease infinite;
+  -webkit-animation: AnimationName 20s ease infinite;
+  -moz-animation: AnimationName 20s ease infinite;
+  -o-animation: AnimationName 20s ease infinite;
+  animation: AnimationName 20s ease infinite;
 }
 
 @-webkit-keyframes AnimationName {
   0% {
-    background-position: 18% 0%;
+    background-position: 0% 31%;
   }
   50% {
-    background-position: 83% 100%;
+    background-position: 100% 70%;
   }
   100% {
-    background-position: 18% 0%;
+    background-position: 0% 31%;
   }
 }
 @-moz-keyframes AnimationName {
   0% {
-    background-position: 18% 0%;
+    background-position: 0% 31%;
   }
   50% {
-    background-position: 83% 100%;
+    background-position: 100% 70%;
   }
   100% {
-    background-position: 18% 0%;
+    background-position: 0% 31%;
+  }
+}
+@-o-keyframes AnimationName {
+  0% {
+    background-position: 0% 31%;
+  }
+  50% {
+    background-position: 100% 70%;
+  }
+  100% {
+    background-position: 0% 31%;
   }
 }
 @keyframes AnimationName {
   0% {
-    background-position: 18% 0%;
+    background-position: 0% 31%;
   }
   50% {
-    background-position: 83% 100%;
+    background-position: 100% 70%;
   }
   100% {
-    background-position: 18% 0%;
+    background-position: 0% 31%;
   }
 }

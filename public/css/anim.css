@@ -18,6 +18,10 @@
   animation: slide-top 1000ms ease-in-out;
 }
 
+.anim-fade-out {
+  animation: fade-out 200ms ease-in-out;
+}
+
 @keyframes lighten-50 {
   from {
     opacity: 0;
@@ -74,5 +78,14 @@
   }
   to {
     transform: translateY(0);
+  }
+}
+
+@keyframes fade-out {
+  from {
+    opacity: 1;
+  }
+  to {
+    opacity: 0;
   }
 }

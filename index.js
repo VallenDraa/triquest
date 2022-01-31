@@ -43,7 +43,7 @@ app.get('/challenge-mode', function (req, res) {
 });
 
 // practice mode
-app.get('/practice-mode', function (req, res) {
+app.get('/custom-mode', function (req, res) {
   res.render('gameplay');
 });
 

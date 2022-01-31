@@ -1,42 +1,53 @@
 const campaignBtn = document.querySelector('.campaign-btn'),
   challengeBtn = document.querySelector('.challenge-btn'),
   randomBtn = document.querySelector('.random-btn'),
-  practiceBtn = document.querySelector('.practice-btn');
+  customBtn = document.querySelector('.custom-btn');
 
 // API parameter in select-dif page
-let amount = 10,
-  cat,
-  difs,
-  type = '';
+let api_amount = 10,
+  api_cat,
+  api_difs,
+  api_type = '';
+
+// parameter for local storage
+let local_cat, local_difs, local_mode;
 
 // get API Parameter value in select-dif page
 const getParamsFromSelectDif = (async () => {
   campaignBtn.addEventListener('click', function () {
-    cat = document.querySelector('#category-campaign').value;
-    difs = '';
+    api_cat = document.querySelector('#category-campaign').value;
+    api_difs = '';
+    local_mode = 'campaign';
+    ifParamsAreAny();
     saveAPIParamsToSessionStorage();
     window.location.href = '/campaign-mode';
   });
 
   challengeBtn.addEventListener('click', function () {
-    cat = document.querySelector('#category-challenge').value;
-    difs = 'hard';
+    api_cat = document.querySelector('#category-challenge').value;
+    api_difs = 'hard';
+    local_mode = 'challenge';
+    ifParamsAreAny();
     saveAPIParamsToSessionStorage();
     window.location.href = '/challenge-mode';
   });
 
   randomBtn.addEventListener('click', function () {
-    cat = '';
-    difs = '';
+    api_cat = '';
+    api_difs = '';
+    local_mode = 'random';
+    ifParamsAreAny();
     saveAPIParamsToSessionStorage();
     window.location.href = '/random-mode';
   });
 
-  practiceBtn.addEventListener('click', function () {
-    cat = document.querySelector('#category-practice').value;
-    difs = document.querySelector('#category-difs').value;
+  customBtn.addEventListener('click', function () {
+    api_cat = document.querySelector('#category-custom').value;
+    api_difs = document.querySelector('#category-difs').value;
+    local_mode = 'custom';
+    ifParamsAreAny();
     saveAPIParamsToSessionStorage();
-    window.location.href = '/practice-mode';
+    window.location.href = '/custom-mode';
   });
 
   sessionToken = await getTokenSession();
@@ -52,9 +63,19 @@ async function getTokenSession() {
 }
 
 function saveAPIParamsToSessionStorage() {
-  sessionStorage.setItem('amount', amount);
-  sessionStorage.setItem('cat', cat);
-  sessionStorage.setItem('difs', difs);
-  sessionStorage.setItem('type', type);
+  sessionStorage.setItem('api_amount', api_amount);
+  sessionStorage.setItem('api_cat', api_cat);
+  sessionStorage.setItem('api_difs', api_difs);
+  sessionStorage.setItem('api_type', api_type);
   console.log(sessionStorage);
+}
+
+function ifParamsAreAny() {
+  if (api_difs === '') {
+    local_difs = 'any';
+  }
+
+  if (api_cat === '') {
+    local_cat = 'any';
+  }
 }

@@ -28,6 +28,7 @@
 .swiper-button-disabled:hover {
   border-radius: 0.5rem;
   background-color: rgba(253, 186, 116, 1);
+  color: #fff;
 }
 
 .swiper-button-next::after,

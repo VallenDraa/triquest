@@ -1,5 +1,5 @@
 const toggle_menu = document.querySelector('.toggle-menu');
-const menu_toggle_btn = document.querySelector('.fa-caret-square-down');
+const menu_toggle_btn = document.querySelector('.fa-caret-down');
 const menu = document.querySelector('.menu');
 
 let menuIsToggled = false;
@@ -41,13 +41,13 @@ window.addEventListener('resize', () => {
 // for when the user scroll
 window.addEventListener('scroll', () => {
   // change colour of menu toggle button
-  if (window.scrollY >= 934 && menuIsToggled == true) {
-    menu_toggle_btn.classList.add('text-yellow-300');
-    isInFooter = true;
-  } else if (window.scrollY < 934 && menuIsToggled == true) {
-    isInFooter = false;
-    menu_toggle_btn.classList.remove('text-yellow-300');
-  }
+  // if (window.scrollY >= 934 && menuIsToggled == true) {
+  //   menu_toggle_btn.classList.add('text-yellow-300');
+  //   isInFooter = true;
+  // } else if (window.scrollY < 934 && menuIsToggled == true) {
+  //   isInFooter = false;
+  //   menu_toggle_btn.classList.remove('text-yellow-300');
+  // }
 });
 
 // for password

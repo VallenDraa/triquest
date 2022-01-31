@@ -1,18 +1,18 @@
 // making sure height is the same at all difficulty cards
-const practice = document.querySelector('.practice');
-const notPractice = document.querySelectorAll('.not-practice');
+const custom = document.querySelector('.custom');
+const notCustom = document.querySelectorAll('.not-custom');
 
 const observeHeight = new ResizeObserver((entries) => {
   const card = entries[0];
-  notPractice.forEach((item) => {
-    item.style.height = practice.offsetHeight.toString() + 'px';
+  notCustom.forEach((item) => {
+    item.style.height = custom.offsetHeight.toString() + 'px';
   });
 });
 
-observeHeight.observe(practice);
+observeHeight.observe(custom);
 
-// notPractice.forEach((item) => {
+// notcustom.forEach((item) => {
 //   item.addEventListener('mouseenter', function () {
-//     item.style.height = practice.offsetHeight.toString() + 'px';
+//     item.style.height = custom.offsetHeight.toString() + 'px';
 //   });
 // });
