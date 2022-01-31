@@ -11,6 +11,7 @@ const questionCardWrapper = document.querySelector('.question-card-wrapper'),
   answerOptions = document.querySelectorAll('.answer-option'),
   progressBar = document.querySelector('.circular-progress'),
   valueContainer = document.querySelector('.value-container'),
+  highscore = document.querySelector('.highscore'),
   resultToMainBtn = document.querySelector('.result-to-main-btn');
 
 let multipleOrBool,
@@ -18,6 +19,11 @@ let multipleOrBool,
   totalCorrectAns = 0;
 
 let stillFetching = true;
+
+// for points
+const key = `${sessionStorage.getItem('local_mode')}${sessionStorage.getItem(
+  'local_cat'
+)}${sessionStorage.getItem('local_difs')}`;
 
 // calling api and assigning the questions
 const questions = {
@@ -257,10 +263,10 @@ answerOptions.forEach((option) => {
     // check the index of the current question to fetch more questions
     if (questions.currentQuestion == questions.questionList.length - 1) {
       questions.fetchQuestion(
-        sessionStorage.getItem('amount'),
-        sessionStorage.getItem('cat'),
-        sessionStorage.getItem('difs'),
-        sessionStorage.getItem('type'),
+        sessionStorage.getItem('api_amount'),
+        sessionStorage.getItem('api_cat'),
+        sessionStorage.getItem('api_difs'),
+        sessionStorage.getItem('api_type'),
         document.cookie.split('=')[1]
       );
     }
@@ -357,18 +363,31 @@ function resultScreenProperties(message, totalCorrectAns) {
     }, speed);
   }, 300);
 
+  // fetch point and then display the value
+  fetchPoint(highscore);
+
   resultToMainBtn.addEventListener('click', () => {
-    savePoints();
     window.location.href = '/';
   });
 }
 
-// save points to local storage for guest userspace
+// point system guest user
 function savePoints() {
-  const key = `${sessionStorage.getItem('cat')}${sessionStorage.getItem(
-    'difs'
-  )}`;
   localStorage.setItem(key, totalCorrectAns);
+}
+
+function fetchPoint(highscoreHTML) {
+  if (localStorage.getItem(key)) {
+    if (parseInt(localStorage.getItem(key)) > totalCorrectAns) {
+      highscoreHTML.textContent = `Highscore: ${localStorage.getItem(key)}`;
+    } else {
+      savePoints();
+      highscoreHTML.textContent = `New Highscore: ${localStorage.getItem(key)}`;
+    }
+  } else {
+    savePoints();
+    highscoreHTML.textContent = `New Highscore: ${localStorage.getItem(key)}`;
+  }
 }
 
 // util class

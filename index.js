@@ -47,6 +47,15 @@ app.get('/custom-mode', function (req, res) {
   res.render('gameplay');
 });
 
+// get session tokens
+app.get('/session-token', async function (req, res) {
+  const data = await fetch('https://opentdb.com/api_token.php?command=request');
+  const json = await data.json();
+  const token = json.token;
+
+  res.json(token);
+});
+
 // get questions
 app.get('/get_question/:queryParams', async function (req, res) {
   // the parameter

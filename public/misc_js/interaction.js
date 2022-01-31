@@ -38,16 +38,13 @@ window.addEventListener('resize', () => {
   }
 });
 
-// for when the user scroll
-window.addEventListener('scroll', () => {
-  // change colour of menu toggle button
-  // if (window.scrollY >= 934 && menuIsToggled == true) {
-  //   menu_toggle_btn.classList.add('text-yellow-300');
-  //   isInFooter = true;
-  // } else if (window.scrollY < 934 && menuIsToggled == true) {
-  //   isInFooter = false;
-  //   menu_toggle_btn.classList.remove('text-yellow-300');
-  // }
+// for yourself at footer
+document.querySelector('.yourself').addEventListener('click', function (e) {
+  console.log('hjew');
+  this.classList.add('anim-shake');
+  setTimeout(() => {
+    this.classList.remove('anim-shake');
+  }, 500);
 });
 
 // for password

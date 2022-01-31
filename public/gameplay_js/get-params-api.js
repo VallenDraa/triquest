@@ -18,8 +18,9 @@ const getParamsFromSelectDif = (async () => {
     api_cat = document.querySelector('#category-campaign').value;
     api_difs = '';
     local_mode = 'campaign';
-    ifParamsAreAny();
+    insertAPIParamsValueToLocalVar();
     saveAPIParamsToSessionStorage();
+    saveParamsForLocalStorage();
     window.location.href = '/campaign-mode';
   });
 
@@ -27,8 +28,9 @@ const getParamsFromSelectDif = (async () => {
     api_cat = document.querySelector('#category-challenge').value;
     api_difs = 'hard';
     local_mode = 'challenge';
-    ifParamsAreAny();
+    insertAPIParamsValueToLocalVar();
     saveAPIParamsToSessionStorage();
+    saveParamsForLocalStorage();
     window.location.href = '/challenge-mode';
   });
 
@@ -36,8 +38,9 @@ const getParamsFromSelectDif = (async () => {
     api_cat = '';
     api_difs = '';
     local_mode = 'random';
-    ifParamsAreAny();
+    insertAPIParamsValueToLocalVar();
     saveAPIParamsToSessionStorage();
+    saveParamsForLocalStorage();
     window.location.href = '/random-mode';
   });
 
@@ -45,8 +48,9 @@ const getParamsFromSelectDif = (async () => {
     api_cat = document.querySelector('#category-custom').value;
     api_difs = document.querySelector('#category-difs').value;
     local_mode = 'custom';
-    ifParamsAreAny();
+    insertAPIParamsValueToLocalVar();
     saveAPIParamsToSessionStorage();
+    saveParamsForLocalStorage();
     window.location.href = '/custom-mode';
   });
 
@@ -56,9 +60,8 @@ const getParamsFromSelectDif = (async () => {
 })();
 
 async function getTokenSession() {
-  const data = await fetch('https://opentdb.com/api_token.php?command=request');
-  const json = await data.json();
-  const token = json.token;
+  const data = await fetch('/session-token');
+  const token = await data.json();
   return token;
 }
 
@@ -67,15 +70,16 @@ function saveAPIParamsToSessionStorage() {
   sessionStorage.setItem('api_cat', api_cat);
   sessionStorage.setItem('api_difs', api_difs);
   sessionStorage.setItem('api_type', api_type);
-  console.log(sessionStorage);
 }
 
-function ifParamsAreAny() {
-  if (api_difs === '') {
-    local_difs = 'any';
-  }
+function insertAPIParamsValueToLocalVar() {
+  api_difs === '' ? (local_difs = 'any') : (local_difs = api_difs);
 
-  if (api_cat === '') {
-    local_cat = 'any';
-  }
+  api_cat === '' ? (local_cat = 'any') : (local_cat = api_cat);
+}
+
+function saveParamsForLocalStorage() {
+  sessionStorage.setItem('local_cat', local_cat);
+  sessionStorage.setItem('local_difs', local_difs);
+  sessionStorage.setItem('local_mode', local_mode);
 }

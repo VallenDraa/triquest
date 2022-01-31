@@ -2,39 +2,7 @@
 <!-- gameplay UI -->
 <main class="main-bg bg-anim relative">
   <!-- after answer pop-up -->
-  <section
-    class="absolute inset-0 z-30 after-answer-wrapper anim-lighten-full justify-center items-center flex bg-black/40 hidden"
-  >
-    <div
-      class="bg-yellow-300 border-4 border-black flex flex-col py-10 px-4 space-y-4 rounded-xl anim-pop-up after-answer-card justify-center items-center"
-    >
-      <!-- if wrong use fa-times for the i tag and bg-red-500 for the background color-->
-      <i
-        class="icon-co-in fas fa-check text-4xl text-white self-center bg-green-400 border-4 border-black rounded-full animate-bounce"
-      ></i>
-      <div class="w-full md:w-4/5 space-y-4">
-        <h3
-          class="text-center text-4xl font-bold teko tracking-wide bg-yellow-200 p-2 border-4 border-black rounded-lg after-answer-mes w-full"
-        >
-          Your Answer Is Correct !
-        </h3>
-        <p
-          class="text-lg sm:text-2xl font-bold fira-sans px-2 text-center border-4 border-black bg-yellow-200 rounded-xl py-2"
-        >
-          The Correct Answer<br /><span
-            class="font-bold correct-answer text-green-600"
-          >
-            <i>Twenty One Password Superman</i>
-          </span>
-        </p>
-      </div>
-      <button
-        class="bg-orange-300 mt-4 p-2 block border-4 border-black fira-sans w-full md:w-4/5 mx-auto duration-300 hover:bg-orange-400 rounded-lg next-question"
-      >
-        Next Question
-      </button>
-    </div>
-  </section>
+  <%- include("./layouts/after-answer-pop-up") %>
 
   <!-- loading screen -->
   <%- include("./layouts/loading") %>
@@ -139,47 +107,7 @@
   </section>
 
   <!-- results screen -->
-  <section
-    class="result-screen hidden absolute inset-0 z-10 bg-black/80 flex justify-center items-center"
-  >
-    <div
-      class="bg-yellow-300 border-4 border-black w-11/12 max-w-screen-lg rounded-xl flex justify-center items-center"
-    >
-      <!-- display how many questions are correct -->
-      <div
-        class="p-5 text-center space-y-3 teko text-3xl font-bold relative w-full"
-      >
-        <h2 class="result-mes">Your Results</h2>
-        <!-- circle indicator -->
-        <div
-          class="w-full py-4 bg-yellow-200 grid content-center rounded-lg border-4 border-black"
-        >
-          <div
-            class="duration-300 circular-progress mx-auto h-[200px] w-[200px] rounded-full relative flex justify-center items-center before:content-[''] before:h-4/5 before:w-4/5 before:bg-white before:rounded-full before:absolute before:mx-auto"
-          >
-            <!-- value container -->
-            <div
-              class="fira-sans relative z-10 flex flex-col justify-center items-center"
-            >
-              <p class="text-black question-result value-container"></p>
-              <span class="text-xs">Questions</span>
-            </div>
-          </div>
-          <h3 class="text-3xl teko font-bold mt-3">
-            Highscore: <span class="highscore">10.000</span>
-          </h3>
-        </div>
-
-        <a
-          class="result-to-main-btn cursor-pointer bg-orange-300 grid content-center w-full py-1 duration-300 hover:bg-orange-400 hover:text-white rounded-lg border-4 border-black h-3/6 play max-w-lg mx-auto"
-        >
-          Back To Main Page
-        </a>
-      </div>
-
-      <!-- Highscore -->
-    </div>
-  </section>
+  <%- include("./layouts/gameplay-result-screen") %>
 </main>
 
 <!-- Footer -->
