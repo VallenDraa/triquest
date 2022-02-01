@@ -1,14 +1,15 @@
+<%- include("./layouts/header") %>
 <section class="grid content-center min-h-full mt-auto">
   <main class="max-w-screen-2xl w-11/12 xl:w-9/12 mx-auto">
-    <h1 class="text-center my-6 teko text-5xl md:text-6xl font-bold underline">
+    <h1 class="text-center my-6 teko text-4xl md:text-6xl font-bold underline">
       LOGIN
     </h1>
     <div
-      class="bg-yellow-300 border-4 border-black rounded-xl shadow-2xl px-5 md:px-10 py-5 mb-14"
+      class="md:bg-yellow-300 border-4 border-black rounded-xl shadow-2xl md:p-4 mb-14"
     >
       <form
         action=""
-        class="fira-sans space-y-3 border-4 border-black rounded-lg bg-yellow-200 p-4"
+        class="fira-sans space-y-3 md:border-4 border-black rounded-lg bg-yellow-200 p-4"
       >
         <!-- username -->
         <div class="w-full max-w-4xl mx-auto">
@@ -19,7 +20,7 @@
             type="text"
             name="username"
             id="username"
-            class="border-4 border-black outline-none px-2 rounded-lg text-lg block w-full py-2 bg-slate-50"
+            class="border-2 md:border-4 border-black outline-none px-2 rounded-lg text-lg block w-full py-2 bg-slate-50"
             placeholder="Username"
           />
         </div>
@@ -28,20 +29,22 @@
           <label for="password" class="text-lg font-bold ml-2 inline-block">
             Password
           </label>
-          <input
-            type="password"
-            name="password"
-            id="password"
-            class="border-4 border-black outline-none px-2 rounded-lg text-lg block w-full py-2 bg-slate-50"
-            placeholder="Password"
-          />
-          <i
-            class="show-pw fas fa-eye-slash text-3xl px-2 rounded-full absolute right-1 top-9 cursor-pointer duration-200 hover:text-orange-300"
-          ></i>
+          <div class="flex justify-between items-center">
+            <input
+              type="password"
+              name="password"
+              id="password"
+              class="border-r-0 border-2 md:border-4 md:border-r-0 border-black outline-none px-2 rounded-l-lg block w-full py-2 bg-slate-50"
+              value="password"
+            />
+            <i
+              class="border-l-0 border-2 md:border-4 md:border-l-0 border-black rounded-r-lg show-pw fas fa-eye-slash text-base px-2 cursor-pointer duration-200 hover:text-orange-300 bg-slate-50 self-stretch pt-2"
+            ></i>
+          </div>
         </div>
         <!-- buttons -->
         <div
-          class="text-black tracking-wide font-bold teko text-3xl mx-auto grid grid-cols-1 md:grid-cols-2 justify-center gap-4 pt-10 w-full max-w-4xl"
+          class="text-black tracking-wide font-bold teko text-2xl md:text-3xl mx-auto grid grid-cols-1 md:grid-cols-2 justify-center gap-4 pt-10 w-full max-w-4xl"
         >
           <button
             type="submit"
@@ -66,3 +69,9 @@
     </div>
   </main>
 </section>
+
+<script src="../misc_js/interaction.js"></script>
+<script src="../misc_js/footer.js"></script>
+<script src="../misc_js/show-pw.js"></script>
+
+<%- include("./layouts/footer") %>

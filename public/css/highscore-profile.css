@@ -1,0 +1,21 @@
+.highscore-box {
+  scrollbar-color: black rgb(254 240 138);
+}
+
+.highscore-box::-webkit-scrollbar {
+  background: rgb(254 240 138);
+}
+
+.highscore-box::-webkit-scrollbar-track {
+  background: rgb(254 240 138);
+}
+/* Handle */
+.highscore-box::-webkit-scrollbar-thumb {
+  background: rgb(31 41 55);
+  border: 3.5px solid rgb(254 240 138);
+  border-radius: 20px;
+}
+
+.highscore-box::-webkit-scrollbar-thumb:hover {
+  background: black;
+}

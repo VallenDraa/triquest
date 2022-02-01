@@ -6,12 +6,12 @@
   >
     <!-- display how many questions are correct -->
     <div
-      class="p-5 text-center space-y-3 teko text-3xl font-bold relative w-full"
+      class="p-5 text-center space-y-3 teko text-xl md:text-3xl font-bold relative w-full"
     >
-      <h2 class="result-mes">Your Results</h2>
+      <h2 class="result-mes text-2xl md:text-3xl">Your Results</h2>
       <!-- circle indicator -->
       <div
-        class="w-full py-4 bg-yellow-200 grid content-center rounded-lg border-4 border-black"
+        class="w-full py-4 bg-yellow-200 grid content-center rounded-lg border-2 md:border-4 border-black"
       >
         <div
           class="duration-300 circular-progress mx-auto h-[200px] w-[200px] rounded-full relative flex justify-center items-center before:content-[''] before:h-4/5 before:w-4/5 before:bg-white before:rounded-full before:absolute before:mx-auto"
@@ -24,7 +24,9 @@
             <span class="text-xs">Questions</span>
           </div>
         </div>
-        <h3 class="text-3xl teko font-bold mt-3 highscore">Highscore: 100</h3>
+        <h3 class="fira-sans md:font-bold mt-3 highscore text-base md:text-3xl">
+          Highscore: 100
+        </h3>
       </div>
 
       <a

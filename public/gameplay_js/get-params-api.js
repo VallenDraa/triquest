@@ -55,7 +55,7 @@ const getParamsFromSelectDif = (async () => {
   });
 
   sessionToken = await getTokenSession();
-  console.log(sessionToken);
+  // console.log(sessionToken);
   document.cookie = `sessionToken=${sessionToken}; Secure`;
 })();
 
@@ -74,7 +74,6 @@ function saveAPIParamsToSessionStorage() {
 
 function insertAPIParamsValueToLocalVar() {
   api_difs === '' ? (local_difs = 'any') : (local_difs = api_difs);
-
   api_cat === '' ? (local_cat = 'any') : (local_cat = api_cat);
 }
 

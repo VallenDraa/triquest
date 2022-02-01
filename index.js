@@ -2,6 +2,7 @@ const express = require('express');
 const methodOverride = require('method-override');
 const app = express();
 const fetch = require('node-fetch');
+const socialRouter = require('./server-side/socials');
 
 app.use(methodOverride('_method'));
 
@@ -11,6 +12,16 @@ const mongoose = require('mongoose');
 app.set('view engine', 'ejs');
 app.use(express.static('public'));
 app.use(express.urlencoded({ extended: true }));
+app.use('/socials', socialRouter);
+
+// sign-up page
+app.get('/sign-up', (req, res) => {
+  res.render('sign-up');
+});
+
+app.get('/login', (req, res) => {
+  res.render('login');
+});
 
 // main page
 app.get('/', function (req, res) {
@@ -77,7 +88,7 @@ app.get('/get_question/:queryParams', async function (req, res) {
 });
 
 app.use(function (req, res) {
-  res.render('404HTML');
+  res.render('./error/404HTML');
 });
 
 app.listen(5001, () => {

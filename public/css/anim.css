@@ -11,7 +11,7 @@
 }
 
 .anim-slide-x {
-  animation: slide-x 1500ms ease-in-out;
+  animation: slide-x 1200ms ease-in-out;
 }
 
 .anim-slide-top {
@@ -60,18 +60,22 @@
 
 @keyframes slide-x {
   0% {
+    opacity: 0.5;
     transform: translateX(0);
   }
   25% {
+    opacity: 0.25;
     transform: translateX(-180%);
   }
   50% {
     opacity: 0;
   }
   75% {
+    opacity: 0.25;
     transform: translateX(180%);
   }
   100% {
+    opacity: 1;
     transform: translateX(0);
   }
 }

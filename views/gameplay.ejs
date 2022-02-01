@@ -8,7 +8,7 @@
   <%- include("./layouts/loading") %>
 
   <!-- answer part -->
-  <section class="grid content-center min-h-[1000px] relative">
+  <section class="grid content-center min-h-[800px] relative">
     <main
       class="max-w-screen-2xl w-11/12 xl:w-9/12 mx-auto question-card-wrapper"
     >
@@ -22,30 +22,30 @@
               <h2
                 class="text-xl md:text-3xl font-bold text-center py-4 max-w-4xl text-center mx-auto question-four-opt"
               ></h2>
-              <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mt-4">
+              <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mt-4 teko">
                 <div
-                  class="teko border-4 text-center border-black answer-option text-xl md:text-2xl h-16 md:h-24 flex justify-center items-center font-bold duration-300 rounded-xl cursor-pointer answer-four bg-orange-300 hover:bg-orange-400"
+                  class="border-2 md:border-4 text-center border-black answer-option text-xl md:text-2xl h-16 md:h-24 flex justify-center items-center font-bold duration-300 rounded-xl cursor-pointer answer-four bg-orange-300 hover:bg-orange-400"
                 >
                   1
                 </div>
                 <div
-                  class="teko border-4 text-center border-black answer-option text-xl md:text-2xl h-16 md:h-24 flex justify-center items-center font-bold duration-300 rounded-xl cursor-pointer answer-four bg-red-300 hover:bg-red-400"
+                  class="border-2 md:border-4 text-center border-black answer-option text-xl md:text-2xl h-16 md:h-24 flex justify-center items-center font-bold duration-300 rounded-xl cursor-pointer answer-four bg-red-300 hover:bg-red-400"
                 >
                   2
                 </div>
                 <div
-                  class="teko border-4 text-center border-black answer-option text-xl md:text-2xl h-16 md:h-24 flex justify-center items-center font-bold duration-300 rounded-xl cursor-pointer answer-four bg-blue-300 hover:bg-blue-400"
+                  class="border-2 md:border-4 text-center border-black answer-option text-xl md:text-2xl h-16 md:h-24 flex justify-center items-center font-bold duration-300 rounded-xl cursor-pointer answer-four bg-blue-300 hover:bg-blue-400"
                 >
                   3
                 </div>
                 <div
-                  class="teko border-4 text-center border-black answer-option text-xl md:text-2xl h-16 md:h-24 flex justify-center items-center font-bold duration-300 rounded-xl cursor-pointer answer-four bg-green-300 hover:bg-green-400"
+                  class="border-2 md:border-4 text-center border-black answer-option text-xl md:text-2xl h-16 md:h-24 flex justify-center items-center font-bold duration-300 rounded-xl cursor-pointer answer-four bg-green-300 hover:bg-green-400"
                 >
                   4
                 </div>
               </div>
               <section
-                class="my-4 h-6 border-4 border-black rounded-xl bg-slate-200 overflow-hidden"
+                class="my-4 h-6 border-2 md:border-4 border-black rounded-xl bg-slate-200 overflow-hidden"
               >
                 <div
                   class="h-full duration-1000 bg-green-400 rounded-xl timer-bar"
@@ -73,20 +73,20 @@
               >
                 question
               </h2>
-              <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mt-4">
+              <div class="teko grid grid-cols-1 md:grid-cols-2 gap-4 mt-4">
                 <div
-                  class="teko border-4 border-black text-2xl answer-option md:text-4xl h-16 md:h-24 flex justify-center items-center font-bold duration-300 bg-green-300 hover:bg-green-400 rounded-xl cursor-pointer answer-two"
+                  class="border-2 md:border-4 border-black text-2xl answer-option md:text-4xl h-16 md:h-24 flex justify-center items-center font-bold duration-300 bg-green-300 hover:bg-green-400 rounded-xl cursor-pointer answer-two"
                 >
                   True
                 </div>
                 <div
-                  class="teko border-4 border-black text-2xl answer-option md:text-4xl h-16 md:h-24 flex justify-center items-center font-bold duration-300 bg-red-300 hover:bg-red-400 rounded-xl cursor-pointer answer-two"
+                  class="border-2 md:border-4 border-black text-2xl answer-option md:text-4xl h-16 md:h-24 flex justify-center items-center font-bold duration-300 bg-red-300 hover:bg-red-400 rounded-xl cursor-pointer answer-two"
                 >
                   False
                 </div>
               </div>
               <section
-                class="my-4 h-6 border-4 border-black rounded-xl bg-slate-200 overflow-hidden"
+                class="my-4 h-6 border-2 md:border-4 border-black rounded-xl bg-slate-200 overflow-hidden"
               >
                 <div
                   class="h-full duration-1000 bg-green-400 rounded-xl timer-bar"
@@ -110,5 +110,8 @@
   <%- include("./layouts/gameplay-result-screen") %>
 </main>
 
+<script src="../gameplay_js/gameplay.js"></script>
+<script src="../misc_js/include.js"></script>
+<script src="../misc_js/interaction.js"></script>
 <!-- Footer -->
 <%- include("./layouts/footer") %>

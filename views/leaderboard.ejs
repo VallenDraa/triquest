@@ -5,16 +5,16 @@
     <section class="grid content-center min-h-full">
     <main class="max-w-screen-2xl w-11/12 xl:w-9/12 mx-auto">
     <h1
-        class="text-center my-6 teko text-5xl md:text-6xl font-bold underline"
+        class="text-center my-6 teko text-4xl md:text-6xl font-bold underline"
     >
     LEADERBOARD
     </h1>
       <div
-        class="bg-yellow-300 border-4 border-black rounded-xl shadow-2xl px-5 md:px-10 py-5 mb-14"
+        class="bg-yellow-200 md:bg-yellow-300 border-4 border-black rounded-xl shadow-2xl md:p-4 mb-14"
       >
       <!-- top -->
         <div
-          class="fira-sans space-y-3 border-4 border-black rounded-lg bg-yellow-200 p-4"
+          class="fira-sans space-y-3 md:border-4 border-black rounded-t-lg md:rounded-lg bg-yellow-200 p-4  h-full"
         >
             <!-- Ranks  -->
             <section> 
@@ -31,7 +31,7 @@
                     <select
                         name="country"
                         id="country"
-                        class="border-4 border-black outline-none px-2 rounded-lg text-lg block w-full py-2 bg-slate-50"
+                        class="border-2 md:border-4 border-black outline-none px-2 rounded-lg text-lg block w-full py-2 bg-slate-50"
                     >
                         <option value="any">
                             Global 🌐
@@ -44,7 +44,7 @@
                     <select
                     name="gamemode"
                     id="gamemode"
-                    class="border-4 border-black outline-none px-2 rounded-lg text-lg block w-full py-2 bg-slate-50"
+                    class="border-2 md:border-4 border-black outline-none px-2 rounded-lg text-lg block w-full py-2 bg-slate-50"
                     >
                     <option value="campaign">
                         Campaign 🚀
@@ -63,12 +63,13 @@
             </section>
             
         </div>
-        <div class="mt-4 bg-yellow-200 border-4 border-black rounded-sm overflow-y-auto relative h-96 leaderboard">
+
+        <div class="md:mt-4 bg-yellow-200 border-t-2 md:border-4 border-black mb-2 md:mb-0 md:rounded-sm overflow-y-auto relative h-96 leaderboard">
             <!-- table -->
             <div class=" absolute inset-0">
                 <table class="w-full">
                     <tr class="text-center teko font-bold text-2xl border-b-2 border-black sticky top-0 w-full bg-orange-300 shadow-lg tb-heading">
-                        <td style= "width:10%">Rank</td>
+                        <td style= "width:10%" class="p-2">Rank</td>
                         <td style= "width:50%">Username</td>
                         <td style="width:35%">Points</td>
                     </tr>
@@ -145,6 +146,10 @@
     </main>
   </section></main>
 
+
+  <script src="../misc_js/include.js"></script>
+  <script src="../misc_js/country.js"></script>
+  <script src="../misc_js/interaction.js"></script>
 
   <!-- Footer -->
 <%- include("./layouts/footer") %>
