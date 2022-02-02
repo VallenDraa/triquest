@@ -4,298 +4,345 @@
   <!-- Profile -->
   <section class="grid content-center min-h-full">
     <main class="max-w-screen-2xl w-11/12 xl:w-9/12 mx-auto">
-      <h1
-        class="text-center my-6 teko text-4xl md:text-6xl font-bold underline"
-      >
-        PROFILE
-      </h1>
       <div
-        class="md:bg-yellow-300 border-4 border-black rounded-xl shadow-2xl md:p-4 mb-14"
+        class="md:bg-yellow-300 border-4 border-black rounded-xl shadow-2xl md:p-4 my-14"
       >
         <form
           action=""
-          class="fira-sans md:border-4 border-black rounded-lg bg-yellow-200 p-4 md:p-2 xl:p-4 grid grid-cols-1 md:grid-cols-2"
+          class="fira-sans md:border-4 border-black rounded-lg bg-yellow-200 p-4 md:p-2 xl:p-4"
         >
-          <!-- left side -->
-          <section class="md:pr-2">
-            <!-- Profile  -->
-            <section>
-              <h2
-                class="text-2xl md:text-xl xl:text-2xl font-bold fira-sans underline text-center underline-offset-4"
-              >
-                Profile Data
-              </h2>
-              <!-- username -->
-              <div class="w-full max-w-4xl mx-auto">
-                <label
-                  for="username"
-                  class="text-lg font-bold ml-2 inline-block"
+          <h1
+          class="text-center  teko text-3xl md:text-5xl font-bold underline"
+          >
+            PROFILE
+          </h1>
+          <!-- content-wrapper -->
+          <div class="grid grid-cols-1 md:grid-cols-2">
+            <!-- left side -->
+            <section class="md:pr-2">
+              <!-- Profile  -->
+              <section>
+                <h2
+                  class="text-2xl md:text-xl xl:text-2xl font-bold fira-sans underline text-center underline-offset-4"
                 >
-                  Username
-                </label>
-                <input
-                  type="text"
-                  name="username"
-                  id="username"
-                  class="border-2 md:border-4 border-black outline-none px-2 rounded-lg block w-full py-1 bg-slate-50"
-                  value="Vallen"
-                />
-              </div>
-              <div class="w-full max-w-4xl mx-auto">
-                <label
-                  for="description"
-                  class="text-lg font-bold ml-2 inline-block"
-                >
-                  Description
-                </label>
-                <textarea
-                  name="description"
-                  id="description"
-                  cols="30"
-                  rows="5"
-                  class="border-2 md:border-4 border-black outline-none px-2 rounded-lg block w-full py-1 bg-slate-50"
-                  placeholder="I'm The Best Triquest Player !"
-                ></textarea>
-              </div>
-              <div class="w-full max-w-4xl mx-auto">
-                <label
-                  for="country"
-                  class="text-lg font-bold ml-2 inline-block"
-                >
-                  Country
-                </label>
-                <select
-                  name="country"
-                  id="country"
-                  class="border-2 md:border-4 border-black outline-none px-2 rounded-lg block w-full py-1 bg-slate-50"
-                >
-                  <option value="choose_country" disabled>
-                    Choose Your Country
-                  </option>
-                  <!-- more options will be added through country.js -->
-                </select>
-              </div>
-            </section>
-          </section>
+                  Profile Data
+                </h2>
+                <!-- username -->
+                <div class="w-full max-w-4xl mx-auto">
+                  <label
+                    for="username"
+                    class="text-lg font-bold ml-2 inline-block flex items-base"
+                  >
+                    <% if (userState == "guest") { %> Username
+                    <span class="text-[10px] font-light ml-1"
+                      >*Sign-up or login to change username !</span
+                    >
+                    <% } else { %> Username <% } %>
+                  </label>
+                  <input type="text" name="username" id="username" class="border-2
+                  md:border-4 border-black outline-none px-2 rounded-lg block
+                  w-full py-1 bg-slate-50" <% if (userState == "guest") { %>
+                  value="GUEST" readonly <% } else { %> value="Vallen" <% } %> />
+                </div>
 
-          <!-- right side -->
-          <section class="md:pl-2">
-            <!-- account -->
-            <section class="pt-16 md:pt-0">
-              <h2
+                <!-- desc -->
+                <div class="w-full max-w-4xl mx-auto">
+                  <label
+                    for="description"
+                    class="text-lg font-bold ml-2 inline-block"
+                  >
+                    Description
+                  </label>
+                  <textarea
+                    name="description"
+                    id="description"
+                    cols="30"
+                    rows="5"
+                    class="border-2 md:border-4 border-black outline-none px-2 rounded-lg block w-full py-1 bg-slate-50"
+                    <% if (userState == "guest") { %> 
+                      placeholder="Sign-up or login to change your description !"
+                      readonly
+                      <% } else { %>placeholder="I'm The Best Triquest Player !"<% } %>
+                  ></textarea>
+                </div>
+
+                <!-- country -->
+                <div class="w-full max-w-4xl mx-auto">
+                  <label
+                    for="country"
+                    class="text-lg font-bold ml-2 inline-block"
+                  >
+                    Country
+                  </label>
+                  <select
+                    name="country"
+                    <% if (userState == "guest") { %> 
+                      id="country-guest"
+                      class="border-2 md:border-4 border-black outline-none px-2 rounded-lg block w-full py-1 bg-slate-50">
+                      <option value="choose_country">
+                        Sign-up or login to change your country!                   
+                      </option>
+                      <% } else { %>   
+                        id="country"
+                        class="border-2 md:border-4 border-black outline-none px-2 rounded-lg block w-full py-1 bg-slate-50">
+                      <option value="choose_country" disabled>
+                        Choose Your Country
+                      </option>
+                      <option value="global">Global🌐</option>
+                    <% } %>
+                
+                    <!-- more options will be added through country.js -->
+                  </select>
+                </div>
+              </section>
+            </section>
+
+            <!-- right side -->
+            <section class="md:pl-2">
+              <!-- account -->
+              <section class="pt-16 md:pt-0">
+                <% if (userState != "guest") { %>
+                <h2
                 class="text-2xl md:text-xl xl:text-2xl font-bold fira-sans underline text-center underline-offset-4"
-              >
-                Account Data
-              </h2>
-              <!-- Email -->
-              <div class="w-full max-w-4xl mx-auto">
-                <label for="email" class="text-lg font-bold ml-2 inline-block">
-                  E-Mail
-                </label>
-                <input
-                  type="email"
-                  name="email"
-                  id="email"
-                  class="border-2 md:border-4 border-black outline-none px-2 rounded-lg block w-full py-1 bg-slate-50"
-                  value="Jestinevallendradwiputra@gmail.com"
-                />
-              </div>
-              <!-- password -->
-              <div class="w-full max-w-4xl mx-auto relative">
-                <label
-                  for="password"
-                  class="text-lg font-bold ml-2 inline-block"
                 >
-                  Password
-                </label>
-                <div class="flex justify-between items-center">
+                  Account Data
+                </h2>
+                <!-- Email -->
+                <div class="w-full max-w-4xl mx-auto">
+                  <label for="email" class="text-lg font-bold ml-2 inline-block">
+                    E-Mail
+                  </label>
                   <input
-                    type="password"
-                    name="password"
-                    id="password"
-                    class="border-r-0 border-2 md:border-4 md:border-r-0 border-black outline-none px-2 rounded-l-lg block w-full py-1 bg-slate-50"
-                    value="password"
+                    type="email"
+                    name="email"
+                    id="email"
+                    class="border-2 md:border-4 border-black outline-none px-2 rounded-lg block w-full py-1 bg-slate-50"
+                    value="Jestinevallendradwiputra@gmail.com"
                   />
-                  <i
-                    class="border-l-0 border-2 md:border-4 md:border-l-0 border-black rounded-r-lg show-pw fas fa-eye-slash text-base px-2 cursor-pointer duration-200 hover:text-orange-300 bg-slate-50 self-stretch pt-1"
-                  ></i>
                 </div>
-              </div>
-            </section>
+                <!-- password -->
+                <div class="w-full max-w-4xl mx-auto relative">
+                  <label
+                    for="password"
+                    class="text-lg font-bold ml-2 inline-block"
+                  >
+                    Password
+                  </label>
+                  <div class="flex justify-between items-center">
+                    <input
+                      type="password"
+                      name="password"
+                      id="password"
+                      class="border-r-0 border-2 md:border-4 md:border-r-0 border-black outline-none px-2 rounded-l-lg block w-full py-1 bg-slate-50"
+                      value="password"
+                    />
+                    <i
+                      class="border-l-0 border-2 md:border-4 md:border-l-0 border-black rounded-r-lg show-pw fas fa-eye-slash text-base px-2 cursor-pointer duration-200 hover:text-orange-300 bg-slate-50 self-stretch pt-1"
+                    ></i>
+                  </div>
+                </div>                
+                <% } else {%>
+                  <h2
+                  class="text-2xl md:text-xl xl:text-2xl font-bold fira-sans underline text-center underline-offset-4 mb-7"
+                  >
+                    Sign-up Or Login
+                  </h2>
+                  <!-- sign-up -->
+                  <div class="w-full max-w-4xl mx-auto">
+                    <a href="/sign-up" class="text-2xl border-2 md:border-4 border-black rounded-lg block w-full py-1 bg-orange-300 hover:bg-green-400 hover:text-white duration-300 teko text-center font-bold"
+                    >Sign Up</a>
+                  </div>
+                  <!-- password -->
+                  <div class="w-full max-w-4xl mx-auto relative mt-3 md:mt-[0.65rem]">
+                    <a href="/login" class="text-2xl border-2 md:border-4 border-black rounded-lg block w-full py-1 bg-orange-300 hover:bg-green-400 hover:text-white duration-300 teko text-center font-bold"
+                    >Login</a>
+                  </div>     
+                <% } %> 
 
-            <!-- Highscore -->
-            <section
-              class="mb-8 pt-16 md:mb-0 md:pt-2 resize-y h-72 md:h-[8.7rem] xl:md:h-[8.5rem]"
-            >
-              <h2
-                class="pb-2 md:pb-1 text-2xl md:text-xl xl:text-2xl font-bold fira-sans underline text-center underline-offset-4"
+              </section>
+
+              <!-- Highscore -->
+              <section
+                class="mb-8 pt-16 md:mb-0 md:pt-2 resize-y h-72 md:h-[8.7rem] xl:md:h-[8.5rem]"
               >
-                Highscores
-              </h2>
-              <div
-                class="highscore-box h-full bg-white border-2 md:border-4 border-black rounded-lg relative overflow-y-auto"
-              >
-                <div class="absolute rounded-lg inset-0 text-sm">
-                  <div class="flex justify-center divide-x-2 divide-black">
-                    <p
-                      class="highscore-left bg-orange-400 w-full text-center border-b-2 border-black"
+                <h2
+                  class="pb-2 md:pb-1 text-2xl md:text-xl xl:text-2xl font-bold fira-sans underline text-center underline-offset-4"
+                >
+                  Highscores
+                </h2>
+                <div
+                  class="highscore-box h-full bg-white border-2 md:border-4 border-black rounded-lg relative overflow-y-auto"
+                >
+                  <div class="absolute rounded-lg inset-0 text-sm">
+                    <div
+                      class="flex justify-center divide-x-2 divide-black sticky top-0 inset-x-0"
                     >
-                      Category
-                    </p>
-                    <p
-                      class="highscore-right bg-yellow-500 w-full text-center border-b-2 border-black"
+                      <p
+                        class="highscore-left bg-orange-400 w-full text-center border-b-2 border-black"
+                      >
+                        Category
+                      </p>
+                      <p
+                        class="highscore-right bg-yellow-500 w-full text-center border-b-2 border-black"
+                      >
+                        Score
+                      </p>
+                    </div>
+                    <!-- highscore preview -->
+                    <div
+                      class="highscore-preview flex justify-between divide-x-2 divide-black text-sm border-b-2 border-black"
                     >
-                      Score
-                    </p>
-                  </div>
-                  <!-- highscore preview -->
-                  <div
-                    class="highscore-preview flex justify-between divide-x-2 divide-black text-sm border-b-2 border-black"
-                  >
-                    <p
-                      class="highscore-left bg-orange-300 w-full text-center py-2 flex justify-center items-center"
+                      <p
+                        class="highscore-left bg-orange-300 w-full text-center py-2 flex justify-center items-center"
+                      >
+                        Custom-General Knowledge-Hard
+                      </p>
+                      <p
+                        class="highscore-right bg-yellow-400 w-full text-center py-2 flex justify-center items-center text-lg"
+                      >
+                        12
+                      </p>
+                    </div>
+                    <div
+                      class="highscore-preview flex justify-between divide-x-2 divide-black text-sm border-b-2 border-black"
                     >
-                      Custom-General Knowledge-Hard
-                    </p>
-                    <p
-                      class="highscore-right bg-yellow-400 w-full text-center py-2 flex justify-center items-center text-lg"
+                      <p
+                        class="highscore-left bg-orange-300 w-full text-center py-2 flex justify-center items-center"
+                      >
+                        Custom-General Knowledge-Hard
+                      </p>
+                      <p
+                        class="highscore-right bg-yellow-400 w-full text-center py-2 flex justify-center items-center text-lg"
+                      >
+                        12
+                      </p>
+                    </div>
+                    <div
+                      class="highscore-preview flex justify-between divide-x-2 divide-black text-sm border-b-2 border-black"
                     >
-                      12
-                    </p>
-                  </div>
-                  <div
-                    class="highscore-preview flex justify-between divide-x-2 divide-black text-sm border-b-2 border-black"
-                  >
-                    <p
-                      class="highscore-left bg-orange-300 w-full text-center py-2 flex justify-center items-center"
+                      <p
+                        class="highscore-left bg-orange-300 w-full text-center py-2 flex justify-center items-center"
+                      >
+                        Custom-General Knowledge-Hard
+                      </p>
+                      <p
+                        class="highscore-right bg-yellow-400 w-full text-center py-2 flex justify-center items-center text-lg"
+                      >
+                        12
+                      </p>
+                    </div>
+                    <div
+                      class="highscore-preview flex justify-between divide-x-2 divide-black text-sm border-b-2 border-black"
                     >
-                      Custom-General Knowledge-Hard
-                    </p>
-                    <p
-                      class="highscore-right bg-yellow-400 w-full text-center py-2 flex justify-center items-center text-lg"
+                      <p
+                        class="highscore-left bg-orange-300 w-full text-center py-2 flex justify-center items-center"
+                      >
+                        Custom-General Knowledge-Hard
+                      </p>
+                      <p
+                        class="highscore-right bg-yellow-400 w-full text-center py-2 flex justify-center items-center text-lg"
+                      >
+                        12
+                      </p>
+                    </div>
+                    <div
+                      class="highscore-preview flex justify-between divide-x-2 divide-black text-sm border-b-2 border-black"
                     >
-                      12
-                    </p>
-                  </div>
-                  <div
-                    class="highscore-preview flex justify-between divide-x-2 divide-black text-sm border-b-2 border-black"
-                  >
-                    <p
-                      class="highscore-left bg-orange-300 w-full text-center py-2 flex justify-center items-center"
+                      <p
+                        class="highscore-left bg-orange-300 w-full text-center py-2 flex justify-center items-center"
+                      >
+                        Custom-General Knowledge-Hard
+                      </p>
+                      <p
+                        class="highscore-right bg-yellow-400 w-full text-center py-2 flex justify-center items-center text-lg"
+                      >
+                        12
+                      </p>
+                    </div>
+                    <div
+                      class="highscore-preview flex justify-between divide-x-2 divide-black text-sm border-b-2 border-black"
                     >
-                      Custom-General Knowledge-Hard
-                    </p>
-                    <p
-                      class="highscore-right bg-yellow-400 w-full text-center py-2 flex justify-center items-center text-lg"
+                      <p
+                        class="highscore-left bg-orange-300 w-full text-center py-2 flex justify-center items-center"
+                      >
+                        Custom-General Knowledge-Hard
+                      </p>
+                      <p
+                        class="highscore-right bg-yellow-400 w-full text-center py-2 flex justify-center items-center text-lg"
+                      >
+                        12
+                      </p>
+                    </div>
+                    <div
+                      class="highscore-preview flex justify-between divide-x-2 divide-black text-sm border-b-2 border-black"
                     >
-                      12
-                    </p>
-                  </div>
-                  <div
-                    class="highscore-preview flex justify-between divide-x-2 divide-black text-sm border-b-2 border-black"
-                  >
-                    <p
-                      class="highscore-left bg-orange-300 w-full text-center py-2 flex justify-center items-center"
+                      <p
+                        class="highscore-left bg-orange-300 w-full text-center py-2 flex justify-center items-center"
+                      >
+                        Custom-General Knowledge-Hard
+                      </p>
+                      <p
+                        class="highscore-right bg-yellow-400 w-full text-center py-2 flex justify-center items-center text-lg"
+                      >
+                        12
+                      </p>
+                    </div>
+                    <div
+                      class="highscore-preview flex justify-between divide-x-2 divide-black text-sm border-b-2 border-black"
                     >
-                      Custom-General Knowledge-Hard
-                    </p>
-                    <p
-                      class="highscore-right bg-yellow-400 w-full text-center py-2 flex justify-center items-center text-lg"
+                      <p
+                        class="highscore-left bg-orange-300 w-full text-center py-2 flex justify-center items-center"
+                      >
+                        Custom-General Knowledge-Hard
+                      </p>
+                      <p
+                        class="highscore-right bg-yellow-400 w-full text-center py-2 flex justify-center items-center text-lg"
+                      >
+                        12
+                      </p>
+                    </div>
+                    <div
+                      class="highscore-preview flex justify-between divide-x-2 divide-black text-sm border-b-2 border-black"
                     >
-                      12
-                    </p>
-                  </div>
-                  <div
-                    class="highscore-preview flex justify-between divide-x-2 divide-black text-sm border-b-2 border-black"
-                  >
-                    <p
-                      class="highscore-left bg-orange-300 w-full text-center py-2 flex justify-center items-center"
-                    >
-                      Custom-General Knowledge-Hard
-                    </p>
-                    <p
-                      class="highscore-right bg-yellow-400 w-full text-center py-2 flex justify-center items-center text-lg"
-                    >
-                      12
-                    </p>
-                  </div>
-                  <div
-                    class="highscore-preview flex justify-between divide-x-2 divide-black text-sm border-b-2 border-black"
-                  >
-                    <p
-                      class="highscore-left bg-orange-300 w-full text-center py-2 flex justify-center items-center"
-                    >
-                      Custom-General Knowledge-Hard
-                    </p>
-                    <p
-                      class="highscore-right bg-yellow-400 w-full text-center py-2 flex justify-center items-center text-lg"
-                    >
-                      12
-                    </p>
-                  </div>
-                  <div
-                    class="highscore-preview flex justify-between divide-x-2 divide-black text-sm border-b-2 border-black"
-                  >
-                    <p
-                      class="highscore-left bg-orange-300 w-full text-center py-2 flex justify-center items-center"
-                    >
-                      Custom-General Knowledge-Hard
-                    </p>
-                    <p
-                      class="highscore-right bg-yellow-400 w-full text-center py-2 flex justify-center items-center text-lg"
-                    >
-                      12
-                    </p>
-                  </div>
-                  <div
-                    class="highscore-preview flex justify-between divide-x-2 divide-black text-sm border-b-2 border-black"
-                  >
-                    <p
-                      class="highscore-left bg-orange-300 w-full text-center py-2 flex justify-center items-center"
-                    >
-                      Custom-General Knowledge-Hard
-                    </p>
-                    <p
-                      class="highscore-right bg-yellow-400 w-full text-center py-2 flex justify-center items-center text-lg"
-                    >
-                      12
-                    </p>
-                  </div>
-                  <div
-                    class="highscore-preview flex justify-between divide-x-2 divide-black text-sm border-b-2 border-black"
-                  >
-                    <p
-                      class="highscore-left bg-orange-300 w-full text-center py-2 flex justify-center items-center"
-                    >
-                      Custom-General Knowledge-Hard
-                    </p>
-                    <p
-                      class="highscore-right bg-yellow-400 w-full text-center py-2 flex justify-center items-center text-lg"
-                    >
-                      12
-                    </p>
+                      <p
+                        class="highscore-left bg-orange-300 w-full text-center py-2 flex justify-center items-center"
+                      >
+                        Custom-General Knowledge-Hard
+                      </p>
+                      <p
+                        class="highscore-right bg-yellow-400 w-full text-center py-2 flex justify-center items-center text-lg"
+                      >
+                        12
+                      </p>
+                    </div>
                   </div>
                 </div>
-              </div>
-            </section>
-          </section>
+              </section>
+            </section>            
+          </div>
+
 
           <!-- buttons -->
           <div
             class="text-black tracking-wide font-bold teko text-3xl mx-auto grid grid-cols-1 md:grid-cols-2 justify-center gap-4 pt-10 w-full max-w-4xl col-span-1 md:col-span-3"
           >
-            <button
-              type="submit"
-              class="bg-orange-300 border-4 border-black px-5 uppercase w-full duration-300 hover:bg-green-400 hover:text-white rounded-lg"
-            >
-              Save Changes
-            </button>
-            <button
-              type="reset"
-              class="bg-orange-300 border-4 border-black px-5 uppercase w-full duration-300 hover:bg-red-400 hover:text-white rounded-lg"
-            >
-              Reset
-            </button>
+          <% if (userState != "guest") { %>
+              <button
+                type="submit"
+                class="bg-orange-300 border-4 border-black px-5 uppercase w-full duration-300 hover:bg-green-400 hover:text-white rounded-lg"
+              >
+                Save Changes
+              </button>
+              <button
+                type="reset"
+                class="bg-orange-300 border-4 border-black px-5 uppercase w-full duration-300 hover:bg-red-400 hover:text-white rounded-lg"
+              >
+                Reset
+              </button>
+          <% } else { %> 
+              <a href="/" class="bg-orange-300 border-4 border-black px-5 uppercase w-full duration-300 hover:bg-green-400 hover:text-white rounded-lg text-center text-2xl col-span-1 md:col-span-2">Main Page</a>
+          <% } %>
+
           </div>
         </form>
       </div>

@@ -1,3 +1,4 @@
+import * as parser from '/../misc_js/parse-cookie.js';
 const campaignBtn = document.querySelector('.campaign-btn'),
   challengeBtn = document.querySelector('.challenge-btn'),
   randomBtn = document.querySelector('.random-btn'),
@@ -12,6 +13,8 @@ let api_amount = 10,
 // parameter for local storage
 let local_cat, local_difs, local_mode;
 
+console.log(parser.parseCookie(document.cookie).sessionToken);
+
 // get API Parameter value in select-dif page
 const getParamsFromSelectDif = (async () => {
   campaignBtn.addEventListener('click', function () {
@@ -21,7 +24,9 @@ const getParamsFromSelectDif = (async () => {
     insertAPIParamsValueToLocalVar();
     saveAPIParamsToSessionStorage();
     saveParamsForLocalStorage();
-    window.location.href = '/campaign-mode';
+    window.location.href = `/campaign-mode/${
+      parser.parseCookie(document.cookie).sessionToken
+    }`;
   });
 
   challengeBtn.addEventListener('click', function () {
@@ -31,7 +36,9 @@ const getParamsFromSelectDif = (async () => {
     insertAPIParamsValueToLocalVar();
     saveAPIParamsToSessionStorage();
     saveParamsForLocalStorage();
-    window.location.href = '/challenge-mode';
+    window.location.href = `/challenge-mode/${
+      parser.parseCookie(document.cookie).sessionToken
+    }`;
   });
 
   randomBtn.addEventListener('click', function () {
@@ -41,7 +48,9 @@ const getParamsFromSelectDif = (async () => {
     insertAPIParamsValueToLocalVar();
     saveAPIParamsToSessionStorage();
     saveParamsForLocalStorage();
-    window.location.href = '/random-mode';
+    window.location.href = `/random-mode/${
+      parser.parseCookie(document.cookie).sessionToken
+    }`;
   });
 
   customBtn.addEventListener('click', function () {
@@ -51,12 +60,23 @@ const getParamsFromSelectDif = (async () => {
     insertAPIParamsValueToLocalVar();
     saveAPIParamsToSessionStorage();
     saveParamsForLocalStorage();
-    window.location.href = '/custom-mode';
+    window.location.href = `/custom-mode/${
+      parser.parseCookie(document.cookie).sessionToken
+    }`;
   });
 
-  sessionToken = await getTokenSession();
+  const sessionToken = await getTokenSession();
   // console.log(sessionToken);
-  document.cookie = `sessionToken=${sessionToken}; Secure`;
+
+  // if browser is safari
+  if (
+    navigator.userAgent.includes('AppleWebKit/') &&
+    navigator.userAgent.includes('Safari/')
+  ) {
+    document.cookie = `sessionToken=${sessionToken};`;
+  } else {
+    document.cookie = `sessionToken=${sessionToken}; secure`;
+  }
 })();
 
 async function getTokenSession() {

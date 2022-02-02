@@ -18,8 +18,17 @@ let multipleOrBool,
   isInAfterAnswer = false,
   totalCorrectAns = 0;
 
-let stillFetching = true;
+const parseCookieAtGameplay = (str) =>
+  str
+    .split(';')
+    .map((v) => v.split('='))
+    .reduce((acc, v) => {
+      acc[decodeURIComponent(v[0].trim())] = decodeURIComponent(v[1].trim());
+      return acc;
+    }, {});
 
+let stillFetching = true,
+  sessionToken = parseCookieAtGameplay(document.cookie).sessionToken;
 // for points
 const key = `${sessionStorage.getItem('local_mode')}${sessionStorage.getItem(
   'local_cat'
@@ -29,9 +38,9 @@ const key = `${sessionStorage.getItem('local_mode')}${sessionStorage.getItem(
 const questions = {
   fetchQuestion: (amount, cat, difs, type, sessionToken) => {
     // for debug
-    console.log(
-      `Parameter that was sent to the server side = /get_question/${amount},${cat},${difs},${type},${sessionToken}`
-    );
+    // console.log(
+    //   `Parameter that was sent to the server side = /get_question/${amount},${cat},${difs},${type},${sessionToken}`
+    // );
     return fetch(
       `/get_question/${amount},${cat},${difs},${type},${sessionToken}`
     )
@@ -261,13 +270,27 @@ answerOptions.forEach((option) => {
     );
 
     // check the index of the current question to fetch more questions
-    if (questions.currentQuestion == questions.questionList.length - 1) {
+    // temporary fix for safari non-working after-answer animation
+    if (
+      !navigator.userAgent.includes('AppleWebKit/') &&
+      !navigator.userAgent.includes('Safari/')
+    ) {
+      if (questions.currentQuestion == questions.questionList.length - 1) {
+        questions.fetchQuestion(
+          sessionStorage.getItem('api_amount'),
+          sessionStorage.getItem('api_cat'),
+          sessionStorage.getItem('api_difs'),
+          sessionStorage.getItem('api_type'),
+          sessionToken
+        );
+      }
+    } else {
       questions.fetchQuestion(
         sessionStorage.getItem('api_amount'),
         sessionStorage.getItem('api_cat'),
         sessionStorage.getItem('api_difs'),
         sessionStorage.getItem('api_type'),
-        document.cookie.split('=')[1]
+        sessionToken
       );
     }
   });
@@ -287,8 +310,6 @@ document.querySelector('.next-question').addEventListener('click', function () {
 
   // check the index and refresh the question
   if (questions.currentQuestion !== questions.questionList.length) {
-    // add animation to the question card
-
     // to refresh the question
     questions.assignQuestionPropertyToCard(
       questions.questionList,
@@ -296,7 +317,9 @@ document.querySelector('.next-question').addEventListener('click', function () {
     );
 
     // to remove animation and to reset timer bar
-    toggleAnimationToAll('anim-slide-x', questionCards);
+    setTimeout(() => {
+      toggleAnimationToAll('anim-slide-x', questionCards);
+    }, 100);
     hideNShow(questionCards[multipleOrBool]);
     resetTimeAndBar();
   }
@@ -405,6 +428,7 @@ function hideNShow(target) {
   }, 20);
 }
 function toggleAnimationToAll(animClass, target) {
+  console.log;
   target.forEach((x, i) => {
     x.classList.remove(animClass);
     x.classList.add(animClass);
@@ -425,13 +449,11 @@ if (document.readyState === 'loading') {
     sessionStorage.getItem('api_cat'),
     sessionStorage.getItem('api_difs'),
     sessionStorage.getItem('api_type'),
-    document.cookie.split('=')[1]
+    sessionToken
   );
 
   // when content has finished loading
   document.addEventListener('DOMContentLoaded', () => {
-    // remove loading screen
-
     isInAfterAnswer = false;
     runTimerBar();
     toggleAnimationToAll('anim-slide-x', questionCards);

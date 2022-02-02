@@ -37,3 +37,19 @@ window.addEventListener('resize', () => {
     menu.classList.add('-translate-y-full');
   }
 });
+
+// if browser is safari
+if (
+  navigator.userAgent.includes('AppleWebKit/') &&
+  navigator.userAgent.includes('Safari/')
+) {
+  if (window.innerWidth <= 640) {
+    document.querySelectorAll('.select-dif-content-max-w').forEach((item) => {
+      item.style.maxWidth = 'calc(100vw * 11 / 12 - 38px)';
+    });
+  } else {
+    document.querySelectorAll('.select-dif-content-max-w').forEach((item) => {
+      item.style.maxWidth = '';
+    });
+  }
+}

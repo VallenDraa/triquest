@@ -2,6 +2,7 @@ const express = require('express');
 const methodOverride = require('method-override');
 const app = express();
 const fetch = require('node-fetch');
+const cookieParser = require('cookie-parser');
 const socialRouter = require('./server-side/socials');
 
 app.use(methodOverride('_method'));
@@ -12,7 +13,10 @@ const mongoose = require('mongoose');
 app.set('view engine', 'ejs');
 app.use(express.static('public'));
 app.use(express.urlencoded({ extended: true }));
+
+// other use
 app.use('/socials', socialRouter);
+app.use(cookieParser());
 
 // sign-up page
 app.get('/sign-up', (req, res) => {
@@ -25,39 +29,57 @@ app.get('/login', (req, res) => {
 
 // main page
 app.get('/', function (req, res) {
+  if (!req.cookies.userState) {
+    res.redirect('/sign-up');
+  }
   res.render('select-dif');
 });
 
 // leaderboard
 app.get('/leaderboard', function (req, res) {
+  if (!req.cookies.userState) {
+    res.redirect('/sign-up');
+  }
   res.render('leaderboard');
 });
 
 //profile
-app.get('/profile', function (req, res) {
-  res.render('profile');
+app.get('/profile/:userState', function (req, res) {
+  const userState = req.cookies.userState;
+  if (!userState) {
+    res.redirect('/sign-up');
+  } else {
+    if (req.params.userState !== userState) {
+      res.redirect('/error/404');
+    } else {
+      res.render('profile', {
+        userState: req.cookies.userState,
+      });
+    }
+  }
 });
 
 // campaign mode
-app.get('/campaign-mode', function (req, res) {
+app.get('/campaign-mode/:sessionToken', function (req, res) {
   res.render('gameplay');
 });
 
 // random mode
-app.get('/random-mode', function (req, res) {
+app.get('/random-mode/:sessionToken', function (req, res) {
   res.render('gameplay');
 });
 
 // gameplay challenge mode
-app.get('/challenge-mode', function (req, res) {
+app.get('/challenge-mode/:sessionToken', function (req, res) {
   res.render('gameplay');
 });
 
 // practice mode
-app.get('/custom-mode', function (req, res) {
+app.get('/custom-mode/:sessionToken', function (req, res) {
   res.render('gameplay');
 });
 
+// API's
 // get session tokens
 app.get('/session-token', async function (req, res) {
   const data = await fetch('https://opentdb.com/api_token.php?command=request');
@@ -86,11 +108,23 @@ app.get('/get_question/:queryParams', async function (req, res) {
 
   res.json(json);
 });
+// get user country
+app.get('/get_country', async function (req, res) {
+  const api_url = `https://www.iplocate.io/api/lookup/`;
+  const datas = await fetch(api_url);
+  const json = await datas.json();
+  res.json(json);
+});
 
-app.use(function (req, res) {
+app.get('/error/404', (req, res) => {
+  res.status(404);
   res.render('./error/404HTML');
 });
 
+app.use(function (req, res) {
+  res.redirect('/error/404');
+});
+
 app.listen(5001, () => {
-  console.log('listening at port 5001');
+  console.log('listening at localhost:5001/');
 });

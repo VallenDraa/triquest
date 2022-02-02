@@ -12,6 +12,10 @@
         border: 4px solid black;
         background-color: yellow;
         display: none;
+      }
+
+      .pop-up {
+        -webkit-animation: pop-up 500ms ease-in-out;
         animation: pop-up 500ms ease-in-out;
       }
 
@@ -31,6 +35,20 @@
     </style>
   </head>
   <body>
-    <div></div>
+    <div class="pop-up"></div>
+
+    <script>
+      let x;
+      async function name() {
+        const response = await fetch('https://www.iplocate.io/api/lookup/');
+        const data = await response.json();
+        const country = await data;
+
+        console.log(country);
+      }
+
+      x = name();
+      console.log(x);
+    </script>
   </body>
 </html>
