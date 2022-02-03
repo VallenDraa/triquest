@@ -1,4 +1,12 @@
-import * as parser from '/../misc_js/parse-cookie.js';
+const parseCookieAPI = (str) =>
+  str
+    .split(';')
+    .map((v) => v.split('='))
+    .reduce((acc, v) => {
+      acc[decodeURIComponent(v[0].trim())] = decodeURIComponent(v[1].trim());
+      return acc;
+    }, {});
+
 const campaignBtn = document.querySelector('.campaign-btn'),
   challengeBtn = document.querySelector('.challenge-btn'),
   randomBtn = document.querySelector('.random-btn'),
@@ -13,7 +21,7 @@ let api_amount = 10,
 // parameter for local storage
 let local_cat, local_difs, local_mode;
 
-console.log(parser.parseCookie(document.cookie).sessionToken);
+console.log(parseCookieAPI(document.cookie).sessionToken);
 
 // get API Parameter value in select-dif page
 const getParamsFromSelectDif = (async () => {
@@ -25,7 +33,7 @@ const getParamsFromSelectDif = (async () => {
     saveAPIParamsToSessionStorage();
     saveParamsForLocalStorage();
     window.location.href = `/campaign-mode/${
-      parser.parseCookie(document.cookie).sessionToken
+      parseCookieAPI(document.cookie).sessionToken
     }`;
   });
 
@@ -37,7 +45,7 @@ const getParamsFromSelectDif = (async () => {
     saveAPIParamsToSessionStorage();
     saveParamsForLocalStorage();
     window.location.href = `/challenge-mode/${
-      parser.parseCookie(document.cookie).sessionToken
+      parseCookieAPI(document.cookie).sessionToken
     }`;
   });
 
@@ -49,7 +57,7 @@ const getParamsFromSelectDif = (async () => {
     saveAPIParamsToSessionStorage();
     saveParamsForLocalStorage();
     window.location.href = `/random-mode/${
-      parser.parseCookie(document.cookie).sessionToken
+      parseCookieAPI(document.cookie).sessionToken
     }`;
   });
 
@@ -61,7 +69,7 @@ const getParamsFromSelectDif = (async () => {
     saveAPIParamsToSessionStorage();
     saveParamsForLocalStorage();
     window.location.href = `/custom-mode/${
-      parser.parseCookie(document.cookie).sessionToken
+      parseCookieAPI(document.cookie).sessionToken
     }`;
   });
 

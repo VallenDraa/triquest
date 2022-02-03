@@ -20,11 +20,15 @@ app.use(cookieParser());
 
 // sign-up page
 app.get('/sign-up', (req, res) => {
-  res.render('sign-up');
+  res.render('sign-up', {
+    title: 'Triquest | Sign-Up',
+  });
 });
 
 app.get('/login', (req, res) => {
-  res.render('login');
+  res.render('login', {
+    title: 'Triquest | Login',
+  });
 });
 
 // main page
@@ -32,7 +36,9 @@ app.get('/', function (req, res) {
   if (!req.cookies.userState) {
     res.redirect('/sign-up');
   }
-  res.render('select-dif');
+  res.render('select-dif', {
+    title: 'Triquest | Challenge Yourself',
+  });
 });
 
 // leaderboard
@@ -40,7 +46,9 @@ app.get('/leaderboard', function (req, res) {
   if (!req.cookies.userState) {
     res.redirect('/sign-up');
   }
-  res.render('leaderboard');
+  res.render('leaderboard', {
+    title: 'Triquest | Leaderboard',
+  });
 });
 
 //profile
@@ -53,6 +61,7 @@ app.get('/profile/:userState', function (req, res) {
       res.redirect('/error/404');
     } else {
       res.render('profile', {
+        title: `Triquest | ${req.params.userState}`,
         userState: req.cookies.userState,
       });
     }
@@ -61,22 +70,26 @@ app.get('/profile/:userState', function (req, res) {
 
 // campaign mode
 app.get('/campaign-mode/:sessionToken', function (req, res) {
-  res.render('gameplay');
+  res.render('gameplay', {
+    title: `Triquest | Campaign Mode`,
+  });
 });
 
 // random mode
 app.get('/random-mode/:sessionToken', function (req, res) {
-  res.render('gameplay');
+  res.render('gameplay', {
+    title: `Triquest | Random Mode`,
+  });
 });
 
 // gameplay challenge mode
 app.get('/challenge-mode/:sessionToken', function (req, res) {
-  res.render('gameplay');
+  res.render('gameplay', { title: `Triquest | Challenge Mode` });
 });
 
 // practice mode
 app.get('/custom-mode/:sessionToken', function (req, res) {
-  res.render('gameplay');
+  res.render('gameplay', { title: `Triquest | Custom Mode` });
 });
 
 // API's

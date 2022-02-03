@@ -30,9 +30,11 @@ const parseCookieAtGameplay = (str) =>
 let stillFetching = true,
   sessionToken = parseCookieAtGameplay(document.cookie).sessionToken;
 // for points
-const key = `${sessionStorage.getItem('local_mode')}${sessionStorage.getItem(
-  'local_cat'
-)}${sessionStorage.getItem('local_difs')}`;
+const key = `score_${sessionStorage.getItem(
+  'local_mode'
+)}${sessionStorage.getItem('local_cat')}${sessionStorage.getItem(
+  'local_difs'
+)}`;
 
 // calling api and assigning the questions
 const questions = {
@@ -46,6 +48,7 @@ const questions = {
     )
       .then((res) => res.json())
       .then((questionsRes) => {
+        // for debug
         // console.log(questionsRes.results);
         questionsRes.results.forEach((question) => {
           questions.questionList.push(question);
@@ -60,6 +63,15 @@ const questions = {
       });
   },
   assignQuestionPropertyToCard: (questionsArr, i) => {
+    // if there are no questions
+    if (questionsArr.length === 0) {
+      resultScreenProperties(
+        'There Are No More Questions For This Category',
+        totalCorrectAns
+      );
+      return;
+    }
+
     // for multiple choice
     if (questionsArr[i].type == 'multiple') {
       document.querySelector('.question-four-opt').innerHTML =
@@ -396,6 +408,7 @@ function resultScreenProperties(message, totalCorrectAns) {
 
 // point system guest user
 function savePoints() {
+  if (totalCorrectAns === 0) return;
   localStorage.setItem(key, totalCorrectAns);
 }
 

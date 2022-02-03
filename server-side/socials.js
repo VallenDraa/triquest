@@ -2,7 +2,7 @@ const express = require('express');
 const router = express.Router();
 
 router.get('/', (req, res) => {
-  res.render('socials');
+  res.render('socials', { title: `Triquest | Community` });
 });
 router.get('/reddit', (req, res) => {
   res.redirect('https://www.reddit.com/');
