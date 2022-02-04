@@ -15,6 +15,7 @@ fetch('../data/countries.json')
     // inserting countries data to HTML
     countries.forEach((country) => {
       const option = document.createElement('option');
+      option.value = country.code;
       option.textContent = `${country.name} ${getFlagEmoji(country.code)}`;
       countryList.appendChild(option);
     });

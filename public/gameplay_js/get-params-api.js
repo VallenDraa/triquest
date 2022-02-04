@@ -28,7 +28,7 @@ const getParamsFromSelectDif = (async () => {
   campaignBtn.addEventListener('click', function () {
     api_cat = document.querySelector('#category-campaign').value;
     api_difs = '';
-    local_mode = 'campaign';
+    local_mode = 'Campaign';
     insertAPIParamsValueToLocalVar();
     saveAPIParamsToSessionStorage();
     saveParamsForLocalStorage();
@@ -40,7 +40,7 @@ const getParamsFromSelectDif = (async () => {
   challengeBtn.addEventListener('click', function () {
     api_cat = document.querySelector('#category-challenge').value;
     api_difs = 'hard';
-    local_mode = 'challenge';
+    local_mode = 'Challenge';
     insertAPIParamsValueToLocalVar();
     saveAPIParamsToSessionStorage();
     saveParamsForLocalStorage();
@@ -52,7 +52,7 @@ const getParamsFromSelectDif = (async () => {
   randomBtn.addEventListener('click', function () {
     api_cat = '';
     api_difs = '';
-    local_mode = 'random';
+    local_mode = 'Random';
     insertAPIParamsValueToLocalVar();
     saveAPIParamsToSessionStorage();
     saveParamsForLocalStorage();
@@ -64,7 +64,7 @@ const getParamsFromSelectDif = (async () => {
   customBtn.addEventListener('click', function () {
     api_cat = document.querySelector('#category-custom').value;
     api_difs = document.querySelector('#category-difs').value;
-    local_mode = 'custom';
+    local_mode = 'Custom';
     insertAPIParamsValueToLocalVar();
     saveAPIParamsToSessionStorage();
     saveParamsForLocalStorage();

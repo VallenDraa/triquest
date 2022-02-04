@@ -131,7 +131,7 @@ app.get('/get_country', async function (req, res) {
 
 app.get('/error/404', (req, res) => {
   res.status(404);
-  res.render('./error/404HTML');
+  res.render('./error/404HTML', { title: 'Triquest | Error 404' });
 });
 
 app.use(function (req, res) {

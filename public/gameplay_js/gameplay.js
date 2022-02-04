@@ -32,7 +32,7 @@ let stillFetching = true,
 // for points
 const key = `score_${sessionStorage.getItem(
   'local_mode'
-)}${sessionStorage.getItem('local_cat')}${sessionStorage.getItem(
+)}_${sessionStorage.getItem('local_cat')}_${sessionStorage.getItem(
   'local_difs'
 )}`;
 
@@ -287,14 +287,19 @@ answerOptions.forEach((option) => {
       !navigator.userAgent.includes('AppleWebKit/') &&
       !navigator.userAgent.includes('Safari/')
     ) {
-      if (questions.currentQuestion == questions.questionList.length - 1) {
-        questions.fetchQuestion(
-          sessionStorage.getItem('api_amount'),
-          sessionStorage.getItem('api_cat'),
-          sessionStorage.getItem('api_difs'),
-          sessionStorage.getItem('api_type'),
-          sessionToken
-        );
+      // check if the mode is campaign
+      if (sessionStorage.getItem('local_mode') != 'Campaign') {
+        if (questions.currentQuestion == questions.questionList.length - 1) {
+          questions.fetchQuestion(
+            sessionStorage.getItem('api_amount'),
+            sessionStorage.getItem('api_cat'),
+            sessionStorage.getItem('api_difs'),
+            sessionStorage.getItem('api_type'),
+            sessionToken
+          );
+        }
+      } else {
+        campaignModeFetchQuestion();
       }
     } else {
       questions.fetchQuestion(
@@ -457,13 +462,23 @@ function removeLoadingScreen() {
 
 // loading screen for gameplay page
 if (document.readyState === 'loading') {
-  questions.fetchQuestion(
-    sessionStorage.getItem('api_amount'),
-    sessionStorage.getItem('api_cat'),
-    sessionStorage.getItem('api_difs'),
-    sessionStorage.getItem('api_type'),
-    sessionToken
-  );
+  if (sessionStorage.getItem('local_mode') != 'Campaign') {
+    questions.fetchQuestion(
+      sessionStorage.getItem('api_amount'),
+      sessionStorage.getItem('api_cat'),
+      sessionStorage.getItem('api_difs'),
+      sessionStorage.getItem('api_type'),
+      sessionToken
+    );
+  } else {
+    questions.fetchQuestion(
+      sessionStorage.getItem('api_amount'),
+      sessionStorage.getItem('api_cat'),
+      'easy',
+      sessionStorage.getItem('api_type'),
+      sessionToken
+    );
+  }
 
   // when content has finished loading
   document.addEventListener('DOMContentLoaded', () => {
@@ -476,4 +491,27 @@ if (document.readyState === 'loading') {
   removeLoadingScreen();
   runTimerBar();
   toggleAnimationToAll('anim-slide-x', questionCards);
+}
+
+// fetch question for campaign mode
+function campaignModeFetchQuestion() {
+  if (questions.currentQuestion == questions.questionList.length - 1) {
+    if (questions.currentQuestion < 10) {
+      questions.fetchQuestion(
+        sessionStorage.getItem('api_amount'),
+        sessionStorage.getItem('api_cat'),
+        'medium',
+        sessionStorage.getItem('api_type'),
+        sessionToken
+      );
+    } else {
+      questions.fetchQuestion(
+        sessionStorage.getItem('api_amount'),
+        sessionStorage.getItem('api_cat'),
+        'hard',
+        sessionStorage.getItem('api_type'),
+        sessionToken
+      );
+    }
+  }
 }
