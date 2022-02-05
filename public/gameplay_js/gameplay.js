@@ -261,6 +261,8 @@ window.addEventListener('resize', () => {
   document.querySelectorAll('.question').forEach((question) => {
     question.setAttribute('style', questions.resizeText(question.innerText));
   });
+  // match height between after answer card and question card
+  matchHeight(answerOptionWrapper, afterAnswerCard);
 });
 
 // everytime an answer is clicked

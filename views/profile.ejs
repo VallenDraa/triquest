@@ -39,7 +39,7 @@
                     >
                     <% } else { %> Username <% } %>
                   </label>
-                  <input type="text" name="username" id="username" class="border-2
+                  <input type="text" name="username" title="Edit Your Username" id="username" class="border-2
                   md:border-4 border-black outline-none px-2 rounded-lg block
                   w-full py-1 bg-slate-50" <% if (userState == "guest") { %>
                   value="GUEST" readonly <% } else { %> value="Vallen" <% } %> />
@@ -55,6 +55,7 @@
                   </label>
                   <textarea
                     name="description"
+                    title="Edit Your Profile Description"
                     id="description"
                     cols="30"
                     rows="5"
@@ -76,6 +77,7 @@
                   </label>
                   <select
                     name="country"
+                    title="Edit Your Country Of Origin"
                     <% if (userState == "guest") { %> 
                       id="country-guest"
                       class="border-2 md:border-4 border-black outline-none px-2 rounded-lg block w-full py-1 bg-slate-50">
@@ -149,12 +151,12 @@
                   </h2>
                   <!-- sign-up -->
                   <div class="w-full max-w-4xl mx-auto">
-                    <a href="/sign-up" class="text-2xl border-2 md:border-4 border-black rounded-lg block w-full py-1 bg-orange-300 hover:bg-green-400 hover:text-white duration-300 teko text-center font-bold"
+                    <a href="/sign-up" title="Sign Up Now To Edit Profile" class="text-2xl border-2 md:border-4 border-black rounded-lg block w-full py-1 bg-orange-300 hover:bg-green-400 hover:text-white duration-300 teko text-center font-bold"
                     >Sign Up</a>
                   </div>
                   <!-- password -->
                   <div class="w-full max-w-4xl mx-auto relative mt-3 md:mt-[0.65rem]">
-                    <a href="/login" class="text-2xl border-2 md:border-4 border-black rounded-lg block w-full py-1 bg-orange-300 hover:bg-green-400 hover:text-white duration-300 teko text-center font-bold"
+                    <a href="/login" title="Login Now To Edit Profile" class="text-2xl border-2 md:border-4 border-black rounded-lg block w-full py-1 bg-orange-300 hover:bg-green-400 hover:text-white duration-300 teko text-center font-bold"
                     >Login</a>
                   </div>     
                 <% } %> 
@@ -171,6 +173,7 @@
                   Highscores
                 </h2>
                 <div
+                  title="Your Highscore's"
                   class="highscore-box h-full bg-white border-2 md:border-4 border-black rounded-lg relative overflow-y-auto"
                 >
                   <div

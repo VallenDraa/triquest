@@ -161,7 +161,7 @@ async function findAndSortScores(query) {
     id="score-range"
     class="text-center teko font-bold border-b-2 border-black flex">
         <p class="rank p-1 bg-orange-300 basis-[20%]">${i + 1}</p>
-        <p class="rank p-1 bg-amber-300 basis-[40%] truncate">dsdasdsadasdasd</p>
+        <a class="rank p-1 bg-amber-300 basis-[40%] truncate block hover:underline" href="/profile/guest" title="Go To guest's Profile">guest</a>
         <p class="rank p-1 bg-yellow-300 basis-[40%]">${value}</p>
     </div>
   `;
