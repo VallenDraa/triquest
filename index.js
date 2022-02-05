@@ -3,11 +3,8 @@ const methodOverride = require('method-override');
 const app = express();
 const fetch = require('node-fetch');
 const cookieParser = require('cookie-parser');
-const socialRouter = require('./server-side/socials');
-
-app.use(methodOverride('_method'));
-
 const mongoose = require('mongoose');
+const socialRouter = require('./server-side/socials');
 
 // use ejs view engine
 app.set('view engine', 'ejs');
@@ -17,6 +14,7 @@ app.use(express.urlencoded({ extended: true }));
 // other use
 app.use('/socials', socialRouter);
 app.use(cookieParser());
+app.use(methodOverride('_method'));
 
 // sign-up page
 app.get('/sign-up', (req, res) => {
