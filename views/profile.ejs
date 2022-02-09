@@ -1,4 +1,4 @@
-<%- include("./layouts/header") %>
+<%- include("./partials/header") %>
 
 <main class="mt-auto">
   <!-- Profile -->
@@ -90,7 +90,7 @@
                       <option value="choose_country" disabled>
                         Choose Your Country
                       </option>
-                      <option value="global">Global🌐</option>
+                      <option value="global">Global 🌐</option>
                     <% } %>
                 
                     <!-- more options will be added through country.js -->
@@ -151,12 +151,12 @@
                   </h2>
                   <!-- sign-up -->
                   <div class="w-full max-w-4xl mx-auto">
-                    <a href="/sign-up" title="Sign Up Now To Edit Profile" class="text-2xl border-2 md:border-4 border-black rounded-lg block w-full py-1 bg-orange-300 hover:bg-green-400 hover:text-white duration-300 teko text-center font-bold"
+                    <a href="/sign-up" title="Sign Up Now To Edit Profile" class="text-2xl border-2 md:border-4 border-black rounded-lg block w-full py-1 bg-orange-300 hover:bg-green-400 active:bg-green-600 hover:text-white duration-300 teko text-center font-bold"
                     >Sign Up</a>
                   </div>
                   <!-- password -->
                   <div class="w-full max-w-4xl mx-auto relative mt-3 md:mt-[0.65rem]">
-                    <a href="/login" title="Login Now To Edit Profile" class="text-2xl border-2 md:border-4 border-black rounded-lg block w-full py-1 bg-orange-300 hover:bg-green-400 hover:text-white duration-300 teko text-center font-bold"
+                    <a href="/login" title="Login Now To Edit Profile" class="text-2xl border-2 md:border-4 border-black rounded-lg block w-full py-1 bg-orange-300 hover:bg-green-400 active:bg-green-600 hover:text-white duration-300 teko text-center font-bold"
                     >Login</a>
                   </div>     
                 <% } %> 
@@ -220,7 +220,7 @@
                 Reset
               </button>
           <% } else { %> 
-              <a href="/" class="bg-orange-300 border-4 border-black px-5 uppercase w-full duration-300 hover:bg-green-400 hover:text-white rounded-lg text-center text-2xl col-span-1 md:col-span-2">Main Page</a>
+              <a href="/" class="bg-orange-300 border-4 border-black px-5 uppercase w-full duration-300 hover:bg-green-400 active:bg-green-600 hover:text-white rounded-lg text-center text-2xl col-span-1 md:col-span-2">Main Page</a>
           <% } %>
 
           </div>
@@ -235,4 +235,4 @@
 <script src="../misc_js/country.js"></script>
 <script src="../misc_js/interaction.js"></script>
 <!-- Footer -->
-<%- include("./layouts/footer") %>
+<%- include("./partials/footer") %>

@@ -24,7 +24,7 @@ if (document.readyState === 'loading') {
 }
 
 //   for guest mode
-(function guesModeEventListener() {
+(function guessModeEventListener() {
   countrySelect.addEventListener('change', async function () {
     addLoadingScreen();
     query = editQuery(

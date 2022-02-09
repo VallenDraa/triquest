@@ -4,7 +4,10 @@ const app = express();
 const fetch = require('node-fetch');
 const cookieParser = require('cookie-parser');
 const mongoose = require('mongoose');
-const socialRouter = require('./server-side/socials');
+const socialRouter = require('./server-side/routes/socials');
+const errorRouter = require('./server-side/routes/error');
+const gamemodeRouter = require('./server-side/routes/gamemode');
+const menuRouter = require('./server-side/routes/menu');
 
 // use ejs view engine
 app.set('view engine', 'ejs');
@@ -13,8 +16,11 @@ app.use(express.urlencoded({ extended: true }));
 
 // other use
 app.use('/socials', socialRouter);
-app.use(cookieParser());
+app.use('/error', errorRouter);
+app.use('/', gamemodeRouter);
+app.use('/', menuRouter);
 app.use(methodOverride('_method'));
+app.use(cookieParser());
 
 // sign-up page
 app.get('/sign-up', (req, res) => {
@@ -29,75 +35,20 @@ app.get('/login', (req, res) => {
   });
 });
 
-// main page
-app.get('/', function (req, res) {
-  if (!req.cookies.userState) {
-    res.redirect('/sign-up');
-  }
-  res.render('select-dif', {
-    title: 'Triquest | Challenge Yourself',
-  });
-});
-
-// leaderboard
-app.get('/leaderboard', function (req, res) {
-  if (!req.cookies.userState) {
-    res.redirect('/sign-up');
-  }
-  res.render('leaderboard', {
-    title: 'Triquest | Leaderboard',
-  });
-});
-
-//profile
-app.get('/profile/:userState', function (req, res) {
-  const userState = req.cookies.userState;
-  if (!userState) {
-    res.redirect('/sign-up');
-  } else {
-    if (req.params.userState !== userState) {
-      res.redirect('/error/404');
-    } else {
-      res.render('profile', {
-        title: `Triquest | ${req.params.userState}`,
-        userState: req.cookies.userState,
-      });
-    }
-  }
-});
-
-// campaign mode
-app.get('/campaign-mode/:sessionToken', function (req, res) {
-  res.render('gameplay', {
-    title: `Triquest | Campaign Mode`,
-  });
-});
-
-// random mode
-app.get('/random-mode/:sessionToken', function (req, res) {
-  res.render('gameplay', {
-    title: `Triquest | Random Mode`,
-  });
-});
-
-// gameplay challenge mode
-app.get('/challenge-mode/:sessionToken', function (req, res) {
-  res.render('gameplay', { title: `Triquest | Challenge Mode` });
-});
-
-// practice mode
-app.get('/custom-mode/:sessionToken', function (req, res) {
-  res.render('gameplay', { title: `Triquest | Custom Mode` });
-});
-
 // API's
 // get session tokens
 app.get('/session-token', async function (req, res) {
-  const data = await fetch('https://opentdb.com/api_token.php?command=request');
-  const json = await data.json();
-  const token = json.token;
+  try {
+    const data = await fetch(
+      'https://opentdb.com/api_token.php?command=request'
+    );
+    const json = await data.json();
+    const token = json.token;
 
-  res.json(token);
+    res.json(token);
+  } catch (error) {
+    res.redirect('/error/503');
+  }
 });
 
 // get questions
@@ -125,15 +76,6 @@ app.get('/get_country', async function (req, res) {
   const datas = await fetch(api_url);
   const json = await datas.json();
   res.json(json);
-});
-
-app.get('/error/404', (req, res) => {
-  res.status(404);
-  res.render('./error/404HTML', { title: 'Triquest | Error 404' });
-});
-
-app.use(function (req, res) {
-  res.redirect('/error/404');
 });
 
 app.listen(5001, () => {

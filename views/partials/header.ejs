@@ -14,12 +14,7 @@
       rel="stylesheet"
       href="https://unpkg.com/swiper@7/swiper-bundle.min.css"
     />
-    <link rel="stylesheet" href="../css/select-dif-max-w.css" />
-    <link rel="stylesheet" href="../css/leaderboard-scrollbar.css" />
-    <link rel="stylesheet" href="../css/highscore-profile.css" />
-    <link rel="stylesheet" href="../css/main-bg.css" />
-    <link rel="stylesheet" href="../css/anim.css" />
-    <link rel="stylesheet" href="../css/loading.css" />
+    <link rel="stylesheet" href="../css/main.css" />
     <script src="https://cdn.tailwindcss.com"></script>
     <title><%-title%></title>
   </head>
@@ -34,10 +29,10 @@
         class="flex teko md:items-center justify-between max-w-screen-2xl mx-auto w-full md:w-11/12 py-2"
       >
         <div
-          class="rounded-md bg-yellow-400 border-4 border-black py-1 px-2 ml-7 md:ml-0 hover:bg-yellow-500 duration-300"
+          class="rounded-md bg-yellow-400 border-4 border-black py-1 px-2 ml-7 md:ml-0"
         >
           <a
-            class="uppercase font-bold text-2xl lg:text-4xl tracking-wider rounded-md block duration-300"
+            class="uppercase font-bold text-2xl tracking-wider rounded-md block duration-300"
             href="/"
           >
             Triquest
@@ -52,26 +47,26 @@
             <p class="md:hidden teko uppercase font-bold underline">Menu</p>
 
             <li
-              class="cursor-pointer bg-orange-300 grid content-center w-full py-1 duration-300 hover:bg-green-400 hover:text-white md:rounded-none rounded-lg border-4 border-black md:border-none h-3/6 play"
+              class="cursor-pointer bg-orange-300 grid content-center w-full py-1 duration-300 hover:bg-green-400 active:bg-green-600 hover:text-white md:rounded-none rounded-lg border-4 border-black md:border-none h-3/6 play"
               title="Play Triquest Now !"
             >
               <a href="/">Play</a>
             </li>
             <li
-              class="cursor-pointer bg-orange-300 grid content-center w-full py-1 duration-300 hover:bg-green-400 hover:text-white md:rounded-none rounded-lg leaderboard border-4 md:border-y-0 md:border-x-4 border-black px-7 md:my-0 h-3/6"
+              class="cursor-pointer bg-orange-300 grid content-center w-full py-1 duration-300 hover:bg-green-400 active:bg-green-600 hover:text-white md:rounded-none rounded-lg leaderboard border-4 md:border-y-0 md:border-x-4 border-black px-7 md:my-0 h-3/6"
               title="Leaderboard Tab"
             >
               <a href="/leaderboard">Leaderboard</a>
             </li>
             <li
-              class="cursor-pointer bg-orange-300 grid content-center w-full py-1 duration-300 hover:bg-green-400 hover:text-white md:rounded-none rounded-lg profile border-4 border-black md:border-none h-3/6"
+              class="cursor-pointer bg-orange-300 grid content-center w-full py-1 duration-300 hover:bg-green-400 active:bg-green-600 hover:text-white md:rounded-none rounded-lg profile border-4 border-black md:border-none h-3/6"
               title="User Profile"
             >
               <a id="profile-btn-header">Vallen</a>
             </li>
           </ul>
           <i
-            class="bg-orange-300 hover:bg-green-400 hover:text-white border-4 px-2 border-black rounded-lg fas fa-caret-down text-4xl text-black md:hidden absolute right-7 cursor-pointer duration-500 toggle-menu mt-4"
+            class="bg-orange-300 hover:bg-green-400 active:bg-green-600 hover:text-white border-4 px-2 border-black rounded-lg fas fa-caret-down text-4xl text-black md:hidden absolute right-7 cursor-pointer duration-500 toggle-menu mt-4"
           ></i>
         </div>
       </div>

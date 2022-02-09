@@ -1,14 +1,14 @@
-<%- include("./layouts/header") %>
+<%- include("./partials/header") %>
 <!-- gameplay UI -->
 <main class="main-bg bg-anim relative">
   <!-- after answer pop-up -->
-  <%- include("./layouts/after-answer-pop-up") %>
+  <%- include("./partials/after-answer-pop-up") %>
 
   <!-- loading screen -->
-  <%- include("./layouts/loading") %>
+  <%- include("./partials/loading") %>
 
   <!-- answer part -->
-  <section class="grid content-center min-h-[800px] relative">
+  <section class="grid content-center h-screen relative">
     <main
       class="max-w-screen-2xl w-11/12 xl:w-9/12 mx-auto question-card-wrapper"
     >
@@ -24,22 +24,22 @@
               ></h2>
               <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mt-4 teko">
                 <div
-                  class="border-2 md:border-4 text-center border-black answer-option text-xl md:text-2xl h-16 md:h-24 flex justify-center items-center font-bold duration-300 rounded-xl cursor-pointer answer-four bg-orange-300 hover:bg-orange-400"
+                  class="border-2 md:border-4 text-center border-black answer-option text-xl md:text-2xl h-16 md:h-24 flex justify-center items-center font-bold duration-300 rounded-xl cursor-pointer answer-four bg-orange-300 hover:bg-orange-400 active:bg-orange-600 hover:text-white"
                 >
                   1
                 </div>
                 <div
-                  class="border-2 md:border-4 text-center border-black answer-option text-xl md:text-2xl h-16 md:h-24 flex justify-center items-center font-bold duration-300 rounded-xl cursor-pointer answer-four bg-red-300 hover:bg-red-400"
+                  class="border-2 md:border-4 text-center border-black answer-option text-xl md:text-2xl h-16 md:h-24 flex justify-center items-center font-bold duration-300 rounded-xl cursor-pointer answer-four bg-red-300 hover:bg-red-400 active:bg-red-600 hover:text-white"
                 >
                   2
                 </div>
                 <div
-                  class="border-2 md:border-4 text-center border-black answer-option text-xl md:text-2xl h-16 md:h-24 flex justify-center items-center font-bold duration-300 rounded-xl cursor-pointer answer-four bg-blue-300 hover:bg-blue-400"
+                  class="border-2 md:border-4 text-center border-black answer-option text-xl md:text-2xl h-16 md:h-24 flex justify-center items-center font-bold duration-300 rounded-xl cursor-pointer answer-four bg-blue-300 hover:bg-blue-400 active:bg-blue-600 hover:text-white"
                 >
                   3
                 </div>
                 <div
-                  class="border-2 md:border-4 text-center border-black answer-option text-xl md:text-2xl h-16 md:h-24 flex justify-center items-center font-bold duration-300 rounded-xl cursor-pointer answer-four bg-green-300 hover:bg-green-400"
+                  class="border-2 md:border-4 text-center border-black answer-option text-xl md:text-2xl h-16 md:h-24 flex justify-center items-center font-bold duration-300 rounded-xl cursor-pointer answer-four bg-green-300 hover:bg-green-400 active:bg-green-600 hover:text-white"
                 >
                   4
                 </div>
@@ -75,12 +75,12 @@
               </h2>
               <div class="teko grid grid-cols-1 md:grid-cols-2 gap-4 mt-4">
                 <div
-                  class="border-2 md:border-4 border-black text-2xl answer-option md:text-4xl h-16 md:h-24 flex justify-center items-center font-bold duration-300 bg-green-300 hover:bg-green-400 rounded-xl cursor-pointer answer-two"
+                  class="border-2 md:border-4 border-black text-2xl answer-option md:text-4xl h-16 md:h-24 flex justify-center items-center font-bold duration-300 bg-green-300 hover:bg-green-400 active:bg-green-600 hover:text-white rounded-xl cursor-pointer answer-two"
                 >
                   True
                 </div>
                 <div
-                  class="border-2 md:border-4 border-black text-2xl answer-option md:text-4xl h-16 md:h-24 flex justify-center items-center font-bold duration-300 bg-red-300 hover:bg-red-400 rounded-xl cursor-pointer answer-two"
+                  class="border-2 md:border-4 border-black text-2xl answer-option md:text-4xl h-16 md:h-24 flex justify-center items-center font-bold duration-300 bg-red-300 hover:bg-red-400 active:bg-red-600 hover:text-white rounded-xl cursor-pointer answer-two"
                 >
                   False
                 </div>
@@ -107,7 +107,7 @@
   </section>
 
   <!-- results screen -->
-  <%- include("./layouts/gameplay-result-screen") %>
+  <%- include("./partials/gameplay-result-screen") %>
 </main>
 
 <script src="../gameplay_js/gameplay.js"></script>

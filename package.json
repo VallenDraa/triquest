@@ -4,7 +4,7 @@
   "description": "A Trivia Game Website",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "devstart": "nodemon index.js"
   },
   "author": "",
   "license": "ISC",

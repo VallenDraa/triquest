@@ -13,11 +13,6 @@ toggle_menu.addEventListener('click', () => {
   // menu btn
   menu_toggle_btn.classList.toggle('rotate-180');
 
-  menuIsToggled = !menuIsToggled;
-  if (menuIsToggled == false) {
-    menu_toggle_btn.classList.remove('text-yellow-300');
-  }
-
   setTimeout(() => {
     menu.classList.remove('duration-500');
   }, 550);
@@ -36,6 +31,16 @@ window.addEventListener('resize', () => {
   } else if (width < 768 && menuIsToggled == false) {
     menu.classList.add('-translate-y-full');
   }
+
+  // REMOVE TRANSITION FOR SELECT DIFFICULTY BUTTONS
+  document.querySelectorAll('.select-dif-content-max-w').forEach((item) => {
+    item.classList.remove('duration-300');
+  });
+  setTimeout(() => {
+    document.querySelectorAll('.select-dif-content-max-w').forEach((item) => {
+      item.classList.add('duration-300');
+    });
+  }, 200);
 });
 
 // if browser is safari

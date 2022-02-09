@@ -1,4 +1,4 @@
-<%- include("./layouts/header") %>
+<%- include("./partials/header") %>
 <section class="grid content-center min-h-full mt-auto">
   <main class="max-w-screen-2xl w-11/12 xl:w-9/12 mx-auto">
     <div
@@ -8,70 +8,18 @@
         action=""
         class="fira-sans space-y-3 md:border-4 border-black rounded-lg bg-yellow-200 p-4"
       >
-        <h1 class="text-center teko text-3xl md:text-5xl font-bold underline">
-          LOGIN
-        </h1>
-        <!-- username -->
-        <div class="w-full max-w-4xl mx-auto">
-          <label for="username" class="text-lg font-bold ml-2 inline-block">
-            Username
-          </label>
-          <input
-            type="text"
-            name="username"
-            id="username"
-            class="border-2 md:border-4 border-black outline-none px-2 rounded-lg text-lg block w-full py-2 bg-slate-50"
-            placeholder="Username"
-          />
-        </div>
-        <!-- password -->
-        <div class="w-full max-w-4xl mx-auto relative">
-          <label for="password" class="text-lg font-bold ml-2 inline-block">
-            Password
-          </label>
-          <div class="flex justify-between items-center">
-            <input
-              type="password"
-              name="password"
-              id="password"
-              class="border-r-0 border-2 md:border-4 md:border-r-0 border-black outline-none px-2 rounded-l-lg block w-full py-2 bg-slate-50"
-              value="password"
-            />
-            <i
-              class="border-l-0 border-2 md:border-4 md:border-l-0 border-black rounded-r-lg show-pw fas fa-eye-slash text-base px-2 cursor-pointer duration-200 hover:text-orange-300 bg-slate-50 self-stretch pt-2"
-            ></i>
-          </div>
-        </div>
+        <%-include("./partials/form-fields", { page_title: "LOGIN" }) %>
         <!-- buttons -->
-        <div
-          class="text-black tracking-wide font-bold teko text-2xl md:text-3xl mx-auto grid grid-cols-1 md:grid-cols-2 justify-center gap-4 pt-10 w-full max-w-4xl"
-        >
-          <button
-            type="submit"
-            class="bg-orange-300 border-4 border-black px-5 uppercase w-full duration-300 hover:bg-green-400 hover:text-white rounded-lg"
-          >
-            Confirm
-          </button>
-          <button
-            type="reset"
-            class="bg-orange-300 border-4 border-black px-5 uppercase w-full duration-300 hover:bg-red-400 hover:text-white rounded-lg"
-          >
-            Reset
-          </button>
-          <button
-            type="submit"
-            class="bg-orange-300 border-4 border-black px-5 uppercase w-full duration-300 hover:bg-yellow-400 hover:text-white rounded-lg md:col-span-2 py-2 inline-block mt-2"
-          >
-            Play As Guest
-          </button>
-        </div>
+        <%- include("./partials/form-btn", { green_btn: "LOGIN",
+        redirect_btn:"SIGN-UP"}) %>
       </form>
     </div>
   </main>
 </section>
 
 <script src="../misc_js/interaction.js"></script>
+<script src="../landing_js/landing.js"></script>
 <script src="../misc_js/footer.js"></script>
 <script src="../misc_js/show-pw.js"></script>
 
-<%- include("./layouts/footer") %>
+<%- include("./partials/footer") %>

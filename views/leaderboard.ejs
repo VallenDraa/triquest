@@ -1,5 +1,5 @@
 <!-- Leaderboard -->
-<%- include("./layouts/header") %>
+<%- include("./partials/header") %>
 
 <main class="mt-auto">
     <section class="grid content-center min-h-full">
@@ -125,7 +125,7 @@
         <!-- the leaderboard -->
         <div 
         class="md:mt-4 bg-yellow-200 border-t-2 md:border-4 border-black mb-2 md:mb-0 md:rounded-sm overflow-y-auto relative h-96 ">
-            <%- include("./layouts/loading") %> 
+            <%- include("./partials/loading") %> 
             <!-- table -->
             <div class=" absolute inset-0">
                 <div 
@@ -140,7 +140,6 @@
                     </section>
                 </div>                   
             </div>
-         
         </div>
     </main>
   </section></main>
@@ -151,4 +150,4 @@
   <script src="../misc_js/interaction.js"></script>
 
   <!-- Footer -->
-<%- include("./layouts/footer") %>
+<%- include("./partials/footer") %>

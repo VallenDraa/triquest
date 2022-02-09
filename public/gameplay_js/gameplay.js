@@ -190,10 +190,10 @@ const questions = {
 };
 
 // timerBar function
-let time = 18;
+let time = 15.8;
 function changeTimerBarStyle() {
   timerBars.forEach((timerBar) => {
-    timerBar.setAttribute('style', `width:${(time * 10) / 1.8}%`);
+    timerBar.setAttribute('style', `width:${(time * 10) / 1.5}%`);
     if (time <= 10) {
       timerBar.classList.replace('bg-green-400', 'bg-orange-400');
     }
@@ -206,7 +206,7 @@ function changeTimerBarStyle() {
   });
 }
 function resetTimeAndBar() {
-  time = 19;
+  time = 15.8;
   //change bar style
   timerBars.forEach((timerBar) => {
     turnBarToGreen(timerBar);
@@ -221,9 +221,10 @@ function resetTimeAndBar() {
   }, 50);
 }
 function runTimerBar() {
+  timeInterval = 120;
   setTimeout(() => {
     const timer = setInterval(() => {
-      time -= 0.1;
+      time -= timeInterval / 1000;
       // check if isInAfterAnswer is true
       if (isInAfterAnswer) {
         if (time <= 5) {
@@ -236,13 +237,13 @@ function runTimerBar() {
         // if time ran out
         resultScreenProperties('You Ran Out Of Time', totalCorrectAns);
       }
-    }, 100);
+    }, timeInterval);
     const changeBar = setInterval(() => {
       changeTimerBarStyle();
       if (time <= 0.1) {
         clearInterval(changeBar);
       }
-    }, 100);
+    }, timeInterval);
   }, 1000);
 }
 function turnBarToGreen(timerBar) {

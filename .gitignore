@@ -1,4 +1,5 @@
 plan_diagram.svg
 .vscode
+node_modules
 test-html.html
 test.js
