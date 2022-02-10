@@ -38,7 +38,7 @@ function returnScores(local) {
 }
 
 async function formatScore(score_cat) {
-  console.log(score_cat);
+  // console.log(score_cat);
   const json = await fetch(`../data/category.json`);
   const categoryObj = await json.json();
   const categoryList = Object.entries(categoryObj);
@@ -69,6 +69,6 @@ async function formatScore(score_cat) {
     }
   });
 
-  console.log(placeholder.join(' - '));
+  // console.log(placeholder.join(' - '));
   return placeholder.join(' - ');
 }

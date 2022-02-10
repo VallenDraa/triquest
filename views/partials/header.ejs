@@ -16,7 +16,7 @@
     />
     <link rel="stylesheet" href="../css/main.css" />
     <script src="https://cdn.tailwindcss.com"></script>
-    <title><%-title%></title>
+    <title><%=title%></title>
   </head>
   <body
     class="antialiased flex flex-col min-h-full overflow-x-hidden scroll-smooth"
@@ -62,7 +62,9 @@
               class="cursor-pointer bg-orange-300 grid content-center w-full py-1 duration-300 hover:bg-green-400 active:bg-green-600 hover:text-white md:rounded-none rounded-lg profile border-4 border-black md:border-none h-3/6"
               title="User Profile"
             >
-              <a id="profile-btn-header">Vallen</a>
+              <a id="profile-btn-header">
+                <% if (username) { %> <%=username%> <% } else {%> Guest <% } %>
+              </a>
             </li>
           </ul>
           <i

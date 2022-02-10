@@ -12,6 +12,7 @@
     id="username"
     class="border-2 md:border-4 border-black outline-none px-2 rounded-lg text-lg block w-full py-2 bg-slate-50"
     placeholder="Username"
+    required
   />
 </div>
 <% if (page_title === "SIGN-UP") { %>
@@ -26,6 +27,7 @@
     id="email"
     class="border-2 md:border-4 border-black outline-none px-2 rounded-lg text-lg block w-full py-2 bg-slate-50"
     placeholder="E-Mail"
+    required
   />
 </div>
 <% } %>
@@ -40,7 +42,8 @@
       name="password"
       id="password"
       class="border-r-0 border-2 md:border-4 md:border-r-0 border-black outline-none px-2 rounded-l-lg block w-full py-2 bg-slate-50"
-      value="password"
+      placeholder="Password"
+      required
     />
     <i
       class="border-l-0 border-2 md:border-4 md:border-l-0 border-black rounded-r-lg show-pw fas fa-eye-slash text-base px-2 cursor-pointer duration-200 hover:text-orange-300 bg-slate-50 self-stretch pt-2"

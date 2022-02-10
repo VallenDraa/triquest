@@ -11,6 +11,6 @@ document
   .getElementById('profile-btn-header')
   .addEventListener('click', function () {
     window.location.href = `/profile/${
-      parseCookieProfileBtn(document.cookie).userState
+      parseCookieProfileBtn(document.cookie).id
     }`;
   });

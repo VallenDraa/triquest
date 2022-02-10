@@ -3,3 +3,4 @@ plan_diagram.svg
 node_modules
 test-html.html
 test.js
+.env

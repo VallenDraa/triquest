@@ -1,3 +1,7 @@
+if (process.env.NODE_ENV !== 'production') {
+  require('dotenv').config();
+}
+
 const express = require('express');
 const methodOverride = require('method-override');
 const app = express();
@@ -7,7 +11,11 @@ const mongoose = require('mongoose');
 const socialRouter = require('./server-side/routes/socials');
 const errorRouter = require('./server-side/routes/error');
 const gamemodeRouter = require('./server-side/routes/gamemode');
-const menuRouter = require('./server-side/routes/menu');
+const { menuRouter } = require('./server-side/routes/menu');
+const signUpRouter = require('./server-side/routes/user_data/sign-up');
+const loginRouter = require('./server-side/routes/user_data/login');
+const guestRouter = require('./server-side/routes/user_data/guest-mode');
+const { checkIfGuestMode } = require('./server-side/routes/menu');
 
 // use ejs view engine
 app.set('view engine', 'ejs');
@@ -19,19 +27,32 @@ app.use('/socials', socialRouter);
 app.use('/error', errorRouter);
 app.use('/', gamemodeRouter);
 app.use('/', menuRouter);
+app.use('/', signUpRouter);
+app.use('/', loginRouter);
+app.use('/', guestRouter);
 app.use(methodOverride('_method'));
 app.use(cookieParser());
+mongoose.connect(process.env.DATABASE_URL, { useNewUrlParser: true });
+const db = mongoose.connection;
+db.on('error', (error) => console.error(error));
+db.once('open', () => {
+  console.log('Connected To Database');
+});
 
 // sign-up page
-app.get('/sign-up', (req, res) => {
+app.get('/sign-up', async (req, res) => {
+  const sessionData = await checkIfGuestMode(req, res, req.cookies);
   res.render('sign-up', {
     title: 'Triquest | Sign-Up',
+    username: sessionData.username,
   });
 });
 
-app.get('/login', (req, res) => {
+app.get('/login', async (req, res) => {
+  const sessionData = await checkIfGuestMode(req, res, req.cookies);
   res.render('login', {
     title: 'Triquest | Login',
+    username: sessionData.username,
   });
 });
 
@@ -78,6 +99,6 @@ app.get('/get_country', async function (req, res) {
   res.json(json);
 });
 
-app.listen(5001, () => {
-  console.log('listening at localhost:5001/');
+app.listen(process.env.PORT || 8000, () => {
+  console.log('listening at localhost:8000');
 });

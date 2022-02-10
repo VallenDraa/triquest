@@ -1,19 +1,33 @@
-<%- include("../partials/header") %>
-<main class="main-bg bg-anim">
-  <section
-    class="flex justify-center content-center flex-col w-11/12 md:w-4/5 xl:w-3/5 mx-auto h-screen"
-  >
-    <h1 class="text-4xl mb-2 font-bold teko">Error <%=error.type%> ....</h1>
-    <p
-      class="p-3 mb-4 border-4 border-black bg-yellow-200 rounded-lg fira-sans"
-    >
-      <%=error.message %>
-    </p>
-    <a
-      href="/"
-      class="tracking-wide teko text-xl bg-orange-300 hover:text-white hover:bg-red-400 py-1 text-center duration-300 border-4 border-black rounded-lg"
-      >Back To Main Page</a
-    >
-  </section>
-</main>
-<script src="../misc_js/interaction.js"></script>
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="../css/font.css" />
+    <link rel="stylesheet" href="../css/main.css" />
+    <script src="https://cdn.tailwindcss.com"></script>
+    <title>Document</title>
+  </head>
+  <body>
+    <main class="main-bg bg-anim">
+      <section
+        class="flex justify-center content-center flex-col w-11/12 md:w-4/5 xl:w-3/5 mx-auto h-screen"
+      >
+        <h1 class="text-4xl mb-2 font-bold teko">Error <%=error.type%> ....</h1>
+        <p
+          class="p-3 mb-4 border-4 border-black bg-yellow-200 rounded-lg fira-sans"
+        >
+          <%=error.message %>
+        </p>
+        <% if (error.type != 503) { %>
+        <a
+          href="/"
+          class="tracking-wide teko text-xl bg-orange-300 hover:text-white hover:bg-red-400 py-1 text-center duration-300 border-4 border-black rounded-lg"
+          >Back To Main Page</a
+        >
+        <% } %>
+      </section>
+    </main>
+  </body>
+</html>
