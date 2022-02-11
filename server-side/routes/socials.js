@@ -1,20 +1,39 @@
 const express = require('express');
 const router = express.Router();
+const cookieParser = require('cookie-parser');
+const User = require('../../models/user');
+const { checkIfGuestMode } = require('./menu');
 
-router.get('/', (req, res) => {
-  res.render('socials', { title: `Triquest | Community` });
-});
-router.get('/reddit', (req, res) => {
-  res.redirect('https://www.reddit.com/');
-});
-router.get('/twitter', (req, res) => {
-  res.redirect('https://www.twitter.com/');
-});
-router.get('/youtube', (req, res) => {
-  res.redirect('https://www.youtube.com/');
-});
-router.get('/discord', (req, res) => {
-  res.redirect('https://www.discord.com/');
+router.use(cookieParser());
+
+router.get('/socials/:platform', async (req, res) => {
+  const sessionData = await checkIfGuestMode(
+    req,
+    res,
+    req.cookies.userState,
+    req.cookies.id
+  );
+  switch (req.params.platform) {
+    case 'twitter':
+      res.redirect('https://www.twitter.com/');
+      break;
+    case 'discord':
+      res.redirect('https://www.discord.com/');
+      break;
+    case 'reddit':
+      res.redirect('https://www.reddit.com/');
+      break;
+    case 'youtube':
+      res.redirect('https://www.youtube.com/');
+
+      break;
+    default:
+      res.render('socials', {
+        title: `Triquest | Community`,
+        username: sessionData.username,
+      });
+      break;
+  }
 });
 
 module.exports = router;

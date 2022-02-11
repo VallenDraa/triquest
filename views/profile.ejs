@@ -1,21 +1,24 @@
 <%- include("./partials/header") %>
 
 <main class="mt-auto">
+  <%-include("./partials/loading")%>
   <!-- Profile -->
   <section class="grid content-center min-h-full">
     <main class="max-w-screen-2xl w-11/12 xl:w-9/12 mx-auto">
       <div
         class="md:bg-yellow-300 border-4 border-black rounded-xl shadow-2xl md:p-4 my-14"
-      >
-        <form
-          action=""
-          class="fira-sans md:border-4 border-black rounded-lg bg-yellow-200 p-4 md:p-2 xl:p-4"
-        >
-          <h1
-          class="text-center  teko text-3xl md:text-5xl font-bold underline"
+      >  
+        <h1
+          class="text-center rounded-t-lg md:rounded-none bg-yellow-200 md:bg-transparent py-2 teko text-3xl md:text-5xl font-bold underline"
           >
             PROFILE
-          </h1>
+        </h1>
+        <form
+          action="/profile/save_profile_edits?_method=put"
+          method="POST"
+          class="fira-sans md:border-4 border-black rounded-b-lg md:rounded-lg bg-yellow-200 p-4 md:p-2 xl:p-4"
+        >
+        
           <!-- content-wrapper -->
           <div class="grid grid-cols-1 md:grid-cols-2">
             <!-- left side -->
@@ -42,7 +45,7 @@
                   <input type="text" name="username" title="Edit Your Username" id="username" class="border-2
                   md:border-4 border-black outline-none px-2 rounded-lg block
                   w-full py-1 bg-slate-50" <% if (userState == "guest") { %>
-                  value="GUEST" readonly <% } else { %> value="Vallen" <% } %> />
+                  value="GUEST" readonly <% } else { %> value=<%=username%><% } %> />
                 </div>
 
                 <!-- desc -->
@@ -58,13 +61,13 @@
                     title="Edit Your Profile Description"
                     id="description"
                     cols="30"
-                    rows="5"
-                    class="border-2 md:border-4 border-black outline-none px-2 rounded-lg block w-full py-1 bg-slate-50"
+                    rows="8"
+                    class="border-2 md:border-4 border-black outline-none px-2 rounded-lg block w-full py-1 bg-slate-50 resize-none"
                     <% if (userState == "guest") { %> 
                       placeholder="Sign-up or login to change your description !"
                       readonly
                       <% } else { %>placeholder="I'm The Best Triquest Player !"<% } %>
-                  ></textarea>
+                  ><%=description%></textarea>
                 </div>
 
                 <!-- country -->
@@ -87,10 +90,13 @@
                       <% } else { %>   
                         id="country"
                         class="border-2 md:border-4 border-black outline-none px-2 rounded-lg block w-full py-1 bg-slate-50">
-                      <option value="choose_country" disabled>
-                        Choose Your Country
-                      </option>
-                      <option value="global">Global 🌐</option>
+                      <% countries.forEach(countryItem => { %>
+                        <% if (countryItem.code == country) { %>
+                        <option value="<%=countryItem.code%>"selected><%=countryItem.name%> <%=countryItem.emoji%></option>
+                        <% } else { %>
+                        <option value="<%=countryItem.code%>"><%=countryItem.name%> <%=countryItem.emoji%></option>
+                        <% } %> 
+                      <% }) %>
                     <% } %>
                 
                     <!-- more options will be added through country.js -->
@@ -98,7 +104,6 @@
                 </div>
               </section>
             </section>
-
             <!-- right side -->
             <section class="md:pl-2">
               <!-- account -->
@@ -118,8 +123,9 @@
                     type="email"
                     name="email"
                     id="email"
-                    class="border-2 md:border-4 border-black outline-none px-2 rounded-lg block w-full py-1 bg-slate-50"
-                    value="Jestinevallendradwiputra@gmail.com"
+                    readonly
+                    class="border-2 md:border-4 border-black outline-none px-2 rounded-lg block w-full py-1 bg-slate-50 text-slate-400"
+                    value="<%=email%>"
                   />
                 </div>
                 <!-- password -->
@@ -136,13 +142,18 @@
                       name="password"
                       id="password"
                       class="border-r-0 border-2 md:border-4 md:border-r-0 border-black outline-none px-2 rounded-l-lg block w-full py-1 bg-slate-50"
-                      value="password"
+                      value="<%=password%>"
                     />
                     <i
                       class="border-l-0 border-2 md:border-4 md:border-l-0 border-black rounded-r-lg show-pw fas fa-eye-slash text-base px-2 cursor-pointer duration-200 hover:text-orange-300 bg-slate-50 self-stretch pt-1"
                     ></i>
                   </div>
-                </div>                
+                </div>      
+                <!-- logout -->
+                <div class="w-full max-w-4xl mx-auto mt-4">
+                  <a href="/logout" title="Log Out From This Account" id="signup-btn-profile" class="text-2xl border-2 md:border-4 border-black rounded-lg block w-full py-1 bg-orange-300 hover:bg-red-400 active:bg-red-600 hover:text-white duration-300 teko text-center font-bold"
+                  >Log Out</a>
+                </div>     
                 <% } else {%>
                   <h2
                   class="text-2xl md:text-xl xl:text-2xl font-bold fira-sans underline text-center underline-offset-4 mb-7"
@@ -165,15 +176,15 @@
 
               <!-- Highscore -->
               <section
-                class="mb-8 pt-16 md:mb-0 md:pt-2 resize-y h-72 md:h-[8.7rem] xl:md:h-[8.5rem] "
+                class="mb-8 pt-16 md:mb-0 md:pt-1 resize-y h-72 md:h-[8.7rem] xl:md:h-[8.5rem] "
               >
                 <h2
-                  class="pb-2 md:pb-1 text-2xl md:text-xl xl:text-2xl font-bold fira-sans underline text-center underline-offset-4"
+                  class="pb-2 md:pb-3 text-2xl md:text-xl xl:text-2xl font-bold fira-sans underline text-center underline-offset-4"
                 >
                   Highscores
                 </h2>
                 <div
-                  title="Your Highscore's"
+                  title="Your Highscores"
                   class="highscore-box h-full bg-white border-2 md:border-4 border-black rounded-lg relative overflow-y-auto"
                 >
                   <div
@@ -204,20 +215,14 @@
 
           <!-- buttons -->
           <div
-            class="text-black tracking-wide font-bold teko text-3xl mx-auto grid grid-cols-1 md:grid-cols-2 justify-center gap-4 pt-10 w-full max-w-4xl col-span-1 md:col-span-3"
+          class="text-black tracking-wide font-bold teko text-3xl mx-auto grid grid-cols-1 md:grid-cols-2 justify-center pt-10 w-full max-w-4xl mt-2"
           >
           <% if (userState != "guest") { %>
               <button
                 type="submit"
-                class="bg-orange-300 border-4 border-black px-5 uppercase w-full duration-300 hover:bg-green-400 hover:text-white rounded-lg"
+                class="bg-orange-300 border-4 border-black px-5 uppercase w-full duration-300 hover:bg-green-400 hover:text-white rounded-lg col-span-2"
               >
                 Save Changes
-              </button>
-              <button
-                type="reset"
-                class="bg-orange-300 border-4 border-black px-5 uppercase w-full duration-300 hover:bg-red-400 hover:text-white rounded-lg"
-              >
-                Reset
               </button>
           <% } else { %> 
               <a href="/" class="bg-orange-300 border-4 border-black px-5 uppercase w-full duration-300 hover:bg-green-400 active:bg-green-600 hover:text-white rounded-lg text-center text-2xl col-span-1 md:col-span-2">Main Page</a>
@@ -231,9 +236,7 @@
 </main>
 <script src="../score_js/profile-highscore.js"></script>
 <script src="../misc_js/show-pw.js"></script>
-<script src="../misc_js/include.js"></script>
 <script src="../misc_js/country.js"></script>
 <script src="../misc_js/interaction.js"></script>
-<script src="../user/profile-btn.js"></script>
 <!-- Footer -->
 <%- include("./partials/footer") %>

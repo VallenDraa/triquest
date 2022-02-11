@@ -1,9 +1,14 @@
 const toggle_menu = document.querySelector('.toggle-menu');
 const menu_toggle_btn = document.querySelector('.fa-caret-down');
 const menu = document.querySelector('.menu');
+const loadingScreen = document.querySelector('.loading-screen');
+const body = document.querySelector('body');
 
 let menuIsToggled = false;
 let isInFooter = false;
+// remove scrolling before content has loaded
+body.classList.add('overflow-hidden');
+
 // for menu toggle
 toggle_menu.addEventListener('click', () => {
   // menu javascript
@@ -58,3 +63,14 @@ if (
     });
   }
 }
+
+// remove loading screen
+window.addEventListener('DOMContentLoaded', () => {
+  if (loadingScreen) {
+    body.classList.remove('overflow-hidden');
+    loadingScreen.classList.add('anim-fade-out');
+    setTimeout(function () {
+      loadingScreen.classList.add('hidden');
+    }, 200);
+  }
+});

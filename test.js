@@ -1,16 +1,16 @@
-const fetch = require('node-fetch');
+// const fetch = require('node-fetch');
 
-var http = require('http');
-http
-  .createServer(function (req, res) {
-    res.writeHead(200, { 'Content-Type': 'text/html' });
-    res.send('test-html.html');
-    res.end();
-  })
-  .listen(8080);
+// var http = require('http');
+// http
+//   .createServer(function (req, res) {
+//     res.writeHead(200, { 'Content-Type': 'text/html' });
+//     res.send('test-html.html');
+//     res.end();
+//   })
+//   .listen(8080);
 
-const corr = 'a';
-const ans = ['b', 'c', 'd'];
+// const corr = 'a';
+// const ans = ['b', 'c', 'd'];
 
 // ans.push(corr);
 
@@ -32,3 +32,12 @@ const ans = ['b', 'c', 'd'];
 //   console.log(questions);
 // };
 // testAPI();
+
+const testObj = {
+  a: 1,
+  b: 2,
+};
+
+let names = 'a';
+
+console.log(testObj[names]);

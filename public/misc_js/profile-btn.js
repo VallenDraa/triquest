@@ -7,10 +7,10 @@ const parseCookieProfileBtn = (str) =>
       return acc;
     }, {});
 
-document
-  .getElementById('profile-btn-header')
-  .addEventListener('click', function () {
-    window.location.href = `/profile/${
-      parseCookieProfileBtn(document.cookie).id
-    }`;
-  });
+// document
+//   .getElementById('profile-btn-header')
+//   .addEventListener('click', function () {
+//     window.location.href = `/profile/${
+//       parseCookieProfileBtn(document.cookie).id
+//     }`;
+//   });

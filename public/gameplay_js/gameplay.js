@@ -18,15 +18,6 @@ let multipleOrBool,
   isInAfterAnswer = false,
   totalCorrectAns = 0;
 
-const parseCookieAtGameplay = (str) =>
-  str
-    .split(';')
-    .map((v) => v.split('='))
-    .reduce((acc, v) => {
-      acc[decodeURIComponent(v[0].trim())] = decodeURIComponent(v[1].trim());
-      return acc;
-    }, {});
-
 let stillFetching = true,
   sessionToken = parseCookieAtGameplay(document.cookie).sessionToken;
 // for points
@@ -157,33 +148,33 @@ const questions = {
       } · ${questionsArr[i].category}`;
     }
   },
-  resizeText: (string) => {
-    if (string.length > 100 && string.length < 130) {
-      if (window.innerWidth > 768) {
-        // console.log(
-        //   `succeed in changing font-size of string text for:\n\n \"${string}\"\n\ntype [1A]`
-        // );
-        return `font-size: 1.5rem; line-height: 2rem;`;
-      } else {
-        // console.log(
-        //   `succeed in changing font-size of string text for:\n\n \"${string}\"\n\ntype [1B]`
-        // );
-        return `font-size: 1.125rem; line-height: 1.75rem;`;
-      }
-    } else if (string.length > 130 && string.length < 160) {
-      if (window.innerWidth > 768) {
-        // console.log(
-        //   `succeed in changing font-size of string text for:\n\n \"${string}\"\n\ntype [2A]`
-        // );
-        return `font-size: 1.125rem; line-height: 1.75rem;`;
-      } else {
-        // console.log(
-        //   `succeed in changing font-size of string text for:\n\n \"${string}\"\n\ntype [2B]`
-        // );
-        return `font-size: 1rem; line-height: 1.5rem;`;
-      }
-    }
-  },
+  // resizeText: (string) => {
+  //   if (string.length > 100 && string.length < 130) {
+  //     if (window.innerWidth > 768) {
+  //       // console.log(
+  //       //   `succeed in changing font-size of string text for:\n\n \"${string}\"\n\ntype [1A]`
+  //       // );
+  //       return `font-size: 1.5rem; line-height: 2rem;`;
+  //     } else {
+  //       // console.log(
+  //       //   `succeed in changing font-size of string text for:\n\n \"${string}\"\n\ntype [1B]`
+  //       // );
+  //       return `font-size: 1.125rem; line-height: 1.75rem;`;
+  //     }
+  //   } else if (string.length > 130 && string.length < 160) {
+  //     if (window.innerWidth > 768) {
+  //       // console.log(
+  //       //   `succeed in changing font-size of string text for:\n\n \"${string}\"\n\ntype [2A]`
+  //       // );
+  //       return `font-size: 1.125rem; line-height: 1.75rem;`;
+  //     } else {
+  //       // console.log(
+  //       //   `succeed in changing font-size of string text for:\n\n \"${string}\"\n\ntype [2B]`
+  //       // );
+  //       return `font-size: 1rem; line-height: 1.5rem;`;
+  //     }
+  //   }
+  // },
   questionList: [],
   multipleOrBool: undefined, //multiple = 0 , bool = 1
   currentQuestion: 0,
@@ -259,9 +250,9 @@ function turnBarToGreen(timerBar) {
 // resize the questions font size
 window.addEventListener('resize', () => {
   //resize the question font size based on how many characters the sentece has
-  document.querySelectorAll('.question').forEach((question) => {
-    question.setAttribute('style', questions.resizeText(question.innerText));
-  });
+  // document.querySelectorAll('.question').forEach((question) => {
+  //   question.setAttribute('style', questions.resizeText(question.innerText));
+  // });
   // match height between after answer card and question card
   matchHeight(answerOptionWrapper, afterAnswerCard);
 });
@@ -408,16 +399,26 @@ function resultScreenProperties(message, totalCorrectAns) {
 
   // fetch point and then display the value
   fetchPoint(highscore);
-
-  resultToMainBtn.addEventListener('click', () => {
-    window.location.href = '/';
+  resultToMainBtn.addEventListener('click', function () {
+    const userID = parseCookieAtGameplay(document.cookie).id;
+    const scoreKey = parseCookieAtGameplay(document.cookie)[key];
+    if (userID) {
+      window.location.href = `/save_points/${userID}/${scoreKey}`;
+    } else {
+      window.location.href = `/save_points/guest/guest`;
+    }
   });
 }
 
-// point system guest user
 function savePoints() {
+  const userState = parseCookieAtGameplay(document.cookie).userState;
   if (totalCorrectAns === 0) return;
   localStorage.setItem(key, totalCorrectAns);
+  if (userState == 'notGuest') {
+    const expires = new Date();
+    expires.setTime(expires.getTime() + 1 * 60 * 1000);
+    document.cookie = `${key}=${totalCorrectAns};path=/`;
+  }
 }
 
 function fetchPoint(highscoreHTML) {
@@ -462,40 +463,6 @@ function removeLoadingScreen() {
     loadingScreen.classList.add('hidden');
   }, 200);
 }
-
-// loading screen for gameplay page
-if (document.readyState === 'loading') {
-  if (sessionStorage.getItem('local_mode') != 'Campaign') {
-    questions.fetchQuestion(
-      sessionStorage.getItem('api_amount'),
-      sessionStorage.getItem('api_cat'),
-      sessionStorage.getItem('api_difs'),
-      sessionStorage.getItem('api_type'),
-      sessionToken
-    );
-  } else {
-    questions.fetchQuestion(
-      sessionStorage.getItem('api_amount'),
-      sessionStorage.getItem('api_cat'),
-      'easy',
-      sessionStorage.getItem('api_type'),
-      sessionToken
-    );
-  }
-
-  // when content has finished loading
-  document.addEventListener('DOMContentLoaded', () => {
-    isInAfterAnswer = false;
-    runTimerBar();
-    toggleAnimationToAll('anim-slide-x', questionCards);
-  });
-} else {
-  isInAfterAnswer = false;
-  removeLoadingScreen();
-  runTimerBar();
-  toggleAnimationToAll('anim-slide-x', questionCards);
-}
-
 // fetch question for campaign mode
 function campaignModeFetchQuestion() {
   if (questions.currentQuestion == questions.questionList.length - 1) {
@@ -517,4 +484,45 @@ function campaignModeFetchQuestion() {
       );
     }
   }
+}
+function parseCookieAtGameplay(str) {
+  return str
+    .split(';')
+    .map((v) => v.split('='))
+    .reduce((acc, v) => {
+      acc[decodeURIComponent(v[0].trim())] = decodeURIComponent(v[1].trim());
+      return acc;
+    }, {});
+}
+
+// loading screen for gameplay page
+if (document.readyState === 'loading') {
+  if (sessionStorage.getItem('local_mode') != 'Campaign') {
+    questions.fetchQuestion(
+      sessionStorage.getItem('api_amount'),
+      sessionStorage.getItem('api_cat'),
+      sessionStorage.getItem('api_difs'),
+      sessionStorage.getItem('api_type'),
+      sessionToken
+    );
+  } else {
+    questions.fetchQuestion(
+      sessionStorage.getItem('api_amount'),
+      sessionStorage.getItem('api_cat'),
+      'easy',
+      sessionStorage.getItem('api_type'),
+      sessionToken
+    );
+  }
+  // when content has finished loading
+  document.addEventListener('DOMContentLoaded', () => {
+    isInAfterAnswer = false;
+    runTimerBar();
+    toggleAnimationToAll('anim-slide-x', questionCards);
+  });
+} else {
+  isInAfterAnswer = false;
+  removeLoadingScreen();
+  runTimerBar();
+  toggleAnimationToAll('anim-slide-x', questionCards);
 }

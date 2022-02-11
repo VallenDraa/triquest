@@ -15,6 +15,9 @@ const { menuRouter } = require('./server-side/routes/menu');
 const signUpRouter = require('./server-side/routes/user_data/sign-up');
 const loginRouter = require('./server-side/routes/user_data/login');
 const guestRouter = require('./server-side/routes/user_data/guest-mode');
+const logOutRouter = require('./server-side/routes/user_data/log-out');
+const profileRouter = require('./server-side/routes/user_data/profile');
+const savePointsRouter = require('./server-side/routes/points/save-points');
 const { checkIfGuestMode } = require('./server-side/routes/menu');
 
 // use ejs view engine
@@ -22,16 +25,23 @@ app.set('view engine', 'ejs');
 app.use(express.static('public'));
 app.use(express.urlencoded({ extended: true }));
 
-// other use
-app.use('/socials', socialRouter);
+// routes
 app.use('/error', errorRouter);
+app.use('/profile', profileRouter);
+app.use('/', socialRouter);
 app.use('/', gamemodeRouter);
 app.use('/', menuRouter);
 app.use('/', signUpRouter);
 app.use('/', loginRouter);
 app.use('/', guestRouter);
+app.use('/', logOutRouter);
+app.use('/', savePointsRouter);
+
+// utility
 app.use(methodOverride('_method'));
 app.use(cookieParser());
+
+// database
 mongoose.connect(process.env.DATABASE_URL, { useNewUrlParser: true });
 const db = mongoose.connection;
 db.on('error', (error) => console.error(error));
@@ -41,7 +51,12 @@ db.once('open', () => {
 
 // sign-up page
 app.get('/sign-up', async (req, res) => {
-  const sessionData = await checkIfGuestMode(req, res, req.cookies);
+  const sessionData = await checkIfGuestMode(
+    req,
+    res,
+    req.cookies.userState,
+    req.cookies.id
+  );
   res.render('sign-up', {
     title: 'Triquest | Sign-Up',
     username: sessionData.username,
@@ -49,7 +64,12 @@ app.get('/sign-up', async (req, res) => {
 });
 
 app.get('/login', async (req, res) => {
-  const sessionData = await checkIfGuestMode(req, res, req.cookies);
+  const sessionData = await checkIfGuestMode(
+    req,
+    res,
+    req.cookies.userState,
+    req.cookies.id
+  );
   res.render('login', {
     title: 'Triquest | Login',
     username: sessionData.username,
@@ -85,9 +105,9 @@ app.get('/get_question/:queryParams', async function (req, res) {
   const api_url = `https://opentdb.com/api.php?amount=${amount}&category=${cat}&difficulty=${difs}&type=${type}&token=${sessionToken}`;
   const datas = await fetch(api_url);
   const json = await datas.json();
-  console.log(
-    `The API link with the parameter that was received from the request: ${api_url}`
-  );
+  // console.log(
+  //   `The API link with the parameter that was received from the request: ${api_url}`
+  // );
 
   res.json(json);
 });

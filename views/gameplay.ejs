@@ -1,118 +1,48 @@
-<%- include("./partials/header") %>
-<!-- gameplay UI -->
-<main class="main-bg bg-anim relative">
-  <!-- after answer pop-up -->
-  <%- include("./partials/after-answer-pop-up") %>
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.13.0/css/all.min.css"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="../../css/main.css" />
+    <script src="https://cdn.tailwindcss.com"></script>
+    <title><%=title%></title>
+  </head>
+  <body>
+    <!-- gameplay UI -->
+    <main class="main-bg bg-anim relative overflow-hidden">
+      <!-- after answer pop-up -->
+      <%- include("./partials/after-answer-pop-up") %>
 
-  <!-- loading screen -->
-  <%- include("./partials/loading") %>
+      <!-- loading screen -->
+      <%- include("./partials/loading") %>
 
-  <!-- answer part -->
-  <section class="grid content-center h-screen relative">
-    <main
-      class="max-w-screen-2xl w-11/12 xl:w-9/12 mx-auto question-card-wrapper"
-    >
-      <div class="min-w-full answer-option-wrapper">
-        <!-- four opt -->
-        <div
-          class="hidden bg-yellow-200 border-4 border-black anim-slide-x question-card question-card-four rounded-xl px-2 md:px-10 py-2 md:py-5 md:h-5/6 four-option flex justify-center items-center"
+      <!-- answer part -->
+      <section class="grid content-center h-screen relative">
+        <main
+          class="max-w-screen-2xl w-11/12 xl:w-9/12 mx-auto question-card-wrapper"
         >
-          <div class="fira-sans p-4 w-full">
-            <section>
-              <h2
-                class="text-xl md:text-3xl font-bold text-center py-4 max-w-4xl text-center mx-auto question-four-opt"
-              ></h2>
-              <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mt-4 teko">
-                <div
-                  class="border-2 md:border-4 text-center border-black answer-option text-xl md:text-2xl h-16 md:h-24 flex justify-center items-center font-bold duration-300 rounded-xl cursor-pointer answer-four bg-orange-300 hover:bg-orange-400 active:bg-orange-600 hover:text-white"
-                >
-                  1
-                </div>
-                <div
-                  class="border-2 md:border-4 text-center border-black answer-option text-xl md:text-2xl h-16 md:h-24 flex justify-center items-center font-bold duration-300 rounded-xl cursor-pointer answer-four bg-red-300 hover:bg-red-400 active:bg-red-600 hover:text-white"
-                >
-                  2
-                </div>
-                <div
-                  class="border-2 md:border-4 text-center border-black answer-option text-xl md:text-2xl h-16 md:h-24 flex justify-center items-center font-bold duration-300 rounded-xl cursor-pointer answer-four bg-blue-300 hover:bg-blue-400 active:bg-blue-600 hover:text-white"
-                >
-                  3
-                </div>
-                <div
-                  class="border-2 md:border-4 text-center border-black answer-option text-xl md:text-2xl h-16 md:h-24 flex justify-center items-center font-bold duration-300 rounded-xl cursor-pointer answer-four bg-green-300 hover:bg-green-400 active:bg-green-600 hover:text-white"
-                >
-                  4
-                </div>
-              </div>
-              <section
-                class="my-4 h-6 border-2 md:border-4 border-black rounded-xl bg-slate-200 overflow-hidden"
-              >
-                <div
-                  class="h-full duration-1000 bg-green-400 rounded-xl timer-bar"
-                ></div>
-              </section>
-              <div
-                class="flex justify-center items-center pt-4 text-xs font-light mx-auto text-center"
-              >
-                <p class="text-center footer-four-opt">
-                  1/10 · hard · Entertainment
-                </p>
-              </div>
-            </section>
+          <div class="min-w-full answer-option-wrapper">
+            <!-- four opt -->
+            <%- include("./partials/gameplay_partials/four-opt.ejs") %>
+            <!-- bool option -->
+            <%- include("./partials/gameplay_partials/bool-opt.ejs") %>
           </div>
-        </div>
+        </main>
+      </section>
 
-        <!-- bool option -->
-        <div
-          class="hidden bg-yellow-200 border-4 border-black anim-slide-x question-card question-card-two rounded-xl px-2 md:px-10 py-2 md:py-5 my-12 md:my-24 h-5/6 flex justify-center items-center bool-option"
-        >
-          <div class="fira-sans p-4 w-full">
-            <section>
-              <h2
-                class="text-xl md:text-3xl font-bold text-center py-4 max-w-4xl text-center mx-auto question-two-opt"
-              >
-                question
-              </h2>
-              <div class="teko grid grid-cols-1 md:grid-cols-2 gap-4 mt-4">
-                <div
-                  class="border-2 md:border-4 border-black text-2xl answer-option md:text-4xl h-16 md:h-24 flex justify-center items-center font-bold duration-300 bg-green-300 hover:bg-green-400 active:bg-green-600 hover:text-white rounded-xl cursor-pointer answer-two"
-                >
-                  True
-                </div>
-                <div
-                  class="border-2 md:border-4 border-black text-2xl answer-option md:text-4xl h-16 md:h-24 flex justify-center items-center font-bold duration-300 bg-red-300 hover:bg-red-400 active:bg-red-600 hover:text-white rounded-xl cursor-pointer answer-two"
-                >
-                  False
-                </div>
-              </div>
-              <section
-                class="my-4 h-6 border-2 md:border-4 border-black rounded-xl bg-slate-200 overflow-hidden"
-              >
-                <div
-                  class="h-full duration-1000 bg-green-400 rounded-xl timer-bar"
-                ></div>
-              </section>
-              <div
-                class="flex justify-center items-center pt-4 text-xs font-light mx-auto text-center"
-              >
-                <p class="text-center footer-two-opt">
-                  1/10 · hard · Entertainment
-                </p>
-              </div>
-            </section>
-          </div>
-        </div>
-      </div>
+      <!-- results screen -->
+      <%- include("./partials/gameplay_partials/gameplay-result-screen") %>
     </main>
-  </section>
 
-  <!-- results screen -->
-  <%- include("./partials/gameplay-result-screen") %>
-</main>
+    <script src="../gameplay_js/gameplay.js"></script>
+    <script src="../misc_js/parse-cookie.js"></script>
+    <script src="../geo-location/process-user-loc.js"></script>
+  </body>
+</html>
 
-<script src="../gameplay_js/gameplay.js"></script>
-<script src="../misc_js/include.js"></script>
-<script src="../misc_js/interaction.js"></script>
-<script src="../misc_js/parse-cookie.js"></script>
-<script src="../geo-location/process-user-loc.js"></script>
 <!-- Footer -->

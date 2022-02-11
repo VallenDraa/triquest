@@ -1,11 +1,7 @@
 <%- include("./partials/header") %>
 
 <main class="min-h-full mt-auto">
-  <!-- <h1
-      class="text-center my-4 md:my-10 teko text-5xl xl:text-6xl font-bold underline"
-    >
-      Play Now
-    </h1> -->
+  <%-include("./partials/loading")%>
   <!-- select difficulty -->
   <section class="w-full xl:w-9/12 mx-auto max-w-screen-2xl">
     <div class="swiper mySwiper w-full py-12 md:py-24">
@@ -333,7 +329,6 @@
 </main>
 
 <script src="../gameplay_js/get-params-api.js"></script>
-<script src="../misc_js/include.js"></script>
 <script src="../misc_js/interaction.js"></script>
 <script src="https://unpkg.com/swiper@7/swiper-bundle.min.js"></script>
 <script src="../misc_js/swiper.js"></script>

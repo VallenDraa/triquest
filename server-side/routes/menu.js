@@ -1,7 +1,10 @@
+if (process.env.NODE_ENV !== 'production') {
+  require('dotenv').config();
+}
 const express = require('express');
 const cookieParser = require('cookie-parser');
-const app = express();
 const router = express.Router();
+const fetch = require('node-fetch');
 const User = require('../../models/user');
 
 router.use(cookieParser());
@@ -44,25 +47,38 @@ router.get('/leaderboard', async function (req, res) {
 
 //profile
 // convert id into username
-router.get('/profile/:id', async function (req, res) {
+router.get('/profile/:username', async function (req, res) {
   try {
-    const sessionData = await checkIfGuestMode(
-      req,
-      res,
-      req.cookies.userState,
-      req.params.id
-    );
-    if (sessionData.userState) {
-      // redirect to link with name
-      res.render('profile', {
-        title: `Triquest | ${sessionData.username}`,
-        username: sessionData.username,
-        userState: sessionData.userState,
-      });
+    const countries = await listCountries();
+    if (req.cookies.userState) {
+      if (req.cookies.userState == 'notGuest') {
+        const user = await User.findOne({ username: req.params.username });
+        // redirect to link with name
+        res.render('profile', {
+          title: `Triquest | ${user.username}`,
+          userState: req.cookies.userState,
+          username: user.username,
+          description: user.description,
+          country: user.country,
+          email: user.email,
+          password: user.password,
+          scores: user.scores,
+          countries,
+        });
+      } else {
+        res.render('profile', {
+          title: `Triquest | Guest`,
+          userState: 'guest',
+          username: 'Guest',
+          description: '',
+          countries,
+        });
+      }
     } else {
       res.redirect('/sign-up');
     }
   } catch (error) {
+    console.error(error);
     res.redirect('/error/503');
   }
 });
@@ -71,7 +87,7 @@ router.get('/profile/:id', async function (req, res) {
 async function checkIfGuestMode(req, res, userState, userID) {
   if (!userState) {
     return {
-      username: undefined,
+      username: 'Sign-Up',
       userState: undefined,
     };
   }
@@ -95,6 +111,35 @@ async function checkIfGuestMode(req, res, userState, userID) {
   }
 }
 
+async function listCountries() {
+  let result = [
+    {
+      code: 'global',
+      name: 'Global',
+      emoji: '🌐',
+    },
+  ];
+  // convert country code to emoji
+  function getFlagEmoji(countryCode) {
+    const codePoints = countryCode
+      .toUpperCase()
+      .split('')
+      .map((char) => 127397 + char.charCodeAt());
+    return String.fromCodePoint(...codePoints);
+  }
+
+  // fetch country data json file for progile
+  const json = await fetch(process.env.COUNTRIES_URL);
+  const countries = await json.json();
+  countries.forEach((country) => {
+    result.push({
+      code: country.code,
+      name: country.name,
+      emoji: getFlagEmoji(country.code),
+    });
+  });
+  return result;
+}
 module.exports = {
   menuRouter: router,
   checkIfGuestMode,

@@ -21,7 +21,7 @@ let api_amount = 10,
 // parameter for local storage
 let local_cat, local_difs, local_mode;
 
-console.log(parseCookieAPI(document.cookie).sessionToken);
+// console.log(parseCookieAPI(document.cookie).sessionToken);
 
 // get API Parameter value in select-dif page
 const getParamsFromSelectDif = (async () => {

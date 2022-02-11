@@ -2,6 +2,7 @@
 <%- include("./partials/header") %>
 
 <main class="mt-auto">
+    <%-include("./partials/loading")%>
     <section class="grid content-center min-h-full">
     <main class="max-w-screen-2xl w-11/12 xl:w-9/12 mx-auto">
  
@@ -125,7 +126,7 @@
         <!-- the leaderboard -->
         <div 
         class="md:mt-4 bg-yellow-200 border-t-2 md:border-4 border-black mb-2 md:mb-0 md:rounded-sm overflow-y-auto relative h-96 ">
-            <%- include("./partials/loading") %> 
+            <%- include("./partials/loading-leaderboard") %> 
             <!-- table -->
             <div class=" absolute inset-0">
                 <div 
@@ -145,7 +146,6 @@
   </section></main>
 
 <script src="../score_js/leaderboard.js"></script>
-  <script src="../misc_js/include.js"></script>
   <script src="../misc_js/country.js"></script>
   <script src="../misc_js/interaction.js"></script>
 

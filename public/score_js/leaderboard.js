@@ -5,7 +5,9 @@ const countrySelect = document.getElementById('country'),
   leaderboardTable = document.getElementById('leaderboard-table'),
   tableContent = document.getElementById('table-content'),
   scoreRange = document.querySelectorAll('#score-range'),
-  loadingScreen = document.querySelector('.loading-screen');
+  loadingScreenLeaderboard = document.querySelector(
+    '.loading-screen-leaderboard'
+  );
 
 let query = 'Campaign_any_any';
 
@@ -191,13 +193,13 @@ async function switchCategory(catNum, catList) {
 
 // loading screens
 function addLoadingScreen() {
-  loadingScreen.classList.remove('anim-fade-out');
-  loadingScreen.classList.remove('hidden');
+  loadingScreenLeaderboard.classList.remove('anim-fade-out');
+  loadingScreenLeaderboard.classList.remove('hidden');
 }
 function removeLoadingScreen() {
-  loadingScreen.classList.add('anim-fade-out');
+  loadingScreenLeaderboard.classList.add('anim-fade-out');
   setTimeout(function () {
-    loadingScreen.classList.add('hidden');
+    loadingScreenLeaderboard.classList.add('hidden');
   }, 200);
 }
 

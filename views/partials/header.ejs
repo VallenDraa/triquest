@@ -4,17 +4,15 @@
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link rel="stylesheet" href="../css/font.css" />
     <link
       href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.13.0/css/all.min.css"
       rel="stylesheet"
     />
-    <link rel="stylesheet" href="../css/swiper.css" />
     <link
       rel="stylesheet"
       href="https://unpkg.com/swiper@7/swiper-bundle.min.css"
     />
-    <link rel="stylesheet" href="../css/main.css" />
+    <link rel="stylesheet" href="../../css/main.css" />
     <script src="https://cdn.tailwindcss.com"></script>
     <title><%=title%></title>
   </head>
@@ -62,7 +60,11 @@
               class="cursor-pointer bg-orange-300 grid content-center w-full py-1 duration-300 hover:bg-green-400 active:bg-green-600 hover:text-white md:rounded-none rounded-lg profile border-4 border-black md:border-none h-3/6"
               title="User Profile"
             >
-              <a id="profile-btn-header">
+              <a
+                id="profile-btn-header"
+                class="truncate"
+                href="/profile/<%=username%>"
+              >
                 <% if (username) { %> <%=username%> <% } else {%> Guest <% } %>
               </a>
             </li>
