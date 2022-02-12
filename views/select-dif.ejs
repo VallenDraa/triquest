@@ -3,7 +3,9 @@
 <main class="min-h-full mt-auto">
   <%-include("./partials/loading")%>
   <!-- select difficulty -->
-  <section class="w-full xl:w-9/12 mx-auto max-w-screen-2xl">
+  <section
+    class="w-full md:w-11/12 lg:w-9/12 xl:w-8/12 mx-auto max-w-screen-2xl"
+  >
     <div class="swiper mySwiper w-full py-12 md:py-24">
       <div class="swiper-wrapper">
         <!-- Campaign -->
@@ -17,7 +19,7 @@
             >
               <!-- top -->
               <div
-                class="select-dif-content-max-w p-2 border-2 md:border-4 flex justify-center items-center flex-col font-bold border-black rounded-lg bg-yellow-200"
+                class="min-w-full mx-auto select-dif-content-max-w p-2 border-2 md:border-4 flex justify-center items-center flex-col font-bold border-black rounded-lg bg-yellow-200"
               >
                 <h2
                   class="text-4xl xl:text-6xl font-bold underline teko mb-2 rounded-lg px-2 pt-2"
@@ -32,7 +34,7 @@
 
               <!-- middle -->
               <div
-                class="select-dif-content-max-w grid border-2 md:border-4 bg-yellow-200 border-black rounded-lg mt-6 py-2 px-6"
+                class="min-w-full mx-auto select-dif-content-max-w grid border-2 md:border-4 bg-yellow-200 border-black rounded-lg mt-6 py-2 px-6"
               >
                 <label for="category" class="md:mb-2 text-3xl xl:text-5xl teko"
                   >Category</label
@@ -43,43 +45,13 @@
                   id="category-campaign"
                   class="select-dif-select-max-w bg-white border-2 md:border-4 border-black text-sm xl:text-lg font-bold fira-sans px-2 py-3 rounded mb-4"
                 >
-                  <option value="">Any Category</option>
-                  <option value="9">General Knowledge</option>
-                  <option value="10">Entertainment: Books</option>
-                  <option value="11">Entertainment: Film</option>
-                  <option value="12">Entertainment: Music</option>
-                  <option value="13">
-                    Entertainment: Musicals &amp; Theatres
-                  </option>
-                  <option value="14">Entertainment: Television</option>
-                  <option value="15">Entertainment: Video Games</option>
-                  <option value="16">Entertainment: Board Games</option>
-                  <option value="17">Science &amp; Nature</option>
-                  <option value="18">Science: Computers</option>
-                  <option value="19">Science: Mathematics</option>
-                  <option value="20">Mythology</option>
-                  <option value="21">Sports</option>
-                  <option value="22">Geography</option>
-                  <option value="23">History</option>
-                  <option value="24">Politics</option>
-                  <option value="25">Art</option>
-                  <option value="26">Celebrities</option>
-                  <option value="27">Animals</option>
-                  <option value="28">Vehicles</option>
-                  <option value="29">Entertainment: Comics</option>
-                  <option value="30">Science: Gadgets</option>
-                  <option value="31">
-                    Entertainment: Japanese Anime &amp; Manga
-                  </option>
-                  <option value="32">
-                    Entertainment: Cartoon &amp; Animations
-                  </option>
+                  <%- include("./partials/categories") %>
                 </select>
               </div>
 
               <!-- bottom -->
               <a
-                class="select-dif-content-max-w duration-300 cursor-pointer border-4 border-black px-2 py-3 teko tracking-wide w-full my-4 rounded-lg text-2xl xl:text-3xl font-bold hover:bg-green-400 active:bg-green-600 hover:text-white mt-8 bg-orange-300 flex justify-center items-center campaign-btn"
+                class="mx-auto select-dif-content-max-w duration-300 cursor-pointer border-4 border-black px-2 py-3 teko tracking-wide w-full my-4 rounded-lg text-2xl xl:text-3xl font-bold hover:bg-green-400 active:bg-green-600 hover:text-white mt-8 bg-orange-300 flex justify-center items-center campaign-btn"
               >
                 Play Campaign Mode 🚀
               </a>
@@ -98,7 +70,7 @@
             >
               <!-- top -->
               <div
-                class="select-dif-content-max-w p-2 border-2 md:border-4 flex justify-center items-center flex-col font-bold border-black rounded-lg bg-yellow-200"
+                class="min-w-full mx-auto select-dif-content-max-w p-2 border-2 md:border-4 flex justify-center items-center flex-col font-bold border-black rounded-lg bg-yellow-200"
               >
                 <h2
                   class="text-4xl xl:text-6xl font-bold underline teko mb-2 rounded-lg px-2 pt-2"
@@ -113,7 +85,7 @@
 
               <!-- middle -->
               <div
-                class="select-dif-content-max-w grid border-2 md:border-4 bg-yellow-200 border-black rounded-lg mt-6 py-2 px-6"
+                class="min-w-full mx-auto select-dif-content-max-w grid border-2 md:border-4 bg-yellow-200 border-black rounded-lg mt-6 py-2 px-6"
               >
                 <label for="category" class="md:mb-2 text-3xl xl:text-5xl teko"
                   >Category</label
@@ -130,7 +102,7 @@
 
               <!-- bottom -->
               <a
-                class="select-dif-content-max-w duration-300 cursor-pointer border-4 border-black px-2 py-3 teko tracking-wide w-full my-4 rounded-lg text-2xl xl:text-3xl font-bold hover:bg-green-400 active:bg-green-600 hover:text-white mt-8 bg-orange-300 flex justify-center items-center random-btn"
+                class="mx-auto select-dif-content-max-w duration-300 cursor-pointer border-4 border-black px-2 py-3 teko tracking-wide w-full my-4 rounded-lg text-2xl xl:text-3xl font-bold hover:bg-green-400 active:bg-green-600 hover:text-white mt-8 bg-orange-300 flex justify-center items-center random-btn"
               >
                 Play Random Mode 🌪
               </a>
@@ -149,7 +121,7 @@
             >
               <!-- top -->
               <div
-                class="select-dif-content-max-w p-2 border-2 md:border-4 flex justify-center items-center flex-col font-bold border-black rounded-lg bg-yellow-200"
+                class="min-w-full mx-auto select-dif-content-max-w p-2 border-2 md:border-4 flex justify-center items-center flex-col font-bold border-black rounded-lg bg-yellow-200"
               >
                 <h2
                   class="text-4xl xl:text-6xl font-bold underline teko mb-2 rounded-lg px-2 pt-2"
@@ -164,7 +136,7 @@
 
               <!-- middle -->
               <div
-                class="select-dif-content-max-w grid border-2 md:border-4 bg-yellow-200 border-black rounded-lg mt-6 py-2 px-6"
+                class="min-w-full mx-auto select-dif-content-max-w grid border-2 md:border-4 bg-yellow-200 border-black rounded-lg mt-6 py-2 px-6"
               >
                 <label for="category" class="md:mb-2 text-3xl xl:text-5xl teko"
                   >Category</label
@@ -175,43 +147,13 @@
                   id="category-challenge"
                   class="select-dif-select-max-w bg-white border-2 md:border-4 border-black text-sm xl:text-lg font-bold fira-sans px-2 py-3 rounded mb-4"
                 >
-                  <option value="">Any Category</option>
-                  <option value="9">General Knowledge</option>
-                  <option value="10">Entertainment: Books</option>
-                  <option value="11">Entertainment: Film</option>
-                  <option value="12">Entertainment: Music</option>
-                  <option value="13">
-                    Entertainment: Musicals &amp; Theatres
-                  </option>
-                  <option value="14">Entertainment: Television</option>
-                  <option value="15">Entertainment: Video Games</option>
-                  <option value="16">Entertainment: Board Games</option>
-                  <option value="17">Science &amp; Nature</option>
-                  <option value="18">Science: Computers</option>
-                  <option value="19">Science: Mathematics</option>
-                  <option value="20">Mythology</option>
-                  <option value="21">Sports</option>
-                  <option value="22">Geography</option>
-                  <option value="23">History</option>
-                  <option value="24">Politics</option>
-                  <option value="25">Art</option>
-                  <option value="26">Celebrities</option>
-                  <option value="27">Animals</option>
-                  <option value="28">Vehicles</option>
-                  <option value="29">Entertainment: Comics</option>
-                  <option value="30">Science: Gadgets</option>
-                  <option value="31">
-                    Entertainment: Japanese Anime &amp; Manga
-                  </option>
-                  <option value="32">
-                    Entertainment: Cartoon &amp; Animations
-                  </option>
+                  <%- include("./partials/categories") %>
                 </select>
               </div>
 
               <!-- bottom -->
               <a
-                class="select-dif-content-max-w duration-300 cursor-pointer border-4 border-black px-2 py-3 teko tracking-wide w-full my-4 rounded-lg text-2xl xl:text-3xl font-bold hover:bg-green-400 active:bg-green-600 hover:text-white mt-8 bg-orange-300 flex justify-center items-center challenge-btn"
+                class="mx-auto select-dif-content-max-w duration-300 cursor-pointer border-4 border-black px-2 py-3 teko tracking-wide w-full my-4 rounded-lg text-2xl xl:text-3xl font-bold hover:bg-green-400 active:bg-green-600 hover:text-white mt-8 bg-orange-300 flex justify-center items-center challenge-btn"
               >
                 Play Challenge Mode 🔥
               </a>
@@ -230,7 +172,7 @@
             >
               <!-- top -->
               <div
-                class="select-dif-content-max-w p-2 border-2 md:border-4 flex justify-center items-center flex-col font-bold border-black rounded-lg bg-yellow-200"
+                class="min-w-full mx-auto select-dif-content-max-w p-2 border-2 md:border-4 flex justify-center items-center flex-col font-bold border-black rounded-lg bg-yellow-200"
               >
                 <h2
                   class="text-4xl xl:text-6xl font-bold underline teko mb-2 rounded-lg px-2 pt-2"
@@ -245,7 +187,7 @@
 
               <!-- middle -->
               <div
-                class="select-dif-content-max-w grid grid-cols-1 md:grid-cols-2 bg-yellow-200 border-2 md:border-4 border-black rounded-lg mt-6 py-3 px-6 gap-4"
+                class="min-w-full mx-auto select-dif-content-max-w grid grid-cols-1 md:grid-cols-2 bg-yellow-200 border-2 md:border-4 border-black rounded-lg mt-6 py-3 px-6 gap-4"
               >
                 <section>
                   <label
@@ -259,37 +201,7 @@
                     id="category-custom"
                     class="select-dif-select-max-w bg-white border-2 md:border-4 border-black text-sm xl:text-lg font-bold fira-sans px-2 py-3 rounded mb-4 w-full"
                   >
-                    <option value="">Any Category</option>
-                    <option value="9">General Knowledge</option>
-                    <option value="10">Entertainment: Books</option>
-                    <option value="11">Entertainment: Film</option>
-                    <option value="12">Entertainment: Music</option>
-                    <option value="13">
-                      Entertainment: Musicals &amp; Theatres
-                    </option>
-                    <option value="14">Entertainment: Television</option>
-                    <option value="15">Entertainment: Video Games</option>
-                    <option value="16">Entertainment: Board Games</option>
-                    <option value="17">Science &amp; Nature</option>
-                    <option value="18">Science: Computers</option>
-                    <option value="19">Science: Mathematics</option>
-                    <option value="20">Mythology</option>
-                    <option value="21">Sports</option>
-                    <option value="22">Geography</option>
-                    <option value="23">History</option>
-                    <option value="24">Politics</option>
-                    <option value="25">Art</option>
-                    <option value="26">Celebrities</option>
-                    <option value="27">Animals</option>
-                    <option value="28">Vehicles</option>
-                    <option value="29">Entertainment: Comics</option>
-                    <option value="30">Science: Gadgets</option>
-                    <option value="31">
-                      Entertainment: Japanese Anime &amp; Manga
-                    </option>
-                    <option value="32">
-                      Entertainment: Cartoon &amp; Animations
-                    </option>
+                    <%- include("./partials/categories") %>
                   </select>
                 </section>
                 <section>
@@ -313,7 +225,7 @@
 
               <!-- Bottom -->
               <a
-                class="select-dif-content-max-w duration-300 cursor-pointer border-4 border-black px-2 py-3 teko tracking-wide w-full my-4 rounded-lg text-2xl xl:text-3xl font-bold hover:bg-green-400 active:bg-green-600 hover:text-white mt-8 bg-orange-300 flex justify-center items-center custom-btn"
+                class="mx-auto select-dif-content-max-w duration-300 cursor-pointer border-4 border-black px-2 py-3 teko tracking-wide w-full my-4 rounded-lg text-2xl xl:text-3xl font-bold hover:bg-green-400 active:bg-green-600 hover:text-white mt-8 bg-orange-300 flex justify-center items-center custom-btn"
               >
                 Play Custom Mode 🏋️‍♂️
               </a>

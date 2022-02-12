@@ -205,7 +205,33 @@
                       </p>
                     </div>
                     <!-- highscore preview -->
-                    
+                    <% if (userState == "notGuest") { %>
+                      <% if (scoreName.length != 0) { %>
+                        <% for( let i = 0; i <= scoreName.length; i++ ) { %>
+                            <% if (i == scoreName.length) { %>
+                              <p class="text-center font-light bg-yellow-100 py-2 fira-sans text-slate-900">No More Highscores</p>
+                            <% } else {%>
+                              <!--score-->
+                              <div
+                              class="flex justify-between divide-x-2 divide-black text-sm border-b-2 border-black"
+                              >
+                              <p
+                                class="highscore-left bg-orange-300 w-full text-center py-2 flex justify-center items-center "
+                              >
+                                <%=scoreName[i]%> 
+                              </p>
+                              <p
+                                class="highscore-right bg-yellow-400 w-full text-center py-2 flex justify-center items-center text-lg"
+                              >
+                                <%=scoreValue[i]%> 
+                              </p>
+                            </div>               
+                            <% } %>          
+                        <% } %>
+                      <% } else {%>
+                        <p class="text-center font-light text-lg py-2 bg-yellow-100 fira-sans text-slate-900">No Scores Found</p>
+                      <% } %>                          
+                    <% } %>
                   </div>
                 </div>
               </section>

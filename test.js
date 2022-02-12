@@ -1,4 +1,4 @@
-// const fetch = require('node-fetch');
+const fetch = require('node-fetch');
 
 // var http = require('http');
 // http
@@ -33,11 +33,33 @@
 // };
 // testAPI();
 
-const testObj = {
-  a: 1,
-  b: 2,
-};
+// const testObj = {
+//   a: 1,
+//   b: 2,
+// };
 
-let names = 'a';
+// let names = 'a';
 
-console.log(testObj[names]);
+// console.log(testObj[names]);
+
+// a = 8;
+
+// for (var i = 0; i < 10; i++) {
+//   if (i == a) {
+//     console.log('match', i);
+//     return;
+//   } else {
+//     console.log('not match', i);
+//   }
+// }
+
+// i = 0;
+// while (i < 10) {
+//   if (i == a) {
+//     console.log('match', i);
+//     return;
+//   } else {
+//     console.log('not match', i);
+//   }
+//   i++;
+// }

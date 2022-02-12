@@ -7,6 +7,7 @@ const body = document.querySelector('body');
 let menuIsToggled = false;
 let isInFooter = false;
 // remove scrolling before content has loaded
+window.scrollTo(0, 0);
 body.classList.add('overflow-hidden');
 
 // for menu toggle

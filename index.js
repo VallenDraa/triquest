@@ -119,6 +119,10 @@ app.get('/get_country', async function (req, res) {
   res.json(json);
 });
 
+app.get('/safari', function (req, res) {
+  res.send('Not Supported In Safari Yet !');
+});
+
 app.listen(process.env.PORT || 8000, () => {
   console.log('listening at localhost:8000');
 });

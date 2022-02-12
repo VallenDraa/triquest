@@ -16,116 +16,89 @@
         </h1>
       <!-- top -->
         <div
-          class="fira-sans space-y-3 md:border-4 border-black rounded-t-lg md:rounded-lg bg-yellow-200 p-4  h-full"
+          class="fira-sans space-y-3 md:border-4 border-black rounded-t-lg md:rounded-lg bg-yellow-200 pt-0 p-4 md:pt-4  h-full"
         >
             <!-- Ranks  -->
             <section> 
-                <h2
-                class="text-2xl font-bold fira-sans underline text-center underline-offset-4"
-                >
-                Ranks
-                </h2>
+
                 <!-- Category Selectors -->
-                <div class ="space-y-2">
-                    <label for="country" class="text-lg font-bold ml-2 inline-block">
-                        Country
-                    </label>
-                    <select
-                        name="country"
-                        id="country"
-                        class="border-2 md:border-4 border-black outline-none px-2 rounded-md text-lg block w-full py-2 bg-slate-50"
-                    >
-                        <option value="global">
-                            Global 🌐
-                        </option>
-                        <!-- more options will be added through country.js -->
-                    </select>
-
-                    <label for="gamemode" class="text-lg font-bold ml-2 inline-block">
-                        Gamemode
-                    </label>
-                    <select
-                    name="gamemode"
-                    id="gamemode"
-                    class="border-2 md:border-4 border-black outline-none px-2 rounded-md text-lg block w-full py-2 bg-slate-50"
-                    >
-                    <option value="Campaign">
-                        Campaign🚀
-                    </option>
-                    <option value="Random">
-                        Random🌪️ 
-                    </option> 
-                    <option value="Challenge">
-                        Challenge🔥
-                    </option>
-                   <option value="Custom">
-                        Custom❓
-                    </option>
-                    </select>     
-                    
-                    <label for="category" class="text-lg font-bold ml-2 inline-block"
-                    >Category
-                    </label>
-                    <select
-                        name="category"
-                        id="category"
-                        class="border-2 md:border-4 border-black outline-none px-2 rounded-md text-lg block w-full py-2 bg-slate-50"
-                    >
-                        <option value="any">Any Category</option>
-                        <option value="9">General Knowledge</option>
-                        <option value="10">Entertainment: Books</option>
-                        <option value="11">Entertainment: Film</option>
-                        <option value="12">Entertainment: Music</option>
-                        <option value="13">
-                        Entertainment: Musicals &amp; Theatres
-                        </option>
-                        <option value="14">Entertainment: Television</option>
-                        <option value="15">Entertainment: Video Games</option>
-                        <option value="16">Entertainment: Board Games</option>
-                        <option value="17">Science &amp; Nature</option>
-                        <option value="18">Science: Computers</option>
-                        <option value="19">Science: Mathematics</option>
-                        <option value="20">Mythology</option>
-                        <option value="21">Sports</option>
-                        <option value="22">Geography</option>
-                        <option value="23">History</option>
-                        <option value="24">Politics</option>
-                        <option value="25">Art</option>
-                        <option value="26">Celebrities</option>
-                        <option value="27">Animals</option>
-                        <option value="28">Vehicles</option>
-                        <option value="29">Entertainment: Comics</option>
-                        <option value="30">Science: Gadgets</option>
-                        <option value="31">
-                        Entertainment: Japanese Anime &amp; Manga
-                        </option>
-                        <option value="32">
-                        Entertainment: Cartoon &amp; Animations
-                        </option>
-                    </select>        
-
-                    <label for="difficulty" class="text-lg font-bold ml-2 inline-block"
-                    >Difficulty
-                    </label>
-                    <select
-                        name="difficulty"
-                        id="difficulty"
-                        class="border-2 md:border-4 border-black outline-none px-2 rounded-md text-lg block w-full py-2 bg-slate-50"
-                    >
-                        <option value="any">Any Difficulty</option>
-                        <option value="random">Random Difficulty</option>
-                        <option value="easy">Easy</option>
-                        <option value="medium">Medium</option>
-                        <option value="hard">Hard</option>
-                    </select>
-                </div>
+                <div class =" grid grid-cols-2 gap-2">
+                   <!-- country -->
+              <div>
+                <label
+                  for="country"
+                  class="text-lg font-bold ml-2 inline-block"
+                >
+                  Country
+                </label>
+                <select
+                  name="country"
+                  id="country"
+                  class="border-2 md:border-4 border-black outline-none px-2 rounded-md text-lg block w-full py-2 bg-slate-50"
+                >
+                  <option value="global">Global 🌐</option>
+                  <!-- more options will be added through country.js -->
+                </select>
+              </div>
+              <!-- Gamemode -->
+              <div>
+                <label
+                  for="gamemode"
+                  class="text-lg font-bold ml-2 inline-block"
+                >
+                  Gamemode
+                </label>
+                <select
+                  name="gamemode"
+                  id="gamemode"
+                  class="border-2 md:border-4 border-black outline-none px-2 rounded-md text-lg block w-full py-2 bg-slate-50"
+                >
+                  <option value="Campaign">Campaign🚀</option>
+                  <option value="Random">Random🌪️</option>
+                  <option value="Challenge">Challenge🔥</option>
+                  <option value="Custom">Custom❓</option>
+                </select>
+              </div>
+              <!-- Category -->
+              <div>
+                <label
+                  for="category"
+                  class="text-lg font-bold ml-2 inline-block"
+                  >Category
+                </label>
+                <select
+                  name="category"
+                  id="category"
+                  class="border-2 md:border-4 border-black outline-none px-2 rounded-md text-lg block w-full py-2 bg-slate-50"
+                >
+                  <%-include("./partials/categories") %>
+                </select>
+              </div>
+              <!-- Difficulty -->
+              <div>
+                <label
+                  for="difficulty"
+                  class="text-lg font-bold ml-2 inline-block"
+                  >Difficulty
+                </label>
+                <select
+                  name="difficulty"
+                  id="difficulty"
+                  class="border-2 md:border-4 border-black outline-none px-2 rounded-md text-lg block w-full py-2 bg-slate-50"
+                >
+                  <option value="any">Any Difficulty</option>
+                  <option value="random">Random Difficulty</option>
+                  <option value="easy">Easy</option>
+                  <option value="medium">Medium</option>
+                  <option value="hard">Hard</option>
+                </select>
+              </div>
             </section>
-            
         </div>
 
         <!-- the leaderboard -->
         <div 
-        class="md:mt-4 bg-yellow-200 border-t-2 md:border-4 border-black mb-2 md:mb-0 md:rounded-sm overflow-y-auto relative h-96 ">
+        class="md:mt-4 bg-yellow-100 border-t-2 md:border-4 border-black mb-2 md:mb-0 md:rounded-sm overflow-y-auto relative h-96 ">
             <%- include("./partials/loading-leaderboard") %> 
             <!-- table -->
             <div class=" absolute inset-0">

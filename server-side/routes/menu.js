@@ -49,10 +49,17 @@ router.get('/leaderboard', async function (req, res) {
 // convert id into username
 router.get('/profile/:username', async function (req, res) {
   try {
-    const countries = await listCountries();
+    const countries = await fetchCountries();
+    const categories = await fetchCategories();
+    const scoreValue = [];
+    const scoreName = [];
     if (req.cookies.userState) {
       if (req.cookies.userState == 'notGuest') {
         const user = await User.findOne({ username: req.params.username });
+        user.scores.forEach((score, i) => {
+          scoreName.push(formatScoreName(categories, score[0]));
+          scoreValue.push(score[1]);
+        });
         // redirect to link with name
         res.render('profile', {
           title: `Triquest | ${user.username}`,
@@ -62,7 +69,8 @@ router.get('/profile/:username', async function (req, res) {
           country: user.country,
           email: user.email,
           password: user.password,
-          scores: user.scores,
+          scoreName,
+          scoreValue,
           countries,
         });
       } else {
@@ -71,6 +79,7 @@ router.get('/profile/:username', async function (req, res) {
           userState: 'guest',
           username: 'Guest',
           description: '',
+          scores: [],
           countries,
         });
       }
@@ -111,7 +120,7 @@ async function checkIfGuestMode(req, res, userState, userID) {
   }
 }
 
-async function listCountries() {
+async function fetchCountries() {
   let result = [
     {
       code: 'global',
@@ -140,6 +149,37 @@ async function listCountries() {
   });
   return result;
 }
+
+async function fetchCategories() {
+  const json = await fetch(process.env.CATEGORY_URL);
+  const categoryObj = await json.json();
+  return Object.entries(categoryObj);
+}
+
+function formatScoreName(categoryList, score_cat) {
+  const placeholder = score_cat.split('_').splice(1, 3); //only take the 1st to 3rd index, the 0th is just "score_" so it's removed
+  categoryList.forEach((category) => {
+    if (category[0].includes(placeholder[1])) {
+      placeholder[1] = category[1];
+    }
+    switch (placeholder[2]) {
+      case 'any':
+        placeholder[2] = 'Random Difficulty';
+        break;
+      case 'easy':
+        placeholder[2] = 'Easy';
+        break;
+      case 'medium':
+        placeholder[2] = 'Medium';
+        break;
+      case 'hard':
+        placeholder[2] = 'Hard';
+        break;
+    }
+  });
+  return placeholder.join(' - ');
+}
+
 module.exports = {
   menuRouter: router,
   checkIfGuestMode,

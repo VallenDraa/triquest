@@ -12,7 +12,8 @@ const questionCardWrapper = document.querySelector('.question-card-wrapper'),
   progressBar = document.querySelector('.circular-progress'),
   valueContainer = document.querySelector('.value-container'),
   highscore = document.querySelector('.highscore'),
-  resultToMainBtn = document.querySelector('.result-to-main-btn');
+  resultToMainBtn = document.querySelector('.result-to-main-btn'),
+  endGameBtn = document.querySelectorAll('.end-game-btn');
 
 let multipleOrBool,
   isInAfterAnswer = false,
@@ -182,6 +183,7 @@ const questions = {
 
 // timerBar function
 let time = 15.8;
+let endedByUser = false;
 function changeTimerBarStyle() {
   timerBars.forEach((timerBar) => {
     timerBar.setAttribute('style', `width:${(time * 10) / 1.5}%`);
@@ -226,7 +228,11 @@ function runTimerBar() {
         clearInterval(timer);
         time = 0;
         // if time ran out
-        resultScreenProperties('You Ran Out Of Time', totalCorrectAns);
+        if (endedByUser) {
+          resultScreenProperties('You Ended The Game !', totalCorrectAns);
+        } else {
+          resultScreenProperties('You Ran Out Of Time', totalCorrectAns);
+        }
       }
     }, timeInterval);
     const changeBar = setInterval(() => {
@@ -256,7 +262,6 @@ window.addEventListener('resize', () => {
   // match height between after answer card and question card
   matchHeight(answerOptionWrapper, afterAnswerCard);
 });
-
 // everytime an answer is clicked
 answerOptions.forEach((option) => {
   option.addEventListener('click', function () {
@@ -306,7 +311,6 @@ answerOptions.forEach((option) => {
     }
   });
 });
-
 // everytime next question button is clicked
 document.querySelector('.next-question').addEventListener('click', function () {
   isInAfterAnswer = false;
@@ -338,6 +342,13 @@ document.querySelector('.next-question').addEventListener('click', function () {
   else {
     resultScreenProperties(undefined, totalCorrectAns);
   }
+});
+// everytime the endgamebtn is pressed
+endGameBtn.forEach((btn) => {
+  btn.addEventListener('click', () => {
+    endedByUser = true; //this will trigger a function in runtimerbar and end the game immediately
+    time = 0;
+  });
 });
 
 // after answer
@@ -398,40 +409,51 @@ function resultScreenProperties(message, totalCorrectAns) {
   }, 300);
 
   // fetch point and then display the value
+  savePoints();
   fetchPoint(highscore);
   resultToMainBtn.addEventListener('click', function () {
     const userID = parseCookieAtGameplay(document.cookie).id;
-    const scoreKey = parseCookieAtGameplay(document.cookie)[key];
-    if (userID) {
-      window.location.href = `/save_points/${userID}/${scoreKey}`;
+    const scoreKey = key;
+    if (totalCorrectAns) {
+      if (userID) {
+        window.location.href = `/save_points/${userID}/${scoreKey}`;
+      } else {
+        window.location.href = `/save_points/guest/guest`;
+      }
     } else {
-      window.location.href = `/save_points/guest/guest`;
+      window.location.href = '/';
     }
   });
 }
-
 function savePoints() {
   const userState = parseCookieAtGameplay(document.cookie).userState;
-  if (totalCorrectAns === 0) return;
-  localStorage.setItem(key, totalCorrectAns);
+  let value;
+  totalCorrectAns === 0 ? (value = '0') : (value = totalCorrectAns);
   if (userState == 'notGuest') {
-    const expires = new Date();
-    expires.setTime(expires.getTime() + 1 * 60 * 1000);
-    document.cookie = `${key}=${totalCorrectAns};path=/`;
+    document.cookie = `${key}=${value};path=/; secure`;
+  } else {
+    localStorage.setItem(key, value);
   }
 }
-
 function fetchPoint(highscoreHTML) {
-  if (localStorage.getItem(key)) {
-    if (parseInt(localStorage.getItem(key)) > totalCorrectAns) {
-      highscoreHTML.textContent = `Highscore: ${localStorage.getItem(key)}`;
+  if (parseCookieAtGameplay(document.cookie).userState == 'guest') {
+    getPointsAndDisplayIt(localStorage.getItem(key), highscoreHTML);
+  } else {
+    getPointsAndDisplayIt(
+      parseCookieAtGameplay(document.cookie)[key],
+      highscoreHTML
+    );
+  }
+}
+function getPointsAndDisplayIt(source, highscoreHTML) {
+  if (source) {
+    if (parseInt(source) > totalCorrectAns) {
+      highscoreHTML.textContent = `Highscore: ${source}`;
     } else {
-      savePoints();
-      highscoreHTML.textContent = `New Highscore: ${localStorage.getItem(key)}`;
+      highscoreHTML.textContent = `New Highscore: ${source}`;
     }
   } else {
-    savePoints();
-    highscoreHTML.textContent = `New Highscore: ${localStorage.getItem(key)}`;
+    highscoreHTML.textContent = `New Highscore: ${source}`;
   }
 }
 
@@ -463,6 +485,7 @@ function removeLoadingScreen() {
     loadingScreen.classList.add('hidden');
   }, 200);
 }
+
 // fetch question for campaign mode
 function campaignModeFetchQuestion() {
   if (questions.currentQuestion == questions.questionList.length - 1) {
