@@ -101,8 +101,8 @@ function saveAPIParamsToSessionStorage() {
 }
 
 function insertAPIParamsValueToLocalVar() {
-  api_difs === '' ? (local_difs = 'any') : (local_difs = api_difs);
-  api_cat === '' ? (local_cat = 'any') : (local_cat = api_cat);
+  api_difs === '' ? (local_difs = 'random') : (local_difs = api_difs);
+  api_cat === '' ? (local_cat = 'random') : (local_cat = api_cat);
 }
 
 function saveParamsForLocalStorage() {

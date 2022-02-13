@@ -14,9 +14,9 @@ router.get('/save_points/:id/:score', async (req, res) => {
     try {
       user = await User.findById(req.params.id);
       if (user.scores.length != 0) {
-        for (let i = 0; i <= user.scores.length; i++) {
-          if (user.scores[i][0] == scoreParam) {
-            if (user.scores[i][1] != scoreValue) {
+        for (let i = 0; i < user.scores.length; i++) {
+          if (user.scores[i].name == scoreParam) {
+            if (user.scores[i].points != scoreValue) {
               await updateScore(User, userID, scoreParam, scoreValue);
               console.log('z');
               return res.redirect('/');
@@ -45,14 +45,12 @@ router.get('/save_points/:id/:score', async (req, res) => {
 // utils for saving and editing scores
 async function updateScore(Schema, userID, scoreParam, scoreValue, res) {
   await Schema.findOneAndUpdate(
-    { _id: userID },
+    { _id: userID, 'scores.name': scoreParam },
     {
       $set: {
-        'scores.$[element]': [scoreParam, scoreValue],
+        'scores.$.name': scoreParam,
+        'scores.$.points': scoreValue,
       },
-    },
-    {
-      arrayFilters: [{ element: scoreParam }],
     }
   );
 }
@@ -64,7 +62,10 @@ async function addNewScore(Schema, userID, scoreParam, scoreValue, res) {
     },
     {
       $push: {
-        scores: [scoreParam, scoreValue],
+        scores: {
+          name: scoreParam,
+          points: scoreValue,
+        },
       },
     }
   );

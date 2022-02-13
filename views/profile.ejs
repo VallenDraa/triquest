@@ -1,7 +1,6 @@
 <%- include("./partials/header") %>
 
 <main class="mt-auto">
-  <%-include("./partials/loading")%>
   <!-- Profile -->
   <section class="grid content-center min-h-full">
     <main class="max-w-screen-2xl w-11/12 xl:w-9/12 mx-auto">
@@ -185,7 +184,7 @@
                 </h2>
                 <div
                   title="Your Highscores"
-                  class="highscore-box h-full bg-white border-2 md:border-4 border-black rounded-lg relative overflow-y-auto"
+                  class="highscore-box h-full bg-white border-2 md:border-4 border-black relative overflow-y-auto"
                 >
                   <div
                   id="highscore-preview"
@@ -194,12 +193,12 @@
                       class="flex justify-center divide-x-2 divide-black sticky top-0 inset-x-0"
                     >
                       <p
-                        class="highscore-left bg-orange-400 w-full text-center border-b-2 border-black"
+                        class="highscore-left bg-orange-400 w-full text-sm font-bold text-center border-b-2 border-black"
                       >
-                        Category
+                        Modes
                       </p>
                       <p
-                        class="highscore-right bg-yellow-500 w-full text-center border-b-2 border-black"
+                        class="highscore-right bg-yellow-500 w-full text-sm font-bold text-center border-b-2 border-black"
                       >
                         Score
                       </p>
@@ -216,7 +215,7 @@
                               class="flex justify-between divide-x-2 divide-black text-sm border-b-2 border-black"
                               >
                               <p
-                                class="highscore-left bg-orange-300 w-full text-center py-2 flex justify-center items-center "
+                                class="text-xs xl:text-sm highscore-left bg-orange-300 w-full text-center py-2 flex justify-center items-center"
                               >
                                 <%=scoreName[i]%> 
                               </p>

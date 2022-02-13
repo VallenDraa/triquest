@@ -19,7 +19,7 @@ if (document.readyState === 'loading') {
       categorySelect.value,
       difficultySelect.value
     );
-    console.log(query);
+    // console.log(query);
     await findAndSortScores(query);
     removeLoadingScreen();
   });
@@ -35,7 +35,7 @@ if (document.readyState === 'loading') {
       categorySelect.value,
       difficultySelect.value
     );
-    console.log(query);
+    // console.log(query);
     await findAndSortScores(query);
     //   console.log(countrySelect.value);
     removeLoadingScreen();
@@ -48,7 +48,7 @@ if (document.readyState === 'loading') {
       categorySelect.value,
       difficultySelect.value
     );
-    console.log(query);
+    // console.log(query);
     await findAndSortScores(query);
     //   console.log(categorySelect.value);
     removeLoadingScreen();
@@ -96,7 +96,7 @@ if (document.readyState === 'loading') {
       categorySelect.value,
       difficultySelect.value
     );
-    console.log(query);
+    // console.log(query);
     await findAndSortScores(query);
     //   console.log(gamemodeSelect.value);
     removeLoadingScreen();
@@ -109,7 +109,7 @@ if (document.readyState === 'loading') {
       categorySelect.value,
       difficultySelect.value
     );
-    console.log(query);
+    // console.log(query);
     await findAndSortScores(query);
     //   console.log(difficulty.value);
     removeLoadingScreen();

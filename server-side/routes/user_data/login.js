@@ -9,7 +9,7 @@ router.post('/check_login', async (req, res) => {
     //   find user based on username input
     user = await User.findOne({ username: req.body.username }).exec();
     if (!user) {
-      res.redirect('/sign-up');
+      res.redirect('/login');
     } else {
       // check if password is correct
       if (user.password === req.body.password) {

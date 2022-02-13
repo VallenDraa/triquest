@@ -21,6 +21,7 @@ router.get('/', async function (req, res) {
     res.render('select-dif', {
       title: 'Triquest | Challenge Yourself !',
       username: sessionData.username,
+      categories: 'select-dif',
     });
   } else {
     res.redirect('/sign-up');
@@ -39,6 +40,7 @@ router.get('/leaderboard', async function (req, res) {
     res.render('leaderboard', {
       title: 'Triquest | Leaderboard',
       username: sessionData.username,
+      categories: 'leaderboard',
     });
   } else {
     res.redirect('/sign-up');
@@ -57,8 +59,8 @@ router.get('/profile/:username', async function (req, res) {
       if (req.cookies.userState == 'notGuest') {
         const user = await User.findOne({ username: req.params.username });
         user.scores.forEach((score, i) => {
-          scoreName.push(formatScoreName(categories, score[0]));
-          scoreValue.push(score[1]);
+          scoreName.push(formatScoreNameProfile(categories, score.name));
+          scoreValue.push(score.points);
         });
         // redirect to link with name
         res.render('profile', {
@@ -156,14 +158,14 @@ async function fetchCategories() {
   return Object.entries(categoryObj);
 }
 
-function formatScoreName(categoryList, score_cat) {
+function formatScoreNameProfile(categoryList, score_cat) {
   const placeholder = score_cat.split('_').splice(1, 3); //only take the 1st to 3rd index, the 0th is just "score_" so it's removed
   categoryList.forEach((category) => {
     if (category[0].includes(placeholder[1])) {
       placeholder[1] = category[1];
     }
     switch (placeholder[2]) {
-      case 'any':
+      case 'random':
         placeholder[2] = 'Random Difficulty';
         break;
       case 'easy':

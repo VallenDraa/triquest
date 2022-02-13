@@ -18,6 +18,7 @@ const guestRouter = require('./server-side/routes/user_data/guest-mode');
 const logOutRouter = require('./server-side/routes/user_data/log-out');
 const profileRouter = require('./server-side/routes/user_data/profile');
 const savePointsRouter = require('./server-side/routes/points/save-points');
+const APIRouter = require('./server-side/routes/API/API.js');
 const { checkIfGuestMode } = require('./server-side/routes/menu');
 
 // use ejs view engine
@@ -36,6 +37,7 @@ app.use('/', loginRouter);
 app.use('/', guestRouter);
 app.use('/', logOutRouter);
 app.use('/', savePointsRouter);
+app.use('/api', APIRouter);
 
 // utility
 app.use(methodOverride('_method'));
@@ -51,28 +53,28 @@ db.once('open', () => {
 
 // sign-up page
 app.get('/sign-up', async (req, res) => {
-  const sessionData = await checkIfGuestMode(
-    req,
-    res,
-    req.cookies.userState,
-    req.cookies.id
-  );
+  // const sessionData = await checkIfGuestMode(
+  //   req,
+  //   res,
+  //   req.cookies.userState,
+  //   req.cookies.id
+  // );
   res.render('sign-up', {
     title: 'Triquest | Sign-Up',
-    username: sessionData.username,
+    username: 'Sign-Up',
   });
 });
 
 app.get('/login', async (req, res) => {
-  const sessionData = await checkIfGuestMode(
-    req,
-    res,
-    req.cookies.userState,
-    req.cookies.id
-  );
+  // const sessionData = await checkIfGuestMode(
+  //   req,
+  //   res,
+  //   req.cookies.userState,
+  //   req.cookies.id
+  // );
   res.render('login', {
     title: 'Triquest | Login',
-    username: sessionData.username,
+    username: 'Sign-Up',
   });
 });
 
@@ -112,12 +114,12 @@ app.get('/get_question/:queryParams', async function (req, res) {
   res.json(json);
 });
 // get user country
-app.get('/get_country', async function (req, res) {
-  const api_url = `https://www.iplocate.io/api/lookup/`;
-  const datas = await fetch(api_url);
-  const json = await datas.json();
-  res.json(json);
-});
+// app.get('/get_country', async function (req, res) {
+//   const api_url = `https://www.iplocate.io/api/lookup/`;
+//   const datas = await fetch(api_url);
+//   const json = await datas.json();
+//   res.json(json);
+// });
 
 app.get('/safari', function (req, res) {
   res.send('Not Supported In Safari Yet !');

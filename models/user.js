@@ -23,7 +23,7 @@ const userSchema = new mongoose.Schema({
   password: {
     type: String,
   },
-  scores: [Array],
+  scores: [Object],
 });
 
 module.exports = mongoose.model('User', userSchema);
