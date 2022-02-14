@@ -7,22 +7,22 @@
 }
 
 .icon-1 {
-  animation: toRoundedCircle1 3s cubic-bezier(1, 0.07, 0.38, 1.29) infinite;
+  animation: toRoundedCircle1 3.5s cubic-bezier(1, 0.07, 0.38, 1.29) infinite;
 }
 .icon-2 {
-  animation: toRoundedCircle2 3s cubic-bezier(1, 0.07, 0.38, 1.29) infinite;
+  animation: toRoundedCircle2 3.5s cubic-bezier(1, 0.07, 0.38, 1.29) infinite;
 }
 .icon-3 {
-  animation: toRoundedCircle3 3s cubic-bezier(1, 0.07, 0.38, 1.29) infinite;
+  animation: toRoundedCircle3 3.5s cubic-bezier(1, 0.07, 0.38, 1.29) infinite;
 }
 .icon-4 {
-  animation: toRoundedCircle4 3s cubic-bezier(1, 0.07, 0.38, 1.29) infinite;
+  animation: toRoundedCircle4 3.5s cubic-bezier(1, 0.07, 0.38, 1.29) infinite;
 }
 .icon-5 {
-  animation: toRoundedCircle5 3s cubic-bezier(1, 0.07, 0.38, 1.29) infinite;
+  animation: toRoundedCircle5 3.5s cubic-bezier(1, 0.07, 0.38, 1.29) infinite;
 }
 .icon-6 {
-  animation: toRoundedCircle6 3s cubic-bezier(1, 0.07, 0.38, 1.29) infinite;
+  animation: toRoundedCircle6 3.5s cubic-bezier(1, 0.07, 0.38, 1.29) infinite;
 }
 
 @keyframes toRoundedCircle1 {
@@ -33,6 +33,10 @@
   50% {
     transform: rotate(40deg);
     border-radius: 0%;
+  }
+  95% {
+    transform: rotate(0);
+    border-radius: 50%;
   }
   100% {
     transform: rotate(0);
@@ -47,6 +51,10 @@
   50% {
     transform: rotate(120deg);
     border-radius: 0%;
+  }
+  95% {
+    transform: rotate(0);
+    border-radius: 50%;
   }
   100% {
     transform: rotate(0);
@@ -63,6 +71,10 @@
     transform: rotate(200deg);
     border-radius: 0%;
   }
+  95% {
+    transform: rotate(0);
+    border-radius: 50%;
+  }
   100% {
     transform: rotate(0);
     border-radius: 50%;
@@ -76,6 +88,10 @@
   50% {
     transform: rotate(280deg);
     border-radius: 0%;
+  }
+  95% {
+    transform: rotate(0);
+    border-radius: 50%;
   }
   100% {
     transform: rotate(0);
@@ -92,6 +108,10 @@
     transform: rotate(360deg);
     border-radius: 0%;
   }
+  95% {
+    transform: rotate(0);
+    border-radius: 50%;
+  }
   100% {
     transform: rotate(0);
     border-radius: 50%;
@@ -106,6 +126,10 @@
   50% {
     transform: rotate(4deg);
     border-radius: 0%;
+  }
+  95% {
+    transform: rotate(0);
+    border-radius: 50%;
   }
   100% {
     transform: rotate(0);

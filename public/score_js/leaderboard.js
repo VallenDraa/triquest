@@ -9,110 +9,29 @@ const countrySelect = document.getElementById('country'),
     '.loading-screen-leaderboard'
   );
 
-let query = 'Campaign_any_any';
+let query = 'score_Campaign_any_any';
 
 if (document.readyState === 'loading') {
   document.addEventListener('DOMContentLoaded', async () => {
-    query = editQuery(
-      query,
-      gamemodeSelect.value,
-      categorySelect.value,
-      difficultySelect.value
-    );
-    // console.log(query);
-    await findAndSortScores(query);
-    removeLoadingScreen();
+    checkSelectedOptions(gamemodeSelect.value);
+    await updateLeaderboard();
   });
 }
 
 //   for guest mode
 (function guessModeEventListener() {
   countrySelect.addEventListener('change', async function () {
-    addLoadingScreen();
-    query = editQuery(
-      query,
-      gamemodeSelect.value,
-      categorySelect.value,
-      difficultySelect.value
-    );
-    // console.log(query);
-    await findAndSortScores(query);
-    //   console.log(countrySelect.value);
-    removeLoadingScreen();
+    await updateLeaderboard();
   });
   categorySelect.addEventListener('change', async function () {
-    addLoadingScreen();
-    query = editQuery(
-      query,
-      gamemodeSelect.value,
-      categorySelect.value,
-      difficultySelect.value
-    );
-    // console.log(query);
-    await findAndSortScores(query);
-    //   console.log(categorySelect.value);
-    removeLoadingScreen();
+    await updateLeaderboard();
   });
   gamemodeSelect.addEventListener('change', async function () {
-    if (this.value == 'Random') {
-      difficultySelect
-        .querySelectorAll('*:not(:first-child)')
-        .forEach((item) => {
-          item.classList.add('hidden');
-        });
-
-      categorySelect.querySelectorAll('*:not(:first-child)').forEach((item) => {
-        item.classList.add('hidden');
-      });
-    } else if (this.value == 'Challenge' || this.value == 'Campaign') {
-      categorySelect.querySelectorAll('*:not(:first-child)').forEach((item) => {
-        if (!item.classList.contains('hidden')) return;
-        item.classList.remove('hidden');
-      });
-
-      difficultySelect
-        .querySelectorAll('*:not(:first-child)')
-        .forEach((item) => {
-          item.classList.add('hidden');
-        });
-    } else {
-      difficultySelect
-        .querySelectorAll('*:not(:first-child)')
-        .forEach((item) => {
-          if (!item.classList.contains('hidden')) return;
-          item.classList.remove('hidden');
-        });
-
-      categorySelect.querySelectorAll('*:not(:first-child)').forEach((item) => {
-        if (!item.classList.contains('hidden')) return;
-        item.classList.remove('hidden');
-      });
-    }
-
-    addLoadingScreen();
-    query = editQuery(
-      query,
-      gamemodeSelect.value,
-      categorySelect.value,
-      difficultySelect.value
-    );
-    // console.log(query);
-    await findAndSortScores(query);
-    //   console.log(gamemodeSelect.value);
-    removeLoadingScreen();
+    checkSelectedOptions(this.value);
+    await updateLeaderboard();
   });
   difficultySelect.addEventListener('change', async function () {
-    addLoadingScreen();
-    query = editQuery(
-      query,
-      gamemodeSelect.value,
-      categorySelect.value,
-      difficultySelect.value
-    );
-    // console.log(query);
-    await findAndSortScores(query);
-    //   console.log(difficulty.value);
-    removeLoadingScreen();
+    await updateLeaderboard();
   });
 })();
 
@@ -124,18 +43,97 @@ index[1] = category number
 index[2] = difficulty
 */
 
-  let temporary = query.split('_');
+  let temporary = query.split('_').slice(1, query.length);
+  console.log(temporary, query);
   temporary[0] = gamemode;
   temporary[1] = category;
   temporary[2] = difficulty;
-  return temporary.join('_');
+  return 'score_' + temporary.join('_');
 }
 
+// loading screens
+const LOADING_SCREEN = {
+  addLoadingScreen: function () {
+    loadingScreenLeaderboard.classList.remove('anim-fade-out');
+    loadingScreenLeaderboard.classList.remove('hidden');
+  },
+  removeLoadingScreen: function () {
+    loadingScreenLeaderboard.classList.add('anim-fade-out');
+    setTimeout(function () {
+      loadingScreenLeaderboard.classList.add('hidden');
+    }, 200);
+  },
+};
+
+// updating the selections
+const CATEGORIES = {
+  hidesCategories: function (gameModeValue) {
+    if (gameModeValue === 'Random') {
+      categorySelect.querySelector(':first-child').textContent =
+        'Random Categories';
+    }
+    categorySelect.querySelectorAll('*:not(:first-child)').forEach((item) => {
+      item.classList.add('hidden');
+    });
+  },
+  revealCategories: function () {
+    categorySelect.querySelector(':first-child').textContent =
+      'Any Difficulties';
+    categorySelect.querySelectorAll('*:not(:first-child)').forEach((item) => {
+      if (!item.classList.contains('hidden')) return;
+      item.classList.remove('hidden');
+    });
+  },
+};
+
+const DIFFICULTIES = {
+  hidesDiffs: function (gameModeValue) {
+    switch (gameModeValue) {
+      case 'Campaign':
+        difficultySelect.querySelector(':first-child').textContent =
+          'Campaign Mode';
+        break;
+      case 'Challenge':
+        difficultySelect.querySelector(':first-child').textContent = 'Hard';
+        break;
+      case 'Random':
+        difficultySelect.querySelector(':first-child').textContent =
+          'Random Mode';
+        break;
+    }
+    difficultySelect.querySelectorAll('*:not(:first-child)').forEach((item) => {
+      if (item.classList.contains('hidden')) return;
+      item.classList.add('hidden');
+    });
+  },
+  revealDiffs: function () {
+    difficultySelect.querySelector(':first-child').textContent =
+      'Any Difficulties';
+    difficultySelect.querySelectorAll('*:not(:first-child)').forEach((item) => {
+      if (!item.classList.contains('hidden')) return;
+      item.classList.remove('hidden');
+    });
+  },
+};
+
+function checkSelectedOptions(gameModeValue) {
+  if (gameModeValue == 'Random') {
+    DIFFICULTIES.hidesDiffs(gameModeValue);
+    CATEGORIES.hidesCategories(gameModeValue);
+  } else if (gameModeValue == 'Challenge' || gameModeValue == 'Campaign') {
+    DIFFICULTIES.hidesDiffs(gameModeValue);
+    CATEGORIES.revealCategories();
+  } else {
+    DIFFICULTIES.revealDiffs();
+    CATEGORIES.revealCategories();
+  }
+}
+
+// updating the leaderboard
 async function findAndSortScores(query) {
   query = query.split('_');
   let pointValue = [];
   let results = [];
-  let i = 0;
   tableContent.innerHTML = '';
 
   Object.entries(localStorage).forEach(([key, value]) => {
@@ -178,7 +176,6 @@ async function findAndSortScores(query) {
     tableContent.innerHTML += `<p class="text-center font-light text-lg mt-2 fira-sans text-slate-800">No Scores Found</p>`;
   }
 }
-
 async function switchCategory(catNum, catList) {
   const json = await fetch(`../data/category.json`);
   const categoryObj = await json.json();
@@ -190,17 +187,16 @@ async function switchCategory(catNum, catList) {
     }
   });
 }
-
-// loading screens
-function addLoadingScreen() {
-  loadingScreenLeaderboard.classList.remove('anim-fade-out');
-  loadingScreenLeaderboard.classList.remove('hidden');
+async function updateLeaderboard() {
+  LOADING_SCREEN.addLoadingScreen();
+  query = editQuery(
+    query,
+    gamemodeSelect.value,
+    categorySelect.value,
+    difficultySelect.value
+  );
+  // console.log(query);
+  await findAndSortScores(query);
+  //   console.log(categorySelect.value);
+  LOADING_SCREEN.removeLoadingScreen();
 }
-function removeLoadingScreen() {
-  loadingScreenLeaderboard.classList.add('anim-fade-out');
-  setTimeout(function () {
-    loadingScreenLeaderboard.classList.add('hidden');
-  }, 200);
-}
-
-// remove category and difficulty options if random mode is chosen

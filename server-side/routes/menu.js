@@ -30,17 +30,20 @@ router.get('/', async function (req, res) {
 
 // leaderboard
 router.get('/leaderboard', async function (req, res) {
+  const countries = await fetchCountries();
   const sessionData = await checkIfGuestMode(
     req,
     res,
     req.cookies.userState,
     req.cookies.id
   );
+
   if (sessionData.userState) {
     res.render('leaderboard', {
       title: 'Triquest | Leaderboard',
       username: sessionData.username,
       categories: 'leaderboard',
+      countries: countries,
     });
   } else {
     res.redirect('/sign-up');

@@ -7,14 +7,15 @@ const fetch = require('node-fetch');
 const User = require('../../../models/user');
 
 // getting the point for the leaderboard
-// URL:/api/leaderboard_points?query=[KEY]&page=[INT]&limit=[INT]
+// URL:/api/leaderboard_points?query=[KEY]&country=[abbr]&page=[INT]&limit=[INT]
 router.get('/leaderboard_points', paginatedResults(User), (req, res) => {
   res.json(res.paginatedResults);
 });
 
 function paginatedResults(Model) {
   return async (req, res, next) => {
-    let query = req.query.query,
+    let scoreNameQuery = req.query.query,
+      country = req.query.country,
       page = parseInt(req.query.page),
       limit = parseInt(req.query.limit),
       nextPage,
@@ -57,24 +58,44 @@ function paginatedResults(Model) {
     results.results = [];
 
     try {
-      const userDatas = await Model.find({
-        scores: {
-          $elemMatch: {
-            name: query,
+      let dbQuery;
+      // will change the database query based on if country query is undefined or not
+      if (country == '' || country == undefined) {
+        dbQuery = {
+          scores: {
+            $elemMatch: {
+              name: scoreNameQuery,
+            },
           },
-        },
-      })
+        };
+      } else {
+        // console.log(country);
+        dbQuery = {
+          $and: [
+            {
+              scores: {
+                $elemMatch: {
+                  name: scoreNameQuery,
+                },
+              },
+            },
+            {
+              country: country,
+            },
+          ],
+        };
+      }
+
+      const userDatas = await Model.find(dbQuery)
         .limit(limit)
         .skip(startIndex)
-        .sort({
-          point: 1,
-        })
         .exec();
+
       for (let data of userDatas) {
         let scoreName, scorePoints;
-        console.log(data);
+        // console.log(data);
         for (let scores of data.scores) {
-          if (scores.name == query) {
+          if (scores.name == scoreNameQuery) {
             scoreName = scores.name;
             scorePoints = scores.points;
           }

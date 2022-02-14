@@ -35,7 +35,9 @@
                   id="country"
                   class="border-2 md:border-4 border-black outline-none px-2 rounded-md text-lg block w-full py-2 bg-slate-50"
                 >
-                  <option value="global">Global 🌐</option>
+                  <% countries.forEach(country => { %>
+                    <option value="<%=country.code%>"><%= country.name %> <%= country.emoji%></option>
+                  <% }) %>
                   <!-- more options will be added through country.js -->
                 </select>
               </div>
@@ -85,8 +87,8 @@
                   id="difficulty"
                   class="border-2 md:border-4 border-black outline-none px-2 rounded-md text-lg block w-full py-2 bg-slate-50"
                 >
-                  <option value="any">Any Difficulty</option>
-                  <option value="random">Random Difficulty</option>
+                  <option value="any">Any Difficulties</option>
+                  <option value="random">Random Difficulties</option>
                   <option value="easy">Easy</option>
                   <option value="medium">Medium</option>
                   <option value="hard">Hard</option>
@@ -118,7 +120,6 @@
   </section></main>
 
 <script src="../score_js/leaderboard.js"></script>
-  <script src="../misc_js/country.js"></script>
   <script src="../misc_js/interaction.js"></script>
 
   <!-- Footer -->
