@@ -62,7 +62,14 @@ router.get('/profile/:username', async function (req, res) {
       if (req.cookies.userState == 'notGuest') {
         const user = await User.findOne({ username: req.params.username });
         user.scores.forEach((score, i) => {
-          scoreName.push(formatScoreNameProfile(categories, score.name));
+          scoreName.push(
+            formatScoreNameProfile(
+              categories,
+              score.name.gamemode,
+              score.name.category,
+              score.name.difficulty
+            )
+          );
           scoreValue.push(score.points);
         });
         // redirect to link with name
@@ -161,28 +168,30 @@ async function fetchCategories() {
   return Object.entries(categoryObj);
 }
 
-function formatScoreNameProfile(categoryList, score_cat) {
-  const placeholder = score_cat.split('_').splice(1, 3); //only take the 1st to 3rd index, the 0th is just "score_" so it's removed
-  categoryList.forEach((category) => {
-    if (category[0].includes(placeholder[1])) {
-      placeholder[1] = category[1];
+function formatScoreNameProfile(categoryList, gamemode, category, difficulty) {
+  categoryList.forEach((categoryWord) => {
+    if (categoryWord[0].includes(category)) {
+      category = categoryWord[1];
     }
-    switch (placeholder[2]) {
+    switch (difficulty) {
+      case 'campaign':
+        difficulty = 'Campaign Difficulty';
+        break;
       case 'random':
-        placeholder[2] = 'Random Difficulty';
+        difficulty = 'Random Difficulty';
         break;
       case 'easy':
-        placeholder[2] = 'Easy';
+        difficulty = 'Easy';
         break;
       case 'medium':
-        placeholder[2] = 'Medium';
+        difficulty = 'Medium';
         break;
       case 'hard':
-        placeholder[2] = 'Hard';
+        difficulty = 'Hard';
         break;
     }
   });
-  return placeholder.join(' - ');
+  return `${gamemode} - ${category} - ${difficulty}`;
 }
 
 module.exports = {

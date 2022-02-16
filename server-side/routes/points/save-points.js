@@ -15,13 +15,13 @@ router.get('/save_points/:id/:score', async (req, res) => {
       user = await User.findById(req.params.id);
       if (user.scores.length != 0) {
         for (let i = 0; i < user.scores.length; i++) {
-          if (user.scores[i].name == scoreParam) {
+          console.log(user.scores[i]);
+          dbScoreParam = `score_${user.scores[i].name.gamemode}_${user.scores[i].name.category}_${user.scores[i].name.difficulty}`;
+          if (dbScoreParam == scoreParam) {
             if (user.scores[i].points != scoreValue) {
               await updateScore(User, userID, scoreParam, scoreValue);
-              console.log('z');
               return res.redirect('/');
             } else {
-              console.log('X');
               return res.redirect('/');
             }
           }
@@ -44,11 +44,20 @@ router.get('/save_points/:id/:score', async (req, res) => {
 
 // utils for saving and editing scores
 async function updateScore(Schema, userID, scoreParam, scoreValue, res) {
+  scoreParam = scoreParam.split('_');
+  console.log(scoreParam);
   await Schema.findOneAndUpdate(
-    { _id: userID, 'scores.name': scoreParam },
+    {
+      _id: userID,
+      'scores.name.gamemode': scoreParam[1],
+      'scores.name.category': scoreParam[2],
+      'scores.name.difficulty': scoreParam[3],
+    },
     {
       $set: {
-        'scores.$.name': scoreParam,
+        'scores.$.name.gamemode': scoreParam[1],
+        'scores.$.name.category': scoreParam[2],
+        'scores.$.name.difficulty': scoreParam[3],
         'scores.$.points': scoreValue,
       },
     }
@@ -56,6 +65,7 @@ async function updateScore(Schema, userID, scoreParam, scoreValue, res) {
 }
 
 async function addNewScore(Schema, userID, scoreParam, scoreValue, res) {
+  scoreParam = scoreParam.split('_');
   await Schema.findOneAndUpdate(
     {
       _id: userID,
@@ -63,7 +73,11 @@ async function addNewScore(Schema, userID, scoreParam, scoreValue, res) {
     {
       $push: {
         scores: {
-          name: scoreParam,
+          name: {
+            gamemode: scoreParam[1],
+            category: scoreParam[2],
+            difficulty: scoreParam[3],
+          },
           points: scoreValue,
         },
       },

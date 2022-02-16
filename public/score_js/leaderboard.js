@@ -9,7 +9,7 @@ const countrySelect = document.getElementById('country'),
     '.loading-screen-leaderboard'
   );
 
-let query = 'score_Campaign_any_any';
+let query = 'score_Campaign_any_any_global';
 
 if (document.readyState === 'loading') {
   document.addEventListener('DOMContentLoaded', async () => {
@@ -36,7 +36,7 @@ if (document.readyState === 'loading') {
 })();
 
 // temporary function to get and sort scores
-function editQuery(query, gamemode, category, difficulty) {
+function editQuery(query, gamemode, category, difficulty, country) {
   /*
 index[0] = gamemode
 index[1] = category number
@@ -44,10 +44,11 @@ index[2] = difficulty
 */
 
   let temporary = query.split('_').slice(1, query.length);
-  console.log(temporary, query);
+  // console.log(temporary, query);
   temporary[0] = gamemode;
   temporary[1] = category;
   temporary[2] = difficulty;
+  temporary[3] = country;
   return 'score_' + temporary.join('_');
 }
 
@@ -71,14 +72,15 @@ const CATEGORIES = {
     if (gameModeValue === 'Random') {
       categorySelect.querySelector(':first-child').textContent =
         'Random Categories';
+      categorySelect.querySelector(':first-child').value = 'random';
     }
     categorySelect.querySelectorAll('*:not(:first-child)').forEach((item) => {
       item.classList.add('hidden');
     });
   },
   revealCategories: function () {
-    categorySelect.querySelector(':first-child').textContent =
-      'Any Difficulties';
+    categorySelect.querySelector(':first-child').textContent = 'Any Categories';
+    categorySelect.querySelector(':first-child').value = 'any';
     categorySelect.querySelectorAll('*:not(:first-child)').forEach((item) => {
       if (!item.classList.contains('hidden')) return;
       item.classList.remove('hidden');
@@ -92,13 +94,16 @@ const DIFFICULTIES = {
       case 'Campaign':
         difficultySelect.querySelector(':first-child').textContent =
           'Campaign Mode';
+        difficultySelect.querySelector(':first-child').value = 'any';
         break;
       case 'Challenge':
         difficultySelect.querySelector(':first-child').textContent = 'Hard';
+        difficultySelect.querySelector(':first-child').value = 'hard';
         break;
       case 'Random':
         difficultySelect.querySelector(':first-child').textContent =
           'Random Mode';
+        difficultySelect.querySelector(':first-child').value = 'random';
         break;
     }
     difficultySelect.querySelectorAll('*:not(:first-child)').forEach((item) => {
@@ -109,6 +114,7 @@ const DIFFICULTIES = {
   revealDiffs: function () {
     difficultySelect.querySelector(':first-child').textContent =
       'Any Difficulties';
+    difficultySelect.querySelector(':first-child').value = 'any';
     difficultySelect.querySelectorAll('*:not(:first-child)').forEach((item) => {
       if (!item.classList.contains('hidden')) return;
       item.classList.remove('hidden');
@@ -134,47 +140,56 @@ async function findAndSortScores(query) {
   query = query.split('_');
   let pointValue = [];
   let results = [];
-  tableContent.innerHTML = '';
+  let leaderboardAPI = `/api/leaderboard_points?query=${`${query[0]}_${query[1]}_${query[2]}_${query[3]}`}&country=${
+    query[4]
+  }&page=1&limit=50`;
 
-  Object.entries(localStorage).forEach(([key, value]) => {
-    // console.log(key);
-    // console.log(query);
-    if (query[0] != 'any' && query[1] != 'any') {
-      if (
-        key.includes(query[0]) &&
-        key.includes(query[1]) &&
-        key.includes(query[2])
-      ) {
-        pointValue.push(value);
-      }
-    } else {
-      if (key.includes('score_' + query[0])) {
-        pointValue.push(value);
-      }
-    }
-  });
-  pointValue = pointValue.sort((a, b) => b - a);
+  const json = await fetch(leaderboardAPI);
+  const datas = await json.json();
+  console.log(leaderboardAPI);
+  console.log(datas);
 
-  pointValue.forEach((value, i) => {
-    let html = `
-    <div
-    id="score-range"
-    class="text-center teko font-bold border-b-2 border-black flex">
-        <p class="rank p-1 bg-orange-300 basis-[20%]">${i + 1}</p>
-        <a class="rank p-1 bg-amber-300 basis-[40%] truncate block hover:underline" href="/profile/guest" title="Go To guest's Profile">guest</a>
-        <p class="rank p-1 bg-yellow-300 basis-[40%]">${value}</p>
-    </div>
-  `;
-    results.push(html);
-  });
+  // tableContent.innerHTML = '';
 
-  if (results.length > 0) {
-    results.forEach((item) => {
-      tableContent.innerHTML += item;
-    });
-  } else {
-    tableContent.innerHTML += `<p class="text-center font-light text-lg mt-2 fira-sans text-slate-800">No Scores Found</p>`;
-  }
+  // Object.entries(localStorage).forEach(([key, value]) => {
+  //   // console.log(key);
+  console.log(query);
+  //   if (query[0] != 'any' && query[1] != 'any') {
+  //     if (
+  //       key.includes(query[0]) &&
+  //       key.includes(query[1]) &&
+  //       key.includes(query[2])
+  //     ) {
+  //       pointValue.push(value);
+  //     }
+  //   } else {
+  //     if (key.includes('score_' + query[0])) {
+  //       pointValue.push(value);
+  //     }
+  //   }
+  // });
+  // pointValue = pointValue.sort((a, b) => b - a);
+
+  // pointValue.forEach((value, i) => {
+  //   let html = `
+  //   <div
+  //   id="score-range"
+  //   class="text-center teko font-bold border-b-2 border-black flex">
+  //       <p class="rank p-1 bg-orange-300 basis-[20%]">${i + 1}</p>
+  //       <a class="rank p-1 bg-amber-300 basis-[40%] truncate block hover:underline" href="/profile/guest" title="Go To guest's Profile">guest</a>
+  //       <p class="rank p-1 bg-yellow-300 basis-[40%]">${value}</p>
+  //   </div>
+  // `;
+  //   results.push(html);
+  // });
+
+  // if (results.length > 0) {
+  //   results.forEach((item) => {
+  //     tableContent.innerHTML += item;
+  //   });
+  // } else {
+  //   tableContent.innerHTML += `<p class="text-center font-light text-lg mt-2 fira-sans text-slate-800">No Scores Found</p>`;
+  // }
 }
 async function switchCategory(catNum, catList) {
   const json = await fetch(`../data/category.json`);
@@ -193,9 +208,9 @@ async function updateLeaderboard() {
     query,
     gamemodeSelect.value,
     categorySelect.value,
-    difficultySelect.value
+    difficultySelect.value,
+    countrySelect.value
   );
-  // console.log(query);
   await findAndSortScores(query);
   //   console.log(categorySelect.value);
   LOADING_SCREEN.removeLoadingScreen();

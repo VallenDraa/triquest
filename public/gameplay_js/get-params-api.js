@@ -16,7 +16,7 @@ const campaignBtn = document.querySelector('.campaign-btn'),
 let api_amount = 10,
   api_cat,
   api_difs,
-  api_type = '';
+  api_type = ''; //this is for the question type (multiple choice or a boolean)
 
 // parameter for local storage
 let local_cat, local_difs, local_mode;
@@ -29,7 +29,6 @@ const getParamsFromSelectDif = (async () => {
     api_cat = document.querySelector('#category-campaign').value;
     api_difs = '';
     local_mode = 'Campaign';
-    insertAPIParamsValueToLocalVar();
     saveAPIParamsToSessionStorage();
     saveParamsForLocalStorage();
     window.location.href = `/campaign-mode/${
@@ -41,7 +40,6 @@ const getParamsFromSelectDif = (async () => {
     api_cat = document.querySelector('#category-challenge').value;
     api_difs = 'hard';
     local_mode = 'Challenge';
-    insertAPIParamsValueToLocalVar();
     saveAPIParamsToSessionStorage();
     saveParamsForLocalStorage();
     window.location.href = `/challenge-mode/${
@@ -53,7 +51,6 @@ const getParamsFromSelectDif = (async () => {
     api_cat = '';
     api_difs = '';
     local_mode = 'Random';
-    insertAPIParamsValueToLocalVar();
     saveAPIParamsToSessionStorage();
     saveParamsForLocalStorage();
     window.location.href = `/random-mode/${
@@ -65,7 +62,6 @@ const getParamsFromSelectDif = (async () => {
     api_cat = document.querySelector('#category-custom').value;
     api_difs = document.querySelector('#category-difs').value;
     local_mode = 'Custom';
-    insertAPIParamsValueToLocalVar();
     saveAPIParamsToSessionStorage();
     saveParamsForLocalStorage();
     window.location.href = `/custom-mode/${
@@ -100,12 +96,13 @@ function saveAPIParamsToSessionStorage() {
   sessionStorage.setItem('api_type', api_type);
 }
 
-function insertAPIParamsValueToLocalVar() {
-  api_difs === '' ? (local_difs = 'random') : (local_difs = api_difs);
-  api_cat === '' ? (local_cat = 'random') : (local_cat = api_cat);
-}
-
 function saveParamsForLocalStorage() {
+  if (local_mode == 'Campaign') {
+    api_difs === '' ? (local_difs = 'campaign') : (local_difs = api_difs);
+  } else {
+    api_difs === '' ? (local_difs = 'random') : (local_difs = api_difs);
+  }
+  api_cat === '' ? (local_cat = 'random') : (local_cat = api_cat);
   sessionStorage.setItem('local_cat', local_cat);
   sessionStorage.setItem('local_difs', local_difs);
   sessionStorage.setItem('local_mode', local_mode);

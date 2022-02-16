@@ -60,11 +60,16 @@ function paginatedResults(Model) {
     try {
       let dbQuery;
       // will change the database query based on if country query is undefined or not
-      if (country == '' || country == undefined) {
+      if (country == '' || country == undefined || country == 'global') {
+        scoreNameQuery = scoreNameQuery.split('_');
         dbQuery = {
           scores: {
             $elemMatch: {
-              name: scoreNameQuery,
+              name: {
+                gamemode: scoreNameQuery[0],
+                category: scoreNameQuery[1],
+                difficulty: scoreNameQuery[2],
+              },
             },
           },
         };
@@ -75,7 +80,11 @@ function paginatedResults(Model) {
             {
               scores: {
                 $elemMatch: {
-                  name: scoreNameQuery,
+                  name: {
+                    gamemode: scoreNameQuery[0],
+                    category: scoreNameQuery[1],
+                    difficulty: scoreNameQuery[2],
+                  },
                 },
               },
             },
@@ -95,7 +104,9 @@ function paginatedResults(Model) {
         let scoreName, scorePoints;
         // console.log(data);
         for (let scores of data.scores) {
-          if (scores.name == scoreNameQuery) {
+          const tempQuery = `${scores.name.gamemode}_${scores.name.category}_${scores.name.difficulty}`;
+          // console.log(tempQuery, scoreNameQuery.join('_'));
+          if (tempQuery == scoreNameQuery.join('_')) {
             scoreName = scores.name;
             scorePoints = scores.points;
           }
