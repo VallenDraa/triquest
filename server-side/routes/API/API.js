@@ -58,44 +58,13 @@ function paginatedResults(Model) {
     results.results = [];
 
     try {
-      let dbQuery;
+      let dbQuery = dbQueryAdjust(country, scoreNameQuery);
       // will change the database query based on if country query is undefined or not
-      if (country == '' || country == undefined || country == 'global') {
-        scoreNameQuery = scoreNameQuery.split('_');
-        dbQuery = {
-          scores: {
-            $elemMatch: {
-              name: {
-                gamemode: scoreNameQuery[0],
-                category: scoreNameQuery[1],
-                difficulty: scoreNameQuery[2],
-              },
-            },
-          },
-        };
-      } else {
-        // console.log(country);
-        dbQuery = {
-          $and: [
-            {
-              scores: {
-                $elemMatch: {
-                  name: {
-                    gamemode: scoreNameQuery[0],
-                    category: scoreNameQuery[1],
-                    difficulty: scoreNameQuery[2],
-                  },
-                },
-              },
-            },
-            {
-              country: country,
-            },
-          ],
-        };
-      }
 
-      const userDatas = await Model.find(dbQuery)
+      const userDatas = await Model.find({
+        'scores.name.gamemode': 'Campaign',
+      })
+
         .limit(limit)
         .skip(startIndex)
         .exec();
@@ -104,10 +73,15 @@ function paginatedResults(Model) {
         let scoreName, scorePoints;
         // console.log(data);
         for (let scores of data.scores) {
+          // console.log(scores);
           const tempQuery = `${scores.name.gamemode}_${scores.name.category}_${scores.name.difficulty}`;
-          // console.log(tempQuery, scoreNameQuery.join('_'));
-          if (tempQuery == scoreNameQuery.join('_')) {
-            scoreName = scores.name;
+          // console.log(scoreNameQuery.slice(0, scoreNameQuery.length - 1);
+          if (tempQuery == scoreNameQuery.split('_').pop()) {
+            scoreName = {
+              gamemode: scores.name.gamemode,
+              category: scores.name.category,
+              difficulty: scores.name.difficulty,
+            };
             scorePoints = scores.points;
           }
         }
@@ -126,6 +100,78 @@ function paginatedResults(Model) {
       res.status(500).json({ message: e.message });
     }
   };
+}
+
+function dbQueryAdjust(country, scoreNameQuery) {
+  console.log(scoreNameQuery);
+  scoreNameQuery = scoreNameQuery.split('_');
+  let dbQuery;
+  if (country == '' || country == undefined || country == 'global') {
+    if (scoreNameQuery[1] == 'any') {
+      console.log('a');
+      dbQuery = {
+        scores: {
+          $elemMatch: {
+            name: {
+              gamemode: scoreNameQuery[0],
+              category: {
+                $regex: /[0-9]/,
+              },
+              difficulty: scoreNameQuery[2],
+            },
+          },
+        },
+      };
+    } else if (scoreNameQuery[2] == 'any') {
+      console.log('b');
+      dbQuery = {
+        scores: {
+          $elemMatch: {
+            name: {
+              gamemode: scoreNameQuery[0],
+              category: scoreNameQuery[1],
+            },
+          },
+        },
+      };
+    } else {
+      console.log('c');
+      dbQuery = {
+        scores: {
+          $elemMatch: {
+            name: {
+              gamemode: scoreNameQuery[0],
+              category: scoreNameQuery[1],
+              difficulty: scoreNameQuery[2],
+            },
+          },
+        },
+      };
+    }
+  } else {
+    console.log('d');
+    // console.log(country);
+    dbQuery = {
+      $and: [
+        {
+          scores: {
+            $elemMatch: {
+              name: {
+                gamemode: scoreNameQuery[0],
+                category: scoreNameQuery[1],
+                difficulty: scoreNameQuery[2],
+              },
+            },
+          },
+        },
+        {
+          country: country,
+        },
+      ],
+    };
+  }
+  // console.log(dbQuery);
+  return dbQuery;
 }
 
 module.exports = router;

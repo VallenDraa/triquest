@@ -7,9 +7,10 @@ const countrySelect = document.getElementById('country'),
   scoreRange = document.querySelectorAll('#score-range'),
   loadingScreenLeaderboard = document.querySelector(
     '.loading-screen-leaderboard'
-  );
+  ),
+  leaderboardSearch = document.getElementById('leaderboard-search');
 
-let query = 'score_Campaign_any_any_global';
+let query = 'score_Campaign_any_campaign_global';
 
 if (document.readyState === 'loading') {
   document.addEventListener('DOMContentLoaded', async () => {
@@ -18,22 +19,17 @@ if (document.readyState === 'loading') {
   });
 }
 
-//   for guest mode
-(function guessModeEventListener() {
-  countrySelect.addEventListener('change', async function () {
-    await updateLeaderboard();
-  });
-  categorySelect.addEventListener('change', async function () {
-    await updateLeaderboard();
-  });
-  gamemodeSelect.addEventListener('change', async function () {
-    checkSelectedOptions(this.value);
-    await updateLeaderboard();
-  });
-  difficultySelect.addEventListener('change', async function () {
-    await updateLeaderboard();
-  });
-})();
+// fetch the leaderboard data
+categoryOptEventListener(
+  countrySelect,
+  gamemodeSelect,
+  categorySelect,
+  difficultySelect
+);
+leaderboardSearch.addEventListener('click', async function () {
+  checkSelectedOptions(gamemodeSelect.value);
+  await updateLeaderboard();
+});
 
 // temporary function to get and sort scores
 function editQuery(query, gamemode, category, difficulty, country) {
@@ -49,7 +45,7 @@ index[2] = difficulty
   temporary[1] = category;
   temporary[2] = difficulty;
   temporary[3] = country;
-  return 'score_' + temporary.join('_');
+  return temporary.join('_');
 }
 
 // loading screens
@@ -94,7 +90,7 @@ const DIFFICULTIES = {
       case 'Campaign':
         difficultySelect.querySelector(':first-child').textContent =
           'Campaign Mode';
-        difficultySelect.querySelector(':first-child').value = 'any';
+        difficultySelect.querySelector(':first-child').value = 'campaign';
         break;
       case 'Challenge':
         difficultySelect.querySelector(':first-child').textContent = 'Hard';
@@ -135,19 +131,29 @@ function checkSelectedOptions(gameModeValue) {
   }
 }
 
+// adding eventlistener to the options
+function categoryOptEventListener() {
+  for (const arg of arguments) {
+    arg.addEventListener('click', () => {
+      checkSelectedOptions(gamemodeSelect.value);
+    });
+  }
+}
+
 // updating the leaderboard
 async function findAndSortScores(query) {
   query = query.split('_');
   let pointValue = [];
   let results = [];
-  let leaderboardAPI = `/api/leaderboard_points?query=${`${query[0]}_${query[1]}_${query[2]}_${query[3]}`}&country=${
-    query[4]
+  let leaderboardAPI = `/api/leaderboard_points?query=${`${query[0]}_${query[1]}_${query[2]}`}&country=${
+    query[3]
   }&page=1&limit=50`;
 
   const json = await fetch(leaderboardAPI);
   const datas = await json.json();
+  const scores = datas;
   console.log(leaderboardAPI);
-  console.log(datas);
+  console.log(scores);
 
   // tableContent.innerHTML = '';
 

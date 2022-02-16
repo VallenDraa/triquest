@@ -63,3 +63,11 @@ const fetch = require('node-fetch');
 //   }
 //   i++;
 // }
+
+x = {
+  n: 12312,
+};
+
+if (/[0-9]/.test(x.n)) {
+  console.log(x.n);
+}
