@@ -22,7 +22,7 @@ router.put('/save_profile_edits', async (req, res) => {
           country: req.body.country,
         },
         (err, result) => {
-          res.redirect(`/profile/${req.body.username}`);
+          res.redirect(`/profile/myprofile/${req.body.username}`);
         }
       );
     } //if password is changed
@@ -36,7 +36,7 @@ router.put('/save_profile_edits', async (req, res) => {
           password: req.body.password,
         },
         (err, result) => {
-          res.redirect(`/profile/${req.body.username}`);
+          res.redirect(`/profile/myprofile/${req.body.username}`);
         }
       );
     }

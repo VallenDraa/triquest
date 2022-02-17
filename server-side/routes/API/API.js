@@ -61,27 +61,46 @@ function paginatedResults(Model) {
       let dbQuery = dbQueryAdjust(country, scoreNameQuery);
       // will change the database query based on if country query is undefined or not
 
-      const userDatas = await Model.find({
-        'scores.name.gamemode': 'Campaign',
-      })
+      const userDatas = await Model.find(dbQuery)
 
         .limit(limit)
         .skip(startIndex)
         .exec();
 
       for (let data of userDatas) {
-        let scoreName, scorePoints;
-        // console.log(data);
+        let scoreName = {},
+          scorePoints;
+
         for (let scores of data.scores) {
-          // console.log(scores);
-          const tempQuery = `${scores.name.gamemode}_${scores.name.category}_${scores.name.difficulty}`;
-          // console.log(scoreNameQuery.slice(0, scoreNameQuery.length - 1);
-          if (tempQuery == scoreNameQuery.split('_').pop()) {
-            scoreName = {
-              gamemode: scores.name.gamemode,
-              category: scores.name.category,
-              difficulty: scores.name.difficulty,
-            };
+          dataAssignQuery = scoreNameQuery.split('_'); //[0] = gamemode, [1] = category, [2] = difficulty
+          // gamemode assign
+          if (scores.name.gamemode == dataAssignQuery[0]) {
+            scoreName.gamemode = scores.name.gamemode;
+            // console.log(scoreName.gamemode);
+          }
+          // category assign
+          if (dataAssignQuery[1] != 'any') {
+            if (scores.name.category == dataAssignQuery[1]) {
+              scoreName.category = scores.name.category;
+            }
+          } else {
+            scoreName.category = scores.name.category;
+          }
+          // difficulty assign
+          if (dataAssignQuery[2] != 'any') {
+            if (scores.name.difficulty == dataAssignQuery[2]) {
+              scoreName.difficulty = scores.name.difficulty;
+            }
+          } else {
+            scoreName.difficulty = scores.name.difficulty;
+          }
+
+          // point assign
+          if (
+            scoreName.gamemode &&
+            scoreName.category &&
+            scoreName.difficulty
+          ) {
             scorePoints = scores.points;
           }
         }
@@ -103,39 +122,21 @@ function paginatedResults(Model) {
 }
 
 function dbQueryAdjust(country, scoreNameQuery) {
-  console.log(scoreNameQuery);
+  // console.log(scoreNameQuery);
   scoreNameQuery = scoreNameQuery.split('_');
   let dbQuery;
   if (country == '' || country == undefined || country == 'global') {
     if (scoreNameQuery[1] == 'any') {
-      console.log('a');
       dbQuery = {
-        scores: {
-          $elemMatch: {
-            name: {
-              gamemode: scoreNameQuery[0],
-              category: {
-                $regex: /[0-9]/,
-              },
-              difficulty: scoreNameQuery[2],
-            },
-          },
-        },
+        'scores.name.gamemode': scoreNameQuery[0],
+        'scores.name.difficulty': scoreNameQuery[2],
       };
     } else if (scoreNameQuery[2] == 'any') {
-      console.log('b');
       dbQuery = {
-        scores: {
-          $elemMatch: {
-            name: {
-              gamemode: scoreNameQuery[0],
-              category: scoreNameQuery[1],
-            },
-          },
-        },
+        'scores.name.gamemode': scoreNameQuery[0],
+        'scores.name.category': scoreNameQuery[1],
       };
     } else {
-      console.log('c');
       dbQuery = {
         scores: {
           $elemMatch: {
@@ -149,26 +150,51 @@ function dbQueryAdjust(country, scoreNameQuery) {
       };
     }
   } else {
-    console.log('d');
     // console.log(country);
-    dbQuery = {
-      $and: [
-        {
-          scores: {
-            $elemMatch: {
-              name: {
-                gamemode: scoreNameQuery[0],
-                category: scoreNameQuery[1],
-                difficulty: scoreNameQuery[2],
+    if (scoreNameQuery[1] == 'any') {
+      dbQuery = {
+        $and: [
+          {
+            'scores.name.gamemode': scoreNameQuery[0],
+            'scores.name.difficulty': scoreNameQuery[2],
+          },
+          {
+            country: country,
+          },
+        ],
+      };
+    } else if (scoreNameQuery[2] == 'any') {
+      dbQuery = {
+        $and: [
+          {
+            'scores.name.gamemode': scoreNameQuery[0],
+            'scores.name.category': scoreNameQuery[1],
+          },
+          {
+            country: country,
+          },
+        ],
+      };
+    } else {
+      dbQuery = {
+        $and: [
+          {
+            scores: {
+              $elemMatch: {
+                name: {
+                  gamemode: scoreNameQuery[0],
+                  category: scoreNameQuery[1],
+                  difficulty: scoreNameQuery[2],
+                },
               },
             },
           },
-        },
-        {
-          country: country,
-        },
-      ],
-    };
+          {
+            country: country,
+          },
+        ],
+      };
+    }
   }
   // console.log(dbQuery);
   return dbQuery;

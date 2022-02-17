@@ -151,15 +151,16 @@ async function findAndSortScores(query) {
 
   const json = await fetch(leaderboardAPI);
   const datas = await json.json();
-  const scores = datas;
-  console.log(leaderboardAPI);
+  const scores = datas.results.sort((a, b) => {
+    return b.score_points - a.score_points;
+  });
   console.log(scores);
-
-  // tableContent.innerHTML = '';
+  tableContent.innerHTML = '';
+  // console.log(leaderboardAPI);
 
   // Object.entries(localStorage).forEach(([key, value]) => {
   //   // console.log(key);
-  console.log(query);
+  // console.log(query);
   //   if (query[0] != 'any' && query[1] != 'any') {
   //     if (
   //       key.includes(query[0]) &&
@@ -176,26 +177,28 @@ async function findAndSortScores(query) {
   // });
   // pointValue = pointValue.sort((a, b) => b - a);
 
-  // pointValue.forEach((value, i) => {
-  //   let html = `
-  //   <div
-  //   id="score-range"
-  //   class="text-center teko font-bold border-b-2 border-black flex">
-  //       <p class="rank p-1 bg-orange-300 basis-[20%]">${i + 1}</p>
-  //       <a class="rank p-1 bg-amber-300 basis-[40%] truncate block hover:underline" href="/profile/guest" title="Go To guest's Profile">guest</a>
-  //       <p class="rank p-1 bg-yellow-300 basis-[40%]">${value}</p>
-  //   </div>
-  // `;
-  //   results.push(html);
-  // });
+  scores.forEach((score, i) => {
+    let html = `
+    <div
+    id="score-range"
+    class="text-center teko font-bold border-b-2 border-black flex">
+        <p class="rank p-1 bg-orange-300 basis-[20%]">${i + 1}</p>
+        <a class="rank p-1 bg-amber-300 basis-[40%] truncate block hover:underline" href="/profile/others/${
+          score.username
+        }" title="Go To ${score.username}'s Profile">${score.username}</a>
+        <p class="rank p-1 bg-yellow-300 basis-[40%]">${score.score_points}</p>
+    </div>
+  `;
+    results.push(html);
+  });
 
-  // if (results.length > 0) {
-  //   results.forEach((item) => {
-  //     tableContent.innerHTML += item;
-  //   });
-  // } else {
-  //   tableContent.innerHTML += `<p class="text-center font-light text-lg mt-2 fira-sans text-slate-800">No Scores Found</p>`;
-  // }
+  if (results.length > 0) {
+    results.forEach((item) => {
+      tableContent.innerHTML += item;
+    });
+  } else {
+    tableContent.innerHTML += `<p class="text-center font-light text-lg mt-2 fira-sans text-slate-800">No Scores Found</p>`;
+  }
 }
 async function switchCategory(catNum, catList) {
   const json = await fetch(`../data/category.json`);

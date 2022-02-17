@@ -52,7 +52,83 @@ router.get('/leaderboard', async function (req, res) {
 
 //profile
 // convert id into username
-router.get('/profile/:username', async function (req, res) {
+router.get('/profile/others/:username', async function (req, res) {
+  try {
+    const countries = await fetchCountries();
+    const categories = await fetchCategories();
+    const scoreValue = [];
+    const scoreName = [];
+    if (req.cookies.userState) {
+      if (req.cookies.userState == 'notGuest') {
+        const myUser = await User.findById(req.cookies.id);
+        const otherUser = await User.findOne({ username: req.params.username });
+        if (myUser.username != otherUser.username) {
+          otherUser.scores.forEach((score, i) => {
+            scoreName.push(
+              formatScoreNameProfile(
+                categories,
+                score.name.gamemode,
+                score.name.category,
+                score.name.difficulty
+              )
+            );
+            scoreValue.push(score.points);
+          });
+          // redirect to link with name
+          res.render('others-profile', {
+            title: `Triquest | ${otherUser.username}`,
+            userState: req.cookies.userState,
+            username: otherUser.username,
+            headerUsername: myUser.username,
+            description: otherUser.description,
+            country: otherUser.country,
+            email: otherUser.email,
+            password: otherUser.password,
+            scoreName,
+            scoreValue,
+            countries,
+          });
+        } else {
+          res.redirect(`/profile/myprofile/${req.params.username}`);
+        }
+      } else {
+        const otherUser = await User.findOne({ username: req.params.username });
+        otherUser.scores.forEach((score, i) => {
+          scoreName.push(
+            formatScoreNameProfile(
+              categories,
+              score.name.gamemode,
+              score.name.category,
+              score.name.difficulty
+            )
+          );
+          scoreValue.push(score.points);
+        });
+        // redirect to link with name
+        res.render('others-profile', {
+          title: `Triquest | ${otherUser.username}`,
+          userState: req.cookies.userState,
+          username: otherUser.username,
+          headerUsername: 'Guest',
+          description: otherUser.description,
+          country: otherUser.country,
+          email: otherUser.email,
+          password: otherUser.password,
+          scoreName,
+          scoreValue,
+          countries,
+        });
+      }
+    } else {
+      res.redirect('/sign-up');
+    }
+  } catch (error) {
+    console.error(error);
+    res.redirect('/error/503');
+  }
+});
+
+router.get('/profile/myprofile/:username', async function (req, res) {
   try {
     const countries = await fetchCountries();
     const categories = await fetchCategories();
@@ -73,7 +149,7 @@ router.get('/profile/:username', async function (req, res) {
           scoreValue.push(score.points);
         });
         // redirect to link with name
-        res.render('profile', {
+        res.render('my-profile', {
           title: `Triquest | ${user.username}`,
           userState: req.cookies.userState,
           username: user.username,
@@ -86,7 +162,7 @@ router.get('/profile/:username', async function (req, res) {
           countries,
         });
       } else {
-        res.render('profile', {
+        res.render('my-profile', {
           title: `Triquest | Guest`,
           userState: 'guest',
           username: 'Guest',

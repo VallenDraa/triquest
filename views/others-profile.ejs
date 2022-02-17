@@ -1,0 +1,233 @@
+<!DOCTYPE html>
+<html lang="en" class="h-full duration-300 main-bg bg-anim">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.13.0/css/all.min.css"
+      rel="stylesheet"
+    />
+    <link
+      rel="stylesheet"
+      href="https://unpkg.com/swiper@7/swiper-bundle.min.css"
+    />
+    <link rel="stylesheet" href="../../css/main.css" />
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script defer src="../../fuckSafari.js"></script>
+    <title><%=title%></title>
+  </head>
+  <body
+    class="antialiased flex flex-col min-h-full overflow-x-hidden scroll-smooth"
+  >
+    <!-- Navbar -->
+    <nav
+      class="bg-yellow-300 py-2 sticky top-0 z-50 navbar shadow-2xl border-b-4 border-b-black"
+    >
+      <div
+        class="flex teko md:items-center justify-between max-w-screen-2xl mx-auto w-full md:w-11/12 py-2"
+      >
+        <div
+          class="rounded-md bg-yellow-400 border-4 border-black py-1 px-2 ml-7 md:ml-0"
+        >
+          <a
+            class="uppercase font-bold text-2xl tracking-wider rounded-md block duration-300"
+            href="/"
+          >
+            Triquest
+          </a>
+        </div>
+        <div
+          class="absolute z-10 md:static top-0 w-full md:w-11/12 h-96 md:h-full md:w-1/2 md:flex menu -translate-y-full md:translate-y-0"
+        >
+          <ul
+            class="border-b-4 md:border-4 border-black md:border-black bg-yellow-300 flex flex-col md:flex-row justify-around md:justify-evenly text-4xl md:text-2xl shadow-xl md:shadow-none rounded-0 md:rounded-md text-center gap-3 md:gap-0 w-full items-center h-full p-3 md:p-0"
+          >
+            <p class="md:hidden teko uppercase font-bold underline">Menu</p>
+
+            <li
+              class="cursor-pointer bg-orange-300 grid content-center w-full py-1 duration-300 hover:bg-green-400 active:bg-green-600 hover:text-white md:rounded-none rounded-lg border-4 border-black md:border-none h-3/6 play"
+              title="Play Triquest Now !"
+            >
+              <a href="/">Play</a>
+            </li>
+            <li
+              class="cursor-pointer bg-orange-300 grid content-center w-full py-1 duration-300 hover:bg-green-400 active:bg-green-600 hover:text-white md:rounded-none rounded-lg leaderboard border-4 md:border-y-0 md:border-x-4 border-black px-7 md:my-0 h-3/6"
+              title="Leaderboard Tab"
+            >
+              <a href="/leaderboard">Leaderboard</a>
+            </li>
+            <li
+              class="cursor-pointer bg-orange-300 grid content-center w-full py-1 duration-300 hover:bg-green-400 active:bg-green-600 hover:text-white md:rounded-none rounded-lg profile border-4 border-black md:border-none h-3/6"
+              title="User Profile"
+            >
+              <a
+                id="profile-btn-header"
+                class="truncate"
+                href="/profile/myprofile/<%=headerUsername%>"
+              >
+                <%=headerUsername%> 
+              </a>
+            </li>
+          </ul>
+          <i
+            class="bg-orange-300 hover:bg-green-400 active:bg-green-600 hover:text-white border-4 px-2 border-black rounded-lg fas fa-caret-down text-4xl text-black md:hidden absolute right-7 cursor-pointer duration-500 toggle-menu mt-4"
+          ></i>
+        </div>
+      </div>
+    </nav>
+  </body>
+</html>
+
+
+<main class="mt-auto">
+  <!-- Profile -->
+  <section class="grid content-center min-h-full">
+    <main class="max-w-screen-2xl w-11/12 md:w-9/12 xl:w-7/12 mx-auto">
+      <div
+        class="md:bg-yellow-300 border-4 border-black rounded-xl shadow-2xl md:p-4 my-14"
+      >  
+        <h1
+          class="text-center rounded-t-lg md:rounded-none bg-yellow-200 md:bg-transparent pt-4 md:py-2 teko text-2xl sm:text-3xl md:text-5xl font-bold underline"
+          >
+          <%=username.toUpperCase()%>'S PROFILE
+        </h1>
+        <section
+          class="fira-sans md:border-4 border-black rounded-b-lg md:rounded-lg bg-yellow-200 p-3 md:p-4 md:p-2 xl:p-4"
+        >
+          <!-- content-wrapper -->
+          <div>
+            <!-- username -->
+            <div class="w-full mx-auto">
+              <label
+                for="username"
+                class="text-lg font-bold ml-2 inline-block flex items-base"
+              > Username
+              </label>
+              <input type="text" name="username" title="Edit Your Username" id="username" class="border-2
+              md:border-4 border-black outline-none px-2 rounded-lg block
+              w-full py-1 bg-slate-50" value=<%=username%> readonly />
+            </div>
+
+            <!-- desc -->
+            <div class="w-full mx-auto">
+              <label
+                for="description"
+                class="text-lg font-bold ml-2 inline-block"
+              >
+                Description
+              </label>
+              <textarea
+                name="description"
+                title="Edit Your Profile Description"
+                id="description"
+                cols="30"
+                rows="8"
+                class="border-2 md:border-4 border-black outline-none px-2 rounded-lg block w-full py-1 bg-slate-50 resize-none"
+                placeholder="The User Has No Description"
+                readonly
+              ><%=description%></textarea>
+            </div>
+            <!-- country -->
+            <div class="w-full mx-auto">
+              <label
+                for="country"
+                class="text-lg font-bold ml-2 inline-block"
+              >
+                Country
+              </label>
+              <select
+                name="country"
+                title="Edit Your Country Of Origin"  
+                id="country"
+                class="border-2 md:border-4 border-black outline-none px-2 rounded-lg block w-full py-1 bg-slate-50" 
+                disabled>
+              <% countries.forEach(countryItem => { %>
+                <% if (countryItem.code == country) { %>
+                <option value="<%=countryItem.code%>"selected ><%=countryItem.name%> <%=countryItem.emoji%></option>
+                <% } %> 
+              <% }) %>
+            
+                <!-- more options will be added through country.js -->
+              </select>
+            </div>
+
+            <!-- Highscore -->
+            <div
+            class="mb-8 pt-16 md:mb-0 md:pt-1 resize-y h-72 md:h-[8.7rem] xl:md:h-[8.5rem] "
+            >
+              <h2
+                class="pb-2 md:pb-3 text-2xl md:text-xl xl:text-2xl font-bold fira-sans underline text-center underline-offset-4"
+              >
+                Highscores
+              </h2>
+              <div
+                title="Your Highscores"
+                class="highscore-box h-full bg-white border-2 md:border-4 border-black relative overflow-y-auto"
+                >
+                <div
+                id="highscore-preview"
+                class="absolute rounded-lg inset-0 text-sm bg-yellow-100 ">
+                  <div
+                    class="flex justify-center divide-x-2 divide-black sticky top-0 inset-x-0"
+                  >
+                    <p
+                      class="highscore-left bg-orange-400 w-full text-sm font-bold text-center border-b-2 border-black"
+                    >
+                      Modes
+                    </p>
+                    <p
+                      class="highscore-right bg-yellow-500 w-full text-sm font-bold text-center border-b-2 border-black"
+                    >
+                      Score
+                    </p>
+                  </div>
+                  <!-- highscore preview -->
+                  <% if (userState == "notGuest") { %>
+                    <% if (scoreName.length != 0) { %>
+                      <% for( let i = 0; i <= scoreName.length; i++ ) { %>
+                          <% if (i == scoreName.length) { %>
+                            <p class="text-center font-light bg-yellow-100 py-2 fira-sans text-slate-900">No More Highscores</p>
+                          <% } else {%>
+                            <!--score-->
+                            <div
+                            class="flex justify-between divide-x-2 divide-black text-sm border-b-2 border-black"
+                            >
+                            <p
+                              class="text-xs xl:text-sm highscore-left bg-orange-300 w-full text-center py-2 flex justify-center items-center"
+                            >
+                              <%=scoreName[i]%> 
+                            </p>
+                            <p
+                              class="highscore-right bg-yellow-400 w-full text-center py-2 flex justify-center items-center text-lg"
+                            >
+                              <%=scoreValue[i]%> 
+                            </p>
+                          </div>               
+                          <% } %>          
+                      <% } %>
+                    <% } else {%>
+                      <p class="text-center font-light text-lg py-2 bg-yellow-100 fira-sans text-slate-900">No Scores Found</p>
+                    <% } %>                          
+                  <% } %>
+                </div>
+              </div>
+            </div>          
+            <!-- buttons -->
+            <div
+            class="text-black tracking-wide mt-4 font-bold teko text-3xl mx-auto justify-center pt-10 w-full"
+            >
+                <a href="/leaderboard" class="bg-orange-300 block border-4 border-black px-5 uppercase w-full duration-300 hover:bg-green-400 active:bg-green-600 hover:text-white rounded-md text-center text-2xl">To Leaderboard</a>
+            </div>
+          </div>
+        </section>
+      </div>
+    </main>
+  </section>
+</main>
+<script src="../score_js/profile-highscore.js"></script>
+<script src="../misc_js/show-pw.js"></script>
+<script src="../misc_js/country.js"></script>
+<script src="../misc_js/interaction.js"></script>
+<!-- Footer -->
+<%- include("./partials/footer") %>

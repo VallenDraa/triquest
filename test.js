@@ -64,10 +64,21 @@ const fetch = require('node-fetch');
 //   i++;
 // }
 
-x = {
-  n: 12312,
-};
+// x = {
+//   n: 12312,
+// };
 
-if (/[0-9]/.test(x.n)) {
-  console.log(x.n);
-}
+// if (/[0-9]/.test(x.n)) {
+//   console.log(x.n);
+// }
+
+x = [
+  { id: '620cc67d2cb0226558d8d3d5', username: 'vallen', score_points: 1 },
+  { id: '620cc67d2cb0226558d8d3d5', username: 'david', score_points: 2 },
+  { id: '620cc67d2cb0226558d8d3d5', username: 'jack', score_points: 4 },
+];
+
+x.sort((a, b) => {
+  return b.score_points - a.score_points;
+});
+console.log(x);
