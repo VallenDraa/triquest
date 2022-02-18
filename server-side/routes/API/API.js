@@ -62,7 +62,6 @@ function paginatedResults(Model) {
       // will change the database query based on if country query is undefined or not
 
       const userDatas = await Model.find(dbQuery)
-
         .limit(limit)
         .skip(startIndex)
         .exec();
@@ -74,14 +73,15 @@ function paginatedResults(Model) {
         for (let scores of data.scores) {
           dataAssignQuery = scoreNameQuery.split('_'); //[0] = gamemode, [1] = category, [2] = difficulty
           // gamemode assign
-          if (scores.name.gamemode == dataAssignQuery[0]) {
-            scoreName.gamemode = scores.name.gamemode;
-            // console.log(scoreName.gamemode);
-          }
+          if (scores.name.gamemode != dataAssignQuery[0]) return;
+          scoreName.gamemode = scores.name.gamemode;
+
           // category assign
           if (dataAssignQuery[1] != 'any') {
             if (scores.name.category == dataAssignQuery[1]) {
               scoreName.category = scores.name.category;
+            } else {
+              return;
             }
           } else {
             scoreName.category = scores.name.category;
@@ -90,6 +90,8 @@ function paginatedResults(Model) {
           if (dataAssignQuery[2] != 'any') {
             if (scores.name.difficulty == dataAssignQuery[2]) {
               scoreName.difficulty = scores.name.difficulty;
+            } else {
+              return;
             }
           } else {
             scoreName.difficulty = scores.name.difficulty;
@@ -104,6 +106,7 @@ function paginatedResults(Model) {
             scorePoints = scores.points;
           }
         }
+
         results.results.push({
           id: data.id,
           username: data.username,

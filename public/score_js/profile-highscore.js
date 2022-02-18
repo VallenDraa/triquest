@@ -3,7 +3,6 @@ const highscorePreview = document.getElementById('highscore-preview'),
   highscoreRight = document.getElementsByClassName('highscore-right');
 
 const userState = parseCookieAtProfile(document.cookie).userState;
-console.log(userState);
 if (userState == 'guest') {
   const highscores = returnScores();
 

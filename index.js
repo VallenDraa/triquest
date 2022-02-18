@@ -19,7 +19,8 @@ const logOutRouter = require('./server-side/routes/user_data/log-out');
 const profileRouter = require('./server-side/routes/user_data/profile');
 const savePointsRouter = require('./server-side/routes/points/save-points');
 const APIRouter = require('./server-side/routes/API/API.js');
-const { checkIfGuestMode } = require('./server-side/routes/menu');
+const session = require('express-session');
+const flash = require('connect-flash');
 
 // use ejs view engine
 app.set('view engine', 'ejs');
@@ -38,10 +39,20 @@ app.use('/', guestRouter);
 app.use('/', logOutRouter);
 app.use('/', savePointsRouter);
 app.use('/api', APIRouter);
-
 // utility
 app.use(methodOverride('_method'));
 app.use(cookieParser());
+app.use(
+  session({
+    cookie: {
+      maxAge: 6000,
+    },
+    secret: 'secret',
+    resave: true,
+    saveUninitialized: true,
+  })
+);
+app.use(flash());
 
 // database
 mongoose.connect(process.env.DATABASE_URL, { useNewUrlParser: true });
@@ -53,12 +64,6 @@ db.once('open', () => {
 
 // sign-up page
 app.get('/sign-up', async (req, res) => {
-  // const sessionData = await checkIfGuestMode(
-  //   req,
-  //   res,
-  //   req.cookies.userState,
-  //   req.cookies.id
-  // );
   res.render('sign-up', {
     title: 'Triquest | Sign-Up',
     username: 'Sign-Up',
@@ -66,12 +71,6 @@ app.get('/sign-up', async (req, res) => {
 });
 
 app.get('/login', async (req, res) => {
-  // const sessionData = await checkIfGuestMode(
-  //   req,
-  //   res,
-  //   req.cookies.userState,
-  //   req.cookies.id
-  // );
   res.render('login', {
     title: 'Triquest | Login',
     username: 'Sign-Up',
@@ -113,14 +112,6 @@ app.get('/get_question/:queryParams', async function (req, res) {
 
   res.json(json);
 });
-// get user country
-// app.get('/get_country', async function (req, res) {
-//   const api_url = `https://www.iplocate.io/api/lookup/`;
-//   const datas = await fetch(api_url);
-//   const json = await datas.json();
-//   res.json(json);
-// });
-
 app.get('/safari', function (req, res) {
   res.send('Not Supported In Safari Yet !');
 });

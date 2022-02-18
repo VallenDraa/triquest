@@ -8,6 +8,7 @@
         class="md:bg-yellow-300 border-4 border-black rounded-xl shadow-2xl md:p-4 my-14"
       >  
         <h1
+        
           class="text-center rounded-t-lg md:rounded-none bg-yellow-200 md:bg-transparent py-2 teko text-3xl md:text-5xl font-bold underline"
           >
             PROFILE
@@ -19,9 +20,9 @@
         >
         
           <!-- content-wrapper -->
-          <div class="grid grid-cols-1 md:grid-cols-2">
+          <div class="grid grid-cols-1 md:grid-cols-2 md:gap-3">
             <!-- left side -->
-            <section class="md:pr-2">
+            <section>
               <!-- Profile DATA -->
               <section>
                 <h2
@@ -104,17 +105,17 @@
               </section>
             </section>
             <!-- right side -->
-            <section class="md:pl-2">
+            <section>
               <!-- account -->
-              <section class="pt-16 md:pt-0">
+              <!-- <section class="pt-16 md:pt-0"> -->
                 <% if (userState != "guest") { %>
-                <h2
+                <!-- <h2
                 class="text-2xl md:text-xl xl:text-2xl font-bold fira-sans underline text-center underline-offset-4"
                 >
-                  Account Data
-                </h2>
+                  Log Out
+                </h2> -->
                 <!-- Email -->
-                <div class="w-full max-w-4xl mx-auto">
+                <!-- <div class="w-full max-w-4xl mx-auto">
                   <label for="email" class="text-lg font-bold ml-2 inline-block">
                     E-Mail
                   </label>
@@ -126,9 +127,9 @@
                     class="border-2 md:border-4 border-black outline-none px-2 rounded-lg block w-full py-1 bg-slate-50 text-slate-400"
                     value="<%=email%>"
                   />
-                </div>
+                </div> -->
                 <!-- password -->
-                <div class="w-full max-w-4xl mx-auto relative">
+                <!-- <div class="w-full max-w-4xl mx-auto relative">
                   <label
                     for="password"
                     class="text-lg font-bold ml-2 inline-block"
@@ -147,38 +148,33 @@
                       class="border-l-0 border-2 md:border-4 md:border-l-0 border-black rounded-r-lg show-pw fas fa-eye-slash text-base px-2 cursor-pointer duration-200 hover:text-orange-300 bg-slate-50 self-stretch pt-1"
                     ></i>
                   </div>
-                </div>      
-                <!-- logout -->
-                <div class="w-full max-w-4xl mx-auto mt-4">
-                  <a href="/logout" title="Log Out From This Account" id="signup-btn-profile" class="text-2xl border-2 md:border-4 border-black rounded-lg block w-full py-1 bg-orange-300 hover:bg-red-400 active:bg-red-600 hover:text-white duration-300 teko text-center font-bold"
-                  >Log Out</a>
-                </div>     
+                </div>       -->
                 <% } else {%>
-                  <h2
+                  <!-- <h2
                   class="text-2xl md:text-xl xl:text-2xl font-bold fira-sans underline text-center underline-offset-4 mb-7"
                   >
                     Sign-up Or Login
-                  </h2>
+                  </h2> -->
                   <!-- sign-up -->
-                  <div class="w-full max-w-4xl mx-auto">
+                  <!-- <div class="w-full max-w-4xl mx-auto">
                     <a href="/sign-up" title="Sign Up Now To Edit Profile" id="signup-btn-profile" class="text-2xl border-2 md:border-4 border-black rounded-lg block w-full py-1 bg-orange-300 hover:bg-green-400 active:bg-green-600 hover:text-white duration-300 teko text-center font-bold"
                     >Sign Up</a>
-                  </div>
+                  </div> -->
                   <!-- password -->
-                  <div class="w-full max-w-4xl mx-auto relative mt-3 md:mt-[0.65rem]">
+                  <!-- <div class="w-full max-w-4xl mx-auto relative mt-3 md:mt-[0.65rem]">
                     <a href="/login" title="Login Now To Edit Profile" id="login-btn-profile" class="text-2xl border-2 md:border-4 border-black rounded-lg block w-full py-1 bg-orange-300 hover:bg-green-400 active:bg-green-600 hover:text-white duration-300 teko text-center font-bold"
                     >Login</a>
-                  </div>     
+                  </div>      -->
                 <% } %> 
 
-              </section>
+              <!-- </section> -->
 
               <!-- Highscore -->
               <section
-                class="mb-8 pt-16 md:mb-0 md:pt-1 resize-y h-72 md:h-[8.7rem] xl:md:h-[8.5rem] "
+                class="mb-8 pt-8 md:pt-1 md:mb-0 resize-y h-72"
               >
                 <h2
-                  class="pb-2 md:pb-3 text-2xl md:text-xl xl:text-2xl font-bold fira-sans underline text-center underline-offset-4"
+                  class="mb-3 pb-2 md:pb-3 text-2xl md:text-xl xl:text-2xl font-bold fira-sans underline text-center underline-offset-4"
                 >
                   Highscores
                 </h2>
@@ -234,6 +230,11 @@
                   </div>
                 </div>
               </section>
+              <!-- logout -->
+              <div class="w-full max-w-4xl mx-auto mt-[4.4rem] xl:mt-[4.6rem]">
+                <a href="/logout" title="Log Out From This Account" id="signup-btn-profile" class="text-2xl border-2 md:border-4 border-black rounded-lg block w-full py-1 bg-orange-300 hover:bg-red-400 active:bg-red-600 hover:text-white duration-300 teko text-center font-bold"
+                >Log Out</a>
+              </div>     
             </section>            
           </div>
 
@@ -259,9 +260,9 @@
     </main>
   </section>
 </main>
-<script src="../score_js/profile-highscore.js"></script>
-<script src="../misc_js/show-pw.js"></script>
-<script src="../misc_js/country.js"></script>
-<script src="../misc_js/interaction.js"></script>
+<% if (userState == "notGuest") { %>
+  <script src="../../misc_js/show-pw.js"></script>
+<%}%>
+<script src="../../misc_js/interaction.js"></script>
 <!-- Footer -->
 <%- include("./partials/footer") %>

@@ -2,10 +2,10 @@ if (process.env.NODE_ENV !== 'production') {
   require('dotenv').config();
 }
 const express = require('express');
-const cookieParser = require('cookie-parser');
 const router = express.Router();
 const fetch = require('node-fetch');
 const User = require('../../models/user');
+const cookieParser = require('cookie-parser');
 
 router.use(cookieParser());
 
@@ -136,40 +136,39 @@ router.get('/profile/myprofile/:username', async function (req, res) {
     const scoreName = [];
     if (req.cookies.userState) {
       if (req.cookies.userState == 'notGuest') {
-        const user = await User.findOne({ username: req.params.username });
-        user.scores.forEach((score, i) => {
-          scoreName.push(
-            formatScoreNameProfile(
-              categories,
-              score.name.gamemode,
-              score.name.category,
-              score.name.difficulty
-            )
-          );
-          scoreValue.push(score.points);
-        });
-        // redirect to link with name
-        res.render('my-profile', {
-          title: `Triquest | ${user.username}`,
-          userState: req.cookies.userState,
-          username: user.username,
-          description: user.description,
-          country: user.country,
-          email: user.email,
-          password: user.password,
-          scoreName,
-          scoreValue,
-          countries,
-        });
+        const myUser = await User.findById(req.cookies.id);
+        const otherUser = await User.findOne({ username: req.params.username });
+        if (myUser.username != otherUser.username) {
+          res.redirect(`/profile/others/${req.params.username}`);
+        } else {
+          myUser.scores.forEach((score, i) => {
+            scoreName.push(
+              formatScoreNameProfile(
+                categories,
+                score.name.gamemode,
+                score.name.category,
+                score.name.difficulty
+              )
+            );
+            scoreValue.push(score.points);
+          });
+          // redirect to link with name
+          res.render('my-profile', {
+            title: `Triquest | ${myUser.username}`,
+            userState: req.cookies.userState,
+            username: myUser.username,
+            headerUsername: myUser.username,
+            description: myUser.description,
+            country: myUser.country,
+            email: myUser.email,
+            password: myUser.password,
+            scoreName,
+            scoreValue,
+            countries,
+          });
+        }
       } else {
-        res.render('my-profile', {
-          title: `Triquest | Guest`,
-          userState: 'guest',
-          username: 'Guest',
-          description: '',
-          scores: [],
-          countries,
-        });
+        res.redirect('/profile/guest');
       }
     } else {
       res.redirect('/sign-up');
@@ -180,6 +179,17 @@ router.get('/profile/myprofile/:username', async function (req, res) {
   }
 });
 
+router.get('/profile/guest', async (req, res) => {
+  const countries = await fetchCountries();
+  res.render('my-profile', {
+    title: `Triquest | Guest`,
+    userState: 'guest',
+    username: 'Guest',
+    description: '',
+    scores: [],
+    countries,
+  });
+});
 // this function determines if the user state is in guest and it returns the user states and the username
 async function checkIfGuestMode(req, res, userState, userID) {
   if (!userState) {

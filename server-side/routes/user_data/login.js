@@ -1,6 +1,7 @@
 const express = require('express');
 const router = express.Router();
 const User = require('../../../models/user');
+const bcrypt = require('bcrypt');
 
 // save user email and password into mongoDB
 router.post('/check_login', async (req, res) => {
@@ -12,7 +13,7 @@ router.post('/check_login', async (req, res) => {
       res.redirect('/login');
     } else {
       // check if password is correct
-      if (user.password === req.body.password) {
+      if (await bcrypt.compare(req.body.password, user.password)) {
         res.cookie('userState', 'notGuest');
         res.cookie('id', user.id);
         res.redirect('/');
