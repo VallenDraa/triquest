@@ -4,7 +4,9 @@
   "description": "A Trivia Game Website",
   "main": "index.js",
   "scripts": {
-    "devstart": "nodemon index.js"
+    "devstart": "nodemon index.js",
+    "watchcss": "npx tailwindcss -i ./src/css/input.css -o ./public/css/main.css --watch",
+    "cssminify": "npx tailwindcss -o ./public/css/main.css --minify"
   },
   "author": "",
   "license": "ISC",
@@ -24,6 +26,9 @@
     "passport-local": "^1.0.0"
   },
   "devDependencies": {
-    "dotenv": "^16.0.0"
+    "autoprefixer": "^10.4.2",
+    "dotenv": "^16.0.0",
+    "postcss": "^8.4.6",
+    "tailwindcss": "^3.0.23"
   }
 }

@@ -65,18 +65,18 @@ const LOADING_SCREEN = {
 // updating the selections
 const CATEGORIES = {
   hidesCategories: function (gameModeValue) {
-    if (gameModeValue === 'Random') {
-      categorySelect.querySelector(':first-child').textContent =
-        'Random Categories';
-      categorySelect.querySelector(':first-child').value = 'random';
-    }
+    // if (gameModeValue === 'Random') {
+    //   categorySelect.querySelector(':first-child').textContent =
+    //     'Random Categories';
+    //   categorySelect.querySelector(':first-child').value = 'random';
+    // }
     categorySelect.querySelectorAll('*:not(:first-child)').forEach((item) => {
       item.classList.add('hidden');
     });
   },
   revealCategories: function () {
-    categorySelect.querySelector(':first-child').textContent = 'Any Categories';
-    categorySelect.querySelector(':first-child').value = 'any';
+    // categorySelect.querySelector(':first-child').textContent = 'Any Categories';
+    // categorySelect.querySelector(':first-child').value = 'any';
     categorySelect.querySelectorAll('*:not(:first-child)').forEach((item) => {
       if (!item.classList.contains('hidden')) return;
       item.classList.remove('hidden');
@@ -86,6 +86,7 @@ const CATEGORIES = {
 
 const DIFFICULTIES = {
   hidesDiffs: function (gameModeValue) {
+    difficultySelect.querySelector(':first-child').classList.remove('hidden');
     switch (gameModeValue) {
       case 'Campaign':
         difficultySelect.querySelector(':first-child').textContent =
@@ -107,10 +108,12 @@ const DIFFICULTIES = {
       item.classList.add('hidden');
     });
   },
-  revealDiffs: function () {
-    difficultySelect.querySelector(':first-child').textContent =
-      'Any Difficulties';
-    difficultySelect.querySelector(':first-child').value = 'any';
+  revealDiffs: function (gameModeValue) {
+    // difficultySelect.querySelector(':first-child').textContent =
+    //   'Any Difficulties';
+    // difficultySelect.querySelector(':first-child').value = 'any';
+
+    difficultySelect.querySelector(':first-child').classList.add('hidden');
     difficultySelect.querySelectorAll('*:not(:first-child)').forEach((item) => {
       if (!item.classList.contains('hidden')) return;
       item.classList.remove('hidden');
@@ -126,7 +129,7 @@ function checkSelectedOptions(gameModeValue) {
     DIFFICULTIES.hidesDiffs(gameModeValue);
     CATEGORIES.revealCategories();
   } else {
-    DIFFICULTIES.revealDiffs();
+    DIFFICULTIES.revealDiffs(gameModeValue);
     CATEGORIES.revealCategories();
   }
 }
@@ -156,26 +159,6 @@ async function findAndSortScores(query) {
   });
   console.log(scores);
   tableContent.innerHTML = '';
-  // console.log(leaderboardAPI);
-
-  // Object.entries(localStorage).forEach(([key, value]) => {
-  //   // console.log(key);
-  // console.log(query);
-  //   if (query[0] != 'any' && query[1] != 'any') {
-  //     if (
-  //       key.includes(query[0]) &&
-  //       key.includes(query[1]) &&
-  //       key.includes(query[2])
-  //     ) {
-  //       pointValue.push(value);
-  //     }
-  //   } else {
-  //     if (key.includes('score_' + query[0])) {
-  //       pointValue.push(value);
-  //     }
-  //   }
-  // });
-  // pointValue = pointValue.sort((a, b) => b - a);
 
   scores.forEach((score, i) => {
     let html = `

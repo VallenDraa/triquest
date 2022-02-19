@@ -73,38 +73,24 @@ function paginatedResults(Model) {
         for (let scores of data.scores) {
           dataAssignQuery = scoreNameQuery.split('_'); //[0] = gamemode, [1] = category, [2] = difficulty
           // gamemode assign
-          if (scores.name.gamemode != dataAssignQuery[0]) return;
-          scoreName.gamemode = scores.name.gamemode;
-
-          // category assign
-          if (dataAssignQuery[1] != 'any') {
-            if (scores.name.category == dataAssignQuery[1]) {
-              scoreName.category = scores.name.category;
-            } else {
-              return;
-            }
-          } else {
+          if (
+            scores.name.gamemode == dataAssignQuery[0] &&
+            scores.name.category == dataAssignQuery[1] &&
+            scores.name.difficulty == dataAssignQuery[2]
+          ) {
+            scoreName.gamemode = scores.name.gamemode;
             scoreName.category = scores.name.category;
-          }
-          // difficulty assign
-          if (dataAssignQuery[2] != 'any') {
-            if (scores.name.difficulty == dataAssignQuery[2]) {
-              scoreName.difficulty = scores.name.difficulty;
-            } else {
-              return;
-            }
-          } else {
             scoreName.difficulty = scores.name.difficulty;
+            scorePoints = scores.points;
           }
 
           // point assign
-          if (
-            scoreName.gamemode &&
-            scoreName.category &&
-            scoreName.difficulty
-          ) {
-            scorePoints = scores.points;
-          }
+          // if (
+          //   scoreName.gamemode &&
+          //   scoreName.category &&
+          //   scoreName.difficulty
+          // ) {
+          // }
         }
 
         results.results.push({
@@ -129,75 +115,75 @@ function dbQueryAdjust(country, scoreNameQuery) {
   scoreNameQuery = scoreNameQuery.split('_');
   let dbQuery;
   if (country == '' || country == undefined || country == 'global') {
-    if (scoreNameQuery[1] == 'any') {
-      dbQuery = {
-        'scores.name.gamemode': scoreNameQuery[0],
-        'scores.name.difficulty': scoreNameQuery[2],
-      };
-    } else if (scoreNameQuery[2] == 'any') {
-      dbQuery = {
-        'scores.name.gamemode': scoreNameQuery[0],
-        'scores.name.category': scoreNameQuery[1],
-      };
-    } else {
-      dbQuery = {
-        scores: {
-          $elemMatch: {
-            name: {
-              gamemode: scoreNameQuery[0],
-              category: scoreNameQuery[1],
-              difficulty: scoreNameQuery[2],
-            },
+    // if (scoreNameQuery[1] == 'any') {
+    //   dbQuery = {
+    //     'scores.name.gamemode': scoreNameQuery[0],
+    //     'scores.name.difficulty': scoreNameQuery[2],
+    //   };
+    // } else if (scoreNameQuery[2] == 'any') {
+    //   dbQuery = {
+    //     'scores.name.gamemode': scoreNameQuery[0],
+    //     'scores.name.category': scoreNameQuery[1],
+    //   };
+    // } else {
+    dbQuery = {
+      scores: {
+        $elemMatch: {
+          name: {
+            gamemode: scoreNameQuery[0],
+            category: scoreNameQuery[1],
+            difficulty: scoreNameQuery[2],
           },
         },
-      };
-    }
+      },
+    };
+    // }
   } else {
     // console.log(country);
-    if (scoreNameQuery[1] == 'any') {
-      dbQuery = {
-        $and: [
-          {
-            'scores.name.gamemode': scoreNameQuery[0],
-            'scores.name.difficulty': scoreNameQuery[2],
-          },
-          {
-            country: country,
-          },
-        ],
-      };
-    } else if (scoreNameQuery[2] == 'any') {
-      dbQuery = {
-        $and: [
-          {
-            'scores.name.gamemode': scoreNameQuery[0],
-            'scores.name.category': scoreNameQuery[1],
-          },
-          {
-            country: country,
-          },
-        ],
-      };
-    } else {
-      dbQuery = {
-        $and: [
-          {
-            scores: {
-              $elemMatch: {
-                name: {
-                  gamemode: scoreNameQuery[0],
-                  category: scoreNameQuery[1],
-                  difficulty: scoreNameQuery[2],
-                },
+    // if (scoreNameQuery[1] == 'any') {
+    //   dbQuery = {
+    //     $and: [
+    //       {
+    //         'scores.name.gamemode': scoreNameQuery[0],
+    //         'scores.name.difficulty': scoreNameQuery[2],
+    //       },
+    //       {
+    //         country: country,
+    //       },
+    //     ],
+    //   };
+    // } else if (scoreNameQuery[2] == 'any') {
+    //   dbQuery = {
+    //     $and: [
+    //       {
+    //         'scores.name.gamemode': scoreNameQuery[0],
+    //         'scores.name.category': scoreNameQuery[1],
+    //       },
+    //       {
+    //         country: country,
+    //       },
+    //     ],
+    //   };
+    // } else {
+    dbQuery = {
+      $and: [
+        {
+          scores: {
+            $elemMatch: {
+              name: {
+                gamemode: scoreNameQuery[0],
+                category: scoreNameQuery[1],
+                difficulty: scoreNameQuery[2],
               },
             },
           },
-          {
-            country: country,
-          },
-        ],
-      };
-    }
+        },
+        {
+          country: country,
+        },
+      ],
+    };
+    // }
   }
   // console.log(dbQuery);
   return dbQuery;

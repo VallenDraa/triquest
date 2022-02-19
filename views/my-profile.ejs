@@ -34,7 +34,7 @@
                 <div class="w-full max-w-4xl mx-auto">
                   <label
                     for="username"
-                    class="text-lg font-bold ml-2 inline-block flex items-base"
+                    class="text-lg font-bold ml-2 flex items-base"
                   >
                     <% if (userState == "guest") { %> Username
                     <span class="text-[10px] font-light ml-1"
@@ -186,7 +186,7 @@
                   id="highscore-preview"
                    class="absolute rounded-lg inset-0 text-sm bg-yellow-100 ">
                     <div
-                      class="flex justify-center divide-x-2 divide-black sticky top-0 inset-x-0"
+                      class="flex justify-center divide-x-2 divide-black sticky top-0 inset-x-0 shadow-lg"
                     >
                       <p
                         class="highscore-left bg-orange-400 w-full text-sm font-bold text-center border-b-2 border-black"
@@ -194,7 +194,7 @@
                         Modes
                       </p>
                       <p
-                        class="highscore-right bg-yellow-500 w-full text-sm font-bold text-center border-b-2 border-black"
+                        class="highscore-right bg-yellow-400 w-full text-sm font-bold text-center border-b-2 border-black"
                       >
                         Score
                       </p>
@@ -211,12 +211,12 @@
                               class="flex justify-between divide-x-2 divide-black text-sm border-b-2 border-black"
                               >
                               <p
-                                class="text-xs xl:text-sm highscore-left bg-orange-300 w-full text-center py-2 flex justify-center items-center"
+                                class="text-xs xl:text-sm highscore-left bg-orange-300 w-full text-center py-2 flex justify-center items-center "
                               >
                                 <%=scoreName[i]%> 
                               </p>
                               <p
-                                class="highscore-right bg-yellow-400 w-full text-center py-2 flex justify-center items-center text-lg"
+                                class="highscore-right bg-yellow-300 w-full text-center py-2 flex justify-center items-center text-lg"
                               >
                                 <%=scoreValue[i]%> 
                               </p>
@@ -261,7 +261,7 @@
   </section>
 </main>
 <% if (userState == "notGuest") { %>
-  <script src="../../misc_js/show-pw.js"></script>
+  <!-- <script src="../../misc_js/show-pw.js"></script> -->
 <%}%>
 <script src="../../misc_js/interaction.js"></script>
 <!-- Footer -->

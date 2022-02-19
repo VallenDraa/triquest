@@ -13,8 +13,8 @@
       href="https://unpkg.com/swiper@7/swiper-bundle.min.css"
     />
     <link rel="stylesheet" href="../../css/main.css" />
-    <script src="https://cdn.tailwindcss.com"></script>
-    <script defer src="../../fuckSafari.js"></script>
+    <link rel="stylesheet" href="../../css/shared.css" />
+    <!-- <script src="https://cdn.tailwindcss.com"></script> -->
     <title><%=title%></title>
   </head>
   <body
@@ -25,10 +25,10 @@
       class="bg-yellow-300 py-2 sticky top-0 z-50 navbar shadow-2xl border-b-4 border-b-black"
     >
       <div
-        class="flex teko md:items-center justify-between max-w-screen-2xl mx-auto w-full md:w-11/12 py-2"
+        class="flex teko sm:items-center justify-between max-w-screen-2xl mx-auto w-full sm:w-11/12 py-2"
       >
         <div
-          class="rounded-md bg-yellow-400 border-4 border-black py-1 px-2 ml-7 md:ml-0"
+          class="rounded-md bg-yellow-400 border-4 border-black py-1 px-2 ml-7 sm:ml-0"
         >
           <a
             class="uppercase font-bold text-2xl tracking-wider rounded-md block duration-300"
@@ -38,27 +38,27 @@
           </a>
         </div>
         <div
-          class="absolute z-10 md:static top-0 w-full md:w-11/12 h-96 md:h-full md:w-1/2 md:flex menu -translate-y-full md:translate-y-0"
+          class="absolute z-10 sm:static top-0 w-full h-96 sm:h-full sm:w-1/2 sm:flex menu -translate-y-full sm:translate-y-0"
         >
           <ul
-            class="border-b-4 md:border-4 border-black md:border-black bg-yellow-300 flex flex-col md:flex-row justify-around md:justify-evenly text-4xl md:text-2xl shadow-xl md:shadow-none rounded-0 md:rounded-md text-center gap-3 md:gap-0 w-full items-center h-full p-3 md:p-0"
+            class="border-b-4 sm:border-4 border-black sm:border-black bg-yellow-300 flex flex-col sm:flex-row justify-around sm:justify-evenly text-4xl sm:text-2xl shadow-xl sm:shadow-none rounded-0 sm:rounded-md text-center gap-3 sm:gap-0 w-full items-center h-full p-3 sm:p-0"
           >
-            <p class="md:hidden teko uppercase font-bold underline">Menu</p>
+            <p class="sm:hidden teko uppercase font-bold underline">Menu</p>
 
             <li
-              class="cursor-pointer bg-orange-300 grid content-center w-full py-1 duration-300 hover:bg-green-400 active:bg-green-600 hover:text-white md:rounded-none rounded-lg border-4 border-black md:border-none h-3/6 play"
+              class="cursor-pointer bg-orange-300 grid content-center w-full py-1 duration-300 hover:bg-green-400 active:bg-green-600 hover:text-white sm:rounded-none rounded-lg border-4 border-black sm:border-none h-3/6 play"
               title="Play Triquest Now !"
             >
               <a href="/">Play</a>
             </li>
             <li
-              class="cursor-pointer bg-orange-300 grid content-center w-full py-1 duration-300 hover:bg-green-400 active:bg-green-600 hover:text-white md:rounded-none rounded-lg leaderboard border-4 md:border-y-0 md:border-x-4 border-black px-7 md:my-0 h-3/6"
+              class="cursor-pointer bg-orange-300 grid content-center w-full py-1 duration-300 hover:bg-green-400 active:bg-green-600 hover:text-white sm:rounded-none rounded-lg leaderboard border-4 sm:border-y-0 sm:border-x-4 border-black px-7 sm:my-0 h-3/6"
               title="Leaderboard Tab"
             >
               <a href="/leaderboard">Leaderboard</a>
             </li>
             <li
-              class="cursor-pointer bg-orange-300 grid content-center w-full py-1 duration-300 hover:bg-green-400 active:bg-green-600 hover:text-white md:rounded-none rounded-lg profile border-4 border-black md:border-none h-3/6"
+              class="cursor-pointer bg-orange-300 grid content-center w-full py-1 duration-300 hover:bg-green-400 active:bg-green-600 hover:text-white sm:rounded-none rounded-lg profile border-4 border-black sm:border-none h-3/6"
               title="User Profile"
             >
               <a
@@ -66,18 +66,19 @@
                 class="truncate"
                 href="/profile/myprofile/<%=headerUsername%>"
               >
-                <%=headerUsername%> 
+                  <%= headerUsername %> 
               </a>
             </li>
           </ul>
           <i
-            class="bg-orange-300 hover:bg-green-400 active:bg-green-600 hover:text-white border-4 px-2 border-black rounded-lg fas fa-caret-down text-4xl text-black md:hidden absolute right-7 cursor-pointer duration-500 toggle-menu mt-4"
+            class="bg-orange-300 hover:bg-green-400 active:bg-green-600 hover:text-white border-4 px-2 border-black rounded-lg fas fa-caret-down text-4xl text-black sm:hidden absolute right-7 cursor-pointer duration-500 toggle-menu mt-4"
           ></i>
         </div>
       </div>
     </nav>
   </body>
 </html>
+
 
 
 <main class="mt-auto">
@@ -93,7 +94,7 @@
           <%=username.toUpperCase()%>'S PROFILE
         </h1>
         <section
-          class="fira-sans md:border-4 border-black rounded-b-lg md:rounded-lg bg-yellow-200 p-3 md:p-4 md:p-2 xl:p-4"
+          class="fira-sans md:border-4 border-black rounded-b-lg md:rounded-lg bg-yellow-200 p-3 md:p-4 xl:p-4"
         >
           <!-- content-wrapper -->
           <div>
@@ -101,7 +102,7 @@
             <div class="w-full mx-auto">
               <label
                 for="username"
-                class="text-lg font-bold ml-2 inline-block flex items-base"
+                class="text-lg font-bold ml-2 flex items-base"
               > Username
               </label>
               <input type="text" name="username" title="Edit Your Username" id="username" class="border-2

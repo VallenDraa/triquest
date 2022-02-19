@@ -1,7 +1,6 @@
-plan_diagram.svg
+plan
 .vscode
 node_modules
-test-html.html
-test.js
+test
 .env
 .prettierignore

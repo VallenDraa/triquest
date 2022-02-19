@@ -1,42 +1,42 @@
 <!-- bool option -->
 <div
-  class="hidden bg-yellow-200 border-4 border-black anim-slide-x question-card question-card-two rounded-xl px-2 md:px-10 py-2 md:py-5 my-12 md:my-24 h-5/6 flex justify-center items-center bool-option"
+  class="hidden bg-yellow-200 border-4 border-black anim-slide-x question-card question-card-two rounded-xl px-2 md:px-10 py-2 md:py-5 my-12 md:my-24 h-5/6 bool-option"
 >
   <div class="fira-sans p-4 w-full">
     <section>
         <div class="fira-sans p-1 md:p-2 w-full">
-            <section>
-              <div
-                class="rounded-md bg-yellow-400 py-1 px-2 text-black teko w-max mx-auto border-4 border-black mb-4"
+          <section>
+            <div
+            class="block rounded-md bg-yellow-400 py-1 px-2 text-black teko w-max mx-auto border-2 sm:border-4 border-black mb-4"
+            >
+              <a
+                class="uppercase font-bold text-sm md:text-lg tracking-wider rounded-md block"
+                href="#"
               >
-                <a
-                  class="uppercase font-bold text-sm md:text-lg tracking-wider rounded-md block"
-                  href="#"
-                >
-                  Triquest
-                </a>
+                Triquest
+              </a>
         </div>
       <%-include("./timerbar.ejs") %>
       <h2
-        class="text-base sm:text-lg md:text-xl xl:text-3xl font-bold text-center py-4 max-w-4xl text-center mx-auto question-two-opt"
+      class="text-sm sm:text-lg md:text-xl xl:text-3xl font-bold text-center py-2 sm:py-4 max-w-4xl mx-auto question-two-opt"
       >
         question
       </h2>
       <div class="teko grid grid-cols-1 md:grid-cols-2 gap-4 mt-4">
         <div
-          class="border-2 md:border-4 border-black answer-option text-xl sm:text-2xl md:text-4xl h-16 md:h-24 flex justify-center items-center font-bold duration-300 bg-green-300 hover:bg-green-400 active:bg-green-600 rounded-xl cursor-pointer answer-two"
+          class="border-2 md:border-4 border-black answer-option text-base sm:text-xl md:text-2xl h-12 sm:h-16 md:h-24 flex justify-center items-center font-bold duration-300 bg-green-300 hover:bg-green-400 active:bg-green-600 rounded-xl cursor-pointer answer-two"
         >
           True
         </div>
         <div
-          class="border-2 md:border-4 border-black answer-option text-xl sm:text-2xl md:text-4xl h-16 md:h-24 flex justify-center items-center font-bold duration-300 bg-red-300 hover:bg-red-400 active:bg-red-600 rounded-xl cursor-pointer answer-two"
+          class="border-2 md:border-4 border-black answer-option text-base sm:text-xl md:text-2xl h-12 sm:h-16 md:h-24 flex justify-center items-center font-bold duration-300 bg-red-300 hover:bg-red-400 active:bg-red-600 rounded-xl cursor-pointer answer-two"
         >
           False
         </div>
       </div>
 
-      <div class="flex justify-center items-center pt-4 mx-auto text-center">
-        <p class="text-center footer-two-opt text-xs font-light">
+      <div class="flex justify-center items-center pt-2 sm:pt-4 text-xxs md:text-xs font-light mx-auto text-center">
+        <p class="text-center footer-two-opt">
           1/10 · hard · Entertainment
         </p>
       </div>
