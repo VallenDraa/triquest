@@ -540,6 +540,7 @@ if (document.readyState === 'loading') {
   // when content has finished loading
   document.addEventListener('DOMContentLoaded', () => {
     afterAnswerWrapper.classList.add('hidden');
+    resultScreen.classList.add('hidden');
     isInAfterAnswer = false;
     runTimerBar();
     toggleAnimationToAll('anim-slide-x', questionCards);

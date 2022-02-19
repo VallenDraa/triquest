@@ -1,268 +1,271 @@
 <%- include("./partials/header") %>
 
-<main class="mt-auto">
+<main class="mt-auto relative">
   <!-- Profile -->
   <section class="grid content-center min-h-full">
     <main class="max-w-screen-2xl w-11/12 xl:w-9/12 mx-auto">
-      <div
-        class="md:bg-yellow-300 border-4 border-black rounded-xl shadow-2xl md:p-4 my-14"
-      >  
-        <h1
-        
-          class="text-center rounded-t-lg md:rounded-none bg-yellow-200 md:bg-transparent py-2 teko text-3xl md:text-5xl font-bold underline"
+        <div
+          class="md:bg-yellow-300 border-4 border-black rounded-xl shadow-2xl md:p-4 my-14 "
+        >                
+        <!-- alert -->
+          <%- include("./partials/alert.ejs")  %>   
+          <h1
+          
+            class="text-center rounded-t-lg md:rounded-none bg-yellow-200 md:bg-transparent py-2 teko text-3xl md:text-5xl font-bold underline"
+            >
+              PROFILE
+          </h1>
+          <form
+            action="/profile/save_profile_edits?_method=put"
+            method="POST"
+            class="fira-sans md:border-4 border-black rounded-b-lg md:rounded-lg bg-yellow-200 p-4 md:p-2 xl:p-4"
           >
-            PROFILE
-        </h1>
-        <form
-          action="/profile/save_profile_edits?_method=put"
-          method="POST"
-          class="fira-sans md:border-4 border-black rounded-b-lg md:rounded-lg bg-yellow-200 p-4 md:p-2 xl:p-4"
-        >
-        
-          <!-- content-wrapper -->
-          <div class="grid grid-cols-1 md:grid-cols-2 md:gap-3">
-            <!-- left side -->
-            <section>
-              <!-- Profile DATA -->
+            <!-- content-wrapper -->
+            <div class="grid grid-cols-1 md:grid-cols-2 md:gap-3 relative">
+              <!-- left side -->
               <section>
-                <h2
-                  class="text-2xl md:text-xl xl:text-2xl font-bold fira-sans underline text-center underline-offset-4"
-                >
-                  Profile Data
-                </h2>
-                <!-- username -->
-                <div class="w-full max-w-4xl mx-auto">
-                  <label
-                    for="username"
-                    class="text-lg font-bold ml-2 flex items-base"
+                <!-- Profile DATA -->
+                <section>
+                  <h2
+                    class="text-2xl md:text-xl xl:text-2xl font-bold fira-sans underline text-center underline-offset-4"
                   >
-                    <% if (userState == "guest") { %> Username
-                    <span class="text-[10px] font-light ml-1"
-                      >*Sign-up or login to change username !</span
+                    Profile Data
+                  </h2>
+                  <!-- username -->
+                  <div class="w-full max-w-4xl mx-auto">
+                    <label
+                      for="username"
+                      class="text-lg font-bold ml-2 flex items-base"
                     >
-                    <% } else { %> Username <% } %>
-                  </label>
-                  <input type="text" name="username" title="Edit Your Username" id="username" class="border-2
-                  md:border-4 border-black outline-none px-2 rounded-lg block
-                  w-full py-1 bg-slate-50" <% if (userState == "guest") { %>
-                  value="GUEST" readonly <% } else { %> value=<%=username%><% } %> />
-                </div>
-
-                <!-- desc -->
-                <div class="w-full max-w-4xl mx-auto">
-                  <label
-                    for="description"
-                    class="text-lg font-bold ml-2 inline-block"
-                  >
-                    Description
-                  </label>
-                  <textarea
-                    name="description"
-                    title="Edit Your Profile Description"
-                    id="description"
-                    cols="30"
-                    rows="8"
-                    class="border-2 md:border-4 border-black outline-none px-2 rounded-lg block w-full py-1 bg-slate-50 resize-none"
-                    <% if (userState == "guest") { %> 
-                      placeholder="Sign-up or login to change your description !"
-                      readonly
-                      <% } else { %>placeholder="I'm The Best Triquest Player !"<% } %>
-                  ><%=description%></textarea>
-                </div>
-
-                <!-- country -->
-                <div class="w-full max-w-4xl mx-auto">
-                  <label
-                    for="country"
-                    class="text-lg font-bold ml-2 inline-block"
-                  >
-                    Country
-                  </label>
-                  <select
-                    name="country"
-                    title="Edit Your Country Of Origin"
-                    <% if (userState == "guest") { %> 
-                      id="country-guest"
-                      class="border-2 md:border-4 border-black outline-none px-2 rounded-lg block w-full py-1 bg-slate-50">
-                      <option value="choose_country">
-                        Sign-up or login to change your country!                   
-                      </option>
-                      <% } else { %>   
-                        id="country"
-                        class="border-2 md:border-4 border-black outline-none px-2 rounded-lg block w-full py-1 bg-slate-50">
-                      <% countries.forEach(countryItem => { %>
-                        <% if (countryItem.code == country) { %>
-                        <option value="<%=countryItem.code%>"selected><%=countryItem.name%> <%=countryItem.emoji%></option>
-                        <% } else { %>
-                        <option value="<%=countryItem.code%>"><%=countryItem.name%> <%=countryItem.emoji%></option>
-                        <% } %> 
-                      <% }) %>
-                    <% } %>
-                
-                    <!-- more options will be added through country.js -->
-                  </select>
-                </div>
-              </section>
-            </section>
-            <!-- right side -->
-            <section>
-              <!-- account -->
-              <!-- <section class="pt-16 md:pt-0"> -->
-                <% if (userState != "guest") { %>
-                <!-- <h2
-                class="text-2xl md:text-xl xl:text-2xl font-bold fira-sans underline text-center underline-offset-4"
-                >
-                  Log Out
-                </h2> -->
-                <!-- Email -->
-                <!-- <div class="w-full max-w-4xl mx-auto">
-                  <label for="email" class="text-lg font-bold ml-2 inline-block">
-                    E-Mail
-                  </label>
-                  <input
-                    type="email"
-                    name="email"
-                    id="email"
-                    readonly
-                    class="border-2 md:border-4 border-black outline-none px-2 rounded-lg block w-full py-1 bg-slate-50 text-slate-400"
-                    value="<%=email%>"
-                  />
-                </div> -->
-                <!-- password -->
-                <!-- <div class="w-full max-w-4xl mx-auto relative">
-                  <label
-                    for="password"
-                    class="text-lg font-bold ml-2 inline-block"
-                  >
-                    Password
-                  </label>
-                  <div class="flex justify-between items-center">
-                    <input
-                      type="password"
-                      name="password"
-                      id="password"
-                      class="border-r-0 border-2 md:border-4 md:border-r-0 border-black outline-none px-2 rounded-l-lg block w-full py-1 bg-slate-50"
-                      value="<%=password%>"
-                    />
-                    <i
-                      class="border-l-0 border-2 md:border-4 md:border-l-0 border-black rounded-r-lg show-pw fas fa-eye-slash text-base px-2 cursor-pointer duration-200 hover:text-orange-300 bg-slate-50 self-stretch pt-1"
-                    ></i>
+                      <% if (userState == "guest") { %> Username
+                      <span class="text-[10px] font-light ml-1"
+                        >*Sign-up or login to change username !</span
+                      >
+                      <% } else { %> Username <% } %>
+                    </label>
+                    <input type="text" name="username" title="Edit Your Username" id="username" class="border-2
+                    md:border-4 border-black outline-none px-2 rounded-lg block
+                    w-full py-1 bg-slate-50" <% if (userState == "guest") { %>
+                    value="GUEST" readonly <% } else { %> value=<%=username%><% } %> />
                   </div>
-                </div>       -->
-                <% } else {%>
+
+                  <!-- desc -->
+                  <div class="w-full max-w-4xl mx-auto">
+                    <label
+                      for="description"
+                      class="text-lg font-bold ml-2 inline-block"
+                    >
+                      Description
+                    </label>
+                    <textarea
+                      name="description"
+                      title="Edit Your Profile Description"
+                      id="description"
+                      cols="30"
+                      rows="8"
+                      class="border-2 md:border-4 border-black outline-none px-2 rounded-lg block w-full py-1 bg-slate-50 resize-none"
+                      <% if (userState == "guest") { %> 
+                        placeholder="Sign-up or login to change your description !"
+                        readonly
+                        <% } else { %>placeholder="I'm The Best Triquest Player !"<% } %>
+                    ><%=description%></textarea>
+                  </div>
+
+                  <!-- country -->
+                  <div class="w-full max-w-4xl mx-auto">
+                    <label
+                      for="country"
+                      class="text-lg font-bold ml-2 inline-block"
+                    >
+                      Country
+                    </label>
+                    <select
+                      name="country"
+                      title="Edit Your Country Of Origin"
+                      <% if (userState == "guest") { %> 
+                        id="country-guest"
+                        class="border-2 md:border-4 border-black outline-none px-2 rounded-lg block w-full py-1 bg-slate-50" disabled>
+                        <option value="choose_country">
+                          Sign-up or login to change your country!                   
+                        </option>
+                        <% } else { %>   
+                          id="country"
+                          class="border-2 md:border-4 border-black outline-none px-2 rounded-lg block w-full py-1 bg-slate-50">
+                        <% countries.forEach(countryItem => { %>
+                          <% if (countryItem.code == country) { %>
+                          <option value="<%=countryItem.code%>"selected><%=countryItem.name%> <%=countryItem.emoji%></option>
+                          <% } else { %>
+                          <option value="<%=countryItem.code%>"><%=countryItem.name%> <%=countryItem.emoji%></option>
+                          <% } %> 
+                        <% }) %>
+                      <% } %>
+                  
+                      <!-- more options will be added through country.js -->
+                    </select>
+                  </div>
+                </section>
+              </section>
+              <!-- right side -->
+              <section>
+                <!-- account -->
+                <!-- <section class="pt-16 md:pt-0"> -->
+                  <% if (userState != "guest") { %>
                   <!-- <h2
-                  class="text-2xl md:text-xl xl:text-2xl font-bold fira-sans underline text-center underline-offset-4 mb-7"
+                  class="text-2xl md:text-xl xl:text-2xl font-bold fira-sans underline text-center underline-offset-4"
                   >
-                    Sign-up Or Login
+                    Log Out
                   </h2> -->
-                  <!-- sign-up -->
+                  <!-- Email -->
                   <!-- <div class="w-full max-w-4xl mx-auto">
-                    <a href="/sign-up" title="Sign Up Now To Edit Profile" id="signup-btn-profile" class="text-2xl border-2 md:border-4 border-black rounded-lg block w-full py-1 bg-orange-300 hover:bg-green-400 active:bg-green-600 hover:text-white duration-300 teko text-center font-bold"
-                    >Sign Up</a>
+                    <label for="email" class="text-lg font-bold ml-2 inline-block">
+                      E-Mail
+                    </label>
+                    <input
+                      type="email"
+                      name="email"
+                      id="email"
+                      readonly
+                      class="border-2 md:border-4 border-black outline-none px-2 rounded-lg block w-full py-1 bg-slate-50 text-slate-400"
+                      value="<%=email%>"
+                    />
                   </div> -->
                   <!-- password -->
-                  <!-- <div class="w-full max-w-4xl mx-auto relative mt-3 md:mt-[0.65rem]">
-                    <a href="/login" title="Login Now To Edit Profile" id="login-btn-profile" class="text-2xl border-2 md:border-4 border-black rounded-lg block w-full py-1 bg-orange-300 hover:bg-green-400 active:bg-green-600 hover:text-white duration-300 teko text-center font-bold"
-                    >Login</a>
-                  </div>      -->
-                <% } %> 
-
-              <!-- </section> -->
-
-              <!-- Highscore -->
-              <section
-                class="mb-8 pt-8 md:pt-1 md:mb-0 resize-y h-72"
-              >
-                <h2
-                  class="mb-3 pb-2 md:pb-3 text-2xl md:text-xl xl:text-2xl font-bold fira-sans underline text-center underline-offset-4"
-                >
-                  Highscores
-                </h2>
-                <div
-                  title="Your Highscores"
-                  class="highscore-box h-full bg-white border-2 md:border-4 border-black relative overflow-y-auto"
-                >
-                  <div
-                  id="highscore-preview"
-                   class="absolute rounded-lg inset-0 text-sm bg-yellow-100 ">
-                    <div
-                      class="flex justify-center divide-x-2 divide-black sticky top-0 inset-x-0 shadow-lg"
+                  <!-- <div class="w-full max-w-4xl mx-auto relative">
+                    <label
+                      for="password"
+                      class="text-lg font-bold ml-2 inline-block"
                     >
-                      <p
-                        class="highscore-left bg-orange-400 w-full text-sm font-bold text-center border-b-2 border-black"
-                      >
-                        Modes
-                      </p>
-                      <p
-                        class="highscore-right bg-yellow-400 w-full text-sm font-bold text-center border-b-2 border-black"
-                      >
-                        Score
-                      </p>
+                      Password
+                    </label>
+                    <div class="flex justify-between items-center">
+                      <input
+                        type="password"
+                        name="password"
+                        id="password"
+                        class="border-r-0 border-2 md:border-4 md:border-r-0 border-black outline-none px-2 rounded-l-lg block w-full py-1 bg-slate-50"
+                        value="<%=password%>"
+                      />
+                      <i
+                        class="border-l-0 border-2 md:border-4 md:border-l-0 border-black rounded-r-lg show-pw fas fa-eye-slash text-base px-2 cursor-pointer duration-200 hover:text-orange-300 bg-slate-50 self-stretch pt-1"
+                      ></i>
                     </div>
-                    <!-- highscore preview -->
-                    <% if (userState == "notGuest") { %>
-                      <% if (scoreName.length != 0) { %>
-                        <% for( let i = 0; i <= scoreName.length; i++ ) { %>
-                            <% if (i == scoreName.length) { %>
-                              <p class="text-center font-light bg-yellow-100 py-2 fira-sans text-slate-900">No More Highscores</p>
-                            <% } else {%>
-                              <!--score-->
-                              <div
-                              class="flex justify-between divide-x-2 divide-black text-sm border-b-2 border-black"
-                              >
-                              <p
-                                class="text-xs xl:text-sm highscore-left bg-orange-300 w-full text-center py-2 flex justify-center items-center "
-                              >
-                                <%=scoreName[i]%> 
-                              </p>
-                              <p
-                                class="highscore-right bg-yellow-300 w-full text-center py-2 flex justify-center items-center text-lg"
-                              >
-                                <%=scoreValue[i]%> 
-                              </p>
-                            </div>               
-                            <% } %>          
-                        <% } %>
-                      <% } else {%>
-                        <p class="text-center font-light text-lg py-2 bg-yellow-100 fira-sans text-slate-900">No Scores Found</p>
-                      <% } %>                          
-                    <% } %>
+                  </div>       -->
+                  <% } else {%>
+                    <!-- <h2
+                    class="text-2xl md:text-xl xl:text-2xl font-bold fira-sans underline text-center underline-offset-4 mb-7"
+                    >
+                      Sign-up Or Login
+                    </h2> -->
+                    <!-- sign-up -->
+                    <!-- <div class="w-full max-w-4xl mx-auto">
+                      <a href="/sign-up" title="Sign Up Now To Edit Profile" id="signup-btn-profile" class="text-2xl border-2 md:border-4 border-black rounded-lg block w-full py-1 bg-orange-300 hover:bg-green-400 active:bg-green-600 hover:text-white duration-300 teko text-center font-bold"
+                      >Sign Up</a>
+                    </div> -->
+                    <!-- password -->
+                    <!-- <div class="w-full max-w-4xl mx-auto relative mt-3 md:mt-[0.65rem]">
+                      <a href="/login" title="Login Now To Edit Profile" id="login-btn-profile" class="text-2xl border-2 md:border-4 border-black rounded-lg block w-full py-1 bg-orange-300 hover:bg-green-400 active:bg-green-600 hover:text-white duration-300 teko text-center font-bold"
+                      >Login</a>
+                    </div>      -->
+                  <% } %> 
+
+                <!-- </section> -->
+
+                <!-- Highscore -->
+                <section
+                  class="mb-8 pt-8 md:pt-1 md:mb-0 resize-y h-72"
+                >
+                  <h2
+                    class="mb-3 pb-2 md:pb-3 text-2xl md:text-xl xl:text-2xl font-bold fira-sans underline text-center underline-offset-4"
+                  >
+                    Highscores
+                  </h2>
+                  <div
+                    title="Your Highscores"
+                    class="highscore-box h-full bg-white border-2 md:border-4 border-black relative overflow-y-auto"
+                  >
+                    <div
+                    id="highscore-preview"
+                    class="absolute rounded-lg inset-0 text-sm bg-yellow-100 ">
+                      <div
+                        class="flex justify-center divide-x-2 divide-black sticky top-0 inset-x-0 shadow-lg"
+                      >
+                        <p
+                          class="highscore-left bg-orange-400 w-full text-sm font-bold text-center border-b-2 border-black"
+                        >
+                          Modes
+                        </p>
+                        <p
+                          class="highscore-right bg-yellow-400 w-full text-sm font-bold text-center border-b-2 border-black"
+                        >
+                          Score
+                        </p>
+                      </div>
+                      <!-- highscore preview -->
+                      <% if (userState == "notGuest") { %>
+                        <% if (scoreName.length != 0) { %>
+                          <% for( let i = 0; i <= scoreName.length; i++ ) { %>
+                              <% if (i == scoreName.length) { %>
+                                <p class="text-center font-light bg-yellow-100 py-2 fira-sans text-slate-900">No More Highscores</p>
+                              <% } else {%>
+                                <!--score-->
+                                <div
+                                class="flex justify-between divide-x-2 divide-black text-sm border-b-2 border-black"
+                                >
+                                <p
+                                  class="text-xs xl:text-sm highscore-left bg-orange-300 w-full text-center py-2 flex justify-center items-center "
+                                >
+                                  <%=scoreName[i]%> 
+                                </p>
+                                <p
+                                  class="highscore-right bg-yellow-300 w-full text-center py-2 flex justify-center items-center text-lg"
+                                >
+                                  <%=scoreValue[i]%> 
+                                </p>
+                              </div>               
+                              <% } %>          
+                          <% } %>
+                        <% } else {%>
+                          <p class="text-center font-light text-lg py-2 bg-yellow-100 fira-sans text-slate-900">No Scores Found</p>
+                        <% } %>                          
+                      <% } %>
+                    </div>
                   </div>
-                </div>
-              </section>
-              <!-- logout -->
-              <div class="w-full max-w-4xl mx-auto mt-[4.4rem] xl:mt-[4.6rem]">
-                <a href="/logout" title="Log Out From This Account" id="signup-btn-profile" class="text-2xl border-2 md:border-4 border-black rounded-lg block w-full py-1 bg-orange-300 hover:bg-red-400 active:bg-red-600 hover:text-white duration-300 teko text-center font-bold"
-                >Log Out</a>
-              </div>     
-            </section>            
-          </div>
+                </section>
+                <!-- logout -->
+                <div class="w-full max-w-4xl mx-auto mt-28 md:mt-[4.5rem]">
+                  <a href="/logout" title="Log Out From This Account" id="signup-btn-profile" class="text-xl md:text-2xl border-2 md:border-4 border-black rounded-lg block w-full py-1 bg-orange-300 hover:bg-red-400 active:bg-red-600 hover:text-white duration-300 teko text-center font-bold uppercase md:normal-case"
+                  >Log Out</a>
+                </div>     
+              </section>            
+            </div>
 
 
-          <!-- buttons -->
-          <div
-          class="text-black tracking-wide font-bold teko text-3xl mx-auto grid grid-cols-1 md:grid-cols-2 justify-center pt-10 w-full max-w-4xl mt-2"
-          >
-          <% if (userState != "guest") { %>
-              <button
-                type="submit"
-                class="bg-orange-300 border-4 border-black px-5 uppercase w-full duration-300 hover:bg-green-400 hover:text-white rounded-lg col-span-2"
-              >
-                Save Changes
-              </button>
-          <% } else { %> 
-              <a href="/" class="bg-orange-300 border-4 border-black px-5 uppercase w-full duration-300 hover:bg-green-400 active:bg-green-600 hover:text-white rounded-lg text-center text-2xl col-span-1 md:col-span-2">Main Page</a>
-          <% } %>
+            <!-- buttons -->
+            <div
+            class="text-black tracking-wide font-bold teko text-3xl mx-auto grid grid-cols-1 md:grid-cols-2 justify-center pt-2 md:pt-10 w-full max-w-4xl mt-2"
+            >
+            <% if (userState != "guest") { %>
+                <button
+                  type="submit"
+                  class="bg-orange-300 border-4 border-black px-5 uppercase w-full duration-300 hover:bg-green-400 active:bg-green-600 hover:text-white rounded-lg col-span-2"
+                >
+                  Save Changes
+                </button>
+            <% } else { %> 
+                <a href="/" class="bg-orange-300 border-2 md:border-4 border-black px-5 uppercase w-full duration-300 hover:bg-green-400 active:bg-green-600 hover:text-white rounded-lg text-center text-xl md:text-2xl col-span-1 md:col-span-2 py-1">Main Page</a>
+            <% } %>
 
-          </div>
-        </form>
-      </div>
+            </div>
+          </form>
+        </div>        
     </main>
   </section>
 </main>
 <% if (userState == "notGuest") { %>
   <!-- <script src="../../misc_js/show-pw.js"></script> -->
-<%}%>
+<%} else {%>
+<script src="../../score_js/profile-highscore-data-fetch.js"></script>
+<% } %> 
 <script src="../../misc_js/interaction.js"></script>
 <!-- Footer -->
 <%- include("./partials/footer") %>

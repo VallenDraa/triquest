@@ -6,14 +6,14 @@ const { checkIfGuestMode } = require('./menu');
 
 router.use(cookieParser());
 
-router.get('/socials/:platform', async (req, res) => {
+router.get('/socials', async (req, res) => {
   const sessionData = await checkIfGuestMode(
     req,
     res,
     req.cookies.userState,
     req.cookies.id
   );
-  switch (req.params.platform) {
+  switch (req.query.platform) {
     case 'twitter':
       res.redirect('https://www.twitter.com/');
       break;
@@ -25,7 +25,6 @@ router.get('/socials/:platform', async (req, res) => {
       break;
     case 'youtube':
       res.redirect('https://www.youtube.com/');
-
       break;
     default:
       res.render('socials', {

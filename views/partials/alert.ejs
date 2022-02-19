@@ -1,0 +1,69 @@
+<% if (messages.success) { %>
+<div
+  id="alert-bg"
+  class="animate-fade-in absolute bg-black/60 inset-0 z-10 flex justify-center p-4 items-start"
+>
+  <div
+    id="alert-card"
+    class="relative h-20 w-full md:w-5/6 max-w-lg border-2 md:border-4 rounded-lg border-black bg-yellow-400 flex animate-slide-from-top"
+  >
+    <!-- close alert button -->
+    <div
+      id="close-alert"
+      class="cursor-pointer absolute h-8 w-8 md:h-9 md:w-9 bg-orange-300 hover:text-white hover:bg-green-400 active:bg-green-600 border-2 md:border-4 border-black rounded-full flex justify-center items-center -right-3 -top-3 duration-300 shadow-md"
+    >
+      <i class="fas fa-times text-xl md:text-2xl text-center"></i>
+    </div>
+    <!-- left side -->
+    <div
+      class="h-full flex justify-center items-center bg-green-500 px-2 rounded-l-md border-r-2 border-black"
+    >
+      <div
+        class="w-9 h-9 md:w-10 md:h-10 bg-green-400 rounded-full border-2 border-black grid content-center"
+      >
+        <!-- fa-times bg-red-500  || fa-check bg-green-400-->
+        <i class="fas fa-check text-2xl text-white text-center"></i>
+      </div>
+    </div>
+    <!-- right side -->
+    <div class="h-full flex justify-center items-center ml-2">
+      <p class="text-center fira-sans text-base"><%=messages.success %></p>
+    </div>
+  </div>
+</div>
+<script src="../../misc_js/alert.js"></script>
+<% } else if(messages.fail) { %>
+<div
+  id="alert-bg"
+  class="animate-fade-in absolute bg-black/60 inset-0 z-10 flex justify-center p-4 items-start"
+>
+  <div
+    id="alert-card"
+    class="relative h-20 w-full md:w-5/6 max-w-lg border-2 md:border-4 rounded-lg border-black bg-yellow-400 flex animate-slide-from-top"
+  >
+    <!-- close alert button -->
+    <div
+      id="close-alert"
+      class="cursor-pointer absolute h-8 w-8 md:h-9 md:w-9 bg-orange-300 hover:text-white hover:bg-green-400 active:bg-green-600 border-2 md:border-4 border-black rounded-full flex justify-center items-center -right-3 -top-3 duration-300 shadow-md"
+    >
+      <i class="fas fa-times text-xl md:text-2xl text-center"></i>
+    </div>
+    <!-- left side -->
+    <div
+      class="h-full flex justify-center items-center bg-red-500 px-2 rounded-l-md border-r-2 border-black"
+    >
+      <div
+        class="w-9 h-9 md:w-10 md:h-10 bg-red-400 rounded-full border-2 border-black grid content-center"
+      >
+        <!-- fa-times bg-red-500  || fa-check bg-green-400-->
+        <i class="fas fa-times text-2xl text-white text-center"></i>
+      </div>
+    </div>
+    <!-- right side -->
+    <div class="h-full flex justify-center items-center ml-2">
+      <p class="text-center fira-sans text-base"><%=messages.fail %></p>
+    </div>
+  </div>
+</div>
+<script src="../../misc_js/alert.js"></script>
+<%}%>

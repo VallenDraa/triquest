@@ -47,19 +47,16 @@
 
             <li
               class="cursor-pointer bg-orange-300 grid content-center w-full py-1 duration-300 hover:bg-green-400 active:bg-green-600 hover:text-white sm:rounded-none rounded-lg border-4 border-black sm:border-none h-3/6 play"
-              title="Play Triquest Now !"
             >
               <a href="/">Play</a>
             </li>
             <li
               class="cursor-pointer bg-orange-300 grid content-center w-full py-1 duration-300 hover:bg-green-400 active:bg-green-600 hover:text-white sm:rounded-none rounded-lg leaderboard border-4 sm:border-y-0 sm:border-x-4 border-black px-7 sm:my-0 h-3/6"
-              title="Leaderboard Tab"
             >
               <a href="/leaderboard">Leaderboard</a>
             </li>
             <li
               class="cursor-pointer bg-orange-300 grid content-center w-full py-1 duration-300 hover:bg-green-400 active:bg-green-600 hover:text-white sm:rounded-none rounded-lg profile border-4 border-black sm:border-none h-3/6"
-              title="User Profile"
             >
               <a
                 id="profile-btn-header"
@@ -105,7 +102,8 @@
                 class="text-lg font-bold ml-2 flex items-base"
               > Username
               </label>
-              <input type="text" name="username" title="Edit Your Username" id="username" class="border-2
+              <input type="text" name="username" 
+              id="username" class="border-2
               md:border-4 border-black outline-none px-2 rounded-lg block
               w-full py-1 bg-slate-50" value=<%=username%> readonly />
             </div>
@@ -120,7 +118,6 @@
               </label>
               <textarea
                 name="description"
-                title="Edit Your Profile Description"
                 id="description"
                 cols="30"
                 rows="8"
@@ -139,7 +136,6 @@
               </label>
               <select
                 name="country"
-                title="Edit Your Country Of Origin"  
                 id="country"
                 class="border-2 md:border-4 border-black outline-none px-2 rounded-lg block w-full py-1 bg-slate-50" 
                 disabled>
@@ -163,7 +159,6 @@
                 Highscores
               </h2>
               <div
-                title="Your Highscores"
                 class="highscore-box h-full bg-white border-2 md:border-4 border-black relative overflow-y-auto"
                 >
                 <div
@@ -184,7 +179,6 @@
                     </p>
                   </div>
                   <!-- highscore preview -->
-                  <% if (userState == "notGuest") { %>
                     <% if (scoreName.length != 0) { %>
                       <% for( let i = 0; i <= scoreName.length; i++ ) { %>
                           <% if (i == scoreName.length) { %>
@@ -210,7 +204,6 @@
                     <% } else {%>
                       <p class="text-center font-light text-lg py-2 bg-yellow-100 fira-sans text-slate-900">No Scores Found</p>
                     <% } %>                          
-                  <% } %>
                 </div>
               </div>
             </div>          

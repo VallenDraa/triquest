@@ -1,7 +1,6 @@
 <%- include("./partials/header") %>
 <!-- col 4 -->
 <section class="grid justify-center items-center h-screen">
-  <%-include("./partials/loading")%>
   <div
     class="text-center bg-yellow-200 border-4 border-black rounded-lg w-11/12 md:w-full mx-auto"
   >
@@ -13,7 +12,7 @@
     <ul class="text-5xl grid grid-cols-2">
       <li class="border-r-2 border-b-2 border-black">
         <a
-          href="/socials/reddit"
+          href="/socials?platform=reddit"
           target="_blank"
           class="cursor-pointer grid content-center py-2 mx-auto duration-300 after:content-[''] after:block after:bg-orange-500 after:w-0 hover:after:w-1/4 md:hover:after:w-1/2 after:duration-300 after:mx-auto after:h-[3px] hover:text-orange-500 rounded-md"
           ><i class="fab fa-reddit-square"></i>
@@ -22,7 +21,7 @@
       </li>
       <li class="border-b-2 border-black">
         <a
-          href="/socials/twitter"
+          href="/socials?platform=twitter"
           target="_blank"
           class="cursor-pointer grid content-center py-2 mx-auto duration-300 after:content-[''] after:block after:bg-sky-400 after:w-0 hover:after:w-1/4 md:hover:after:w-1/2 after:duration-300 after:mx-auto after:h-[3px] hover:text-sky-400 rounded-md"
           ><i class="fab fa-twitter-square"></i>
@@ -31,7 +30,7 @@
       </li>
       <li class="border-r-2 border-black">
         <a
-          href="/socials/youtube"
+          href="/socials?platform=youtube"
           target="_blank"
           class="cursor-pointer grid content-center py-2 mx-auto duration-300 after:content-[''] after:block after:bg-red-600 after:w-0 hover:after:w-1/4 md:hover:after:w-1/2 after:duration-300 after:mx-auto after:h-[3px] hover:text-red-600 rounded-md"
           ><i class="fab fa-youtube-square"></i>
@@ -50,3 +49,4 @@
     </ul>
   </div>
 </section>
+<script src="../misc_js/interaction.js"></script>
