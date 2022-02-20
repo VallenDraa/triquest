@@ -1,16 +1,16 @@
-<% if (messages.success) { %>
+<% if (typeof messages !== undefined && messages.success != "") { %>
 <div
   id="alert-bg"
   class="animate-fade-in absolute bg-black/60 inset-0 z-10 flex justify-center p-4 items-start"
 >
   <div
     id="alert-card"
-    class="relative h-20 w-full md:w-5/6 max-w-lg border-2 md:border-4 rounded-lg border-black bg-yellow-400 flex animate-slide-from-top"
+    class="relative h-20 w-full md:w-5/6 max-w-lg border-2 rounded-lg border-black bg-yellow-400 flex animate-slide-from-top"
   >
     <!-- close alert button -->
     <div
       id="close-alert"
-      class="cursor-pointer absolute h-8 w-8 md:h-9 md:w-9 bg-orange-300 hover:text-white hover:bg-green-400 active:bg-green-600 border-2 md:border-4 border-black rounded-full flex justify-center items-center -right-3 -top-3 duration-300 shadow-md"
+      class="cursor-pointer absolute h-8 w-8 md:h-9 md:w-9 bg-orange-300 hover:text-white hover:bg-green-400 active:bg-green-600 border-2 border-black rounded-full flex justify-center items-center -right-3 -top-3 duration-300 shadow-md"
     >
       <i class="fas fa-times text-xl md:text-2xl text-center"></i>
     </div>
@@ -32,19 +32,19 @@
   </div>
 </div>
 <script src="../../misc_js/alert.js"></script>
-<% } else if(messages.fail) { %>
+<% } else if(typeof messages !== undefined && messages.fail != "") { %>
 <div
   id="alert-bg"
   class="animate-fade-in absolute bg-black/60 inset-0 z-10 flex justify-center p-4 items-start"
 >
   <div
     id="alert-card"
-    class="relative h-20 w-full md:w-5/6 max-w-lg border-2 md:border-4 rounded-lg border-black bg-yellow-400 flex animate-slide-from-top"
+    class="relative h-20 w-full md:w-5/6 max-w-lg border-2 rounded-lg border-black bg-yellow-400 flex animate-slide-from-top"
   >
     <!-- close alert button -->
     <div
       id="close-alert"
-      class="cursor-pointer absolute h-8 w-8 md:h-9 md:w-9 bg-orange-300 hover:text-white hover:bg-green-400 active:bg-green-600 border-2 md:border-4 border-black rounded-full flex justify-center items-center -right-3 -top-3 duration-300 shadow-md"
+      class="cursor-pointer absolute h-8 w-8 md:h-9 md:w-9 bg-orange-300 hover:text-white hover:bg-green-400 active:bg-green-600 border-2 border-black rounded-full flex justify-center items-center -right-3 -top-3 duration-300 shadow-md"
     >
       <i class="fas fa-times text-xl md:text-2xl text-center"></i>
     </div>

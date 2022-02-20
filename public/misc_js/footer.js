@@ -1,7 +1,7 @@
 // for yourself at footer
 document.querySelector('.yourself').addEventListener('click', function () {
-  this.classList.add('anim-shake');
+  this.classList.add('animate-shake');
   setTimeout(() => {
-    this.classList.remove('anim-shake');
+    this.classList.remove('animate-shake');
   }, 500);
 });

@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.13.0/css/all.min.css"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="../css/main.css" />
+    <link rel="stylesheet" href="../css/shared.css" />
+    <title><%=title%></title>
+  </head>
+  <body
+    class="antialiased min-h-screen overflow-x-hidden scroll-smooth main-bg bg-anim grid content-center relative"
+  >
+    <!-- alert -->
+    <%- include("./partials/alert.ejs") %>
+    <form
+      action="/contact_us/send_email"
+      method="POST"
+      class="fira-sans md:border-4 space-y-5 border-black rounded-lg bg-yellow-200 p-2 md:p-4 mx-auto w-11/12 max-w-4xl"
+    >
+      <h1 class="text-center teko text-3xl md:text-5xl font-bold underline">
+        Contact Us
+      </h1>
+      <!-- Email -->
+      <div class="w-full max-w-4xl mx-auto">
+        <label for="email" class="text-lg font-bold ml-2 inline-block">
+          E-Mail
+        </label>
+        <input
+          type="email"
+          name="email"
+          id="email"
+          class="border-2 md:border-4 border-black outline-none px-2 rounded-lg text-lg block w-full py-2 bg-slate-50"
+          placeholder="E-Mail"
+          required
+        />
+      </div>
+      <!-- subject -->
+      <div class="w-full max-w-4xl mx-auto relative">
+        <label for="subject" class="text-lg font-bold ml-2 inline-block">
+          Subject
+        </label>
+        <div class="flex justify-between items-center">
+          <input
+            type="text"
+            name="subject"
+            id="subject"
+            class="border-2 md:border-4 border-black outline-none px-2 rounded-lg block w-full py-2 bg-slate-50"
+            placeholder="Subject"
+            required
+          />
+        </div>
+      </div>
+
+      <!-- message -->
+      <div>
+        <label for="message" class="text-lg font-bold ml-2 inline-block">
+          Message
+        </label>
+        <textarea
+          name="message"
+          id="message"
+          cols="30"
+          rows="8"
+          class="border-2 md:border-4 border-black outline-none px-2 rounded-lg block w-full py-1 bg-slate-50 resize-none"
+          placeholder="Message"
+        ></textarea>
+      </div>
+
+      <!-- buttons -->
+      <div class="flex w-full gap-2 flex-col md:flex-row-reverse">
+        <button
+          type="submit"
+          id="submit-btn"
+          class="bg-orange-300 border-4 border-black px-5 uppercase duration-300 hover:bg-green-400 hover:text-white rounded-lg active:bg-green-600 teko text-xl md:text-2xl block basis-1/2"
+        >
+          SEND
+        </button>
+        <a
+          href="/"
+          class="bg-orange-300 text-center border-4 border-black px-5 uppercase duration-300 hover:bg-green-400 hover:text-white rounded-lg active:bg-green-600 teko text-xl md:text-2xl block basis-1/2"
+        >
+          Cancel</a
+        >
+      </div>
+    </form>
+  </body>
+</html>

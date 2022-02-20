@@ -3,8 +3,9 @@ const methodOverride = require('method-override');
 const cookieParser = require('cookie-parser');
 const router = express.Router();
 const User = require('../../../models/user');
-const flash = require('express-flash');
+const flash = require('connect-flash');
 const session = require('express-session');
+const user = require('../../../models/user');
 
 router.use(methodOverride('_method'));
 router.use(cookieParser('secret'));
@@ -23,20 +24,25 @@ router.use(flash());
 router.put('/save_profile_edits', async (req, res) => {
   // let user;
   try {
-    // user = await User.findById(req.cookies.id).exec();
+    const user = await User.findById(req.cookies.id).exec();
     // if (req.body.password === user.password) {
-    User.findByIdAndUpdate(
-      req.cookies.id,
-      {
+    const existingUsername = await usernameExist(
+      req.body.username,
+      user.username
+    );
+    if (!existingUsername) {
+      await User.findByIdAndUpdate(req.cookies.id, {
         username: req.body.username,
         description: req.body.description,
         country: req.body.country,
-      },
-      (err, result) => {
-        req.flash('success', 'Changes Are Successfully Saved!');
-        res.redirect(`/profile/myprofile/${req.body.username}`);
-      }
-    );
+      });
+
+      req.flash('success', 'Changes successfully saved !');
+      res.redirect(`/profile/myprofile/${req.body.username}`);
+    } else {
+      req.flash('fail', 'This username has aleady been taken !');
+      res.redirect(`/profile/myprofile/${user.username}`);
+    }
     // } //if password is changed
     // else {
     //   User.findByIdAndUpdate(
@@ -55,8 +61,19 @@ router.put('/save_profile_edits', async (req, res) => {
     // add some password changing page here
   } catch (error) {
     req.flash('fail', 'Changes Failed To Be Saved, Try Again later !');
-    res.redirect(`/profile/myprofile/${req.body.username}`);
+    res.redirect(`/profile/myprofile/${user.username}`);
   }
 });
+
+async function usernameExist(newUsername, currentUsername) {
+  if (newUsername !== currentUsername) {
+    const user = await User.findOne({
+      username: newUsername,
+    });
+    return user ? true : false;
+  } else {
+    return false;
+  }
+}
 
 module.exports = router;

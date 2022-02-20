@@ -6,24 +6,46 @@ const router = express.Router();
 const fetch = require('node-fetch');
 const User = require('../../models/user');
 const cookieParser = require('cookie-parser');
+const flash = require('connect-flash');
+const session = require('express-session');
+const res = require('express/lib/response');
 
-router.use(cookieParser());
+router.use(cookieParser('secret'));
+router.use(
+  session({
+    cookie: {
+      maxAge: 60000,
+    },
+    resave: true,
+    saveUninitialized: true,
+    secret: 'secret',
+  })
+);
+router.use(flash());
 
 // main page
 router.get('/', async function (req, res) {
-  const sessionData = await checkIfGuestMode(
-    req,
-    res,
-    req.cookies.userState,
-    req.cookies.id
-  );
-  if (sessionData.userState) {
-    res.render('select-dif', {
-      title: 'Triquest | Challenge Yourself !',
-      username: sessionData.username,
-      categories: 'select-dif',
-    });
-  } else {
+  try {
+    const sessionData = await checkIfGuestMode(
+      req,
+      res,
+      req.cookies.userState,
+      req.cookies.id
+    );
+    if (sessionData.userState) {
+      res.render('select-dif', {
+        title: 'Triquest | Challenge Yourself !',
+        username: sessionData.username,
+        categories: 'select-dif',
+        messages: {
+          success: req.flash('success'),
+          fail: req.flash('fail'),
+        },
+      });
+    } else {
+      res.redirect('/sign-up');
+    }
+  } catch (error) {
     res.redirect('/sign-up');
   }
 });
@@ -165,6 +187,10 @@ router.get('/profile/myprofile/:username', async function (req, res) {
             scoreName,
             scoreValue,
             countries,
+            messages: {
+              success: req.flash('success'),
+              fail: req.flash('fail'),
+            },
           });
         }
       } else {
@@ -213,7 +239,7 @@ async function checkIfGuestMode(req, res, userState, userID) {
       };
     } catch (error) {
       console.log(error);
-      res.redirect('/error/503');
+      res.redirect('/sign-up');
     }
   }
 }
@@ -279,6 +305,27 @@ function formatScoreNameProfile(categoryList, gamemode, category, difficulty) {
   });
   return `${gamemode} - ${category} - ${difficulty}`;
 }
+
+// if userstate cookie is changed
+// function userStateForcedChanged(req, res) {
+//   if (req.cookies.authenticated == true) {
+//     const toGuest = req.cookies.userState == 'guest' && req.cookies.id;
+//     const toNotGuest = req.cookies.userState == 'notGuest' && !req.cookies.id;
+//     const toOther =
+//       req.cookies.userState != 'notGuest' && req.cookies.userState != 'guest';
+
+//     console.log(toGuest, toNotGuest, toOther);
+
+//     if (toGuest || toNotGuest || toOther)
+//       res.cookie('userState', 'guest', {
+//         maxAge: '100', //in miliseconds
+//       });
+//     res.cookie('id', req.cookies.id, {
+//       maxAge: '100', //in miliseconds
+//     });
+//     res.redirect('/sign-up');
+//   }
+// }
 
 module.exports = {
   menuRouter: router,

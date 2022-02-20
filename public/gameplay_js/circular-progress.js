@@ -1,4 +1,4 @@
-// const { type } = require('express/lib/response');
+// this is for the circular point inidcator
 const progressBar = document.querySelector('.circular-progress'),
   valueContainer = document.querySelector('.value-container');
 

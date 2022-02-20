@@ -70,9 +70,9 @@ if (
 window.addEventListener('DOMContentLoaded', () => {
   if (loadingScreen) {
     body.classList.remove('overflow-hidden');
-    loadingScreen.classList.add('anim-fade-out');
+    loadingScreen.classList.add('animate-fade-out');
     setTimeout(function () {
       loadingScreen.classList.add('hidden');
-    }, 200);
+    }, 400);
   }
 });

@@ -3,9 +3,9 @@ const router = express.Router();
 const User = require('../../../models/user');
 const { body, validationResult } = require('express-validator');
 const bcrypt = require('bcrypt');
-const flash = require('express-flash');
-const session = require('express-session');
 const cookieParser = require('cookie-parser');
+const flash = require('connect-flash');
+const session = require('express-session');
 
 router.use(cookieParser('secret'));
 router.use(

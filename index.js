@@ -6,7 +6,6 @@ const express = require('express');
 const methodOverride = require('method-override');
 const app = express();
 const fetch = require('node-fetch');
-const cookieParser = require('cookie-parser');
 const mongoose = require('mongoose');
 const socialRouter = require('./server-side/routes/socials');
 const errorRouter = require('./server-side/routes/error');
@@ -18,9 +17,11 @@ const guestRouter = require('./server-side/routes/user_data/guest-mode');
 const logOutRouter = require('./server-side/routes/user_data/log-out');
 const profileRouter = require('./server-side/routes/user_data/profile');
 const savePointsRouter = require('./server-side/routes/points/save-points');
+const emailRouter = require('./server-side/routes/email_route/email');
 const APIRouter = require('./server-side/routes/API/API.js');
-const session = require('express-session');
+const cookieParser = require('cookie-parser');
 const flash = require('connect-flash');
+const session = require('express-session');
 
 // use ejs view engine
 app.set('view engine', 'ejs');
@@ -39,17 +40,18 @@ app.use('/', guestRouter);
 app.use('/', logOutRouter);
 app.use('/', savePointsRouter);
 app.use('/api', APIRouter);
+app.use('/contact_us', emailRouter);
 // utility
 app.use(methodOverride('_method'));
-app.use(cookieParser());
+app.use(cookieParser('secret'));
 app.use(
   session({
     cookie: {
-      maxAge: 6000,
+      maxAge: 60000,
     },
-    secret: 'secret',
     resave: true,
     saveUninitialized: true,
+    secret: 'secret',
   })
 );
 app.use(flash());
@@ -67,6 +69,10 @@ app.get('/sign-up', async (req, res) => {
   res.render('sign-up', {
     title: 'Triquest | Sign-Up',
     username: 'Sign-Up',
+    messages: {
+      success: req.flash('success'),
+      fail: req.flash('fail'),
+    },
   });
 });
 
@@ -74,6 +80,10 @@ app.get('/login', async (req, res) => {
   res.render('login', {
     title: 'Triquest | Login',
     username: 'Sign-Up',
+    messages: {
+      success: req.flash('success'),
+      fail: req.flash('fail'),
+    },
   });
 });
 

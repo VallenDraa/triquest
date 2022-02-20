@@ -6,7 +6,7 @@ const questionCardWrapper = document.querySelector('.question-card-wrapper'),
   afterAnswerMes = document.querySelector('.after-answer-mes'),
   iconCorrectIncorrect = document.querySelector('.icon-co-in'),
   correctAnswerMes = document.querySelector('.correct-answer'),
-  resultScreen = document.querySelector('.result-answer'),
+  resultScreen = document.querySelector('.result-screen'),
   answerOptionWrapper = document.querySelector('.answer-option-wrapper'),
   answerOptions = document.querySelectorAll('.answer-option'),
   progressBar = document.querySelector('.circular-progress'),
@@ -333,7 +333,7 @@ document.querySelector('.next-question').addEventListener('click', function () {
 
     // to remove animation and to reset timer bar
     setTimeout(() => {
-      toggleAnimationToAll('anim-slide-x', questionCards);
+      toggleAnimationToAll('animate-slide-x', questionCards);
     }, 100);
     hideNShow(questionCards[multipleOrBool]);
     resetTimeAndBar();
@@ -384,9 +384,9 @@ function resultScreenProperties(message, totalCorrectAns) {
     document.querySelector('.result-mes').textContent = message;
   }
 
-  document.querySelector('.result-screen').classList.remove('hidden');
-  document.querySelector('.result-screen').classList.add('anim-lighten-full');
-  document.querySelector('.result-screen>div').classList.add('anim-pop-up');
+  resultScreen.classList.remove('hidden');
+  resultScreen.classList.add('animate-fade-in');
+  resultScreen.querySelector('div').classList.add('animate-pop-up');
   setTimeout(() => {
     let circleValue = 0,
       totalQuestionAnswered = questions.currentQuestion + 1,
@@ -409,13 +409,14 @@ function resultScreenProperties(message, totalCorrectAns) {
   }, 300);
 
   // fetch point and then display the value
-  savePoints();
   fetchPoint(highscore);
   resultToMainBtn.addEventListener('click', function () {
+    savePoints();
     const userID = parseCookieAtGameplay(document.cookie).id;
     const scoreKey = key;
     if (totalCorrectAns) {
       if (userID) {
+        console.log(`/save_points/${userID}/${scoreKey}`);
         window.location.href = `/save_points/${userID}/${scoreKey}`;
       } else {
         window.location.href = `/save_points/guest/guest`;
@@ -427,10 +428,13 @@ function resultScreenProperties(message, totalCorrectAns) {
 }
 function savePoints() {
   const userState = parseCookieAtGameplay(document.cookie).userState;
-  let value;
-  totalCorrectAns === 0 ? (value = '0') : (value = totalCorrectAns);
+  const currentScore = parseInt(parseCookieAtGameplay(document.cookie)[key]);
+  const value = totalCorrectAns === 0 ? '0' : totalCorrectAns;
+
   if (userState == 'notGuest') {
-    document.cookie = `${key}=${value};path=/; secure`;
+    if (totalCorrectAns > currentScore || !currentScore) {
+      document.cookie = `${key}=${value};path=/; secure`;
+    }
   } else {
     localStorage.setItem(key, value);
   }
@@ -446,14 +450,15 @@ function fetchPoint(highscoreHTML) {
   }
 }
 function getPointsAndDisplayIt(source, highscoreHTML) {
+  console.log(source, totalCorrectAns);
   if (source) {
-    if (parseInt(source) > totalCorrectAns) {
+    if (parseInt(source) >= totalCorrectAns) {
       highscoreHTML.textContent = `Highscore: ${source}`;
     } else {
-      highscoreHTML.textContent = `New Highscore: ${source}`;
+      highscoreHTML.textContent = `New Highscore: ${totalCorrectAns}`;
     }
   } else {
-    highscoreHTML.textContent = `New Highscore: ${source}`;
+    highscoreHTML.textContent = `New Highscore: ${totalCorrectAns}`;
   }
 }
 
@@ -480,10 +485,10 @@ function toggleAnimationToAll(animClass, target) {
 }
 function removeLoadingScreen() {
   const loadingScreen = document.querySelector('.loading-screen');
-  loadingScreen.classList.add('anim-fade-out');
+  loadingScreen.classList.add('animate-fade-out');
   setTimeout(function () {
     loadingScreen.classList.add('hidden');
-  }, 200);
+  }, 400);
 }
 
 // fetch question for campaign mode
@@ -543,11 +548,11 @@ if (document.readyState === 'loading') {
     resultScreen.classList.add('hidden');
     isInAfterAnswer = false;
     runTimerBar();
-    toggleAnimationToAll('anim-slide-x', questionCards);
+    toggleAnimationToAll('animate-slide-x', questionCards);
   });
 } else {
   isInAfterAnswer = false;
   removeLoadingScreen();
   runTimerBar();
-  toggleAnimationToAll('anim-slide-x', questionCards);
+  toggleAnimationToAll('animate-slide-x', questionCards);
 }

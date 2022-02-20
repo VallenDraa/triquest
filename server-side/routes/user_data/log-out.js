@@ -9,7 +9,6 @@ router.get('/logout', async (req, res) => {
   res.cookie('id', req.cookies.id, {
     maxAge: '100', //in miliseconds
   });
-
   res.redirect('/sign-up');
 });
 

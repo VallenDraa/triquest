@@ -1,11 +1,25 @@
 const express = require('express');
-const cookieParser = require('cookie-parser');
 const router = express.Router();
 const User = require('../../../models/user');
+const cookieParser = require('cookie-parser');
+const flash = require('connect-flash');
+const session = require('express-session');
 
-router.use(cookieParser());
+router.use(cookieParser('secret'));
+router.use(
+  session({
+    cookie: {
+      maxAge: 60000,
+    },
+    resave: true,
+    saveUninitialized: true,
+    secret: 'secret',
+  })
+);
+router.use(flash());
 
 router.get('/save_points/:id/:score', async (req, res) => {
+  console.log(req.params.id, req.params.score);
   let user;
   const userID = req.params.id;
   const scoreParam = req.params.score;
@@ -15,10 +29,12 @@ router.get('/save_points/:id/:score', async (req, res) => {
       user = await User.findById(req.params.id);
       if (user.scores.length != 0) {
         for (let i = 0; i < user.scores.length; i++) {
-          console.log(user.scores[i]);
-          dbScoreParam = `score_${user.scores[i].name.gamemode}_${user.scores[i].name.category}_${user.scores[i].name.difficulty}`;
+          // console.log(user.scores[i]);
+          const { name, points } = user.scores[i];
+          dbScoreParam = `score_${name.gamemode}_${name.category}_${name.difficulty}`;
           if (dbScoreParam == scoreParam) {
-            if (user.scores[i].points != scoreValue) {
+            console.log(points, scoreValue);
+            if (parseInt(scoreValue) > points) {
               await updateScore(User, userID, scoreParam, scoreValue);
               return res.redirect('/');
             } else {
@@ -35,7 +51,7 @@ router.get('/save_points/:id/:score', async (req, res) => {
         res.redirect('/');
       }
     } catch (err) {
-      console.error(err);
+      res.redirect('/error/503');
     }
   } else {
     res.redirect('/');
@@ -45,7 +61,7 @@ router.get('/save_points/:id/:score', async (req, res) => {
 // utils for saving and editing scores
 async function updateScore(Schema, userID, scoreParam, scoreValue, res) {
   scoreParam = scoreParam.split('_');
-  console.log(scoreParam);
+  // console.log(scoreParam);
   await Schema.findOneAndUpdate(
     {
       _id: userID,
@@ -84,11 +100,5 @@ async function addNewScore(Schema, userID, scoreParam, scoreValue, res) {
     }
   );
 }
-
-// function expiresCookie(cookieName, res) {
-//   res.cookie(cookieName, '_', {
-//     maxAge: '100', //in miliseconds
-//   });
-// }
 
 module.exports = router;

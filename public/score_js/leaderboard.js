@@ -51,14 +51,14 @@ index[2] = difficulty
 // loading screens
 const LOADING_SCREEN = {
   addLoadingScreen: function () {
-    loadingScreenLeaderboard.classList.remove('anim-fade-out');
+    loadingScreenLeaderboard.classList.remove('animate-fade-out');
     loadingScreenLeaderboard.classList.remove('hidden');
   },
   removeLoadingScreen: function () {
-    loadingScreenLeaderboard.classList.add('anim-fade-out');
+    loadingScreenLeaderboard.classList.add('animate-fade-out');
     setTimeout(function () {
       loadingScreenLeaderboard.classList.add('hidden');
-    }, 200);
+    }, 400);
   },
 };
 

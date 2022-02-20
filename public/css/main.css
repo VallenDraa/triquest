@@ -674,6 +674,10 @@ Ensure the default browser behavior of the `hidden` attribute.
   margin-top: -30%;
 }
 
+.mt-9 {
+  margin-top: 2.25rem;
+}
+
 .block {
   display: block;
 }
@@ -760,6 +764,10 @@ Ensure the default browser behavior of the `hidden` attribute.
   min-height: 100%;
 }
 
+.min-h-screen {
+  min-height: 100vh;
+}
+
 .w-11\/12 {
   width: 91.666667%;
 }
@@ -788,6 +796,18 @@ Ensure the default browser behavior of the `hidden` attribute.
 
 .w-\[200px\] {
   width: 200px;
+}
+
+.w-1\/2 {
+  width: 50%;
+}
+
+.w-3\/4 {
+  width: 75%;
+}
+
+.w-1\/4 {
+  width: 25%;
 }
 
 .min-w-full {
@@ -820,6 +840,22 @@ Ensure the default browser behavior of the `hidden` attribute.
 
 .basis-\[40\%\] {
   flex-basis: 40%;
+}
+
+.basis-1\/3 {
+  flex-basis: 33.333333%;
+}
+
+.basis-11\/12 {
+  flex-basis: 91.666667%;
+}
+
+.basis-1\/12 {
+  flex-basis: 8.333333%;
+}
+
+.basis-1\/2 {
+  flex-basis: 50%;
 }
 
 .-translate-y-full {
@@ -915,29 +951,98 @@ Ensure the default browser behavior of the `hidden` attribute.
           animation: bounce 1s infinite;
 }
 
-@-webkit-keyframes slide-to-top {
+@-webkit-keyframes slide-x {
   0% {
-    transform:  translateY(0%);
+    opacity: 0.5;
+    transform: translateX(0);
+  }
+
+  25% {
+    opacity: 0.25;
+    transform: translateX(-180%);
+  }
+
+  50% {
+    opacity: 0;
+  }
+
+  75% {
+    opacity: 0.25;
+    transform: translateX(180%);
   }
 
   100% {
-    transform: translateY(-180%);
+    opacity: 1;
+    transform: translateX(0);
   }
 }
 
-@keyframes slide-to-top {
+@keyframes slide-x {
   0% {
-    transform:  translateY(0%);
+    opacity: 0.5;
+    transform: translateX(0);
+  }
+
+  25% {
+    opacity: 0.25;
+    transform: translateX(-180%);
+  }
+
+  50% {
+    opacity: 0;
+  }
+
+  75% {
+    opacity: 0.25;
+    transform: translateX(180%);
   }
 
   100% {
-    transform: translateY(-180%);
+    opacity: 1;
+    transform: translateX(0);
   }
 }
 
-.animate-slide-to-top {
-  -webkit-animation: slide-to-top 600ms ease-in-out;
-          animation: slide-to-top 600ms ease-in-out;
+.animate-slide-x {
+  -webkit-animation: slide-x 1200ms ease-in-out;
+          animation: slide-x 1200ms ease-in-out;
+}
+
+@-webkit-keyframes pop-up {
+  0% {
+    transform: scale(1);
+    opacity: 0;
+  }
+
+  50% {
+    transform: scale(1.1);
+  }
+
+  100% {
+    transform: scale(1);
+    opacity: 1;
+  }
+}
+
+@keyframes pop-up {
+  0% {
+    transform: scale(1);
+    opacity: 0;
+  }
+
+  50% {
+    transform: scale(1.1);
+  }
+
+  100% {
+    transform: scale(1);
+    opacity: 1;
+  }
+}
+
+.animate-pop-up {
+  -webkit-animation: pop-up 400ms ease-in-out;
+          animation: pop-up 400ms ease-in-out;
 }
 
 @-webkit-keyframes fade-out {
@@ -965,6 +1070,80 @@ Ensure the default browser behavior of the `hidden` attribute.
           animation: fade-out 400ms ease-in-out;
 }
 
+@-webkit-keyframes slide-to-top {
+  0% {
+    transform:  translateY(0%);
+  }
+
+  100% {
+    transform: translateY(-180%);
+  }
+}
+
+@keyframes slide-to-top {
+  0% {
+    transform:  translateY(0%);
+  }
+
+  100% {
+    transform: translateY(-180%);
+  }
+}
+
+.animate-slide-to-top {
+  -webkit-animation: slide-to-top 600ms ease-in-out;
+          animation: slide-to-top 600ms ease-in-out;
+}
+
+@-webkit-keyframes shake {
+  0% {
+    transform: rotate(0);
+  }
+
+  25% {
+    transform: rotate(-10deg);
+  }
+
+  50% {
+    transform: rotate(0);
+  }
+
+  75% {
+    transform: rotate(10deg);
+  }
+
+  100% {
+    transform: rotate(0deg);
+  }
+}
+
+@keyframes shake {
+  0% {
+    transform: rotate(0);
+  }
+
+  25% {
+    transform: rotate(-10deg);
+  }
+
+  50% {
+    transform: rotate(0);
+  }
+
+  75% {
+    transform: rotate(10deg);
+  }
+
+  100% {
+    transform: rotate(0deg);
+  }
+}
+
+.animate-shake {
+  -webkit-animation: shake 250ms ease-in-out;
+          animation: shake 250ms ease-in-out;
+}
+
 .cursor-pointer {
   cursor: pointer;
 }
@@ -989,8 +1168,20 @@ Ensure the default browser behavior of the `hidden` attribute.
   grid-template-columns: repeat(1, minmax(0, 1fr));
 }
 
+.flex-row {
+  flex-direction: row;
+}
+
+.flex-row-reverse {
+  flex-direction: row-reverse;
+}
+
 .flex-col {
   flex-direction: column;
+}
+
+.flex-col-reverse {
+  flex-direction: column-reverse;
 }
 
 .content-center {
@@ -1253,8 +1444,8 @@ Ensure the default browser behavior of the `hidden` attribute.
   background-color: transparent;
 }
 
-.bg-black\/50 {
-  background-color: rgb(0 0 0 / 0.5);
+.bg-black\/60 {
+  background-color: rgb(0 0 0 / 0.6);
 }
 
 .bg-green-500 {
@@ -1270,6 +1461,11 @@ Ensure the default browser behavior of the `hidden` attribute.
 .bg-red-500 {
   --tw-bg-opacity: 1;
   background-color: rgb(239 68 68 / var(--tw-bg-opacity));
+}
+
+.bg-red-400 {
+  --tw-bg-opacity: 1;
+  background-color: rgb(248 113 113 / var(--tw-bg-opacity));
 }
 
 .bg-black\/90 {
@@ -1307,15 +1503,6 @@ Ensure the default browser behavior of the `hidden` attribute.
 .bg-amber-300 {
   --tw-bg-opacity: 1;
   background-color: rgb(252 211 77 / var(--tw-bg-opacity));
-}
-
-.bg-black\/60 {
-  background-color: rgb(0 0 0 / 0.6);
-}
-
-.bg-red-400 {
-  --tw-bg-opacity: 1;
-  background-color: rgb(248 113 113 / var(--tw-bg-opacity));
 }
 
 .p-4 {
@@ -2086,6 +2273,14 @@ Ensure the default browser behavior of the `hidden` attribute.
     grid-template-columns: repeat(3, minmax(0, 1fr));
   }
 
+  .md\:flex-row {
+    flex-direction: row;
+  }
+
+  .md\:flex-row-reverse {
+    flex-direction: row-reverse;
+  }
+
   .md\:gap-3 {
     gap: 0.75rem;
   }
@@ -2203,14 +2398,14 @@ Ensure the default browser behavior of the `hidden` attribute.
     line-height: 2rem;
   }
 
-  .md\:text-lg {
-    font-size: 1.125rem;
-    line-height: 1.75rem;
-  }
-
   .md\:text-4xl {
     font-size: 2.25rem;
     line-height: 2.5rem;
+  }
+
+  .md\:text-lg {
+    font-size: 1.125rem;
+    line-height: 1.75rem;
   }
 
   .md\:text-3xl {
