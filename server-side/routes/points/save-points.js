@@ -19,7 +19,7 @@ router.use(
 router.use(flash());
 
 router.get('/save_points/:id/:score', async (req, res) => {
-  console.log(req.params.id, req.params.score);
+  // console.log(req.params.id, req.params.score);
   let user;
   const userID = req.params.id;
   const scoreParam = req.params.score;
@@ -33,7 +33,7 @@ router.get('/save_points/:id/:score', async (req, res) => {
           const { name, points } = user.scores[i];
           dbScoreParam = `score_${name.gamemode}_${name.category}_${name.difficulty}`;
           if (dbScoreParam == scoreParam) {
-            console.log(points, scoreValue);
+            // console.log(points, scoreValue);
             if (parseInt(scoreValue) > points) {
               await updateScore(User, userID, scoreParam, scoreValue);
               return res.redirect('/');

@@ -214,6 +214,10 @@ router.get('/profile/guest', async (req, res) => {
     description: '',
     scores: [],
     countries,
+    messages: {
+      success: req.flash('success'),
+      fail: req.flash('fail'),
+    },
   });
 });
 // this function determines if the user state is in guest and it returns the user states and the username

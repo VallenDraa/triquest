@@ -436,7 +436,9 @@ function savePoints() {
       document.cookie = `${key}=${value};path=/; secure`;
     }
   } else {
-    localStorage.setItem(key, value);
+    if (totalCorrectAns > localStorage.getItem(key)) {
+      localStorage.setItem(key, value);
+    }
   }
 }
 function fetchPoint(highscoreHTML) {
