@@ -157,14 +157,14 @@ async function findAndSortScores(query) {
   const scores = datas.results.sort((a, b) => {
     return b.score_points - a.score_points;
   });
-  console.log(scores);
+  // console.log(scores);
   tableContent.innerHTML = '';
 
   scores.forEach((score, i) => {
     let html = `
     <div
     id="score-range"
-    class="text-center teko font-bold border-b-2 border-black flex">
+    class="text-center font-teko font-bold border-b-2 border-black flex">
         <p class="rank p-1 bg-orange-300 basis-[20%]">${i + 1}</p>
         <a class="rank p-1 bg-amber-300 basis-[40%] truncate block hover:underline" href="/profile/others/${
           score.username
@@ -180,7 +180,7 @@ async function findAndSortScores(query) {
       tableContent.innerHTML += item;
     });
   } else {
-    tableContent.innerHTML += `<p class="text-center font-light text-lg mt-2 fira-sans text-slate-800">No Scores Found</p>`;
+    tableContent.innerHTML += `<p class="text-center font-light text-lg mt-2 font-fira-sans text-slate-800">No Scores Found</p>`;
   }
 }
 async function switchCategory(catNum, catList) {

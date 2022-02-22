@@ -2,27 +2,25 @@
 <%- include("./partials/header") %>
 
 <main class="mt-auto">
-    <section class="grid content-center min-h-full">
-    <main class="max-w-screen-2xl w-11/12 xl:w-9/12 mx-auto">
- 
+  <section class="grid content-center min-h-full">
+    <div class="max-w-screen-2xl w-11/12 xl:w-9/12 mx-auto">
       <div
         class="bg-yellow-200 md:bg-yellow-300 border-4 border-black rounded-xl shadow-2xl md:p-4 my-14"
-      >   
+      >
         <h1
-            class="text-center my-3 md:mt-0 md:mb-2 teko text-3xl md:text-5xl font-bold underline"
+          class="text-center my-3 md:mt-0 md:mb-2 font-teko text-3xl md:text-5xl font-bold underline"
         >
-        LEADERBOARD
+          LEADERBOARD
         </h1>
-      <!-- top -->
+        <!-- top -->
         <div
-          class="fira-sans space-y-3 md:border-4 border-black rounded-t-lg md:rounded-lg bg-yellow-200 pt-0 p-4 md:pt-4  h-full"
+          class="font-fira-sans space-y-3 md:border-4 border-black rounded-t-lg md:rounded-lg bg-yellow-200 pt-0 p-4 md:pt-4 h-full"
         >
-            <!-- Ranks  -->
-            <section class="mb-5"> 
-
-                <!-- Category Selectors -->
-                <div class =" grid grid-cols-2 gap-2">
-                   <!-- country -->
+          <!-- Ranks  -->
+          <section class="mb-5">
+            <!-- Category Selectors -->
+            <div class="grid grid-cols-2 gap-2">
+              <!-- country -->
               <div>
                 <label
                   for="country"
@@ -30,13 +28,11 @@
                 >
                   Country
                 </label>
-                <select
-                  name="country"
-                  id="country"
-                  class="border-2 md:border-4 border-black outline-none px-2 rounded-md text-lg block w-full py-2 bg-slate-50"
-                >
+                <select name="country" id="country" class="opt-select">
                   <% countries.forEach(country => { %>
-                    <option value="<%=country.code%>"><%= country.name %> <%= country.emoji%></option>
+                  <option value="<%=country.code%>">
+                    <%= country.name %> <%= country.emoji%>
+                  </option>
                   <% }) %>
                   <!-- more options will be added through country.js -->
                 </select>
@@ -49,11 +45,7 @@
                 >
                   Gamemode
                 </label>
-                <select
-                  name="gamemode"
-                  id="gamemode"
-                  class="border-2 md:border-4 border-black outline-none px-2 rounded-md text-lg block w-full py-2 bg-slate-50"
-                >
+                <select name="gamemode" id="gamemode" class="opt-select">
                   <option value="Campaign">Campaign🚀</option>
                   <option value="Random">Random🌪️</option>
                   <option value="Challenge">Challenge🔥</option>
@@ -67,11 +59,7 @@
                   class="text-lg font-bold ml-2 inline-block"
                   >Category
                 </label>
-                <select
-                  name="category"
-                  id="category"
-                  class="border-2 md:border-4 border-black outline-none px-2 rounded-md text-lg block w-full py-2 bg-slate-50"
-                >
+                <select name="category" id="category" class="opt-select">
                   <%-include("./partials/categories") %>
                 </select>
               </div>
@@ -82,11 +70,7 @@
                   class="text-lg font-bold ml-2 inline-block"
                   >Difficulty
                 </label>
-                <select
-                  name="difficulty"
-                  id="difficulty"
-                  class="border-2 md:border-4 border-black outline-none px-2 rounded-md text-lg block w-full py-2 bg-slate-50"
-                >
+                <select name="difficulty" id="difficulty" class="opt-select">
                   <!-- <option value="any">Any Difficulties</option> -->
                   <option value="random">Random Difficulties</option>
                   <option value="easy">Easy</option>
@@ -94,36 +78,44 @@
                   <option value="hard">Hard</option>
                 </select>
               </div>
-            </section>
-              <a
-              id="leaderboard-search"
-               class="border-2 md:border-4 border-black text-center w-full mx-auto block py-1 rounded-md bg-orange-300 hover:bg-green-400 hover:text-white active:bg-green-600 duration-300 cursor-pointer teko font-bold text-sm md:text-xl">SEARCH  🔍</a>
+            </div>
+          </section>
+          <a
+            id="leaderboard-search"
+            class="border-2 md:border-4 border-black text-center w-full mx-auto block md:py-1 rounded md:rounded-md bg-orange-300 hover:bg-green-400 hover:text-white active:bg-green-600 duration-300 cursor-pointer font-teko font-bold text-base md:text-xl"
+            >SEARCH 🔍
+          </a>
         </div>
 
         <!-- the leaderboard -->
-        <div 
-        class="md:mt-4 bg-yellow-100 border-t-2 md:border-4 border-black md:mb-2 rounded-b-lg md:rounded-sm overflow-y-auto relative h-96 ">
-            <%- include("./partials/loading-leaderboard") %> 
-            <!-- table -->
-            <div class=" absolute inset-0">
-                <div 
-                id ="leaderboard-table" 
-                class="w-full text-lg sm:text-xl md:text-2xl flex flex-col">
-                    <div class=" text-center teko font-bold  border-b-2 border-black sticky top-0 w-full bg-orange-300 shadow-lg tb-heading flex justify-between items-center ">
-                        <p class=" p-1 bg-orange-400 basis-[20%]">Rank</p>
-                        <p class=" p-1 bg-amber-400 basis-[40%]">Username</p>
-                        <p class=" p-1 bg-yellow-400 basis-[40%]">Points</p>
-                    </div>
-                    <section id="table-content">
-                    </section>
-                </div>                   
+        <div
+          class="md:mt-4 bg-yellow-100 border-t-2 md:border-4 border-black md:mb-2 rounded-b-lg md:rounded-sm overflow-y-auto relative h-96"
+        >
+          <%- include("./partials/loading-leaderboard") %>
+          <!-- table -->
+          <div class="absolute inset-0">
+            <div
+              id="leaderboard-table"
+              class="w-full text-lg sm:text-xl md:text-2xl flex flex-col"
+            >
+              <div
+                class="text-center font-teko font-bold border-b-2 border-black sticky top-0 w-full bg-orange-300 shadow-lg tb-heading flex justify-between items-center"
+              >
+                <p class="p-1 bg-orange-400 basis-[20%]">Rank</p>
+                <p class="p-1 bg-amber-400 basis-[40%]">Username</p>
+                <p class="p-1 bg-yellow-400 basis-[40%]">Score</p>
+              </div>
+              <section id="table-content"></section>
             </div>
+          </div>
         </div>
-    </main>
-  </section></main>
+      </div>
+    </div>
+  </section>
+</main>
 
 <script src="../score_js/leaderboard.js"></script>
-  <script src="../misc_js/interaction.js"></script>
+<script src="../misc_js/interaction.js"></script>
 
-  <!-- Footer -->
+<!-- Footer -->
 <%- include("./partials/footer") %>

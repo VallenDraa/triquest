@@ -1,6 +1,6 @@
 <%- include("./partials/header") %>
 
-<main class="min-h-full mt-auto relative">
+<main class="min-h-full relative">
   <%-include("./partials/loading")%>
   <!-- alert -->
   <%- include("./partials/alert.ejs") %>
@@ -16,47 +16,49 @@
             class="not-custom grid items-center text-center max-w-screen-2xl mx-auto"
           >
             <div
-              class="border-4 border-black p-2 bg-yellow-400 rounded-lg w-11/12 h-max mx-auto grid items-stretch"
+              class="border-4 border-black p-2 bg-yellow-400 rounded md:rounded-lg w-11/12 h-max mx-auto grid items-stretch"
               style="height: 100%"
             >
               <!-- top -->
               <div
-                class="min-w-full mx-auto select-dif-content-max-w p-2 border-2 md:border-4 flex justify-center items-center flex-col font-bold border-black rounded-lg bg-yellow-200"
+                class="min-w-full mx-auto select-dif-content-max-w p-2 border-2 md:border-4 flex justify-center items-center flex-col font-bold border-black rounded md:rounded-lg bg-yellow-200"
               >
                 <h2
-                  class="text-4xl xl:text-6xl font-bold underline teko mb-2 rounded-lg px-2 pt-2"
+                  class="text-4xl xl:text-6xl font-bold underline font-teko mb-2 rounded md:rounded-lg px-2 pt-2"
                 >
                   Campaign
                 </h2>
 
-                <p class="fira-sans text-sm xl:text-lg pb-2">
+                <p class="font-fira-sans text-sm xl:text-lg pb-2">
                   Climb Your Way Up Through The Difficulties
                 </p>
               </div>
 
               <!-- middle -->
               <div
-                class="min-w-full mx-auto select-dif-content-max-w grid border-2 md:border-4 bg-yellow-200 border-black rounded-lg mt-6 py-2 px-6"
+                class="min-w-full mx-auto select-dif-content-max-w grid border-2 md:border-4 bg-yellow-200 border-black rounded md:rounded-lg mt-6 py-2 px-6"
               >
-                <label for="category" class="md:mb-2 text-3xl xl:text-5xl teko"
+                <label
+                  for="category"
+                  class="md:mb-2 text-3xl xl:text-4xl font-teko grid content-center"
                   >Category</label
                 >
                 <select
                   name="category"
                   title="Select The Category !"
                   id="category-campaign"
-                  class="select-dif-select-max-w bg-white border-2 md:border-4 border-black text-sm xl:text-lg font-bold fira-sans px-2 py-3 rounded mb-4"
+                  class="select-dif-select-max-w bg-white border-2 md:border-4 border-black text-sm xl:text-lg font-bold font-fira-sans px-2 py-3 rounded mb-4"
                 >
                   <%- include("./partials/categories") %>
                 </select>
               </div>
 
               <!-- bottom -->
-              <a
-                class="mx-auto select-dif-content-max-w duration-300 cursor-pointer border-4 border-black px-2 py-3 teko tracking-wide w-full my-4 rounded-lg text-xl md:text-2xl xl:text-3xl font-bold hover:bg-green-400 active:bg-green-600 hover:text-white mt-8 bg-orange-300 flex justify-center items-center campaign-btn"
-              >
-                Play Campaign Mode 🚀
-              </a>
+              <div class="my-4">
+                <a class="select-dif-btn campaign-btn">
+                  Play Campaign Mode 🚀
+                </a>
+              </div>
             </div>
           </section>
         </section>
@@ -67,47 +69,47 @@
             class="not-custom grid items-center text-center max-w-screen-2xl mx-auto"
           >
             <div
-              class="border-4 border-black p-2 bg-yellow-400 rounded-lg w-11/12 h-max mx-auto grid items-stretch"
+              class="border-4 border-black p-2 bg-yellow-400 rounded md:rounded-lg w-11/12 h-max mx-auto grid items-stretch"
               style="height: 100%"
             >
               <!-- top -->
               <div
-                class="min-w-full mx-auto select-dif-content-max-w p-2 border-2 md:border-4 flex justify-center items-center flex-col font-bold border-black rounded-lg bg-yellow-200"
+                class="min-w-full mx-auto select-dif-content-max-w p-2 border-2 md:border-4 flex justify-center items-center flex-col font-bold border-black rounded md:rounded-lg bg-yellow-200"
               >
                 <h2
-                  class="text-4xl xl:text-6xl font-bold underline teko mb-2 rounded-lg px-2 pt-2"
+                  class="text-4xl xl:text-6xl font-bold underline font-teko mb-2 rounded md:rounded-lg px-2 pt-2"
                 >
                   Random
                 </h2>
 
-                <p class="fira-sans text-sm xl:text-lg pb-2">
+                <p class="font-fira-sans text-sm xl:text-lg pb-2">
                   Play Through Random Difficulties And Categories.
                 </p>
               </div>
 
               <!-- middle -->
               <div
-                class="min-w-full mx-auto select-dif-content-max-w grid border-2 md:border-4 bg-yellow-200 border-black rounded-lg mt-6 py-2 px-6"
+                class="min-w-full mx-auto select-dif-content-max-w grid border-2 md:border-4 bg-yellow-200 border-black rounded md:rounded-lg mt-6 py-2 px-6"
               >
-                <label for="category" class="md:mb-2 text-3xl xl:text-5xl teko"
+                <label
+                  for="category"
+                  class="md:mb-2 text-3xl xl:text-4xl font-teko grid content-center"
                   >Category</label
                 >
                 <select
                   name="category"
                   title="Select The Category !"
                   id="category"
-                  class="select-dif-select-max-w bg-white border-2 md:border-4 border-black text-sm xl:text-lg font-bold fira-sans px-2 py-3 rounded mb-4"
+                  class="select-dif-select-max-w bg-white border-2 md:border-4 border-black text-sm xl:text-lg font-bold font-fira-sans px-2 py-3 rounded mb-4"
                 >
                   <option>Randomised</option>
                 </select>
               </div>
 
               <!-- bottom -->
-              <a
-                class="mx-auto select-dif-content-max-w duration-300 cursor-pointer border-4 border-black px-2 py-3 teko tracking-wide w-full my-4 rounded-lg text-xl md:text-2xl xl:text-3xl font-bold hover:bg-green-400 active:bg-green-600 hover:text-white mt-8 bg-orange-300 flex justify-center items-center random-btn"
-              >
-                Play Random Mode 🌪
-              </a>
+              <div class="my-4">
+                <a class="select-dif-btn random-btn"> Play Random Mode 🌪 </a>
+              </div>
             </div>
           </section>
         </section>
@@ -118,47 +120,49 @@
             class="not-custom grid items-center text-center max-w-screen-2xl mx-auto"
           >
             <div
-              class="border-4 border-black p-2 bg-yellow-400 rounded-lg w-11/12 h-max mx-auto grid items-stretch"
+              class="border-4 border-black p-2 bg-yellow-400 rounded md:rounded-lg w-11/12 h-max mx-auto grid items-stretch"
               style="height: 100%"
             >
               <!-- top -->
               <div
-                class="min-w-full mx-auto select-dif-content-max-w p-2 border-2 md:border-4 flex justify-center items-center flex-col font-bold border-black rounded-lg bg-yellow-200"
+                class="min-w-full mx-auto select-dif-content-max-w p-2 border-2 md:border-4 flex justify-center items-center flex-col font-bold border-black rounded md:rounded-lg bg-yellow-200"
               >
                 <h2
-                  class="text-4xl xl:text-6xl font-bold underline teko mb-2 rounded-lg px-2 pt-2"
+                  class="text-4xl xl:text-6xl font-bold underline font-teko mb-2 rounded md:rounded-lg px-2 pt-2"
                 >
                   Challenge
                 </h2>
 
-                <p class="fira-sans text-sm xl:text-lg pb-2">
+                <p class="font-fira-sans text-sm xl:text-lg pb-2">
                   Challenge Yourself With Hard Questions Only.
                 </p>
               </div>
 
               <!-- middle -->
               <div
-                class="min-w-full mx-auto select-dif-content-max-w grid border-2 md:border-4 bg-yellow-200 border-black rounded-lg mt-6 py-2 px-6"
+                class="min-w-full mx-auto select-dif-content-max-w grid border-2 md:border-4 bg-yellow-200 border-black rounded md:rounded-lg mt-6 py-2 px-6"
               >
-                <label for="category" class="md:mb-2 text-3xl xl:text-5xl teko"
+                <label
+                  for="category"
+                  class="md:mb-2 text-3xl xl:text-4xl font-teko grid content-center"
                   >Category</label
                 >
                 <select
                   name="category"
                   title="Select The Category !"
                   id="category-challenge"
-                  class="select-dif-select-max-w bg-white border-2 md:border-4 border-black text-sm xl:text-lg font-bold fira-sans px-2 py-3 rounded mb-4"
+                  class="select-dif-select-max-w bg-white border-2 md:border-4 border-black text-sm xl:text-lg font-bold font-fira-sans px-2 py-3 rounded mb-4"
                 >
                   <%- include("./partials/categories") %>
                 </select>
               </div>
 
               <!-- bottom -->
-              <a
-                class="mx-auto select-dif-content-max-w duration-300 cursor-pointer border-4 border-black px-2 py-3 teko tracking-wide w-full my-4 rounded-lg text-xl md:text-2xl xl:text-3xl font-bold hover:bg-green-400 active:bg-green-600 hover:text-white mt-8 bg-orange-300 flex justify-center items-center challenge-btn"
-              >
-                Play Challenge Mode 🔥
-              </a>
+              <div class="my-4">
+                <a class="select-dif-btn challenge-btn">
+                  Play Challenge Mode 🔥
+                </a>
+              </div>
             </div>
           </section>
         </section>
@@ -169,54 +173,50 @@
             class="text-center max-w-screen-2xl mx-auto custom grid items-center"
           >
             <div
-              class="border-4 border-black p-2 bg-yellow-400 rounded-lg w-11/12 h-max mx-auto grid items-stretch"
+              class="border-4 border-black p-2 bg-yellow-400 rounded md:rounded-lg w-11/12 h-max mx-auto grid items-stretch"
               style="height: 100%"
             >
               <!-- top -->
               <div
-                class="min-w-full mx-auto select-dif-content-max-w p-2 border-2 md:border-4 flex justify-center items-center flex-col font-bold border-black rounded-lg bg-yellow-200"
+                class="min-w-full mx-auto select-dif-content-max-w p-2 border-2 md:border-4 flex justify-center items-center flex-col font-bold border-black rounded md:rounded-lg bg-yellow-200"
               >
                 <h2
-                  class="text-4xl xl:text-6xl font-bold underline teko mb-2 rounded-lg px-2 pt-2"
+                  class="text-4xl xl:text-6xl font-bold underline font-teko mb-2 rounded md:rounded-lg px-2 pt-2"
                 >
                   Custom
                 </h2>
 
-                <p class="fira-sans text-sm xl:text-lg pb-2">
+                <p class="font-fira-sans text-sm xl:text-lg pb-2">
                   Custom Mode With Custom Difficulty
                 </p>
               </div>
 
               <!-- middle -->
               <div
-                class="min-w-full mx-auto select-dif-content-max-w grid grid-cols-1 md:grid-cols-2 bg-yellow-200 border-2 md:border-4 border-black rounded-lg mt-6 py-3 px-6 gap-4"
+                class="min-w-full mx-auto select-dif-content-max-w grid grid-cols-1 md:grid-cols-2 bg-yellow-200 border-2 md:border-4 border-black rounded md:rounded-lg mt-6 py-3 px-6 gap-4"
               >
                 <section>
-                  <label
-                    for="category"
-                    class="md:mb-2 text-3xl xl:text-5xl teko"
+                  <label for="category" class="text-3xl xl:text-4xl font-teko"
                     >Category</label
                   >
                   <select
                     name="category"
                     title="Select The Category !"
                     id="category-custom"
-                    class="select-dif-select-max-w bg-white border-2 md:border-4 border-black text-sm xl:text-lg font-bold fira-sans px-2 py-3 rounded mb-4 w-full"
+                    class="select-dif-select-max-w bg-white border-2 md:border-4 border-black text-sm xl:text-lg font-bold font-fira-sans px-2 py-3 rounded mb-4 w-full mt-2"
                   >
                     <%- include("./partials/categories") %>
                   </select>
                 </section>
                 <section>
-                  <label
-                    for="difficulty"
-                    class="md:mb-2 text-3xl xl:text-5xl teko"
+                  <label for="difficulty" class="text-3xl xl:text-4xl font-teko"
                     >Difficulty</label
                   >
                   <select
                     name="difficulty"
                     title="Select The Difficulty"
                     id="category-difs"
-                    class="select-dif-select-max-w bg-white border-2 md:border-4 border-black text-sm xl:text-lg font-bold fira-sans px-2 py-3 rounded mb-4 w-full"
+                    class="select-dif-select-max-w bg-white border-2 md:border-4 border-black text-sm xl:text-lg font-bold font-fira-sans px-2 py-3 rounded mb-4 w-full mt-2"
                   >
                     <option value="easy">Easy</option>
                     <option value="medium">Medium</option>
@@ -226,11 +226,9 @@
               </div>
 
               <!-- Bottom -->
-              <a
-                class="mx-auto select-dif-content-max-w duration-300 cursor-pointer border-4 border-black px-2 py-3 teko tracking-wide w-full my-4 rounded-lg text-xl md:text-2xl xl:text-3xl font-bold hover:bg-green-400 active:bg-green-600 hover:text-white mt-8 bg-orange-300 flex justify-center items-center custom-btn"
-              >
-                Play Custom Mode 🏋️‍♂️
-              </a>
+              <div class="my-4">
+                <a class="select-dif-btn custom-btn"> Play Custom Mode 🏋️‍♂️ </a>
+              </div>
             </div>
           </section>
         </section>
@@ -246,6 +244,6 @@
 <script src="../misc_js/interaction.js"></script>
 <script src="https://unpkg.com/swiper@7/swiper-bundle.min.js"></script>
 <script src="../misc_js/swiper.js"></script>
-<script src="../misc_js/select-dif-height.js"></script>
+<script src="../misc_js/select-dif-match-height.js"></script>
 <!-- Footer -->
 <%- include("./partials/footer") %>

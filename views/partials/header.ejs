@@ -22,45 +22,44 @@
   >
     <!-- Navbar -->
     <nav
-      class="bg-yellow-300 py-2 sticky top-0 z-50 navbar shadow-2xl border-b-4 border-b-black"
+      class="bg-yellow-300 py-2 sticky top-0 z-50 navbar shadow-2xl border-b-4 border-b-black duration-300"
     >
       <div
-        class="flex teko sm:items-center justify-between max-w-screen-2xl mx-auto w-full sm:w-11/12 py-2"
+        class="flex font-teko sm:items-center justify-between max-w-screen-2xl mx-auto w-full sm:w-11/12 py-2"
       >
         <div
-          class="rounded-md bg-yellow-400 border-4 border-black py-1 px-2 ml-7 sm:ml-0"
+          class="rounded-md bg-yellow-400 border-4 border-black py-1 px-2 ml-4 sm:ml-0"
         >
           <a
-            class="uppercase font-bold text-2xl tracking-wider rounded-md block duration-300"
+            class="uppercase font-bold text-lg sm:text-xl md:text-2xl tracking-wider rounded-md block duration-300"
             href="/"
           >
             Triquest
           </a>
         </div>
         <div
-          class="absolute z-10 sm:static top-0 w-full h-96 sm:h-full sm:w-1/2 sm:flex menu -translate-y-full sm:translate-y-0"
+          class="absolute z-10 sm:static top-0 w-full h-64 sm:h-full sm:w-1/2 sm:flex menu -translate-y-full sm:translate-y-0"
         >
           <ul
-            class="border-b-4 sm:border-4 border-black sm:border-black bg-yellow-300 flex flex-col sm:flex-row justify-around sm:justify-evenly text-4xl sm:text-2xl shadow-xl sm:shadow-none rounded-0 sm:rounded-md text-center gap-3 sm:gap-0 w-full items-center h-full p-3 sm:p-0"
+            class="border-b-4 sm:border-4 border-black sm:border-black bg-yellow-300 flex flex-col sm:flex-row justify-around sm:justify-evenly text-2xl xl:text-3xl shadow-xl sm:shadow-none rounded-0 sm:rounded-md text-center gap-3 sm:gap-0 w-full items-center h-full p-3 sm:p-0"
           >
-            <p class="sm:hidden teko uppercase font-bold underline">Menu</p>
+            <p class="sm:hidden font-teko uppercase font-bold underline">
+              Menu
+            </p>
 
             <li
-              class="cursor-pointer bg-orange-300 grid content-center w-full py-1 duration-300 hover:bg-green-400 active:bg-green-600 hover:text-white sm:rounded-none rounded-lg border-4 border-black sm:border-none h-3/6 play"
+              class="navbar-btn sm:border-none play"
               title="Play Triquest Now !"
             >
               <a href="/">Play</a>
             </li>
             <li
-              class="cursor-pointer bg-orange-300 grid content-center w-full py-1 duration-300 hover:bg-green-400 active:bg-green-600 hover:text-white sm:rounded-none rounded-lg leaderboard border-4 sm:border-y-0 sm:border-x-4 border-black px-7 sm:my-0 h-3/6"
+              class="navbar-btn sm:border-y-0 sm:border-x-4 sm:my-0 px-7 leaderboard"
               title="Leaderboard Tab"
             >
               <a href="/leaderboard">Leaderboard</a>
             </li>
-            <li
-              class="cursor-pointer bg-orange-300 grid content-center w-full py-1 duration-300 hover:bg-green-400 active:bg-green-600 hover:text-white sm:rounded-none rounded-lg profile border-4 border-black sm:border-none h-3/6"
-              title="User Profile"
-            >
+            <li class="navbar-btn sm:border-none profile" title="User Profile">
               <a
                 id="profile-btn-header"
                 class="truncate"
@@ -71,10 +70,8 @@
             </li>
           </ul>
           <i
-            class="bg-orange-300 hover:bg-green-400 active:bg-green-600 hover:text-white border-4 px-2 border-black rounded-lg fas fa-caret-down text-4xl text-black sm:hidden absolute right-7 cursor-pointer duration-500 toggle-menu mt-4"
+            class="bg-orange-300 hover:bg-green-400 active:bg-green-600 hover:text-white border-4 px-2 border-black rounded-lg fas fa-caret-down text-3xl sm:text-4xl text-black sm:hidden absolute right-4 sm:right-7 cursor-pointer duration-500 toggle-menu mt-4"
           ></i>
         </div>
       </div>
     </nav>
-  </body>
-</html>

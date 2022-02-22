@@ -11,14 +11,14 @@
           <%- include("./partials/alert.ejs")  %>   
           <h1
           
-            class="text-center rounded-t-lg md:rounded-none bg-yellow-200 md:bg-transparent py-2 teko text-3xl md:text-5xl font-bold underline"
+            class="text-center rounded-t-lg md:rounded-none bg-yellow-200 md:bg-transparent py-2 font-teko text-3xl md:text-5xl font-bold underline"
             >
               PROFILE
           </h1>
           <form
             action="/profile/save_profile_edits?_method=put"
             method="POST"
-            class="fira-sans md:border-4 border-black rounded-b-lg md:rounded-lg bg-yellow-200 p-4 md:p-2 xl:p-4"
+            class="font-fira-sans md:border-4 border-black rounded-b-lg rounded md:rounded-lg bg-yellow-200 p-4 md:p-2 xl:p-4"
           >
             <!-- content-wrapper -->
             <div class="grid grid-cols-1 md:grid-cols-2 md:gap-3 relative">
@@ -27,7 +27,7 @@
                 <!-- Profile DATA -->
                 <section>
                   <h2
-                    class="text-2xl md:text-xl xl:text-2xl font-bold fira-sans underline text-center underline-offset-4"
+                    class="text-2xl md:text-xl xl:text-2xl font-bold font-fira-sans underline text-center underline-offset-4"
                   >
                     Profile Data
                   </h2>
@@ -44,7 +44,7 @@
                       <% } else { %> Username <% } %>
                     </label>
                     <input type="text" name="username" title="Edit Your Username" id="username" class="border-2
-                    md:border-4 border-black outline-none px-2 rounded-lg block
+                    md:border-4 border-black outline-none px-2 rounded md:rounded-lg block
                     w-full py-1 bg-slate-50" <% if (userState == "guest") { %>
                     value="GUEST" readonly <% } else { %> value=<%=username%><% } %> />
                   </div>
@@ -63,7 +63,7 @@
                       id="description"
                       cols="30"
                       rows="8"
-                      class="border-2 md:border-4 border-black outline-none px-2 rounded-lg block w-full py-1 bg-slate-50 resize-none"
+                      class="border-2 md:border-4 border-black outline-none px-2 rounded md:rounded-lg block w-full py-1 bg-slate-50 resize-none"
                       <% if (userState == "guest") { %> 
                         placeholder="Sign-up or login to change your description !"
                         readonly
@@ -84,13 +84,13 @@
                       title="Edit Your Country Of Origin"
                       <% if (userState == "guest") { %> 
                         id="country-guest"
-                        class="border-2 md:border-4 border-black outline-none px-2 rounded-lg block w-full py-1 bg-slate-50" disabled>
+                        class="border-2 md:border-4 border-black outline-none px-2 rounded md:rounded-lg block w-full py-1 bg-slate-50" disabled>
                         <option value="choose_country">
                           Sign-up or login to change your country!                   
                         </option>
                         <% } else { %>   
                           id="country"
-                          class="border-2 md:border-4 border-black outline-none px-2 rounded-lg block w-full py-1 bg-slate-50">
+                          class="border-2 md:border-4 border-black outline-none px-2 rounded md:rounded-lg block w-full py-1 bg-slate-50">
                         <% countries.forEach(countryItem => { %>
                           <% if (countryItem.code == country) { %>
                           <option value="<%=countryItem.code%>"selected><%=countryItem.name%> <%=countryItem.emoji%></option>
@@ -111,7 +111,7 @@
                 <!-- <section class="pt-16 md:pt-0"> -->
                   <% if (userState != "guest") { %>
                   <!-- <h2
-                  class="text-2xl md:text-xl xl:text-2xl font-bold fira-sans underline text-center underline-offset-4"
+                  class="text-2xl md:text-xl xl:text-2xl font-bold font-fira-sans underline text-center underline-offset-4"
                   >
                     Log Out
                   </h2> -->
@@ -125,7 +125,7 @@
                       name="email"
                       id="email"
                       readonly
-                      class="border-2 md:border-4 border-black outline-none px-2 rounded-lg block w-full py-1 bg-slate-50 text-slate-400"
+                      class="border-2 md:border-4 border-black outline-none px-2 rounded md:rounded-lg block w-full py-1 bg-slate-50 text-slate-400"
                       value="<%=email%>"
                     />
                   </div> -->
@@ -152,18 +152,18 @@
                   </div>       -->
                   <% } else {%>
                     <!-- <h2
-                    class="text-2xl md:text-xl xl:text-2xl font-bold fira-sans underline text-center underline-offset-4 mb-7"
+                    class="text-2xl md:text-xl xl:text-2xl font-bold font-fira-sans underline text-center underline-offset-4 mb-7"
                     >
                       Sign-up Or Login
                     </h2> -->
                     <!-- sign-up -->
                     <!-- <div class="w-full max-w-4xl mx-auto">
-                      <a href="/sign-up" title="Sign Up Now To Edit Profile" id="signup-btn-profile" class="text-2xl border-2 md:border-4 border-black rounded-lg block w-full py-1 bg-orange-300 hover:bg-green-400 active:bg-green-600 hover:text-white duration-300 teko text-center font-bold"
+                      <a href="/sign-up" title="Sign Up Now To Edit Profile" id="signup-btn-profile" class="text-2xl border-2 md:border-4 border-black rounded md:rounded-lg block w-full py-1 bg-orange-300 hover:bg-green-400 active:bg-green-600 hover:text-white duration-300 font-teko text-center font-bold"
                       >Sign Up</a>
                     </div> -->
                     <!-- password -->
                     <!-- <div class="w-full max-w-4xl mx-auto relative mt-3 md:mt-[0.65rem]">
-                      <a href="/login" title="Login Now To Edit Profile" id="login-btn-profile" class="text-2xl border-2 md:border-4 border-black rounded-lg block w-full py-1 bg-orange-300 hover:bg-green-400 active:bg-green-600 hover:text-white duration-300 teko text-center font-bold"
+                      <a href="/login" title="Login Now To Edit Profile" id="login-btn-profile" class="text-2xl border-2 md:border-4 border-black rounded md:rounded-lg block w-full py-1 bg-orange-300 hover:bg-green-400 active:bg-green-600 hover:text-white duration-300 font-teko text-center font-bold"
                       >Login</a>
                     </div>      -->
                   <% } %> 
@@ -175,7 +175,7 @@
                   class="mb-8 pt-8 md:pt-1 md:mb-0 resize-y h-72"
                 >
                   <h2
-                    class="mb-3 pb-2 md:pb-3 text-2xl md:text-xl xl:text-2xl font-bold fira-sans underline text-center underline-offset-4"
+                    class="mb-3 pb-2 md:pb-3 text-2xl md:text-xl xl:text-2xl font-bold font-fira-sans underline text-center underline-offset-4"
                   >
                     Highscores
                   </h2>
@@ -185,7 +185,7 @@
                   >
                     <div
                     id="highscore-preview"
-                    class="absolute rounded-lg inset-0 text-sm bg-yellow-100 ">
+                    class="absolute inset-0 text-sm bg-yellow-100 ">
                       <div
                         class="flex justify-center divide-x-2 divide-black sticky top-0 inset-x-0 shadow-lg"
                       >
@@ -205,7 +205,7 @@
                         <% if (scoreName.length != 0) { %>
                           <% for( let i = 0; i <= scoreName.length; i++ ) { %>
                               <% if (i == scoreName.length) { %>
-                                <p class="text-center font-light bg-yellow-100 py-2 fira-sans text-slate-900">No More Highscores</p>
+                                <p class="text-center font-light bg-yellow-100 py-2 font-fira-sans text-slate-900">No More Highscores</p>
                               <% } else {%>
                                 <!--score-->
                                 <div
@@ -225,7 +225,7 @@
                               <% } %>          
                           <% } %>
                         <% } else {%>
-                          <p class="text-center font-light text-lg py-2 bg-yellow-100 fira-sans text-slate-900">No Scores Found</p>
+                          <p class="text-center font-light text-lg py-2 bg-yellow-100 font-fira-sans text-slate-900">No Scores Found</p>
                         <% } %>                          
                       <% } %>
                     </div>
@@ -233,7 +233,7 @@
                 </section>
                 <!-- logout -->
                 <div class="w-full max-w-4xl mx-auto mt-28 md:mt-[4.5rem]">
-                  <a href="/logout" title="Log Out From This Account" id="signup-btn-profile" class="text-xl md:text-2xl border-2 md:border-4 border-black rounded-lg block w-full py-1 bg-orange-300 hover:bg-red-400 active:bg-red-600 hover:text-white duration-300 teko text-center font-bold uppercase md:normal-case"
+                  <a href="/logout" title="Log Out From This Account" id="signup-btn-profile" class="text-xl md:text-2xl border-2 md:border-4 border-black rounded md:rounded-lg block w-full py-1 bg-orange-300 hover:bg-red-400 active:bg-red-600 hover:text-white duration-300 font-teko text-center font-bold uppercase md:normal-case"
                   >Log Out</a>
                 </div>     
               </section>            
@@ -242,17 +242,17 @@
 
             <!-- buttons -->
             <div
-            class="text-black tracking-wide font-bold teko text-3xl mx-auto grid grid-cols-1 md:grid-cols-2 justify-center pt-2 md:pt-10 w-full max-w-4xl mt-2"
+            class="text-black tracking-wide font-bold font-teko mx-auto grid grid-cols-1 md:grid-cols-2 justify-center pt-2 md:pt-10 w-full max-w-4xl mt-1 md:mt-2"
             >
             <% if (userState != "guest") { %>
                 <button
                   type="submit"
-                  class="bg-orange-300 border-4 border-black px-5 uppercase w-full duration-300 hover:bg-green-400 active:bg-green-600 hover:text-white rounded-lg col-span-2"
+                  class="font-bold bg-orange-300 border-2 md:border-4 border-black px-5 uppercase w-full duration-300 hover:bg-green-400 active:bg-green-600 hover:text-white rounded md:rounded-lg col-span-2 text-2xl md:text-3xl py-1 md:py-0"
                 >
                   Save Changes
                 </button>
             <% } else { %> 
-                <a href="/" class="bg-orange-300 border-2 md:border-4 border-black px-5 uppercase w-full duration-300 hover:bg-green-400 active:bg-green-600 hover:text-white rounded-lg text-center text-xl md:text-2xl col-span-1 md:col-span-2 py-1">Main Page</a>
+                <a href="/" class="bg-orange-300 border-2 md:border-4 border-black px-5 uppercase w-full duration-300 hover:bg-green-400 active:bg-green-600 hover:text-white rounded md:rounded-lg text-center text-xl md:text-2xl col-span-1 md:col-span-2 py-1">Main Page</a>
             <% } %>
             </div>
           </form>

@@ -108,6 +108,10 @@ module.exports = {
         'fade-out': 'fade-out 400ms ease-in-out',
         shake: 'shake 250ms ease-in-out',
       },
+      fontFamily: {
+        teko: ['Teko', 'sans-serif'],
+        'fira-sans': ['Fira Sans', 'sans-serif'],
+      },
     },
   },
   plugins: [],

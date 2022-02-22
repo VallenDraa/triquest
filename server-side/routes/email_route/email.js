@@ -7,6 +7,7 @@ const router = express.Router();
 const cookieParser = require('cookie-parser');
 const flash = require('connect-flash');
 const session = require('express-session');
+const { checkIfGuestMode } = require('../menu');
 
 router.use(cookieParser('secret'));
 router.use(
@@ -21,13 +22,20 @@ router.use(
 );
 router.use(flash());
 
-router.get('/', (req, res) => {
+router.get('/', async (req, res) => {
+  const sessionData = await checkIfGuestMode(
+    req,
+    res,
+    req.cookies.userState,
+    req.cookies.id
+  );
   res.render('email-page', {
     title: 'Triquest | Email Us',
     messages: {
       success: req.flash('success'),
       fail: req.flash('fail'),
     },
+    username: sessionData.username,
   });
 });
 
