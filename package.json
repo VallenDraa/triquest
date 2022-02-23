@@ -7,8 +7,7 @@
     "start": "node index.js",
     "devstart": "nodemon index.js",
     "watchcss": "npx tailwindcss -i ./src/css/input.css -o ./public/css/main.css --watch",
-    "cssminify": "npx tailwindcss -o ./public/css/main.css --minify",
-    "build": "webpack"
+    "cssminify": "npx tailwindcss -o ./public/css/main.css --minify"
   },
   "author": "",
   "license": "ISC",
