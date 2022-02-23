@@ -18,7 +18,10 @@ router.use(
 );
 router.use(flash());
 
-router.get('/save_points/:id/:score', async (req, res) => {
+router.get('/save_points/:id/:score/:key/:value', async (req, res) => {
+  if (req.params.key != 'guest' && req.params.key != 'guest') {
+    res.cookie(req.params.key, req.params.value);
+  }
   // console.log(req.params.id, req.params.score);
   let user;
   const userID = req.params.id;

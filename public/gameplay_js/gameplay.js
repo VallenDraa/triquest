@@ -415,11 +415,12 @@ function resultScreenProperties(message, totalCorrectAns) {
     const userID = parseCookieAtGameplay(document.cookie).id;
     const scoreKey = key;
     if (totalCorrectAns) {
+      const value = totalCorrectAns === 0 ? '0' : totalCorrectAns;
       if (userID) {
         // console.log(`/save_points/${userID}/${scoreKey}`);
-        window.location.href = `/save_points/${userID}/${scoreKey}`;
+        window.location.href = `/save_points/${userID}/${scoreKey}/${key}/${value}`;
       } else {
-        window.location.href = `/save_points/guest/guest`;
+        window.location.href = `/save_points/guest/guest/guest/guest`;
       }
     } else {
       window.location.href = '/';
@@ -432,8 +433,10 @@ function savePoints() {
   const value = totalCorrectAns === 0 ? '0' : totalCorrectAns;
 
   if (userState == 'notGuest') {
+    return;
     if (totalCorrectAns > currentScore || !currentScore) {
-      document.cookie = `${key}=${value};path=/; secure`;
+      // window.location.href = `/save_cookie/${key}/${value}`;
+      // document.cookie = `${key}=${value};path=/; secure`;
     }
   } else {
     if (totalCorrectAns > localStorage.getItem(key)) {
