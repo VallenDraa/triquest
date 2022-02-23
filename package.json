@@ -4,9 +4,11 @@
   "description": "A Trivia Game Website",
   "main": "index.js",
   "scripts": {
+    "start": "node index.js",
     "devstart": "nodemon index.js",
     "watchcss": "npx tailwindcss -i ./src/css/input.css -o ./public/css/main.css --watch",
-    "cssminify": "npx tailwindcss -o ./public/css/main.css --minify"
+    "cssminify": "npx tailwindcss -o ./public/css/main.css --minify",
+    "build": "webpack"
   },
   "author": "",
   "license": "ISC",
