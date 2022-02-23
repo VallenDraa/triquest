@@ -416,7 +416,7 @@ function resultScreenProperties(message, totalCorrectAns) {
     const scoreKey = key;
     if (totalCorrectAns) {
       if (userID) {
-        console.log(`/save_points/${userID}/${scoreKey}`);
+        // console.log(`/save_points/${userID}/${scoreKey}`);
         window.location.href = `/save_points/${userID}/${scoreKey}`;
       } else {
         window.location.href = `/save_points/guest/guest`;
@@ -481,7 +481,7 @@ function hideNShow(target) {
   }, 20);
 }
 function toggleAnimationToAll(animClass, target) {
-  console.log;
+  // console.log;
   target.forEach((x, i) => {
     x.classList.remove(animClass);
     x.classList.add(animClass);
