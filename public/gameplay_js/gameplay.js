@@ -445,14 +445,16 @@ function fetchPoint(highscoreHTML) {
   if (parseCookieAtGameplay(document.cookie).userState == 'guest') {
     getPointsAndDisplayIt(localStorage.getItem(key), highscoreHTML);
   } else {
-    getPointsAndDisplayIt(
-      parseCookieAtGameplay(document.cookie)[key],
-      highscoreHTML
-    );
+    fetch(`/api/fetch_highscore/${key}`)
+      .then((response) => response.json())
+      .then((data) => {
+        // console.log(data);
+        getPointsAndDisplayIt(data.score, highscoreHTML);
+      });
   }
 }
 function getPointsAndDisplayIt(source, highscoreHTML) {
-  console.log(source, totalCorrectAns);
+  // console.log(source, totalCorrectAns);
   if (source) {
     if (parseInt(source) >= totalCorrectAns) {
       highscoreHTML.textContent = `Highscore: ${source}`;

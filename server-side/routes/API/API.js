@@ -12,6 +12,47 @@ router.get('/leaderboard_points', paginatedResults(User), (req, res) => {
   res.json(res.paginatedResults);
 });
 
+router.get('/fetch_highscore/:scoreParam', async (req, res) => {
+  // fetch highscore
+  let user;
+  const userID = req.cookies.id;
+  const scoreParam = req.params.scoreParam;
+  const scoreValue = req.cookies[scoreParam];
+
+  if (userID != 'guest') {
+    try {
+      user = await User.findById(userID);
+      if (user.scores.length != 0) {
+        for (let i = 0; i < user.scores.length; i++) {
+          // console.log(user.scores[i]);
+          const { name, points } = user.scores[i];
+          dbScoreParam = `score_${name.gamemode}_${name.category}_${name.difficulty}`;
+          if (dbScoreParam == scoreParam) {
+            // console.log(points, scoreValue);
+            if (parseInt(scoreValue) > points) {
+              // console.log(scoreValue);
+              res.json({ score: scoreValue });
+              return;
+            } else {
+              // console.log(points);
+              res.json({ score: points });
+              return;
+            }
+          } else {
+            // console.log(scoreValue);
+            res.json({ score: scoreValue });
+            return;
+          }
+        }
+      }
+    } catch (err) {
+      res.json(err);
+    }
+  } else {
+    return;
+  }
+});
+
 function paginatedResults(Model) {
   return async (req, res, next) => {
     let scoreNameQuery = req.query.query,

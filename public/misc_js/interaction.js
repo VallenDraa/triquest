@@ -69,6 +69,9 @@ window.addEventListener('scroll', () => {
       !toggleMenuBtn.classList.contains('rotate-180')
     ) {
       navbar.classList.add('-translate-y-full');
+      setTimeout(() => {
+        navbar.classList.add('hidden');
+      }, 300);
       scrolledThen = scrolledNow;
     } else {
       scrolledThen = scrolledNow;
@@ -76,6 +79,9 @@ window.addEventListener('scroll', () => {
   } else {
     if (navbar.classList.contains('-translate-y-full')) {
       navbar.classList.remove('-translate-y-full');
+      setTimeout(() => {
+        navbar.classList.remove('hidden');
+      }, 300);
       scrolledThen = scrolledNow;
     } else {
       scrolledThen = scrolledNow;
