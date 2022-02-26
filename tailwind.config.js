@@ -1,4 +1,5 @@
 module.exports = {
+  mode: 'jit',
   content: ['./views/**/*.ejs', './public/**/*.js', './test-html.html'],
   theme: {
     extend: {

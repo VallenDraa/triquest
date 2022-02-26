@@ -9,6 +9,9 @@
   .select-dif-btn {
     @apply mx-auto duration-300 h-full cursor-pointer border-2 md:border-4 border-black px-2 py-3 font-teko tracking-wide w-full rounded md:rounded-lg text-xl sm:text-2xl xl:text-3xl font-bold bg-orange-300 hover:text-white hover:bg-green-400 active:bg-green-600 grid content-center;
   }
+  .page-btn {
+    @apply text-2xl border-2 md:border-4 border-black rounded-md py-1 px-2 bg-orange-300 disabled:bg-orange-300  disabled:opacity-50 disabled:text-black hover:bg-green-400 active:bg-green-600 hover:text-white duration-300 cursor-pointer disabled:cursor-not-allowed;
+  }
   .opt-select {
     @apply border-2 md:border-4 border-black outline-none p-1 md:p-2 rounded md:rounded-md md:text-lg block w-full bg-slate-50;
   }

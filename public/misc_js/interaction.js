@@ -5,10 +5,6 @@ const loadingScreen = document.querySelector('.loading-screen');
 const body = document.querySelector('body');
 const navbar = document.querySelector('.navbar');
 const toggleMenuBtn = document.querySelector('.toggle-menu');
-// const duration200 = document.querySelectorAll('.duration-200');
-// const duration300 = document.querySelectorAll('.duration-300');
-// const duration500 = document.querySelectorAll('.duration-500');
-// const duration1000 = document.querySelectorAll('.duration-1000');
 
 let menuIsToggled = false;
 let isInFooter = false;
@@ -29,6 +25,11 @@ toggle_menu.addEventListener('click', () => {
   setTimeout(() => {
     menu.classList.remove('duration-500');
   }, 550);
+
+  // check to increase the opacity for navbar
+  if (navbar.classList.contains('opacity-20')) {
+    navbar.classList.remove('opacity-20');
+  }
 });
 
 // for menu display config
@@ -60,32 +61,25 @@ window.addEventListener('resize', () => {
 // on scroll
 let scrolledThen = 0;
 window.addEventListener('scroll', () => {
-  const scrolledNow = window.scrollY;
-  // console.log(`now: ${scrolledNow}\nthen:${scrolledThen}`);
+  const scrolledPercentage = (window.scrollY / window.scrollMaxY) * 100;
 
-  if (scrolledNow > scrolledThen) {
-    if (
-      !navbar.classList.contains('-translate-y-full') &&
-      !toggleMenuBtn.classList.contains('rotate-180')
-    ) {
-      navbar.classList.add('-translate-y-full');
-      setTimeout(() => {
-        navbar.classList.add('hidden');
-      }, 300);
-      scrolledThen = scrolledNow;
-    } else {
-      scrolledThen = scrolledNow;
+  // change the minimal scrolled value according to screen size
+  let threshold;
+  if (window.innerwidth > 768) {
+    threshold = 30;
+  } else if (window.innerwidth < 768 && window.innerwidth > 640) {
+    threshold = 20;
+  } else {
+    threshold = 10;
+  }
+
+  // decrease opacity check
+  if (scrolledPercentage > threshold) {
+    if (!toggleMenuBtn.classList.contains('rotate-180')) {
+      navbar.classList.add('opacity-20');
     }
   } else {
-    if (navbar.classList.contains('-translate-y-full')) {
-      navbar.classList.remove('-translate-y-full');
-      setTimeout(() => {
-        navbar.classList.remove('hidden');
-      }, 300);
-      scrolledThen = scrolledNow;
-    } else {
-      scrolledThen = scrolledNow;
-    }
+    navbar.classList.remove('opacity-20');
   }
 });
 
@@ -115,42 +109,3 @@ window.addEventListener('DOMContentLoaded', () => {
     }, 400);
   }
 });
-
-// removing transition at window resizing functions
-// remove transiton and adds it back after 300ms
-// function removeAndAddTransition() {
-//   duration(duration200, 'remove');
-//   duration(duration300, 'remove');
-//   duration(duration500, 'remove');
-//   duration(duration1000, 'remove');
-
-//   setTimeout(() => {
-//     duration(duration200, 'add');
-//     duration(duration300, 'add');
-//     duration(duration500, 'add');
-//     duration(duration1000, 'add');
-//   }, 5000);
-// }
-// function duration(type, func) {
-//   if (type) {
-//     if (func == 'remove') {
-//       for (let i = 0; i < type.length; i++) {
-//         type[i].classList.forEach((item) => {
-//           if (!item.includes('duration')) return;
-//           type[i].classList.remove(item);
-//         });
-//       }
-//       console.log('a');
-//     } else if (func == 'add') {
-//       for (let i = 0; i < type.length; i++) {
-//         type[i].classList.forEach((item) => {
-//           if (!item.includes('duration')) return;
-//           type[i].classList.remove(item);
-//         });
-//       }
-//       console.log('b');
-//     }
-//   } else {
-//     return;
-//   }
-// }

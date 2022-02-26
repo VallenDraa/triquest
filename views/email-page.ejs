@@ -1,7 +1,7 @@
   <%- include("./partials/header.ejs")%>
     <!-- alert -->
-    <%- include("./partials/alert.ejs") %>
-    <section class="grid content-center h-screen">
+    <section class="grid content-center h-screen relative">
+      <%- include("./partials/alert.ejs") %>
       <form
         action="/contact_us/send_email"
         method="POST"

@@ -18,25 +18,24 @@ router.use(
 );
 router.use(flash());
 
-router.get('/save_points/:id/:score/:key/:value', async (req, res) => {
+router.get('/save_points/:id/:key/:value', async (req, res) => {
   if (req.params.key != 'guest' && req.params.key != 'guest') {
     res.cookie(req.params.key, req.params.value);
   }
   // console.log(req.params.id, req.params.score);
   let user;
   const userID = req.params.id;
-  const scoreParam = req.params.score;
-  const scoreValue = req.cookies[scoreParam];
+  const scoreParam = req.params.key;
+  const scoreValue = req.params.value;
+
   if (userID != 'guest' && scoreParam != 'guest') {
     try {
       user = await User.findById(req.params.id);
       if (user.scores.length != 0) {
         for (let i = 0; i < user.scores.length; i++) {
-          // console.log(user.scores[i]);
           const { name, points } = user.scores[i];
           dbScoreParam = `score_${name.gamemode}_${name.category}_${name.difficulty}`;
           if (dbScoreParam == scoreParam) {
-            // console.log(points, scoreValue);
             if (parseInt(scoreValue) > points) {
               await updateScore(User, userID, scoreParam, scoreValue);
               return res.redirect('/');
@@ -62,7 +61,7 @@ router.get('/save_points/:id/:score/:key/:value', async (req, res) => {
 });
 
 // utils for saving and editing scores
-async function updateScore(Schema, userID, scoreParam, scoreValue, res) {
+async function updateScore(Schema, userID, scoreParam, scoreValue) {
   scoreParam = scoreParam.split('_');
   // console.log(scoreParam);
   await Schema.findOneAndUpdate(
@@ -83,7 +82,7 @@ async function updateScore(Schema, userID, scoreParam, scoreValue, res) {
   );
 }
 
-async function addNewScore(Schema, userID, scoreParam, scoreValue, res) {
+async function addNewScore(Schema, userID, scoreParam, scoreValue) {
   scoreParam = scoreParam.split('_');
   await Schema.findOneAndUpdate(
     {

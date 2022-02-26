@@ -58,28 +58,28 @@ function paginatedResults(Model) {
     let scoreNameQuery = req.query.query,
       country = req.query.country,
       page = parseInt(req.query.page),
-      limit = parseInt(req.query.limit),
+      searchLimit = parseInt(req.query.limit),
       nextPage,
       prevPage;
 
     page = page === 0 ? 1 : page;
-    limit = limit === 0 ? 1 : limit;
+    searchLimit = searchLimit === 0 ? 1 : searchLimit;
 
-    const startIndex = (page - 1) * limit;
-    const endIndex = page * limit;
+    const startIndex = (page - 1) * searchLimit;
+    const endIndex = page * searchLimit;
 
     const results = {};
 
     // current page
     results.current = {
       page,
-      limit,
+      searchLimit,
     };
     // next page
     if (endIndex < Model.length) {
       results.next = {
         page: page + 1,
-        limit,
+        searchLimit,
       };
       nextPage = true;
     } else {
@@ -89,7 +89,7 @@ function paginatedResults(Model) {
     if (startIndex > 0) {
       results.previous = {
         page: page - 1,
-        limit,
+        searchLimit,
       };
       prevPage = true;
     } else {
@@ -103,7 +103,7 @@ function paginatedResults(Model) {
       // will change the database query based on if country query is undefined or not
 
       const userDatas = await Model.find(dbQuery)
-        .limit(limit)
+        .limit(searchLimit)
         .skip(startIndex)
         .exec();
 
@@ -143,7 +143,12 @@ function paginatedResults(Model) {
       }
       res.prevPage = prevPage;
       res.nextPage = nextPage;
+      results.totalPage =
+        results.results.length / searchLimit <= 1
+          ? 1
+          : Math.floor(results.results.length / 50);
       res.paginatedResults = results;
+
       next();
     } catch (e) {
       res.status(500).json({ message: e.message });

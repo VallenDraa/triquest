@@ -89,7 +89,7 @@
 
         <!-- the leaderboard -->
         <div
-          class="md:mt-4 bg-yellow-100 border-t-2 md:border-4 border-black md:mb-2 rounded-b-lg md:rounded-sm overflow-y-auto relative h-96"
+          class="md:mt-4 bg-yellow-100 border-y-2 md:border-4 border-black md:mb-2 md:rounded-sm overflow-y-auto relative h-96"
         >
           <%- include("./partials/loading-leaderboard") %>
           <!-- table -->
@@ -109,6 +109,29 @@
             </div>
           </div>
         </div>
+
+        <!-- page buttons -->
+        <footer
+          class="flex justify-center rounded-b-lg md:rounded-none py-2 md:p-0"
+        >
+          <button id="prev-page" class="page-btn">
+            <i class="fa-solid fa-angle-left"></i>
+          </button>
+
+          <div class="mx-2 space-x-1 flex items-center">
+            <span id="current-page" class="font-fira-sans text-xl md:text-2xl"
+              >1</span
+            >
+            <span class="font-fira-sans text-xl md:text-2xl">of</span>
+            <span id="total-page" class="font-fira-sans text-xl md:text-2xl"
+              >50</span
+            >
+          </div>
+
+          <button id="next-page" class="page-btn">
+            <i class="fa-solid fa-angle-right"></i>
+          </button>
+        </footer>
       </div>
     </div>
   </section>

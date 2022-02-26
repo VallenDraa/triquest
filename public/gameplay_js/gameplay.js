@@ -413,14 +413,13 @@ function resultScreenProperties(message, totalCorrectAns) {
   resultToMainBtn.addEventListener('click', function () {
     savePoints();
     const userID = parseCookieAtGameplay(document.cookie).id;
-    const scoreKey = key;
     if (totalCorrectAns) {
       const value = totalCorrectAns === 0 ? '0' : totalCorrectAns;
       if (userID) {
         // console.log(`/save_points/${userID}/${scoreKey}`);
-        window.location.href = `/save_points/${userID}/${scoreKey}/${key}/${value}`;
+        window.location.href = `/save_points/${userID}/${key}/${value}`;
       } else {
-        window.location.href = `/save_points/guest/guest/guest/guest`;
+        window.location.href = `/save_points/guest/guest/guest`;
       }
     } else {
       window.location.href = '/';

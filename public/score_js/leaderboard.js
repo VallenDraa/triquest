@@ -8,14 +8,19 @@ const countrySelect = document.getElementById('country'),
   loadingScreenLeaderboard = document.querySelector(
     '.loading-screen-leaderboard'
   ),
-  leaderboardSearch = document.getElementById('leaderboard-search');
+  leaderboardSearch = document.getElementById('leaderboard-search'),
+  currentPage = document.getElementById('current-page'),
+  prevPage = document.getElementById('prev-page'),
+  nextPage = document.getElementById('next-page'),
+  totalPage = document.getElementById('total-page');
 
 let query = 'score_Campaign_any_campaign_global';
 
 if (document.readyState === 'loading') {
   document.addEventListener('DOMContentLoaded', async () => {
-    checkSelectedOptions(gamemodeSelect.value);
-    await updateLeaderboard();
+    checkSelectedGamemode(gamemodeSelect.value);
+    await updateLeaderboard(1);
+    PageBtnStateChange();
   });
 }
 
@@ -26,9 +31,32 @@ categoryOptEventListener(
   categorySelect,
   difficultySelect
 );
+// search
 leaderboardSearch.addEventListener('click', async function () {
-  checkSelectedOptions(gamemodeSelect.value);
-  await updateLeaderboard();
+  checkSelectedGamemode(gamemodeSelect.value);
+  await updateLeaderboard(1);
+});
+
+// page moved
+prevPage.addEventListener('click', async function () {
+  PageBtnStateChange();
+  const currentPageInt = parseInt(currentPage.textContent);
+
+  if (currentPageInt != 1) {
+    currentPage.textContent = currentPageInt - 1;
+    checkSelectedGamemode(gamemodeSelect.value);
+    await updateLeaderboard(currentPageInt - 1);
+  }
+});
+nextPage.addEventListener('click', async function () {
+  PageBtnStateChange();
+  const currentPageInt = parseInt(currentPage.textContent);
+
+  if (currentPageInt != parseInt(totalPage.textContent)) {
+    currentPage.textContent = currentPageInt + 1;
+    checkSelectedGamemode(gamemodeSelect.value);
+    await updateLeaderboard(currentPageInt + 1);
+  }
 });
 
 // temporary function to get and sort scores
@@ -121,7 +149,7 @@ const DIFFICULTIES = {
   },
 };
 
-function checkSelectedOptions(gameModeValue) {
+function checkSelectedGamemode(gameModeValue) {
   if (gameModeValue == 'Random') {
     DIFFICULTIES.hidesDiffs(gameModeValue);
     CATEGORIES.hidesCategories(gameModeValue);
@@ -138,19 +166,20 @@ function checkSelectedOptions(gameModeValue) {
 function categoryOptEventListener() {
   for (const arg of arguments) {
     arg.addEventListener('click', () => {
-      checkSelectedOptions(gamemodeSelect.value);
+      checkSelectedGamemode(gamemodeSelect.value);
     });
   }
 }
 
 // updating the leaderboard
-async function findAndSortScores(query) {
+async function findAndSortScores(query, page) {
   query = query.split('_');
   let pointValue = [];
   let results = [];
   let leaderboardAPI = `/api/leaderboard_points?query=${`${query[0]}_${query[1]}_${query[2]}`}&country=${
     query[3]
-  }&page=1&limit=50`;
+  }&page=${page}&limit=50`;
+  // console.log(leaderboardAPI);
 
   const json = await fetch(leaderboardAPI);
   const datas = await json.json();
@@ -173,6 +202,7 @@ async function findAndSortScores(query) {
     </div>
   `;
     results.push(html);
+    totalPage.textContent = datas.totalPage;
   });
 
   if (results.length > 0) {
@@ -194,7 +224,7 @@ async function switchCategory(catNum, catList) {
     }
   });
 }
-async function updateLeaderboard() {
+async function updateLeaderboard(page) {
   LOADING_SCREEN.addLoadingScreen();
   query = editQuery(
     query,
@@ -203,7 +233,25 @@ async function updateLeaderboard() {
     difficultySelect.value,
     countrySelect.value
   );
-  await findAndSortScores(query);
+  await findAndSortScores(query, page);
   //   console.log(categorySelect.value);
   LOADING_SCREEN.removeLoadingScreen();
+}
+
+function PageBtnStateChange() {
+  console.log('a');
+  const currentPageInt = parseInt(currentPage.textContent);
+  if (currentPageInt == 1) {
+    prevPage.disabled = true;
+    console.log('b');
+  } else {
+    prevPage.disabled = false;
+    console.log('c');
+  }
+
+  if (currentPageInt == parseInt(totalPage.textContent)) {
+    nextPage.disabled = true;
+  } else {
+    nextPage.disabled = false;
+  }
 }
