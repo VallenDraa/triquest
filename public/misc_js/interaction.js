@@ -25,11 +25,6 @@ toggle_menu.addEventListener('click', () => {
   setTimeout(() => {
     menu.classList.remove('duration-500');
   }, 550);
-
-  // check to increase the opacity for navbar
-  if (navbar.classList.contains('opacity-20')) {
-    navbar.classList.remove('opacity-20');
-  }
 });
 
 // for menu display config
@@ -61,25 +56,28 @@ window.addEventListener('resize', () => {
 // on scroll
 let scrolledThen = 0;
 window.addEventListener('scroll', () => {
-  const scrolledPercentage = (window.scrollY / window.scrollMaxY) * 100;
+  const scrollMaxY =
+    window.innerHeight * (window.innerHeight / document.body.offsetHeight);
+  const scrolledPercentage = (window.scrollY / scrollMaxY) * 100;
+  // console.log(scrollY, scrollMaxY);
 
   // change the minimal scrolled value according to screen size
   let threshold;
   if (window.innerwidth > 768) {
-    threshold = 30;
+    threshold = 35;
   } else if (window.innerwidth < 768 && window.innerwidth > 640) {
-    threshold = 25;
+    threshold = 30;
   } else {
-    threshold = 20;
+    threshold = 25;
   }
 
   // decrease opacity check
   if (scrolledPercentage > threshold) {
     if (!toggleMenuBtn.classList.contains('rotate-180')) {
-      navbar.classList.add('opacity-20');
+      navbar.classList.add('-translate-y-full');
     }
   } else {
-    navbar.classList.remove('opacity-20');
+    navbar.classList.remove('-translate-y-full');
   }
 });
 
