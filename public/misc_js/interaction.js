@@ -68,9 +68,9 @@ window.addEventListener('scroll', () => {
   if (window.innerwidth > 768) {
     threshold = 30;
   } else if (window.innerwidth < 768 && window.innerwidth > 640) {
-    threshold = 20;
+    threshold = 25;
   } else {
-    threshold = 10;
+    threshold = 20;
   }
 
   // decrease opacity check

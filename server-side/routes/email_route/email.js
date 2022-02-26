@@ -41,7 +41,7 @@ router.get('/', async (req, res) => {
 
 router.post('/send_email', (req, res) => {
   const transporter = nodemailer.createTransport({
-    service: 'gmai',
+    service: 'gmail',
     auth: {
       user: process.env.RECEIVER_EMAIL,
       pass: process.env.RECEIVER_PASS,
