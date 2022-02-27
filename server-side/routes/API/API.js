@@ -106,6 +106,7 @@ function paginatedResults(Model) {
         .limit(searchLimit)
         .skip(startIndex)
         .exec();
+      const totalPage = await Model.find(dbQuery);
 
       for (let data of userDatas) {
         let scoreName = {},
@@ -124,14 +125,6 @@ function paginatedResults(Model) {
             scoreName.difficulty = scores.name.difficulty;
             scorePoints = scores.points;
           }
-
-          // point assign
-          // if (
-          //   scoreName.gamemode &&
-          //   scoreName.category &&
-          //   scoreName.difficulty
-          // ) {
-          // }
         }
 
         results.results.push({
@@ -144,9 +137,9 @@ function paginatedResults(Model) {
       res.prevPage = prevPage;
       res.nextPage = nextPage;
       results.totalPage =
-        results.results.length / searchLimit <= 1
+        totalPage.length / searchLimit <= 1
           ? 1
-          : Math.floor(results.results.length / 50);
+          : Math.floor(totalPage.length / searchLimit);
       res.paginatedResults = results;
 
       next();
@@ -161,17 +154,6 @@ function dbQueryAdjust(country, scoreNameQuery) {
   scoreNameQuery = scoreNameQuery.split('_');
   let dbQuery;
   if (country == '' || country == undefined || country == 'global') {
-    // if (scoreNameQuery[1] == 'any') {
-    //   dbQuery = {
-    //     'scores.name.gamemode': scoreNameQuery[0],
-    //     'scores.name.difficulty': scoreNameQuery[2],
-    //   };
-    // } else if (scoreNameQuery[2] == 'any') {
-    //   dbQuery = {
-    //     'scores.name.gamemode': scoreNameQuery[0],
-    //     'scores.name.category': scoreNameQuery[1],
-    //   };
-    // } else {
     dbQuery = {
       scores: {
         $elemMatch: {
@@ -183,34 +165,7 @@ function dbQueryAdjust(country, scoreNameQuery) {
         },
       },
     };
-    // }
   } else {
-    // console.log(country);
-    // if (scoreNameQuery[1] == 'any') {
-    //   dbQuery = {
-    //     $and: [
-    //       {
-    //         'scores.name.gamemode': scoreNameQuery[0],
-    //         'scores.name.difficulty': scoreNameQuery[2],
-    //       },
-    //       {
-    //         country: country,
-    //       },
-    //     ],
-    //   };
-    // } else if (scoreNameQuery[2] == 'any') {
-    //   dbQuery = {
-    //     $and: [
-    //       {
-    //         'scores.name.gamemode': scoreNameQuery[0],
-    //         'scores.name.category': scoreNameQuery[1],
-    //       },
-    //       {
-    //         country: country,
-    //       },
-    //     ],
-    //   };
-    // } else {
     dbQuery = {
       $and: [
         {
@@ -229,7 +184,6 @@ function dbQueryAdjust(country, scoreNameQuery) {
         },
       ],
     };
-    // }
   }
   // console.log(dbQuery);
   return dbQuery;

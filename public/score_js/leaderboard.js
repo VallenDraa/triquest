@@ -34,12 +34,12 @@ categoryOptEventListener(
 // search
 leaderboardSearch.addEventListener('click', async function () {
   checkSelectedGamemode(gamemodeSelect.value);
+  leaderboardTable.scrollTo(0, 0);
   await updateLeaderboard(1);
 });
 
 // page moved
 prevPage.addEventListener('click', async function () {
-  PageBtnStateChange();
   const currentPageInt = parseInt(currentPage.textContent);
 
   if (currentPageInt != 1) {
@@ -49,7 +49,6 @@ prevPage.addEventListener('click', async function () {
   }
 });
 nextPage.addEventListener('click', async function () {
-  PageBtnStateChange();
   const currentPageInt = parseInt(currentPage.textContent);
 
   if (currentPageInt != parseInt(totalPage.textContent)) {
@@ -150,6 +149,9 @@ const DIFFICULTIES = {
 };
 
 function checkSelectedGamemode(gameModeValue) {
+  PageBtnStateChange();
+  leaderboardTable.scrollTo(0, 0);
+  leaderboardTable.classList.add('overflow-hidden');
   if (gameModeValue == 'Random') {
     DIFFICULTIES.hidesDiffs(gameModeValue);
     CATEGORIES.hidesCategories(gameModeValue);
@@ -160,6 +162,7 @@ function checkSelectedGamemode(gameModeValue) {
     DIFFICULTIES.revealDiffs(gameModeValue);
     CATEGORIES.revealCategories();
   }
+  leaderboardTable.classList.remove('overflow-hidden');
 }
 
 // adding eventlistener to the options
@@ -179,7 +182,7 @@ async function findAndSortScores(query, page) {
   let leaderboardAPI = `/api/leaderboard_points?query=${`${query[0]}_${query[1]}_${query[2]}`}&country=${
     query[3]
   }&page=${page}&limit=50`;
-  // console.log(leaderboardAPI);
+  console.log(leaderboardAPI);
 
   const json = await fetch(leaderboardAPI);
   const datas = await json.json();
@@ -239,14 +242,11 @@ async function updateLeaderboard(page) {
 }
 
 function PageBtnStateChange() {
-  console.log('a');
   const currentPageInt = parseInt(currentPage.textContent);
   if (currentPageInt == 1) {
     prevPage.disabled = true;
-    console.log('b');
   } else {
     prevPage.disabled = false;
-    console.log('c');
   }
 
   if (currentPageInt == parseInt(totalPage.textContent)) {
