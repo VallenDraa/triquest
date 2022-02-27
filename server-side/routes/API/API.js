@@ -7,9 +7,9 @@ const fetch = require('node-fetch');
 const User = require('../../../models/user');
 
 // getting the point for the leaderboard
-// URL:/api/leaderboard_points?query=[KEY]&country=[abbr]&page=[INT]&limit=[INT]
-router.get('/leaderboard_points', paginatedResults(User), (req, res) => {
-  res.json(res.paginatedResults);
+// URL:/api/leaderboard_points?query=[KEY]&country=[abbr]
+router.get('/leaderboard_points', leaderboardPoints(User), (req, res) => {
+  res.json(res.leaderboardPoints);
 });
 
 router.get('/fetch_highscore/:scoreParam', async (req, res) => {
@@ -53,48 +53,14 @@ router.get('/fetch_highscore/:scoreParam', async (req, res) => {
   }
 });
 
-function paginatedResults(Model) {
+function leaderboardPoints(Model) {
   return async (req, res, next) => {
     let scoreNameQuery = req.query.query,
       country = req.query.country,
-      page = parseInt(req.query.page),
-      searchLimit = parseInt(req.query.limit),
-      nextPage,
-      prevPage;
-
-    page = page === 0 ? 1 : page;
-    searchLimit = searchLimit === 0 ? 1 : searchLimit;
-
-    const startIndex = (page - 1) * searchLimit;
-    const endIndex = page * searchLimit;
+      searchLimit = 50;
 
     const results = {};
 
-    // current page
-    results.current = {
-      page,
-      searchLimit,
-    };
-    // next page
-    if (endIndex < Model.length) {
-      results.next = {
-        page: page + 1,
-        searchLimit,
-      };
-      nextPage = true;
-    } else {
-      nextpage = false;
-    }
-    // previous page
-    if (startIndex > 0) {
-      results.previous = {
-        page: page - 1,
-        searchLimit,
-      };
-      prevPage = true;
-    } else {
-      prevPage = false;
-    }
     // the results of the database query
     results.results = [];
 
@@ -102,11 +68,7 @@ function paginatedResults(Model) {
       let dbQuery = dbQueryAdjust(country, scoreNameQuery);
       // will change the database query based on if country query is undefined or not
 
-      const userDatas = await Model.find(dbQuery)
-        .limit(searchLimit)
-        .skip(startIndex)
-        .exec();
-      const totalPage = await Model.find(dbQuery);
+      const userDatas = await Model.find(dbQuery).limit(500).exec();
 
       for (let data of userDatas) {
         let scoreName = {},
@@ -134,13 +96,7 @@ function paginatedResults(Model) {
           score_points: scorePoints,
         });
       }
-      res.prevPage = prevPage;
-      res.nextPage = nextPage;
-      results.totalPage =
-        totalPage.length / searchLimit <= 1
-          ? 1
-          : Math.floor(totalPage.length / searchLimit);
-      res.paginatedResults = results;
+      res.leaderboardPoints = results;
 
       next();
     } catch (e) {

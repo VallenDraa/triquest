@@ -15,6 +15,7 @@ const countrySelect = document.getElementById('country'),
   totalPage = document.getElementById('total-page');
 
 let query = 'score_Campaign_any_campaign_global';
+let scores;
 
 if (document.readyState === 'loading') {
   document.addEventListener('DOMContentLoaded', async () => {
@@ -45,7 +46,7 @@ prevPage.addEventListener('click', async function () {
   if (currentPageInt != 1) {
     currentPage.textContent = currentPageInt - 1;
     checkSelectedGamemode(gamemodeSelect.value);
-    await updateLeaderboard(currentPageInt - 1);
+    addLeaderboardHtml(scores, currentPageInt - 1);
   }
 });
 nextPage.addEventListener('click', async function () {
@@ -54,7 +55,7 @@ nextPage.addEventListener('click', async function () {
   if (currentPageInt != parseInt(totalPage.textContent)) {
     currentPage.textContent = currentPageInt + 1;
     checkSelectedGamemode(gamemodeSelect.value);
-    await updateLeaderboard(currentPageInt + 1);
+    addLeaderboardHtml(scores, currentPageInt + 1);
   }
 });
 
@@ -149,7 +150,6 @@ const DIFFICULTIES = {
 };
 
 function checkSelectedGamemode(gameModeValue) {
-  PageBtnStateChange();
   leaderboardTable.scrollTo(0, 0);
   leaderboardTable.classList.add('overflow-hidden');
   if (gameModeValue == 'Random') {
@@ -177,44 +177,18 @@ function categoryOptEventListener() {
 // updating the leaderboard
 async function findAndSortScores(query, page) {
   query = query.split('_');
-  let pointValue = [];
-  let results = [];
   let leaderboardAPI = `/api/leaderboard_points?query=${`${query[0]}_${query[1]}_${query[2]}`}&country=${
     query[3]
-  }&page=${page}&limit=50`;
+  }`;
   console.log(leaderboardAPI);
 
   const json = await fetch(leaderboardAPI);
   const datas = await json.json();
-  const scores = datas.results.sort((a, b) => {
+  scores = datas.results.sort((a, b) => {
     return b.score_points - a.score_points;
   });
   // console.log(scores);
-  tableContent.innerHTML = '';
-
-  scores.forEach((score, i) => {
-    let html = `
-    <div
-    id="score-range"
-    class="text-center font-teko font-bold border-b-2 border-black flex">
-        <p class="rank p-1 bg-orange-300 basis-[20%]">${i + 1}</p>
-        <a class="rank p-1 bg-amber-300 basis-[40%] truncate block hover:underline" href="/profile/others/${
-          score.username
-        }" title="Go To ${score.username}'s Profile">${score.username}</a>
-        <p class="rank p-1 bg-yellow-300 basis-[40%]">${score.score_points}</p>
-    </div>
-  `;
-    results.push(html);
-    totalPage.textContent = datas.totalPage;
-  });
-
-  if (results.length > 0) {
-    results.forEach((item) => {
-      tableContent.innerHTML += item;
-    });
-  } else {
-    tableContent.innerHTML += `<p class="text-center font-light text-lg mt-2 font-fira-sans text-slate-800">No Scores Found</p>`;
-  }
+  addLeaderboardHtml(scores, page);
 }
 async function switchCategory(catNum, catList) {
   const json = await fetch(`../data/category.json`);
@@ -240,6 +214,53 @@ async function updateLeaderboard(page) {
   //   console.log(categorySelect.value);
   LOADING_SCREEN.removeLoadingScreen();
 }
+async function addLeaderboardHtml(scores, page) {
+  let results = [];
+  tableContent.innerHTML = '';
+
+  minIndex = scores.length - (scores.length - 50 * (page - 1));
+  maxIndex = scores.length - (scores.length - 50 * page) - 1;
+
+  for (let i = minIndex; i <= maxIndex; i++) {
+    if (i < scores.length) {
+      let html = `
+      <div
+      id="score-range"
+      class="text-center font-teko font-bold border-b-2 border-black flex">
+      <p class="rank p-1 bg-orange-300 basis-[20%]">${i + 1}</p>
+      <a class="rank p-1 bg-amber-300 basis-[40%] truncate block hover:underline" href="/profile/others/${
+        scores[i].username
+      }" title="Go To ${scores[i].username}'s Profile">${scores[i].username}</a>
+      <p class="rank p-1 bg-yellow-300 basis-[40%]">${
+        scores[i].score_points
+      }</p>
+      </div>
+      `;
+      results.push(html);
+    } else {
+      if (results.length === 0) {
+        totalPage.textContent = 1;
+        PageBtnStateChange();
+        return (tableContent.innerHTML += `<p class="text-center font-light text-lg my-3 font-fira-sans text-slate-800">No Scores Are Found</p>`);
+      } else {
+        totalPage.textContent = Math.ceil(scores.length / 50);
+        PageBtnStateChange();
+        results.forEach((item) => {
+          tableContent.innerHTML += item;
+        });
+        return;
+      }
+    }
+  }
+
+  if (results.length > 0) {
+    totalPage.textContent = Math.ceil(scores.length / 50);
+    PageBtnStateChange();
+    results.forEach((item) => {
+      tableContent.innerHTML += item;
+    });
+  }
+}
 
 function PageBtnStateChange() {
   const currentPageInt = parseInt(currentPage.textContent);
@@ -249,7 +270,10 @@ function PageBtnStateChange() {
     prevPage.disabled = false;
   }
 
-  if (currentPageInt == parseInt(totalPage.textContent)) {
+  if (
+    currentPageInt == parseInt(totalPage.textContent) ||
+    totalPage.textContent <= '0'
+  ) {
     nextPage.disabled = true;
   } else {
     nextPage.disabled = false;
