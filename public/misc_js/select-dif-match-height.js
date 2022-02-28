@@ -10,9 +10,3 @@ const observeHeight = new ResizeObserver((entries) => {
 });
 
 observeHeight.observe(custom);
-
-// notcustom.forEach((item) => {
-//   item.addEventListener('mouseenter', function () {
-//     item.style.height = custom.offsetHeight.toString() + 'px';
-//   });
-// });

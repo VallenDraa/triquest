@@ -25,6 +25,7 @@ toggle_menu.addEventListener('click', () => {
   setTimeout(() => {
     menu.classList.remove('duration-500');
   }, 550);
+  menuIsToggled = !menuIsToggled;
 });
 
 // for menu display config
@@ -33,28 +34,13 @@ window.addEventListener('resize', () => {
   if (width > 768) {
     menu.classList.remove('-translate-y-full');
     menu_toggle_btn.classList.remove('rotate-180');
-    // if (!menu_toggle_btn.classList.contains('text-yellow-300')) {
-    //   menu_toggle_btn.classList.add('text-yellow-300');
-    // }
     menuIsToggled = false;
   } else if (width < 768 && menuIsToggled == false) {
     menu.classList.add('-translate-y-full');
   }
-
-  // removeAndAddTransition();
-  // REMOVE TRANSITION FOR ALL ELEMENT
-  // document.querySelectorAll('.select-dif-content-max-w').forEach((item) => {
-  //   item.classList.remove('duration-300');
-  // });
-  // setTimeout(() => {
-  //   document.querySelectorAll('.select-dif-content-max-w').forEach((item) => {
-  //     item.classList.add('duration-300');
-  //   });
-  // }, 200);
 });
 
 // on scroll
-let scrolledThen = 0;
 window.addEventListener('scroll', () => {
   const scrollMaxY =
     window.innerHeight * (window.innerHeight / document.body.offsetHeight);
@@ -73,9 +59,13 @@ window.addEventListener('scroll', () => {
 
   // decrease opacity check
   if (scrolledPercentage > threshold) {
-    if (!toggleMenuBtn.classList.contains('rotate-180')) {
-      navbar.classList.add('-translate-y-full');
-    }
+    if (
+      toggleMenuBtn.classList.contains('rotate-180') ||
+      !menu.classList.contains('-translate-y-full')
+    )
+      return;
+
+    navbar.classList.add('-translate-y-full');
   } else {
     navbar.classList.remove('-translate-y-full');
   }

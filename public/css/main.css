@@ -1227,14 +1227,37 @@ Ensure the default browser behavior of the `hidden` attribute.
           animation: bounce 1s infinite;
 }
 
+@-webkit-keyframes fade-out {
+  0% {
+    opacity: 1;
+  }
+
+  100% {
+    opacity: 0;
+  }
+}
+
+@keyframes fade-out {
+  0% {
+    opacity: 1;
+  }
+
+  100% {
+    opacity: 0;
+  }
+}
+
+.animate-fade-out-delay {
+  -webkit-animation: fade-out 400ms 1100ms ease-in-out;
+          animation: fade-out 400ms 1100ms ease-in-out;
+}
+
 @-webkit-keyframes slide-x {
   0% {
-    opacity: 0.5;
     transform: translateX(0);
   }
 
   25% {
-    opacity: 0.25;
     transform: translateX(-180%);
   }
 
@@ -1243,7 +1266,6 @@ Ensure the default browser behavior of the `hidden` attribute.
   }
 
   75% {
-    opacity: 0.25;
     transform: translateX(180%);
   }
 
@@ -1255,12 +1277,10 @@ Ensure the default browser behavior of the `hidden` attribute.
 
 @keyframes slide-x {
   0% {
-    opacity: 0.5;
     transform: translateX(0);
   }
 
   25% {
-    opacity: 0.25;
     transform: translateX(-180%);
   }
 
@@ -1269,7 +1289,6 @@ Ensure the default browser behavior of the `hidden` attribute.
   }
 
   75% {
-    opacity: 0.25;
     transform: translateX(180%);
   }
 
@@ -1282,16 +1301,6 @@ Ensure the default browser behavior of the `hidden` attribute.
 .animate-slide-x {
   -webkit-animation: slide-x 1200ms ease-in-out;
           animation: slide-x 1200ms ease-in-out;
-}
-
-@-webkit-keyframes fade-out {
-  0% {
-    opacity: 1;
-  }
-
-  100% {
-    opacity: 0;
-  }
 }
 
 @keyframes fade-out {
@@ -1726,10 +1735,6 @@ Ensure the default browser behavior of the `hidden` attribute.
 
 .bg-black\/90 {
   background-color: rgb(0 0 0 / 0.9);
-}
-
-.bg-black\/40 {
-  background-color: rgb(0 0 0 / 0.4);
 }
 
 .bg-green-300 {

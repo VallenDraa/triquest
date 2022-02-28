@@ -13,7 +13,9 @@ const questionCardWrapper = document.querySelector('.question-card-wrapper'),
   valueContainer = document.querySelector('.value-container'),
   highscore = document.querySelector('.highscore'),
   resultToMainBtn = document.querySelector('.result-to-main-btn'),
-  endGameBtn = document.querySelectorAll('.end-game-btn');
+  endGameBtn = document.querySelectorAll('.end-game-btn'),
+  questionTransition = document.querySelectorAll('#question-transition'),
+  nextQuestionBtn = document.querySelector('.next-question');
 
 let multipleOrBool,
   isInAfterAnswer = false,
@@ -92,6 +94,8 @@ const questions = {
       multipleOrBool = 1;
       document.querySelector('.question-card-two').classList.remove('hidden');
     }
+    // match height between after answer card and question card
+    matchHeight(answerOptionWrapper, afterAnswerCard);
   },
   multipleAnswerAssign: (correct, incorrects, element) => {
     let choices = incorrects.concat(correct),
@@ -149,40 +153,13 @@ const questions = {
       } · ${questionsArr[i].category}`;
     }
   },
-  // resizeText: (string) => {
-  //   if (string.length > 100 && string.length < 130) {
-  //     if (window.innerWidth > 768) {
-  //       // console.log(
-  //       //   `succeed in changing font-size of string text for:\n\n \"${string}\"\n\ntype [1A]`
-  //       // );
-  //       return `font-size: 1.5rem; line-height: 2rem;`;
-  //     } else {
-  //       // console.log(
-  //       //   `succeed in changing font-size of string text for:\n\n \"${string}\"\n\ntype [1B]`
-  //       // );
-  //       return `font-size: 1.125rem; line-height: 1.75rem;`;
-  //     }
-  //   } else if (string.length > 130 && string.length < 160) {
-  //     if (window.innerWidth > 768) {
-  //       // console.log(
-  //       //   `succeed in changing font-size of string text for:\n\n \"${string}\"\n\ntype [2A]`
-  //       // );
-  //       return `font-size: 1.125rem; line-height: 1.75rem;`;
-  //     } else {
-  //       // console.log(
-  //       //   `succeed in changing font-size of string text for:\n\n \"${string}\"\n\ntype [2B]`
-  //       // );
-  //       return `font-size: 1rem; line-height: 1.5rem;`;
-  //     }
-  //   }
-  // },
   questionList: [],
   multipleOrBool: undefined, //multiple = 0 , bool = 1
   currentQuestion: 0,
 };
 
 // timerBar function
-let time = 15.8;
+let time = 16;
 let endedByUser = false;
 function changeTimerBarStyle() {
   timerBars.forEach((timerBar) => {
@@ -199,7 +176,7 @@ function changeTimerBarStyle() {
   });
 }
 function resetTimeAndBar() {
-  time = 15.8;
+  time = 16;
   //change bar style
   timerBars.forEach((timerBar) => {
     turnBarToGreen(timerBar);
@@ -255,64 +232,50 @@ function turnBarToGreen(timerBar) {
 
 // resize the questions font size
 window.addEventListener('resize', () => {
-  //resize the question font size based on how many characters the sentece has
-  // document.querySelectorAll('.question').forEach((question) => {
-  //   question.setAttribute('style', questions.resizeText(question.innerText));
-  // });
   // match height between after answer card and question card
   matchHeight(answerOptionWrapper, afterAnswerCard);
 });
 // everytime an answer is clicked
 answerOptions.forEach((option) => {
   option.addEventListener('click', function () {
+    removeAnimationClass('animate-slide-x', questionCards);
     isInAfterAnswer = true;
     // add the index
     questions.currentQuestion++;
-
-    // match height between after answer card and question card
-    matchHeight(answerOptionWrapper, afterAnswerCard);
 
     // show after screen
     totalCorrectAns = checkIfAnswerCorrect(
       option,
       iconCorrectIncorrect,
-      afterAnswerWrapper,
       totalCorrectAns
     );
 
+    // show after answer card
+    afterAnswerWrapper.classList.remove('hidden');
+    afterAnswerWrapper.classList.remove('animate-fade-out');
+    afterAnswerWrapper.classList.add('animate-fade-in');
+
     // check the index of the current question to fetch more questions
     // temporary fix for safari non-working after-answer animation
-    if (
-      !navigator.userAgent.includes('AppleWebKit/') &&
-      !navigator.userAgent.includes('Safari/')
-    ) {
-      // check if the mode is campaign
-      if (sessionStorage.getItem('local_mode') != 'Campaign') {
-        if (questions.currentQuestion == questions.questionList.length - 1) {
-          questions.fetchQuestion(
-            sessionStorage.getItem('api_amount'),
-            sessionStorage.getItem('api_cat'),
-            sessionStorage.getItem('api_difs'),
-            sessionStorage.getItem('api_type'),
-            sessionToken
-          );
-        }
-      } else {
-        campaignModeFetchQuestion();
+
+    // check if the mode is campaign
+    if (sessionStorage.getItem('local_mode') != 'Campaign') {
+      if (questions.currentQuestion == questions.questionList.length - 1) {
+        questions.fetchQuestion(
+          sessionStorage.getItem('api_amount'),
+          sessionStorage.getItem('api_cat'),
+          sessionStorage.getItem('api_difs'),
+          sessionStorage.getItem('api_type'),
+          sessionToken
+        );
       }
     } else {
-      questions.fetchQuestion(
-        sessionStorage.getItem('api_amount'),
-        sessionStorage.getItem('api_cat'),
-        sessionStorage.getItem('api_difs'),
-        sessionStorage.getItem('api_type'),
-        sessionToken
-      );
+      campaignModeFetchQuestion();
     }
   });
 });
 // everytime next question button is clicked
-document.querySelector('.next-question').addEventListener('click', function () {
+nextQuestionBtn.addEventListener('click', function () {
   isInAfterAnswer = false;
 
   // remove the correct answer indicator
@@ -320,7 +283,8 @@ document.querySelector('.next-question').addEventListener('click', function () {
     option.classList.remove('co');
   });
 
-  // re-hide the after answer card
+  // hide the after answer card
+  afterAnswerWrapper.classList.remove('animate-fade-in');
   afterAnswerWrapper.classList.add('hidden');
 
   // check the index and refresh the question
@@ -333,7 +297,7 @@ document.querySelector('.next-question').addEventListener('click', function () {
 
     // to remove animation and to reset timer bar
     setTimeout(() => {
-      toggleAnimationToAll('animate-slide-x', questionCards);
+      toggleAnimationClass('animate-slide-x', questionCards);
     }, 100);
     hideNShow(questionCards[multipleOrBool]);
     resetTimeAndBar();
@@ -342,6 +306,7 @@ document.querySelector('.next-question').addEventListener('click', function () {
   else {
     resultScreenProperties(undefined, totalCorrectAns);
   }
+  toggleQuestionTransition();
 });
 // everytime the endgamebtn is pressed
 endGameBtn.forEach((btn) => {
@@ -352,12 +317,7 @@ endGameBtn.forEach((btn) => {
 });
 
 // after answer
-function checkIfAnswerCorrect(
-  answerChoice,
-  icon,
-  afterAnswerWrapper,
-  totalCorrectAns
-) {
+function checkIfAnswerCorrect(answerChoice, icon, totalCorrectAns) {
   if (answerChoice.classList.contains('co')) {
     icon.classList.replace('fa-times', 'fa-check');
     icon.classList.replace('bg-red-500', 'bg-green-400');
@@ -371,7 +331,6 @@ function checkIfAnswerCorrect(
     icon.style.padding = '1rem 1.5rem';
   }
   correctAnswerMes.textContent = document.querySelector('.co').innerText;
-  afterAnswerWrapper.classList.remove('hidden');
 
   // return the total points
   return totalCorrectAns;
@@ -476,11 +435,16 @@ function hideNShow(target) {
     target.classList.remove('hidden');
   }, 20);
 }
-function toggleAnimationToAll(animClass, target) {
+function toggleAnimationClass(animClass, target) {
+  // console.log;
+  target.forEach((x, i) => {
+    x.classList.add(animClass);
+  });
+}
+function removeAnimationClass(animClass, target) {
   // console.log;
   target.forEach((x, i) => {
     x.classList.remove(animClass);
-    x.classList.add(animClass);
   });
 }
 function removeLoadingScreen() {
@@ -489,6 +453,30 @@ function removeLoadingScreen() {
   setTimeout(function () {
     loadingScreen.classList.add('hidden');
   }, 400);
+}
+function toggleQuestionTransition() {
+  for (const item of questionTransition) {
+    item.classList.remove('hidden');
+  }
+  toggleAnimationClass('animate-fade-out-delay', questionTransition);
+
+  setTimeout(() => {
+    for (const item of questionTransition) {
+      item.classList.add('hidden');
+    }
+  }, 1500);
+}
+function toggleAfterAnswerWrapper() {
+  for (const item of questionTransition) {
+    item.classList.remove('hidden');
+  }
+  toggleAnimationClass('animate-fade-out-delay', questionTransition);
+
+  setTimeout(() => {
+    for (const item of questionTransition) {
+      item.classList.add('hidden');
+    }
+  }, 1500);
 }
 
 // fetch question for campaign mode
@@ -545,16 +533,19 @@ if (document.readyState === 'loading') {
   // when content has finished loading
   document.addEventListener('DOMContentLoaded', () => {
     afterAnswerWrapper.classList.add('hidden');
+
     resultScreen.classList.add('hidden');
     isInAfterAnswer = false;
     runTimerBar();
-    toggleAnimationToAll('animate-slide-x', questionCards);
+    toggleAnimationClass('animate-slide-x', questionCards);
+    toggleQuestionTransition();
   });
 } else {
   isInAfterAnswer = false;
   removeLoadingScreen();
   runTimerBar();
-  toggleAnimationToAll('animate-slide-x', questionCards);
+  toggleAnimationClass('animate-slide-x', questionCards);
+  toggleQuestionTransition();
 }
 
 // window.addEventListener('orientationchange', () => {

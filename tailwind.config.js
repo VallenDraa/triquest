@@ -53,18 +53,15 @@ module.exports = {
         },
         'slide-x': {
           '0%': {
-            opacity: '0.5',
             transform: 'translateX(0)',
           },
           '25%': {
-            opacity: '0.25',
             transform: 'translateX(-180%)',
           },
           '50%': {
             opacity: '0',
           },
           '75%': {
-            opacity: '0.25',
             transform: 'translateX(180%)',
           },
           '100%': {
@@ -121,6 +118,7 @@ module.exports = {
         'slide-to-top': 'slide-to-top 600ms ease-in-out',
         'slide-x': ' slide-x 1200ms ease-in-out',
         'fade-out': 'fade-out 400ms ease-in-out',
+        'fade-out-delay': 'fade-out 400ms 1100ms ease-in-out',
         shake: 'shake 250ms ease-in-out',
         'phone-landscape-rotate':
           'phone-landscape-rotate 1500ms ease-in-out infinite alternate',

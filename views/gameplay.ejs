@@ -42,7 +42,12 @@
       <!-- results screen -->
       <%- include("./partials/gameplay_partials/gameplay-result-screen") %>
     </main>
-
+    <script>
+      var isSafari = window.safari !== undefined;
+      if (isSafari) {
+        window.location.href = '/safari';
+      }
+    </script>
     <script src="../../mobile/mobile-detection.js"></script>
     <script src="../gameplay_js/gameplay.js"></script>
   </body>
