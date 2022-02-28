@@ -180,7 +180,7 @@ async function findAndSortScores(query, page) {
   let leaderboardAPI = `/api/leaderboard_points?query=${`${query[0]}_${query[1]}_${query[2]}`}&country=${
     query[3]
   }`;
-  console.log(leaderboardAPI);
+  // console.log(leaderboardAPI);
 
   const json = await fetch(leaderboardAPI);
   const datas = await json.json();
@@ -237,19 +237,6 @@ async function addLeaderboardHtml(scores, page) {
       </div>
       `;
       results.push(html);
-    } else {
-      if (results.length === 0) {
-        totalPage.textContent = 1;
-        PageBtnStateChange();
-        return (tableContent.innerHTML += `<p class="text-center font-light text-lg my-3 font-fira-sans text-slate-800">No Scores Are Found</p>`);
-      } else {
-        totalPage.textContent = Math.ceil(scores.length / 50);
-        PageBtnStateChange();
-        results.forEach((item) => {
-          tableContent.innerHTML += item;
-        });
-        return;
-      }
     }
   }
 
@@ -259,6 +246,10 @@ async function addLeaderboardHtml(scores, page) {
     results.forEach((item) => {
       tableContent.innerHTML += item;
     });
+  } else {
+    totalPage.textContent = 1;
+    PageBtnStateChange();
+    return (tableContent.innerHTML += `<p class="text-center font-light text-lg my-3 font-fira-sans text-slate-800">No Scores Are Found</p>`);
   }
 }
 

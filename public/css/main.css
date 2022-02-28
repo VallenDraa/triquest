@@ -885,6 +885,10 @@ Ensure the default browser behavior of the `hidden` attribute.
   height: 24rem;
 }
 
+.h-8 {
+  height: 2rem;
+}
+
 .h-72 {
   height: 18rem;
 }
@@ -899,12 +903,20 @@ Ensure the default browser behavior of the `hidden` attribute.
   height: max-content;
 }
 
-.h-20 {
-  height: 5rem;
+.h-28 {
+  height: 7rem;
 }
 
-.h-8 {
-  height: 2rem;
+.h-1 {
+  height: 0.25rem;
+}
+
+.h-2 {
+  height: 0.5rem;
+}
+
+.h-20 {
+  height: 5rem;
 }
 
 .h-9 {
@@ -945,6 +957,22 @@ Ensure the default browser behavior of the `hidden` attribute.
 
 .w-full {
   width: 100%;
+}
+
+.w-14 {
+  width: 3.5rem;
+}
+
+.w-1 {
+  width: 0.25rem;
+}
+
+.w-3 {
+  width: 0.75rem;
+}
+
+.w-2 {
+  width: 0.5rem;
 }
 
 .w-8 {
@@ -1005,6 +1033,14 @@ Ensure the default browser behavior of the `hidden` attribute.
   flex-basis: 40%;
 }
 
+.basis-\[13\%\] {
+  flex-basis: 13%;
+}
+
+.basis-\[74\%\] {
+  flex-basis: 74%;
+}
+
 .-translate-y-full {
   --tw-translate-y: -100%;
   transform: translate(var(--tw-translate-x), var(--tw-translate-y)) rotate(var(--tw-rotate)) skewX(var(--tw-skew-x)) skewY(var(--tw-skew-y)) scaleX(var(--tw-scale-x)) scaleY(var(--tw-scale-y));
@@ -1015,6 +1051,47 @@ Ensure the default browser behavior of the `hidden` attribute.
   transform: translate(var(--tw-translate-x), var(--tw-translate-y)) rotate(var(--tw-rotate)) skewX(var(--tw-skew-x)) skewY(var(--tw-skew-y)) scaleX(var(--tw-scale-x)) scaleY(var(--tw-scale-y));
 }
 
+@-webkit-keyframes phone-landscape-rotate {
+  0% {
+    transform: rotate(-90deg);
+  }
+
+  20% {
+    transform: rotate(-90deg);
+  }
+
+  80% {
+    transform: rotate(0deg);
+  }
+
+  100% {
+    transform: rotate(0deg);
+  }
+}
+
+@keyframes phone-landscape-rotate {
+  0% {
+    transform: rotate(-90deg);
+  }
+
+  20% {
+    transform: rotate(-90deg);
+  }
+
+  80% {
+    transform: rotate(0deg);
+  }
+
+  100% {
+    transform: rotate(0deg);
+  }
+}
+
+.animate-phone-landscape-rotate {
+  -webkit-animation: phone-landscape-rotate 1500ms ease-in-out infinite alternate;
+          animation: phone-landscape-rotate 1500ms ease-in-out infinite alternate;
+}
+
 @-webkit-keyframes fade-in {
   0% {
     opacity: 0;
@@ -1023,6 +1100,21 @@ Ensure the default browser behavior of the `hidden` attribute.
   100% {
     opacity: 1;
   }
+}
+
+@keyframes fade-in {
+  0% {
+    opacity: 0;
+  }
+
+  100% {
+    opacity: 1;
+  }
+}
+
+.animate-fade-in-1500 {
+  -webkit-animation: fade-in 1500ms ease-in-out infinite alternate;
+          animation: fade-in 1500ms ease-in-out infinite alternate;
 }
 
 @keyframes fade-in {
@@ -1347,6 +1439,10 @@ Ensure the default browser behavior of the `hidden` attribute.
   justify-content: space-around;
 }
 
+.justify-evenly {
+  justify-content: space-evenly;
+}
+
 .gap-2 {
   gap: 0.5rem;
 }
@@ -1522,6 +1618,11 @@ Ensure the default browser behavior of the `hidden` attribute.
   border-color: rgb(0 0 0 / var(--tw-border-opacity));
 }
 
+.border-white {
+  --tw-border-opacity: 1;
+  border-color: rgb(255 255 255 / var(--tw-border-opacity));
+}
+
 .border-slate-200 {
   --tw-border-opacity: 1;
   border-color: rgb(226 232 240 / var(--tw-border-opacity));
@@ -1584,6 +1685,19 @@ Ensure the default browser behavior of the `hidden` attribute.
 
 .bg-transparent {
   background-color: transparent;
+}
+
+.bg-black {
+  --tw-bg-opacity: 1;
+  background-color: rgb(0 0 0 / var(--tw-bg-opacity));
+}
+
+.bg-slate-50\/40 {
+  background-color: rgb(248 250 252 / 0.4);
+}
+
+.bg-gray-400\/30 {
+  background-color: rgb(156 163 175 / 0.3);
 }
 
 .bg-black\/60 {
@@ -1867,6 +1981,16 @@ Ensure the default browser behavior of the `hidden` attribute.
   color: rgb(0 0 0 / var(--tw-text-opacity));
 }
 
+.text-green-400 {
+  --tw-text-opacity: 1;
+  color: rgb(74 222 128 / var(--tw-text-opacity));
+}
+
+.text-yellow-300 {
+  --tw-text-opacity: 1;
+  color: rgb(253 224 71 / var(--tw-text-opacity));
+}
+
 .text-white {
   --tw-text-opacity: 1;
   color: rgb(255 255 255 / var(--tw-text-opacity));
@@ -1875,11 +1999,6 @@ Ensure the default browser behavior of the `hidden` attribute.
 .text-slate-700 {
   --tw-text-opacity: 1;
   color: rgb(51 65 85 / var(--tw-text-opacity));
-}
-
-.text-yellow-300 {
-  --tw-text-opacity: 1;
-  color: rgb(253 224 71 / var(--tw-text-opacity));
 }
 
 .text-green-600 {
@@ -1908,10 +2027,6 @@ Ensure the default browser behavior of the `hidden` attribute.
 .antialiased {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-}
-
-.opacity-20 {
-  opacity: 0.2;
 }
 
 .shadow-2xl {
@@ -1963,16 +2078,8 @@ Ensure the default browser behavior of the `hidden` attribute.
   transition-duration: 500ms;
 }
 
-.duration-100 {
-  transition-duration: 100ms;
-}
-
 .duration-1000 {
   transition-duration: 1000ms;
-}
-
-.duration-150 {
-  transition-duration: 150ms;
 }
 
 .before\:absolute::before {

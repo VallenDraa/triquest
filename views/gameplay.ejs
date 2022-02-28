@@ -16,6 +16,9 @@
   <body>
     <!-- gameplay UI -->
     <main class="main-bg bg-anim relative overflow-hidden">
+      <!-- landscape-alert -->
+      <%- include("./mobile/landscape-alert.ejs") %>
+
       <!-- after answer pop-up -->
       <%- include("./partials/gameplay_partials/after-answer-pop-up") %>
 
@@ -40,6 +43,7 @@
       <%- include("./partials/gameplay_partials/gameplay-result-screen") %>
     </main>
 
+    <script src="../../mobile/mobile-detection.js"></script>
     <script src="../gameplay_js/gameplay.js"></script>
   </body>
 </html>

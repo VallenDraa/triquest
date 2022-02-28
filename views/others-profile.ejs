@@ -18,11 +18,12 @@
     <title><%=title%></title>
   </head>
   <body
-    class="antialiased flex flex-col min-h-full overflow-x-hidden scroll-smooth"
+    class="antialiased flex flex-col min-h-full overflow-x-hidden scroll-smooth relative"
   >
-    <!-- Navbar -->
+      <!--landscape-alert-->
+      <%- include("./mobile/landscape-alert.ejs")  %>  
         <!-- Navbar -->
-        <nav
+      <nav
         class="bg-yellow-300 py-2 sticky top-0 z-50 navbar shadow-2xl border-b-4 border-b-black duration-300"
       >
         <div
@@ -74,9 +75,6 @@
           </div>
         </div>
       </nav>
-  
-
-
 
     <main class="mt-auto">
       <!-- Profile -->
@@ -220,6 +218,7 @@
       </section>
     </main>
   </body>
+<script src="../../mobile/mobile-detection.js"></script>
 <script src="../../misc_js/interaction.js"></script>
 <!-- Footer -->
 <%- include("./partials/footer") %>

@@ -1,6 +1,5 @@
 module.exports = {
-  mode: 'jit',
-  content: ['./views/**/*.ejs', './public/**/*.js', './test-html.html'],
+  content: ['./views/**/*.ejs', './public/**/*.js'],
   theme: {
     extend: {
       fontSize: {
@@ -98,9 +97,24 @@ module.exports = {
             transform: 'rotate(0deg)',
           },
         },
+        'phone-landscape-rotate': {
+          '0%': {
+            transform: 'rotate(-90deg)',
+          },
+          '20%': {
+            transform: 'rotate(-90deg)',
+          },
+          '80%': {
+            transform: 'rotate(0deg)',
+          },
+          '100%': {
+            transform: 'rotate(0deg)',
+          },
+        },
       },
       animation: {
         'fade-in': 'fade-in 400ms ease-in-out',
+        'fade-in-1500': 'fade-in 1500ms ease-in-out infinite alternate',
         'fade-in-half': 'fade-in-half 400ms ease-in-out',
         'pop-up': ' pop-up 400ms ease-in-out',
         'slide-from-top': 'slide-from-top 600ms ease-in-out',
@@ -108,6 +122,8 @@ module.exports = {
         'slide-x': ' slide-x 1200ms ease-in-out',
         'fade-out': 'fade-out 400ms ease-in-out',
         shake: 'shake 250ms ease-in-out',
+        'phone-landscape-rotate':
+          'phone-landscape-rotate 1500ms ease-in-out infinite alternate',
       },
       fontFamily: {
         teko: ['Teko', 'sans-serif'],
