@@ -67,7 +67,10 @@ router.post(
             res.redirect('/sign-up');
           }
         } else {
-          req.flash('fail', 'This user has aleady been registered !');
+          req.flash(
+            'fail',
+            'Entered username or email has aleady been registered !'
+          );
           res.redirect('/sign-up');
         }
       } else {
