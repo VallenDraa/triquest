@@ -59,9 +59,15 @@
               <a
                 id="profile-btn-header"
                 class="truncate"
-                href="/profile/myprofile/<%=username%>"
-              >
-                <% if (username) { %> <%=username%> <% } else {%> Guest <% } %>
+                href="/profile/myprofile/<%if(username && typeof headerUsername === "undefined"){%><%=username%><%}else if(typeof headerUsername !== "undefined"){%><%=headerUsername%><%}%>">
+                  <% if (username && typeof headerUsername === "undefined") { %> 
+                    <%=username%>
+                  <% } else if(typeof headerUsername !== "undefined") { %>
+                    <%= headerUsername %> 
+                    <% } else {%> 
+                      Guest 
+                    <% } %>
+                   </a>
               </a>
             </li>
           </ul>

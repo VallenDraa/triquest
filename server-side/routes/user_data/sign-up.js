@@ -32,39 +32,46 @@ router.post(
   async (req, res) => {
     const error = validationResult(req);
     if (error.isEmpty()) {
-      const hashedPassword = await bcrypt.hash(req.body.password, 11);
-      const user = new User({
-        username: req.body.username,
-        email: req.body.email,
-        password: hashedPassword,
-      });
+      if (req.body.password === req.body.confirm_password) {
+        const hashedPassword = await bcrypt.hash(req.body.password, 11);
+        const user = new User({
+          username: req.body.username,
+          email: req.body.email,
+          password: hashedPassword,
+        });
 
-      const userSearch = await User.findOne({
-        $or: [
-          {
-            username: req.body.username,
-          },
-          {
-            email: req.body.email,
-          },
-        ],
-      });
+        const userSearch = await User.findOne({
+          $or: [
+            {
+              username: req.body.username,
+            },
+            {
+              email: req.body.email,
+            },
+          ],
+        });
 
-      // console.log(userSearch);
+        // console.log(userSearch);
 
-      if (!userSearch) {
-        try {
-          await user.save();
-          const id = await User.findOne({ username: req.body.username }).exec();
-          res.cookie('userState', 'notGuest');
-          res.cookie('id', id.id);
-          res.redirect('/');
-        } catch (error) {
-          req.flash('fail', 'Fail to sign-up, Please try again later !');
+        if (!userSearch) {
+          try {
+            await user.save();
+            const id = await User.findOne({
+              username: req.body.username,
+            }).exec();
+            res.cookie('userState', 'notGuest');
+            res.cookie('id', id.id);
+            res.redirect('/');
+          } catch (error) {
+            req.flash('fail', 'Fail to sign-up, Please try again later !');
+            res.redirect('/sign-up');
+          }
+        } else {
+          req.flash('fail', 'This user has aleady been registered !');
           res.redirect('/sign-up');
         }
       } else {
-        req.flash('fail', 'This user has aleady been registered !');
+        req.flash('fail', 'The passwords are not the same !');
         res.redirect('/sign-up');
       }
     } else {

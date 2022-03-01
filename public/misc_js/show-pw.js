@@ -1,12 +1,17 @@
 // for password
 const showPW = document.querySelector('.show-pw');
-const passwordInput = document.querySelector('#password');
+const passwordInputs = document.querySelectorAll('#password');
+
 showPW.addEventListener('click', function () {
   if (this.classList.contains('fa-eye-slash')) {
     this.classList.replace('fa-eye-slash', 'fa-eye');
-    passwordInput.setAttribute('type', 'text');
+    passwordInputs.forEach((input) => {
+      input.setAttribute('type', 'text');
+    });
   } else {
     this.classList.replace('fa-eye', 'fa-eye-slash');
-    passwordInput.setAttribute('type', 'password');
+    passwordInputs.forEach((input) => {
+      input.setAttribute('type', 'password');
+    });
   }
 });

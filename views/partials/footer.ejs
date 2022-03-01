@@ -38,7 +38,15 @@
           <li
             class="cursor-pointer grid content-center text-xl md:text-2xl tracking-wide py-1 mx-auto duration-300 rounded hover:text-yellow-200 after:content-[''] after:block after:bg-yellow-200 after:w-0 hover:after:w-1/4 md:hover:after:w-1/2 after:duration-300 after:mx-auto after:h-[3px]"
           >
-          <a href="/profile">vallen</a>
+          <a href="/profile/myprofile/<%if(username && typeof headerUsername === "undefined"){%><%=username%><%}else if(typeof headerUsername !== "undefined"){%><%=headerUsername%><%}%>">
+              <% if (username && typeof headerUsername === "undefined") { %> 
+                <%=username%>
+              <% } else if(typeof headerUsername !== "undefined") { %>
+                <%= headerUsername %> 
+                <% } else {%> 
+                  Guest 
+                <% } %>
+               </a>
           </li>
         </ul>
       </section>

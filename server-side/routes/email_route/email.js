@@ -57,11 +57,11 @@ router.post('/send_email', (req, res) => {
 
   transporter.sendMail(mailOptions, (err, info) => {
     if (err) {
-      console.error(err);
+      // console.error(err);
       req.flash('fail', 'Fail to send email, please try again later !');
       res.redirect('/contact_us');
     } else {
-      console.info(info);
+      // console.info(info);
       req.flash('success', 'Email sent !');
       res.redirect('/');
     }

@@ -55,3 +55,21 @@
   </p>
   <%} %>
 </div>
+<% if (page_title === "SIGN-UP") {%> %>
+<!-- confirm password -->
+<div class="w-full max-w-4xl mx-auto relative">
+  <label for="confirm-password" class="text-lg font-bold ml-2 inline-block">
+    Re-Enter Password
+  </label>
+  <div class="flex justify-between items-center">
+    <input
+      type="password"
+      name="confirm_password"
+      id="password"
+      class="border-2 md:border-4 border-black outline-none px-2 rounded-lg block w-full py-2 bg-slate-50"
+      placeholder="Password"
+      required
+    />
+  </div>
+</div>
+<% } %>
