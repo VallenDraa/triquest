@@ -398,20 +398,27 @@ function savePoints() {
 }
 function fetchPoint(highscoreHTML) {
   if (parseCookieAtGameplay(document.cookie).userState == 'guest') {
-    getPointsAndDisplayIt(localStorage.getItem(key), highscoreHTML);
+    getPointsAndDisplayIt(
+      localStorage.getItem(key),
+      highscoreHTML,
+      totalCorrectAns
+    );
   } else {
     fetch(`/api/fetch_highscore/${key}`)
       .then((response) => response.json())
       .then((data) => {
         // console.log(data);
-        getPointsAndDisplayIt(data.score, highscoreHTML);
+        getPointsAndDisplayIt(data.score, highscoreHTML, totalCorrectAns);
       });
   }
 }
-function getPointsAndDisplayIt(source, highscoreHTML) {
-  // console.log(source, totalCorrectAns);
+function getPointsAndDisplayIt(source, highscoreHTML, totalCorrectAns) {
   if (source) {
-    if (parseInt(source) >= totalCorrectAns) {
+    if (
+      parseInt(source) >= totalCorrectAns ||
+      parseInt(source) !== 0 ||
+      parseInt(source) !== undefined
+    ) {
       highscoreHTML.textContent = `Highscore: ${source}`;
     } else {
       highscoreHTML.textContent = `New Highscore: ${totalCorrectAns}`;
