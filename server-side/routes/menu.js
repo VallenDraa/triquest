@@ -82,6 +82,8 @@ router.get('/profile/others/:username', async function (req, res) {
     const scoreName = [];
     if (req.cookies.userState) {
       if (req.cookies.userState == 'notGuest') {
+        if (!req.cookies.id) return res.redirect('/sign-up');
+
         const myUser = await User.findById(req.cookies.id);
         const otherUser = await User.findOne({ username: req.params.username });
         if (myUser.username != otherUser.username) {
@@ -146,7 +148,7 @@ router.get('/profile/others/:username', async function (req, res) {
     }
   } catch (error) {
     console.error(error);
-    res.redirect('/error/503');
+    res.redirect('/sign-up');
   }
 });
 
@@ -158,6 +160,8 @@ router.get('/profile/myprofile/:username', async function (req, res) {
     const scoreName = [];
     if (req.cookies.userState) {
       if (req.cookies.userState == 'notGuest') {
+        if (!req.cookies.id) return res.redirect('/sign-up');
+
         const myUser = await User.findById(req.cookies.id);
         const otherUser = await User.findOne({ username: req.params.username });
         if (myUser.username != otherUser.username) {
@@ -201,7 +205,7 @@ router.get('/profile/myprofile/:username', async function (req, res) {
     }
   } catch (error) {
     console.error(error);
-    res.redirect('/error/503');
+    res.redirect('/sign-up');
   }
 });
 
@@ -235,6 +239,7 @@ async function checkIfGuestMode(req, res, userState, userID) {
       userState: 'guest',
     };
   } else if (userState == 'notGuest') {
+    if (!userID) return res.redirect('/sign-up');
     try {
       user = await User.findById(userID).exec();
       return {

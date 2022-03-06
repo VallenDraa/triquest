@@ -19,6 +19,10 @@ router.use(
 router.use(flash());
 
 router.get('/save_points/:id/:key/:value', async (req, res) => {
+  if (!req.cookies.id) {
+    req.flash('fail', 'Fail to save points, please try to log in again !');
+    return res.redirect('/sign-up');
+  }
   let user;
   const userID = req.params.id;
   const scoreParam = req.params.key;

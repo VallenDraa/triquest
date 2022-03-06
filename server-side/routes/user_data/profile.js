@@ -24,6 +24,14 @@ router.use(flash());
 router.put('/save_profile_edits', async (req, res) => {
   // let user;
   try {
+    if (!req.cookies.id) {
+      req.flash(
+        'fail',
+        'Fail to save profile edits, please try to log in again !'
+      );
+      return res.redirect('/sign-up');
+    }
+
     const user = await User.findById(req.cookies.id).exec();
     // if (req.body.password === user.password) {
     const existingUsername = await usernameExist(
