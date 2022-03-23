@@ -8,7 +8,6 @@ const User = require('../../models/user');
 const cookieParser = require('cookie-parser');
 const flash = require('connect-flash');
 const session = require('express-session');
-const res = require('express/lib/response');
 
 router.use(cookieParser('secret'));
 router.use(

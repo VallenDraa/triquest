@@ -19,6 +19,7 @@ const profileRouter = require('./server-side/routes/user_data/profile');
 const savePointsRouter = require('./server-side/routes/points/save-points');
 const emailRouter = require('./server-side/routes/email_route/email');
 const APIRouter = require('./server-side/routes/API/API.js');
+const adminRouter = require('./server-side/routes/admin/admin.js');
 const cookieParser = require('cookie-parser');
 const flash = require('connect-flash');
 const session = require('express-session');
@@ -41,6 +42,7 @@ app.use('/', logOutRouter);
 app.use('/', savePointsRouter);
 app.use('/api', APIRouter);
 app.use('/contact_us', emailRouter);
+app.use('/admin', adminRouter);
 // utility
 app.use(methodOverride('_method'));
 app.use(cookieParser('secret'));

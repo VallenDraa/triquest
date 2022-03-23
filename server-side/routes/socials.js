@@ -1,7 +1,6 @@
 const express = require('express');
 const router = express.Router();
 const cookieParser = require('cookie-parser');
-const User = require('../../models/user');
 const { checkIfGuestMode } = require('./menu');
 
 router.use(cookieParser());
