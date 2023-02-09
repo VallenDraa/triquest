@@ -1,21 +1,21 @@
-const questionCardWrapper = document.querySelector('.question-card-wrapper'),
-  timerBars = document.querySelectorAll('.timer-bar'),
-  questionCards = document.querySelectorAll('.question-card'),
-  afterAnswerWrapper = document.querySelector('.after-answer-wrapper'),
-  afterAnswerCard = document.querySelector('.after-answer-card'),
-  afterAnswerMes = document.querySelector('.after-answer-mes'),
-  iconCorrectIncorrect = document.querySelector('.icon-co-in'),
-  correctAnswerMes = document.querySelector('.correct-answer'),
-  resultScreen = document.querySelector('.result-screen'),
-  answerOptionWrapper = document.querySelector('.answer-option-wrapper'),
-  answerOptions = document.querySelectorAll('.answer-option'),
-  progressBar = document.querySelector('.circular-progress'),
-  valueContainer = document.querySelector('.value-container'),
-  highscore = document.querySelector('.highscore'),
-  resultToMainBtn = document.querySelector('.result-to-main-btn'),
-  endGameBtn = document.querySelectorAll('.end-game-btn'),
-  questionTransition = document.querySelectorAll('#question-transition'),
-  nextQuestionBtn = document.querySelector('.next-question');
+const questionCardWrapper = document.querySelector(".question-card-wrapper"),
+  timerBars = document.querySelectorAll(".timer-bar"),
+  questionCards = document.querySelectorAll(".question-card"),
+  afterAnswerWrapper = document.querySelector(".after-answer-wrapper"),
+  afterAnswerCard = document.querySelector(".after-answer-card"),
+  afterAnswerMes = document.querySelector(".after-answer-mes"),
+  iconCorrectIncorrect = document.querySelector(".icon-co-in"),
+  correctAnswerMes = document.querySelector(".correct-answer"),
+  resultScreen = document.querySelector(".result-screen"),
+  answerOptionWrapper = document.querySelector(".answer-option-wrapper"),
+  answerOptions = document.querySelectorAll(".answer-option"),
+  progressBar = document.querySelector(".circular-progress"),
+  valueContainer = document.querySelector(".value-container"),
+  highscore = document.querySelector(".highscore"),
+  resultToMainBtn = document.querySelector(".result-to-main-btn"),
+  endGameBtn = document.querySelectorAll(".end-game-btn"),
+  questionTransition = document.querySelectorAll("#question-transition"),
+  nextQuestionBtn = document.querySelector(".next-question");
 
 let multipleOrBool,
   isInAfterAnswer = false,
@@ -25,9 +25,9 @@ let stillFetching = true,
   sessionToken = parseCookieAtGameplay(document.cookie).sessionToken;
 // for points
 const key = `score_${sessionStorage.getItem(
-  'local_mode'
-)}_${sessionStorage.getItem('local_cat')}_${sessionStorage.getItem(
-  'local_difs'
+  "local_mode"
+)}_${sessionStorage.getItem("local_cat")}_${sessionStorage.getItem(
+  "local_difs"
 )}`;
 
 // calling api and assigning the questions
@@ -60,39 +60,39 @@ const questions = {
     // if there are no questions
     if (questionsArr.length === 0) {
       resultScreenProperties(
-        'There Are No More Questions For This Category',
+        "There Are No More Questions For This Category",
         totalCorrectAns
       );
       return;
     }
 
     // for multiple choice
-    if (questionsArr[i].type == 'multiple') {
-      document.querySelector('.question-four-opt').innerHTML =
+    if (questionsArr[i].type == "multiple") {
+      document.querySelector(".question-four-opt").innerHTML =
         questionsArr[i].question;
       questions.multipleAnswerAssign(
         questionsArr[i].correct_answer,
         questionsArr[i].incorrect_answers,
-        document.querySelectorAll('.answer-four')
+        document.querySelectorAll(".answer-four")
       );
       questions.questionCardFooter(questionsArr, i);
-      document.querySelector('.question-card-two').classList.add('hidden');
-      document.querySelector('.question-card-four').classList.remove('hidden');
+      document.querySelector(".question-card-two").classList.add("hidden");
+      document.querySelector(".question-card-four").classList.remove("hidden");
       multipleOrBool = 0;
     }
 
     // for boolean choice
     else {
-      document.querySelector('.question-two-opt').innerHTML =
+      document.querySelector(".question-two-opt").innerHTML =
         questionsArr[i].question;
       questions.boolAnswerAssign(
         questionsArr[i].correct_answer,
-        document.querySelectorAll('.answer-two')
+        document.querySelectorAll(".answer-two")
       );
       questions.questionCardFooter(questionsArr, i);
-      document.querySelector('.question-card-four').classList.add('hidden');
+      document.querySelector(".question-card-four").classList.add("hidden");
       multipleOrBool = 1;
-      document.querySelector('.question-card-two').classList.remove('hidden');
+      document.querySelector(".question-card-two").classList.remove("hidden");
     }
     // match height between after answer card and question card
     matchHeight(answerOptionWrapper, afterAnswerCard);
@@ -122,7 +122,7 @@ const questions = {
 
       // insert to html and check if the choice is the correct Answer
       if (choices[indexChoice] === correct) {
-        element[indexCard].classList.add('co');
+        element[indexCard].classList.add("co");
       }
       element[indexCard].innerHTML = choices[indexChoice];
 
@@ -132,23 +132,23 @@ const questions = {
     }
   },
   boolAnswerAssign: (correct, answerCard) => {
-    const trueOpt = 'True';
+    const trueOpt = "True";
 
     if (trueOpt === correct) {
-      answerCard[0].classList.add('co');
-      answerCard[1].classList.add('li');
+      answerCard[0].classList.add("co");
+      answerCard[1].classList.add("li");
     } else {
-      answerCard[0].classList.add('li');
-      answerCard[1].classList.add('co');
+      answerCard[0].classList.add("li");
+      answerCard[1].classList.add("co");
     }
   },
   questionCardFooter: (questionsArr, i) => {
-    if (questionsArr[i].type == 'multiple') {
-      document.querySelector('.footer-four-opt').textContent = `Q-${i + 1} · ${
+    if (questionsArr[i].type == "multiple") {
+      document.querySelector(".footer-four-opt").textContent = `Q-${i + 1} · ${
         questionsArr[i].difficulty
       } · ${questionsArr[i].category}`;
     } else {
-      document.querySelector('.footer-two-opt').textContent = `Q-${i + 1} · ${
+      document.querySelector(".footer-two-opt").textContent = `Q-${i + 1} · ${
         questionsArr[i].difficulty
       } · ${questionsArr[i].category}`;
     }
@@ -163,15 +163,15 @@ let time = 16;
 let endedByUser = false;
 function changeTimerBarStyle() {
   timerBars.forEach((timerBar) => {
-    timerBar.setAttribute('style', `width:${(time * 10) / 1.5}%`);
+    timerBar.setAttribute("style", `width:${(time * 10) / 1.5}%`);
     if (time <= 10) {
-      timerBar.classList.replace('bg-green-400', 'bg-orange-400');
+      timerBar.classList.replace("bg-green-400", "bg-orange-400");
     }
     if (time <= 5) {
-      timerBar.classList.replace('bg-orange-400', 'bg-red-500');
+      timerBar.classList.replace("bg-orange-400", "bg-red-500");
     }
     if (time <= 0.1) {
-      timerBar.classList.replace('bg-red-500', 'bg-transparent');
+      timerBar.classList.replace("bg-red-500", "bg-transparent");
     }
   });
 }
@@ -180,13 +180,13 @@ function resetTimeAndBar() {
   //change bar style
   timerBars.forEach((timerBar) => {
     turnBarToGreen(timerBar);
-    timerBar.classList.remove('duration-1000');
-    timerBar.setAttribute('style', `width:100%`);
+    timerBar.classList.remove("duration-1000");
+    timerBar.setAttribute("style", `width:100%`);
   });
   // re-add transition
   setTimeout(() => {
     timerBars.forEach((timerBar) => {
-      timerBar.classList.add('duration-1000');
+      timerBar.classList.add("duration-1000");
     });
   }, 50);
 }
@@ -206,9 +206,9 @@ function runTimerBar() {
         time = 0;
         // if time ran out
         if (endedByUser) {
-          resultScreenProperties('You Ended The Game !', totalCorrectAns);
+          resultScreenProperties("You Ended The Game !", totalCorrectAns);
         } else {
-          resultScreenProperties('You Ran Out Of Time', totalCorrectAns);
+          resultScreenProperties("You Ran Out Of Time", totalCorrectAns);
         }
       }
     }, timeInterval);
@@ -221,24 +221,24 @@ function runTimerBar() {
   }, 1000);
 }
 function turnBarToGreen(timerBar) {
-  if (timerBar.classList.contains('bg-green-400')) {
+  if (timerBar.classList.contains("bg-green-400")) {
     return;
-  } else if (timerBar.classList.contains('bg-orange-400')) {
-    timerBar.classList.replace('bg-orange-400', 'bg-green-400');
-  } else if (timerBar.classList.contains('bg-red-500')) {
-    timerBar.classList.replace('bg-red-500', 'bg-green-400');
+  } else if (timerBar.classList.contains("bg-orange-400")) {
+    timerBar.classList.replace("bg-orange-400", "bg-green-400");
+  } else if (timerBar.classList.contains("bg-red-500")) {
+    timerBar.classList.replace("bg-red-500", "bg-green-400");
   }
 }
 
 // resize the questions font size
-window.addEventListener('resize', () => {
+window.addEventListener("resize", () => {
   // match height between after answer card and question card
   matchHeight(answerOptionWrapper, afterAnswerCard);
 });
 // everytime an answer is clicked
 answerOptions.forEach((option) => {
-  option.addEventListener('click', function () {
-    removeAnimationClass('animate-slide-x', questionCards);
+  option.addEventListener("click", function () {
+    removeAnimationClass("animate-slide-x", questionCards);
     isInAfterAnswer = true;
     // add the index
     questions.currentQuestion++;
@@ -251,21 +251,21 @@ answerOptions.forEach((option) => {
     );
 
     // show after answer card
-    afterAnswerWrapper.classList.remove('hidden');
-    afterAnswerWrapper.classList.remove('animate-fade-out');
-    afterAnswerWrapper.classList.add('animate-fade-in');
+    afterAnswerWrapper.classList.remove("hidden");
+    afterAnswerWrapper.classList.remove("animate-fade-out");
+    afterAnswerWrapper.classList.add("animate-fade-in");
 
     // check the index of the current question to fetch more questions
     // temporary fix for safari non-working after-answer animation
 
     // check if the mode is campaign
-    if (sessionStorage.getItem('local_mode') != 'Campaign') {
+    if (sessionStorage.getItem("local_mode") != "Campaign") {
       if (questions.currentQuestion == questions.questionList.length - 1) {
         questions.fetchQuestion(
-          sessionStorage.getItem('api_amount'),
-          sessionStorage.getItem('api_cat'),
-          sessionStorage.getItem('api_difs'),
-          sessionStorage.getItem('api_type'),
+          sessionStorage.getItem("api_amount"),
+          sessionStorage.getItem("api_cat"),
+          sessionStorage.getItem("api_difs"),
+          sessionStorage.getItem("api_type"),
           sessionToken
         );
       }
@@ -275,17 +275,17 @@ answerOptions.forEach((option) => {
   });
 });
 // everytime next question button is clicked
-nextQuestionBtn.addEventListener('click', function () {
+nextQuestionBtn.addEventListener("click", function () {
   isInAfterAnswer = false;
 
   // remove the correct answer indicator
   answerOptions.forEach((option) => {
-    option.classList.remove('co');
+    option.classList.remove("co");
   });
 
   // hide the after answer card
-  afterAnswerWrapper.classList.remove('animate-fade-in');
-  afterAnswerWrapper.classList.add('hidden');
+  afterAnswerWrapper.classList.remove("animate-fade-in");
+  afterAnswerWrapper.classList.add("hidden");
 
   // check the index and refresh the question
   if (questions.currentQuestion !== questions.questionList.length) {
@@ -297,7 +297,7 @@ nextQuestionBtn.addEventListener('click', function () {
 
     // to remove animation and to reset timer bar
     setTimeout(() => {
-      toggleAnimationClass('animate-slide-x', questionCards);
+      toggleAnimationClass("animate-slide-x", questionCards);
     }, 100);
     hideNShow(questionCards[multipleOrBool]);
     resetTimeAndBar();
@@ -310,7 +310,7 @@ nextQuestionBtn.addEventListener('click', function () {
 });
 // everytime the endgamebtn is pressed
 endGameBtn.forEach((btn) => {
-  btn.addEventListener('click', () => {
+  btn.addEventListener("click", () => {
     endedByUser = true; //this will trigger a function in runtimerbar and end the game immediately
     time = 0;
   });
@@ -318,19 +318,19 @@ endGameBtn.forEach((btn) => {
 
 // after answer
 function checkIfAnswerCorrect(answerChoice, icon, totalCorrectAns) {
-  if (answerChoice.classList.contains('co')) {
-    icon.classList.replace('fa-times', 'fa-check');
-    icon.classList.replace('bg-red-500', 'bg-green-400');
-    afterAnswerMes.textContent = 'Your Answer Is Correct !';
-    icon.style.padding = '1rem';
+  if (answerChoice.classList.contains("co")) {
+    icon.classList.replace("fa-times", "fa-check");
+    icon.classList.replace("bg-red-500", "bg-green-400");
+    afterAnswerMes.textContent = "Your Answer Is Correct !";
+    icon.style.padding = "1rem";
     totalCorrectAns++;
   } else {
-    icon.classList.replace('fa-check', 'fa-times');
-    icon.classList.replace('bg-green-400', 'bg-red-500');
-    afterAnswerMes.textContent = 'Your Answer Is Incorrect !';
-    icon.style.padding = '1rem 1.5rem';
+    icon.classList.replace("fa-check", "fa-times");
+    icon.classList.replace("bg-green-400", "bg-red-500");
+    afterAnswerMes.textContent = "Your Answer Is Incorrect !";
+    icon.style.padding = "1rem 1.5rem";
   }
-  correctAnswerMes.textContent = document.querySelector('.co').innerText;
+  correctAnswerMes.textContent = document.querySelector(".co").innerText;
 
   // return the total points
   return totalCorrectAns;
@@ -339,13 +339,13 @@ function checkIfAnswerCorrect(answerChoice, icon, totalCorrectAns) {
 // result screen
 function resultScreenProperties(message, totalCorrectAns) {
   // console.log(`Total Correct Answer: ${totalCorrectAns}`);
-  if (typeof message === 'string' && message !== '') {
-    document.querySelector('.result-mes').textContent = message;
+  if (typeof message === "string" && message !== "") {
+    document.querySelector(".result-mes").textContent = message;
   }
 
-  resultScreen.classList.remove('hidden');
-  resultScreen.classList.add('animate-fade-in');
-  resultScreen.querySelector('div').classList.add('animate-pop-up');
+  resultScreen.classList.remove("hidden");
+  resultScreen.classList.add("animate-fade-in");
+  resultScreen.querySelector("div").classList.add("animate-pop-up");
   setTimeout(() => {
     let circleValue = 0,
       totalQuestionAnswered = questions.currentQuestion + 1,
@@ -369,11 +369,11 @@ function resultScreenProperties(message, totalCorrectAns) {
 
   // fetch point and then display the value
   fetchPoint(highscore);
-  resultToMainBtn.addEventListener('click', function () {
+  resultToMainBtn.addEventListener("click", function () {
     savePoints();
     const userID = parseCookieAtGameplay(document.cookie).id;
     if (totalCorrectAns) {
-      const value = totalCorrectAns === 0 ? '0' : totalCorrectAns;
+      const value = totalCorrectAns === 0 ? "0" : totalCorrectAns;
       if (userID) {
         // console.log(`/save_points/${userID}/${scoreKey}`);
         window.location.href = `/save_points/${userID}/${key}/${value}`;
@@ -381,23 +381,23 @@ function resultScreenProperties(message, totalCorrectAns) {
         window.location.href = `/save_points/guest/guest/guest`;
       }
     } else {
-      window.location.href = '/';
+      window.location.href = "/";
     }
   });
 }
 function savePoints() {
   const userState = parseCookieAtGameplay(document.cookie).userState;
   const currentScore = parseInt(parseCookieAtGameplay(document.cookie)[key]);
-  const value = totalCorrectAns === 0 ? '0' : totalCorrectAns;
+  const value = totalCorrectAns === 0 ? "0" : totalCorrectAns;
 
-  if (userState == 'notGuest') return;
+  if (userState == "notGuest") return;
 
   if (totalCorrectAns > localStorage.getItem(key)) {
     localStorage.setItem(key, value);
   }
 }
 function fetchPoint(highscoreHTML) {
-  if (parseCookieAtGameplay(document.cookie).userState == 'guest') {
+  if (parseCookieAtGameplay(document.cookie).userState == "guest") {
     getPointsAndDisplayIt(
       localStorage.getItem(key),
       highscoreHTML,
@@ -432,14 +432,14 @@ function getPointsAndDisplayIt(source, highscoreHTML, totalCorrectAns) {
 function matchHeight(elementToObserved, elementToBeChanged) {
   // making sure the after answer card is the same height as the current question card
   elementToBeChanged.style.height =
-    elementToObserved.offsetHeight.toString() + 'px';
+    elementToObserved.offsetHeight.toString() + "px";
   elementToBeChanged.style.width =
-    elementToObserved.offsetWidth.toString() + 'px';
+    elementToObserved.offsetWidth.toString() + "px";
 }
 function hideNShow(target) {
-  target.classList.add('hidden');
+  target.classList.add("hidden");
   setTimeout(function () {
-    target.classList.remove('hidden');
+    target.classList.remove("hidden");
   }, 20);
 }
 function toggleAnimationClass(animClass, target) {
@@ -455,34 +455,34 @@ function removeAnimationClass(animClass, target) {
   });
 }
 function removeLoadingScreen() {
-  const loadingScreen = document.querySelector('.loading-screen');
-  loadingScreen.classList.add('animate-fade-out');
+  const loadingScreen = document.querySelector(".loading-screen");
+  loadingScreen.classList.add("animate-fade-out");
   setTimeout(function () {
-    loadingScreen.classList.add('hidden');
+    loadingScreen.classList.add("hidden");
   }, 400);
 }
 function toggleQuestionTransition() {
-  removeAnimationClass('animate-fade-out-delay', questionTransition);
+  removeAnimationClass("animate-fade-out-delay", questionTransition);
   for (const item of questionTransition) {
-    item.classList.remove('hidden');
+    item.classList.remove("hidden");
   }
-  toggleAnimationClass('animate-fade-out-delay', questionTransition);
+  toggleAnimationClass("animate-fade-out-delay", questionTransition);
 
   setTimeout(() => {
     for (const item of questionTransition) {
-      item.classList.add('hidden');
+      item.classList.add("hidden");
     }
   }, 1500);
 }
 function toggleAfterAnswerWrapper() {
   for (const item of questionTransition) {
-    item.classList.remove('hidden');
+    item.classList.remove("hidden");
   }
-  toggleAnimationClass('animate-fade-out-delay', questionTransition);
+  toggleAnimationClass("animate-fade-out-delay", questionTransition);
 
   setTimeout(() => {
     for (const item of questionTransition) {
-      item.classList.add('hidden');
+      item.classList.add("hidden");
     }
   }, 1500);
 }
@@ -492,18 +492,18 @@ function campaignModeFetchQuestion() {
   if (questions.currentQuestion == questions.questionList.length - 1) {
     if (questions.currentQuestion < 10) {
       questions.fetchQuestion(
-        sessionStorage.getItem('api_amount'),
-        sessionStorage.getItem('api_cat'),
-        'medium',
-        sessionStorage.getItem('api_type'),
+        sessionStorage.getItem("api_amount"),
+        sessionStorage.getItem("api_cat"),
+        "medium",
+        sessionStorage.getItem("api_type"),
         sessionToken
       );
     } else {
       questions.fetchQuestion(
-        sessionStorage.getItem('api_amount'),
-        sessionStorage.getItem('api_cat'),
-        'hard',
-        sessionStorage.getItem('api_type'),
+        sessionStorage.getItem("api_amount"),
+        sessionStorage.getItem("api_cat"),
+        "hard",
+        sessionStorage.getItem("api_type"),
         sessionToken
       );
     }
@@ -511,8 +511,8 @@ function campaignModeFetchQuestion() {
 }
 function parseCookieAtGameplay(str) {
   return str
-    .split(';')
-    .map((v) => v.split('='))
+    .split(";")
+    .map((v) => v.split("="))
     .reduce((acc, v) => {
       acc[decodeURIComponent(v[0].trim())] = decodeURIComponent(v[1].trim());
       return acc;
@@ -520,42 +520,42 @@ function parseCookieAtGameplay(str) {
 }
 
 // loading screen for gameplay page
-if (document.readyState === 'loading') {
-  if (sessionStorage.getItem('local_mode') != 'Campaign') {
+if (document.readyState === "loading") {
+  if (sessionStorage.getItem("local_mode") != "Campaign") {
     questions.fetchQuestion(
-      sessionStorage.getItem('api_amount'),
-      sessionStorage.getItem('api_cat'),
-      sessionStorage.getItem('api_difs'),
-      sessionStorage.getItem('api_type'),
+      sessionStorage.getItem("api_amount"),
+      sessionStorage.getItem("api_cat"),
+      sessionStorage.getItem("api_difs"),
+      sessionStorage.getItem("api_type"),
       sessionToken
     );
   } else {
     questions.fetchQuestion(
-      sessionStorage.getItem('api_amount'),
-      sessionStorage.getItem('api_cat'),
-      'easy',
-      sessionStorage.getItem('api_type'),
+      sessionStorage.getItem("api_amount"),
+      sessionStorage.getItem("api_cat"),
+      "easy",
+      sessionStorage.getItem("api_type"),
       sessionToken
     );
   }
   // when content has finished loading
-  document.addEventListener('DOMContentLoaded', () => {
-    afterAnswerWrapper.classList.add('hidden');
+  document.addEventListener("DOMContentLoaded", () => {
+    afterAnswerWrapper.classList.add("hidden");
 
-    resultScreen.classList.add('hidden');
+    resultScreen.classList.add("hidden");
     isInAfterAnswer = false;
     runTimerBar();
     for (const item of questionTransition) {
-      item.classList.add('hidden');
+      item.classList.add("hidden");
     }
-    toggleAnimationClass('animate-slide-x', questionCards);
+    toggleAnimationClass("animate-slide-x", questionCards);
   });
 } else {
   isInAfterAnswer = false;
   removeLoadingScreen();
   runTimerBar();
   for (const item of questionTransition) {
-    item.classList.add('hidden');
+    item.classList.add("hidden");
   }
-  toggleAnimationClass('animate-slide-x', questionCards);
+  toggleAnimationClass("animate-slide-x", questionCards);
 }

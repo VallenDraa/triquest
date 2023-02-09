@@ -1,14 +1,14 @@
-const express = require('express');
-const methodOverride = require('method-override');
-const cookieParser = require('cookie-parser');
+const express = require("express");
+const methodOverride = require("method-override");
+const cookieParser = require("cookie-parser");
 const router = express.Router();
-const User = require('../../../models/user');
-const flash = require('connect-flash');
-const session = require('express-session');
-const user = require('../../../models/user');
+const User = require("../../../models/user");
+const flash = require("connect-flash");
+const session = require("express-session");
+const user = require("../../../models/user");
 
-router.use(methodOverride('_method'));
-router.use(cookieParser('secret'));
+router.use(methodOverride("_method"));
+router.use(cookieParser("secret"));
 router.use(
   session({
     cookie: {
@@ -16,20 +16,20 @@ router.use(
     },
     resave: true,
     saveUninitialized: true,
-    secret: 'secret',
+    secret: "secret",
   })
 );
 router.use(flash());
 
-router.put('/save_profile_edits', async (req, res) => {
+router.put("/save_profile_edits", async (req, res) => {
   // let user;
   try {
     if (!req.cookies.id) {
       req.flash(
-        'fail',
-        'Fail to save profile edits, please try to log in again !'
+        "fail",
+        "Fail to save profile edits, please try to log in again !"
       );
-      return res.redirect('/sign-up');
+      return res.redirect("/sign-up");
     }
 
     const user = await User.findById(req.cookies.id).exec();
@@ -45,10 +45,10 @@ router.put('/save_profile_edits', async (req, res) => {
         country: req.body.country,
       });
 
-      req.flash('success', 'Changes successfully saved !');
+      req.flash("success", "Changes successfully saved !");
       res.redirect(`/profile/myprofile/${req.body.username}`);
     } else {
-      req.flash('fail', 'This username has aleady been taken !');
+      req.flash("fail", "This username has aleady been taken !");
       res.redirect(`/profile/myprofile/${user.username}`);
     }
     // } //if password is changed
@@ -68,7 +68,7 @@ router.put('/save_profile_edits', async (req, res) => {
     // }
     // add some password changing page here
   } catch (error) {
-    req.flash('fail', 'Changes Failed To Be Saved, Try Again later !');
+    req.flash("fail", "Changes Failed To Be Saved, Try Again later !");
     res.redirect(`/profile/myprofile/${user.username}`);
   }
 });

@@ -1,6 +1,6 @@
-const landscapeAlert = document.getElementById('landscape-alert');
+const landscapeAlert = document.getElementById("landscape-alert");
 
-window.addEventListener('orientationchange', () => {
+window.addEventListener("orientationchange", () => {
   if (mobileCheck()) {
     showAlert();
   }
@@ -24,26 +24,26 @@ function mobileCheck() {
 
 function showAlert() {
   if (screen.orientation) {
-    if (screen.orientation.type.includes('landscape')) {
-      landscapeAlert.classList.remove('hidden');
+    if (screen.orientation.type.includes("landscape")) {
+      landscapeAlert.classList.remove("hidden");
     } else {
-      landscapeAlert.classList.add('hidden');
+      landscapeAlert.classList.add("hidden");
     }
   } else {
     if (screen.availWidth > screen.availHeight) {
-      landscapeAlert.classList.remove('hidden');
+      landscapeAlert.classList.remove("hidden");
     } else {
-      landscapeAlert.classList.add('hidden');
+      landscapeAlert.classList.add("hidden");
     }
   }
 }
 
 // at gameplay
 function pauseTime() {
-  if (document.querySelector('.question-card-wrapper')) {
+  if (document.querySelector(".question-card-wrapper")) {
     const pausedTime = time;
     while (
-      screen.orientation.type.includes('landscape') ||
+      screen.orientation.type.includes("landscape") ||
       screen.availWidth > screen.availHeight
     ) {
       time = pausedTime;

@@ -1,15 +1,15 @@
-if (process.env.NODE_ENV !== 'production') {
-  require('dotenv').config();
+if (process.env.NODE_ENV !== "production") {
+  require("dotenv").config();
 }
-const express = require('express');
-const nodemailer = require('nodemailer');
+const express = require("express");
+const nodemailer = require("nodemailer");
 const router = express.Router();
-const cookieParser = require('cookie-parser');
-const flash = require('connect-flash');
-const session = require('express-session');
-const { checkIfGuestMode } = require('../menu');
+const cookieParser = require("cookie-parser");
+const flash = require("connect-flash");
+const session = require("express-session");
+const { checkIfGuestMode } = require("../menu");
 
-router.use(cookieParser('secret'));
+router.use(cookieParser("secret"));
 router.use(
   session({
     cookie: {
@@ -17,31 +17,31 @@ router.use(
     },
     resave: true,
     saveUninitialized: true,
-    secret: 'secret',
+    secret: "secret",
   })
 );
 router.use(flash());
 
-router.get('/', async (req, res) => {
+router.get("/", async (req, res) => {
   const sessionData = await checkIfGuestMode(
     req,
     res,
     req.cookies.userState,
     req.cookies.id
   );
-  res.render('email-page', {
-    title: 'Triquest | Email Us',
+  res.render("email-page", {
+    title: "Triquest | Email Us",
     messages: {
-      success: req.flash('success'),
-      fail: req.flash('fail'),
+      success: req.flash("success"),
+      fail: req.flash("fail"),
     },
     username: sessionData.username,
   });
 });
 
-router.post('/send_email', (req, res) => {
+router.post("/send_email", (req, res) => {
   const transporter = nodemailer.createTransport({
-    service: 'gmail',
+    service: "gmail",
     auth: {
       user: process.env.RECEIVER_EMAIL,
       pass: process.env.RECEIVER_PASS,
@@ -57,13 +57,13 @@ router.post('/send_email', (req, res) => {
 
   transporter.sendMail(mailOptions, (err, info) => {
     if (err) {
-      // console.error(err);
-      req.flash('fail', 'Fail to send email, please try again later !');
-      res.redirect('/contact_us');
+      console.error(err);
+      req.flash("fail", "Fail to send email, please try again later !");
+      res.redirect("/contact_us");
     } else {
       // console.info(info);
-      req.flash('success', 'Email sent !');
-      res.redirect('/');
+      req.flash("success", "Email sent !");
+      res.redirect("/");
     }
   });
 });

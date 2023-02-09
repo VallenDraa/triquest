@@ -1,15 +1,15 @@
-if (process.env.NODE_ENV !== 'production') {
-  require('dotenv').config();
+if (process.env.NODE_ENV !== "production") {
+  require("dotenv").config();
 }
-const express = require('express');
+const express = require("express");
 const router = express.Router();
-const fetch = require('node-fetch');
-const User = require('../../models/user');
-const cookieParser = require('cookie-parser');
-const flash = require('connect-flash');
-const session = require('express-session');
+const fetch = require("node-fetch");
+const User = require("../../models/user");
+const cookieParser = require("cookie-parser");
+const flash = require("connect-flash");
+const session = require("express-session");
 
-router.use(cookieParser('secret'));
+router.use(cookieParser("secret"));
 router.use(
   session({
     cookie: {
@@ -17,13 +17,13 @@ router.use(
     },
     resave: true,
     saveUninitialized: true,
-    secret: 'secret',
+    secret: "secret",
   })
 );
 router.use(flash());
 
 // main page
-router.get('/', async function (req, res) {
+router.get("/", async function (req, res) {
   try {
     const sessionData = await checkIfGuestMode(
       req,
@@ -31,26 +31,27 @@ router.get('/', async function (req, res) {
       req.cookies.userState,
       req.cookies.id
     );
+
     if (sessionData.userState) {
-      res.render('select-dif', {
-        title: 'Triquest | Challenge Yourself !',
+      res.render("select-dif", {
+        title: "Triquest | Challenge Yourself !",
         username: sessionData.username,
-        categories: 'select-dif',
+        categories: "select-dif",
         messages: {
-          success: req.flash('success'),
-          fail: req.flash('fail'),
+          success: req.flash("success"),
+          fail: req.flash("fail"),
         },
       });
     } else {
-      res.redirect('/sign-up');
+      res.redirect("/sign-up");
     }
   } catch (error) {
-    res.redirect('/sign-up');
+    res.redirect("/sign-up");
   }
 });
 
 // leaderboard
-router.get('/leaderboard', async function (req, res) {
+router.get("/leaderboard", async function (req, res) {
   const countries = await fetchCountries();
   const sessionData = await checkIfGuestMode(
     req,
@@ -60,28 +61,28 @@ router.get('/leaderboard', async function (req, res) {
   );
 
   if (sessionData.userState) {
-    res.render('leaderboard', {
-      title: 'Triquest | Leaderboard',
+    res.render("leaderboard", {
+      title: "Triquest | Leaderboard",
       username: sessionData.username,
-      categories: 'leaderboard',
+      categories: "leaderboard",
       countries: countries,
     });
   } else {
-    res.redirect('/sign-up');
+    res.redirect("/sign-up");
   }
 });
 
 //profile
 // convert id into username
-router.get('/profile/others/:username', async function (req, res) {
+router.get("/profile/others/:username", async function (req, res) {
   try {
     const countries = await fetchCountries();
     const categories = await fetchCategories();
     const scoreValue = [];
     const scoreName = [];
     if (req.cookies.userState) {
-      if (req.cookies.userState == 'notGuest') {
-        if (!req.cookies.id) return res.redirect('/sign-up');
+      if (req.cookies.userState == "notGuest") {
+        if (!req.cookies.id) return res.redirect("/sign-up");
 
         const myUser = await User.findById(req.cookies.id);
         const otherUser = await User.findOne({ username: req.params.username });
@@ -98,7 +99,7 @@ router.get('/profile/others/:username', async function (req, res) {
             scoreValue.push(score.points);
           });
           // redirect to link with name
-          res.render('others-profile', {
+          res.render("others-profile", {
             title: `Triquest | ${otherUser.username}`,
             userState: req.cookies.userState,
             username: otherUser.username,
@@ -128,11 +129,11 @@ router.get('/profile/others/:username', async function (req, res) {
           scoreValue.push(score.points);
         });
         // redirect to link with name
-        res.render('others-profile', {
+        res.render("others-profile", {
           title: `Triquest | ${otherUser.username}`,
           userState: req.cookies.userState,
           username: otherUser.username,
-          headerUsername: 'Guest',
+          headerUsername: "Guest",
           description: otherUser.description,
           country: otherUser.country,
           email: otherUser.email,
@@ -143,23 +144,23 @@ router.get('/profile/others/:username', async function (req, res) {
         });
       }
     } else {
-      res.redirect('/sign-up');
+      res.redirect("/sign-up");
     }
   } catch (error) {
     console.error(error);
-    res.redirect('/sign-up');
+    res.redirect("/sign-up");
   }
 });
 
-router.get('/profile/myprofile/:username', async function (req, res) {
+router.get("/profile/myprofile/:username", async function (req, res) {
   try {
     const countries = await fetchCountries();
     const categories = await fetchCategories();
     const scoreValue = [];
     const scoreName = [];
     if (req.cookies.userState) {
-      if (req.cookies.userState == 'notGuest') {
-        if (!req.cookies.id) return res.redirect('/sign-up');
+      if (req.cookies.userState == "notGuest") {
+        if (!req.cookies.id) return res.redirect("/sign-up");
 
         const myUser = await User.findById(req.cookies.id);
         const otherUser = await User.findOne({ username: req.params.username });
@@ -178,7 +179,7 @@ router.get('/profile/myprofile/:username', async function (req, res) {
             scoreValue.push(score.points);
           });
           // redirect to link with name
-          res.render('my-profile', {
+          res.render("my-profile", {
             title: `Triquest | ${myUser.username}`,
             userState: req.cookies.userState,
             username: myUser.username,
@@ -191,35 +192,35 @@ router.get('/profile/myprofile/:username', async function (req, res) {
             scoreValue,
             countries,
             messages: {
-              success: req.flash('success'),
-              fail: req.flash('fail'),
+              success: req.flash("success"),
+              fail: req.flash("fail"),
             },
           });
         }
       } else {
-        res.redirect('/profile/guest');
+        res.redirect("/profile/guest");
       }
     } else {
-      res.redirect('/sign-up');
+      res.redirect("/sign-up");
     }
   } catch (error) {
     console.error(error);
-    res.redirect('/sign-up');
+    res.redirect("/sign-up");
   }
 });
 
-router.get('/profile/guest', async (req, res) => {
+router.get("/profile/guest", async (req, res) => {
   const countries = await fetchCountries();
-  res.render('my-profile', {
+  res.render("my-profile", {
     title: `Triquest | Guest`,
-    userState: 'guest',
-    username: 'Guest',
-    description: '',
+    userState: "guest",
+    username: "Guest",
+    description: "",
     scores: [],
     countries,
     messages: {
-      success: req.flash('success'),
-      fail: req.flash('fail'),
+      success: req.flash("success"),
+      fail: req.flash("fail"),
     },
   });
 });
@@ -227,27 +228,27 @@ router.get('/profile/guest', async (req, res) => {
 async function checkIfGuestMode(req, res, userState, userID) {
   if (!userState) {
     return {
-      username: 'Sign-Up',
+      username: "Sign-Up",
       userState: undefined,
     };
   }
 
-  if (userState == 'guest') {
+  if (userState == "guest") {
     return {
-      username: 'Guest',
-      userState: 'guest',
+      username: "Guest",
+      userState: "guest",
     };
-  } else if (userState == 'notGuest') {
-    if (!userID) return res.redirect('/sign-up');
+  } else if (userState == "notGuest") {
+    if (!userID) return res.redirect("/sign-up");
     try {
       user = await User.findById(userID).exec();
       return {
         username: user.username,
-        userState: 'notGuest',
+        userState: "notGuest",
       };
     } catch (error) {
       console.log(error);
-      res.redirect('/sign-up');
+      res.redirect("/sign-up");
     }
   }
 }
@@ -255,16 +256,16 @@ async function checkIfGuestMode(req, res, userState, userID) {
 async function fetchCountries() {
   let result = [
     {
-      code: 'global',
-      name: 'Global',
-      emoji: '🌐',
+      code: "global",
+      name: "Global",
+      emoji: "🌐",
     },
   ];
   // convert country code to emoji
   function getFlagEmoji(countryCode) {
     const codePoints = countryCode
       .toUpperCase()
-      .split('')
+      .split("")
       .map((char) => 127397 + char.charCodeAt());
     return String.fromCodePoint(...codePoints);
   }
@@ -294,20 +295,20 @@ function formatScoreNameProfile(categoryList, gamemode, category, difficulty) {
       category = categoryWord[1];
     }
     switch (difficulty) {
-      case 'campaign':
-        difficulty = 'Campaign Difficulty';
+      case "campaign":
+        difficulty = "Campaign Difficulty";
         break;
-      case 'random':
-        difficulty = 'Random Difficulty';
+      case "random":
+        difficulty = "Random Difficulty";
         break;
-      case 'easy':
-        difficulty = 'Easy';
+      case "easy":
+        difficulty = "Easy";
         break;
-      case 'medium':
-        difficulty = 'Medium';
+      case "medium":
+        difficulty = "Medium";
         break;
-      case 'hard':
-        difficulty = 'Hard';
+      case "hard":
+        difficulty = "Hard";
         break;
     }
   });

@@ -1,6 +1,6 @@
 // this is for the circular point inidcator
-const progressBar = document.querySelector('.circular-progress'),
-  valueContainer = document.querySelector('.value-container');
+const progressBar = document.querySelector(".circular-progress"),
+  valueContainer = document.querySelector(".value-container");
 
 let progressValue = 0,
   progressValueEnd = 10,

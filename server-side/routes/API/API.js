@@ -1,25 +1,25 @@
-if (process.env.NODE_ENV !== 'production') {
-  require('dotenv').config();
+if (process.env.NODE_ENV !== "production") {
+  require("dotenv").config();
 }
-const express = require('express');
+const express = require("express");
 const router = express.Router();
-const fetch = require('node-fetch');
-const User = require('../../../models/user');
+const fetch = require("node-fetch");
+const User = require("../../../models/user");
 
 // getting the point for the leaderboard
 // URL:/api/leaderboard_points?query=[KEY]&country=[abbr]
-router.get('/leaderboard_points', leaderboardPoints(User), (req, res) => {
+router.get("/leaderboard_points", leaderboardPoints(User), (req, res) => {
   res.json(res.leaderboardPoints);
 });
 
-router.get('/fetch_highscore/:scoreParam', async (req, res) => {
+router.get("/fetch_highscore/:scoreParam", async (req, res) => {
   // fetch highscore
   let user;
   const userID = req.cookies.id;
   const scoreParam = req.params.scoreParam;
   const scoreValue = req.cookies[scoreParam];
 
-  if (userID != 'guest') {
+  if (userID != "guest") {
     try {
       user = await User.findById(userID);
       if (user.scores.length != 0) {
@@ -75,7 +75,7 @@ function leaderboardPoints(Model) {
           scorePoints;
 
         for (let scores of data.scores) {
-          dataAssignQuery = scoreNameQuery.split('_'); //[0] = gamemode, [1] = category, [2] = difficulty
+          dataAssignQuery = scoreNameQuery.split("_"); //[0] = gamemode, [1] = category, [2] = difficulty
           // gamemode assign
           if (
             scores.name.gamemode == dataAssignQuery[0] &&
@@ -107,9 +107,9 @@ function leaderboardPoints(Model) {
 
 function dbQueryAdjust(country, scoreNameQuery) {
   // console.log(scoreNameQuery);
-  scoreNameQuery = scoreNameQuery.split('_');
+  scoreNameQuery = scoreNameQuery.split("_");
   let dbQuery;
-  if (country == '' || country == undefined || country == 'global') {
+  if (country == "" || country == undefined || country == "global") {
     dbQuery = {
       scores: {
         $elemMatch: {

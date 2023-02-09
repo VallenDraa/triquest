@@ -1,4 +1,4 @@
-const mongoose = require('mongoose');
+const mongoose = require("mongoose");
 
 // user schema
 const userSchema = new mongoose.Schema({
@@ -7,12 +7,12 @@ const userSchema = new mongoose.Schema({
   },
   description: {
     type: String,
-    default: '',
+    default: "",
   },
   country: {
     type: String,
     required: true,
-    default: 'global',
+    default: "global",
   },
   dateJoin: {
     type: Date,
@@ -37,4 +37,4 @@ const userSchema = new mongoose.Schema({
   ],
 });
 
-module.exports = mongoose.model('User', userSchema);
+module.exports = mongoose.model("User", userSchema);
