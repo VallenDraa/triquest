@@ -32,6 +32,7 @@
     "dotenv": "^16.0.0",
     "nodemon": "^2.0.15",
     "postcss": "^8.4.6",
+    "prettier": "^2.8.4",
     "tailwindcss": "^3.0.23"
   }
 }
